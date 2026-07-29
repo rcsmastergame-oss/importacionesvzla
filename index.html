@@ -233,7 +233,7 @@
             <div class="text-center space-y-2">
                 <span class="text-brand-400 font-bold text-xs uppercase tracking-widest"><i class="fa-solid fa-calculator"></i> Herramienta de Cotización</span>
                 <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-white">Calculadora Automática eBay to Venezuela</h2>
-                <p class="text-gray-400 text-sm">Simula el costo de cualquier equipo introduciendo el precio original de eBay en dólares.</p>
+                <p class="text-gray-400 text-sm">Simula el costo de cualquier equipo introduciendo el precio original de eBay en dólares (Aplica 7% de comisión + $20 de envío).</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
@@ -242,22 +242,22 @@
                     <input type="number" id="calcPrecioEbay" value="300" oninput="calcularPrecioPersonalizado()" class="w-full bg-dark-900 text-white px-4 py-3 rounded-xl border border-white/10 focus:outline-none focus:border-brand-500 font-mono text-lg">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-300 mb-1">Tu Margen / Envío Estimado</label>
-                    <div class="bg-dark-900 px-4 py-3 rounded-xl border border-white/10 text-brand-400 font-mono text-lg font-bold flex justify-between items-center">
-                        <span>+20% + $25 Envío</span>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1">Comisión y Envío Aplicados</label>
+                    <div class="bg-dark-900 px-4 py-3 rounded-xl border border-white/10 text-brand-400 font-mono text-sm font-bold flex justify-between items-center">
+                        <span>+7% + $20 Envío</span>
                         <i class="fa-solid fa-shield-halved text-sm text-gray-500"></i>
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-gray-300 mb-1">Precio Final Calculado</label>
                     <div class="bg-brand-500/10 border border-brand-500/30 px-4 py-2.5 rounded-xl text-brand-400 font-display font-extrabold text-xl text-center" id="calcResultadoFinal">
-                        $385.00
+                        $341.00
                     </div>
                 </div>
             </div>
 
             <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-white/5">
-                <div class="text-xs text-gray-400 font-mono" id="calcResultadoBs">Equivalente: 14,052.50 Bs.</div>
+                <div class="text-xs text-gray-400 font-mono" id="calcResultadoBs">Equivalente: 12,446.50 Bs.</div>
                 <a id="btnCalcularWa" href="#" target="_blank" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3 rounded-xl text-sm transition-all shadow-lg flex items-center justify-center gap-2">
                     <i class="fa-brands fa-whatsapp text-lg"></i> Enviar esta cotización por WhatsApp
                 </a>
@@ -518,17 +518,18 @@
             document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Lógica de la calculadora interactiva
+        // Lógica de la calculadora interactiva con 7% y $20 de envío
         function calcularPrecioPersonalizado() {
             const base = parseFloat(document.getElementById('calcPrecioEbay').value) || 0;
-            // Fórmula: (Precio eBay * 1.20) + 25 de envío
-            const finalUsd = (base * 1.20) + 25;
+            // Fórmula: (Precio eBay + 7%) + $20 de envío
+            const conComision = base * 1.07;
+            const finalUsd = conComision + 20;
             const finalBs = finalUsd * tasaBCV;
 
             document.getElementById('calcResultadoFinal').innerText = `$${finalUsd.toFixed(2)} USD`;
             document.getElementById('calcResultadoBs').innerText = `Equivalente: ${finalBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs.`;
             
-            const mensajeWa = `Hola Smart Hauss 👋, hice una cotización personalizada:%0A💵 Precio Base eBay: $${base}%0A🚀 Precio Final Calculado: $${finalUsd.toFixed(2)} USD (${finalBs.toFixed(2)} Bs.)%0A¿Cómo procedemos con el encargo?`;
+            const mensajeWa = `Hola Smart Hauss 👋, hice una cotización personalizada:%0A💵 Precio Base eBay: $${base}%0A🚀 Precio Final Calculado (+7% + $20 envío): $${finalUsd.toFixed(2)} USD (${finalBs.toFixed(2)} Bs.)%0A¿Cómo procedemos con el encargo?`;
             document.getElementById('btnCalcularWa').href = `https://wa.me/${numeroWhatsApp}?text=${mensajeWa}`;
         }
 
