@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Hauss - Importaciones de Tecnología</title>
+    <!-- Estilos limpios y modernos -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        header {
+            background-color: #1e293b;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #38bdf8;
+            letter-spacing: 1px;
+        }
+        .search-container {
+            display: flex;
+            width: 50%;
+            max-width: 600px;
+        }
+        .search-container input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+            outline: none;
+        }
+        .search-container button {
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 8px 8px 0;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .search-container button:hover {
+            background-color: #0ea5e9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .banner {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .banner h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .banner p {
+            font-size: 1.1rem;
+            color: #e0f2fe;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+        .product-card {
+            background-color: #1e293b;
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid #334155;
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background-color: #ffffff;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+        }
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #f1f5f9;
+        }
+        .product-price-usd {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+        .product-price-bs {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+        .whatsapp-btn {
+            background-color: #22c55e;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: background 0.2s;
+        }
+        .whatsapp-btn:hover {
+            background-color: #16a34a;
+        }
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: #94a3b8;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Smart Hauss ⚡</div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Busca tu iPhone 11, 12, 13, 14..." onkeyup="filtrarProductos()">
+            <button onclick="filtrarProductos()">Buscar</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="banner">
+            <h1>Importaciones Directas a tu Alcance</h1>
+            <p>Selecciona tu equipo ideal. Precios calculados con envío incluido.</p>
+        </div>
+
+        <div class="products-grid" id="productGrid">
+            <!-- Los productos se cargan dinámicamente con JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // Tasa de cambio estimada BCV (puedes cambiarla cuando gustes)
+        const tasaBCV = 36.50; 
+
+        // Tu número de WhatsApp al que llegarán los pedidos (Coloca tu número con código de país, ej: 58412...)
+        const numeroWhatsApp = "584120000000"; 
+
+        // Lista de productos simulada (Aquí simula lo que traerías de eBay ya con tu % sumado)
+        const productos = [
+            { id: 1, nombre: "Apple iPhone 11 - 64GB (Impecable)", precioUsd: 280, imagen: "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=400" },
+            { id: 2, nombre: "Apple iPhone 12 - 128GB (Como Nuevo)", precioUsd: 380, imagen: "https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=400" },
+            { id: 3, nombre: "Apple iPhone 13 - 128GB (Libre de fábrica)", precioUsd: 490, imagen: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400" },
+            { id: 4, nombre: "Apple iPhone 14 - 128GB (Sellado)", precioUsd: 620, imagen: "https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=400" }
+        ];
+
+        function mostrarProductos(lista) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = "";
+
+            if (lista.length === 0) {
+                grid.innerHTML = `<div class="no-results">No encontramos ese modelo en este momento. ¡Escríbenos al WhatsApp para cotizarlo personalizado!</div>`;
+                return;
+            }
+
+            lista.forEach(producto => {
+                const precioBs = (producto.precioUsd * tasaBCV).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                
+                // Mensaje automatizado que llegará a tu WhatsApp
+                const mensaje = `Hola Smart Hauss 👋, quiero encargar este equipo:%0A📱 *${producto.nombre}*%0A💵 Precio Final: $${producto.precioUsd} (${precioBs} Bs.)%0A¿Cómo procedemos con el pago?`;
+                const linkWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
+
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div>
+                        <img src="${producto.imagen}" alt="${producto.nombre}">
+                        <div class="product-title">${producto.nombre}</div>
+                        <div class="product-price-usd">$${producto.precioUsd} USD</div>
+                        <div class="product-price-bs">≈ ${precioBs} Bs.</div>
+                    </div>
+                    <a href="${linkWhatsApp}" target="_blank" class="whatsapp-btn">Encargar por WhatsApp</a>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filtrarProductos() {
+            const textoBusqueda = document.getElementById('searchInput').value.toLowerCase();
+            const filtrados = productos.filter(p => p.nombre.toLowerCase().includes(textoBusqueda));
+            mostrarProductos(filtrados);
+        }
+
+        // Cargar todos al iniciar
+        mostrarProductos(productos);
+    </script>
+</body>
+</html>
