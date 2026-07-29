@@ -17,18 +17,22 @@
                 extend: {
                     colors: {
                         dark: {
-                            900: '#030712',
-                            800: '#0b0f19',
-                            700: '#111827',
-                            600: '#1f2937',
+                            900: '#020617',
+                            800: '#090d16',
+                            700: '#0f172a',
+                            600: '#1e293b',
                         },
                         brand: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            400: '#38bdf8',
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        },
+                        accent: {
                             500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
+                            600: '#0284c7'
                         }
                     },
                     fontFamily: {
@@ -46,8 +50,8 @@
                             '50%': { transform: 'translateY(-12px)' },
                         },
                         glow: {
-                            '0%': { boxShadow: '0 0 15px rgba(56, 189, 248, 0.2)' },
-                            '100%': { boxShadow: '0 0 30px rgba(56, 189, 248, 0.6)' },
+                            '0%': { boxShadow: '0 0 15px rgba(34, 197, 94, 0.2)' },
+                            '100%': { boxShadow: '0 0 35px rgba(34, 197, 94, 0.6)' },
                         }
                     }
                 }
@@ -55,68 +59,60 @@
         }
     </script>
     <style>
-        /* Estilos personalizados avanzados para animaciones y estética ultra pro */
         body {
-            background-color: #030712;
+            background-color: #020617;
             color: #f3f4f6;
             overflow-x: hidden;
         }
         .glass-panel {
-            background: rgba(17, 24, 39, 0.7);
+            background: rgba(15, 23, 42, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .glass-card {
-            background: linear-gradient(135deg, rgba(31, 41, 55, 0.6) 0%, rgba(17, 24, 39, 0.8) 100%);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.85) 100%);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .glass-card:hover {
             transform: translateY(-8px);
-            border-color: rgba(56, 189, 248, 0.4);
-            box-shadow: 0 20px 40px -15px rgba(14, 165, 233, 0.2);
+            border-color: rgba(34, 197, 94, 0.4);
+            box-shadow: 0 20px 40px -15px rgba(34, 197, 94, 0.2);
         }
         .hero-glow {
             position: absolute;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(3, 7, 18, 0) 70%);
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.12) 0%, rgba(2, 6, 23, 0) 70%);
             z-index: 0;
             pointer-events: none;
         }
-        /* Barra de desplazamiento personalizada */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #030712;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1f2937;
-            border-radius: 5px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #0ea5e9;
-        }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #22c55e; }
     </style>
 </head>
 <body class="selection:bg-brand-500 selection:text-white">
 
     <!-- BARRA SUPERIOR DE ANUNCIOS Y TASA BCV -->
-    <div class="bg-gradient-to-r from-brand-700 via-brand-600 to-indigo-600 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium relative z-50 shadow-inner">
+    <div class="bg-gradient-to-r from-brand-700 via-emerald-600 to-teal-700 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium relative z-50 shadow-inner">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-2">
                 <span class="flex h-2 w-2 relative">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-200"></span>
                 </span>
-                <span>Envíos seguros directos desde eBay a toda Venezuela 🇻🇪</span>
+                <span>Envíos seguros directos desde eBay a toda Venezuela 🇻🇪 (Pago Móvil / USDT)</span>
             </div>
             <div class="flex items-center gap-4">
-                <span id="tasaDisplay" class="bg-black/30 px-3 py-1 rounded-full border border-white/10 font-mono">Tasa BCV Referencial: <strong class="text-brand-400">36.50 Bs/USD</strong></span>
-                <span class="hidden md:inline text-white/80">| Garantía 100% Verificada</span>
+                <div class="bg-black/30 px-3 py-1 rounded-full border border-white/10 font-mono flex items-center gap-2">
+                    <span>Tasa BCV:</span>
+                    <input type="number" id="inputTasaBCV" value="36.50" step="0.1" onchange="actualizarTasa(this.value)" class="w-16 bg-dark-900 text-brand-400 font-bold px-1 rounded border border-white/20 text-center focus:outline-none">
+                    <span>Bs.</span>
+                </div>
             </div>
         </div>
     </div>
@@ -138,8 +134,8 @@
             <!-- NAVEGACIÓN DESKTOP -->
             <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-gray-300">
                 <a href="#catalogo" class="hover:text-brand-400 transition-colors">Catálogo de iPhones</a>
+                <a href="#calculadora" class="hover:text-brand-400 transition-colors">Calculadora eBay</a>
                 <a href="#como-funciona" class="hover:text-brand-400 transition-colors">¿Cómo Importamos?</a>
-                <a href="#garantia" class="hover:text-brand-400 transition-colors">Garantía</a>
                 <a href="#contacto" class="hover:text-brand-400 transition-colors">Contacto VIP</a>
             </nav>
 
@@ -149,18 +145,17 @@
                     <i class="fa-brands fa-whatsapp text-lg"></i>
                     <span>Soporte Directo</span>
                 </a>
-                <!-- BOTÓN MENÚ MÓVIL -->
                 <button id="menuBtn" class="md:hidden text-gray-300 hover:text-white text-2xl p-2">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
         </div>
 
-        <!-- MENÚ MÓVIL DESPLEGABLE -->
+        <!-- MENÚ MÓVIL -->
         <div id="mobileMenu" class="hidden md:hidden glass-panel border-b border-white/10 px-6 py-4 space-y-4">
             <a href="#catalogo" class="block text-gray-300 hover:text-brand-400 font-medium">Catálogo de iPhones</a>
+            <a href="#calculadora" class="block text-gray-300 hover:text-brand-400 font-medium">Calculadora eBay</a>
             <a href="#como-funciona" class="block text-gray-300 hover:text-brand-400 font-medium">¿Cómo Importamos?</a>
-            <a href="#garantia" class="block text-gray-300 hover:text-brand-400 font-medium">Garantía</a>
             <a href="https://wa.me/584120000000" class="flex items-center justify-center gap-2 bg-emerald-600 text-white w-full py-3 rounded-xl font-semibold">
                 <i class="fa-brands fa-whatsapp"></i> Hablar por WhatsApp
             </a>
@@ -169,86 +164,62 @@
 
     <!-- HERO SECTION / BANNER PRINCIPAL ANIMADO -->
     <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-16 px-4">
-        <!-- Luces de fondo decorativas -->
         <div class="hero-glow top-10 left-1/4 animate-pulse-slow"></div>
         <div class="hero-glow bottom-0 right-1/4 animate-pulse-slow" style="animation-delay: 1.5s;"></div>
 
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-            <!-- TEXTO HERO -->
             <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 px-4 py-2 rounded-full text-brand-400 text-xs sm:text-sm font-semibold tracking-wide animate-fade-in">
-                    <i class="fa-solid fa-fire text-amber-400"></i> El estándar de oro en importaciones tecnológicas
+                <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 px-4 py-2 rounded-full text-brand-400 text-xs sm:text-sm font-semibold tracking-wide">
+                    <i class="fa-solid fa-fire text-amber-400"></i> Importación directa desde eBay con márgenes automáticos
                 </div>
                 
                 <h1 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-none text-white">
-                    Tu próximo <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-sky-300 to-indigo-400">iPhone de eBay</span> en tus manos.
+                    Tu próximo <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-emerald-300 to-teal-400">iPhone de eBay</span> sin complicaciones.
                 </h1>
                 
                 <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
-                    Olvídate de buscar por horas. Explora nuestra selección premium importada directamente de Estados Unidos. Precios con envío y margen incluidos, calculados al instante en Bolívares y dólares.
+                    La plataforma inteligente en Venezuela que conecta el mercado global con tus manos. Precios en tiempo real, tasas BCV actualizadas y pago directo por WhatsApp.
                 </p>
 
                 <!-- BUSCADOR PRINCIPAL HERO -->
                 <div class="bg-dark-800/90 p-3 rounded-2xl border border-white/10 shadow-2xl max-w-xl mx-auto lg:mx-0 flex flex-col sm:flex-row gap-3">
                     <div class="relative flex-grow">
                         <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                        <input type="text" id="heroSearchInput" placeholder="Busca iPhone 11, 12, 13, 14, Pro Max..." class="w-full bg-dark-900 text-white placeholder-gray-500 pl-11 pr-4 py-3.5 rounded-xl border border-white/5 focus:outline-none focus:border-brand-500 text-sm font-medium">
+                        <input type="text" id="heroSearchInput" placeholder="Busca iPhone 11, 12, 13, 14 Pro Max..." class="w-full bg-dark-900 text-white placeholder-gray-500 pl-11 pr-4 py-3.5 rounded-xl border border-white/5 focus:outline-none focus:border-brand-500 text-sm font-medium">
                     </div>
                     <button onclick="ejecutarBusquedaHero()" class="bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-dark-900 font-bold px-6 py-3.5 rounded-xl transition-all shadow-lg shadow-brand-500/20 text-sm flex items-center justify-center gap-2 cursor-pointer">
-                        <span>Buscar Equipo</span>
+                        <span>Buscar</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
-
-                <!-- ESTADÍSTICAS RÁPIDAS -->
-                <div class="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 max-w-lg mx-auto lg:mx-0 text-center lg:text-left">
-                    <div>
-                        <div class="font-display font-bold text-2xl text-white">+1,500</div>
-                        <div class="text-xs text-gray-400">Equipos Importados</div>
-                    </div>
-                    <div>
-                        <div class="font-display font-bold text-2xl text-white">100%</div>
-                        <div class="text-xs text-gray-400">Verificados eBay</div>
-                    </div>
-                    <div>
-                        <div class="font-display font-bold text-2xl text-white">24/7</div>
-                        <div class="text-xs text-gray-400">Atención WhatsApp</div>
-                    </div>
-                </div>
             </div>
 
-            <!-- IMAGEN / TARJETA FLOTANTE 3D VISUAL -->
+            <!-- TARJETA FLOTANTE HERO -->
             <div class="lg:col-span-5 flex justify-center">
                 <div class="relative w-full max-w-md">
-                    <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-500 to-indigo-600 opacity-30 blur-xl animate-glow"></div>
+                    <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-500 to-teal-600 opacity-30 blur-xl animate-glow"></div>
                     <div class="glass-card relative rounded-3xl p-6 sm:p-8 space-y-6">
                         <div class="flex justify-between items-center">
-                            <span class="bg-brand-500/20 text-brand-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Destacado Pro</span>
+                            <span class="bg-brand-500/20 text-brand-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Destacado eBay</span>
                             <span class="text-emerald-400 font-mono text-xs font-semibold flex items-center gap-1">
-                                <i class="fa-solid fa-circle-check"></i> Disponible para encargo
+                                <i class="fa-solid fa-circle-check"></i> Disponible
                             </span>
                         </div>
-
-                        <!-- Imagen principal animada flotando -->
-                        <div class="relative h-64 sm:h-72 flex items-center justify-center overflow-hidden rounded-2xl bg-dark-900/50 border border-white/5">
+                        <div class="relative h-64 flex items-center justify-center overflow-hidden rounded-2xl bg-dark-900/50 border border-white/5">
                             <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600" alt="iPhone Flagship" class="h-full object-contain animate-float drop-shadow-2xl p-4">
                         </div>
-
-                        <div class="space-y-2">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h3 class="font-display font-bold text-lg text-white">Apple iPhone 14 Pro Max</h3>
-                                    <p class="text-xs text-gray-400">256GB • Desbloqueado de Fábrica • Grado A+</p>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-display font-extrabold text-xl text-brand-400">$780</div>
-                                    <div class="text-xs font-mono text-gray-400">≈ 28,470 Bs.</div>
-                                </div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-display font-bold text-lg text-white">iPhone 14 Pro Max</h3>
+                                <p class="text-xs text-gray-400">256GB • Grado A+ • Desbloqueado</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-display font-extrabold text-xl text-brand-400" id="heroFeaturedPrice">$780</div>
+                                <div class="text-xs font-mono text-gray-400" id="heroFeaturedBs">≈ 28,470 Bs.</div>
                             </div>
                         </div>
-
                         <a href="https://wa.me/584120000000?text=Hola,%20quiero%20apartar%20el%20iPhone%2014%20Pro%20Max" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-3.5 rounded-xl font-bold text-center block transition-all shadow-lg shadow-emerald-600/30">
-                            <i class="fa-brands fa-whatsapp mr-2"></i> Encargar este equipo ahora
+                            <i class="fa-brands fa-whatsapp mr-2"></i> Encargar este equipo
                         </a>
                     </div>
                 </div>
@@ -256,142 +227,129 @@
         </div>
     </section>
 
-    <!-- SECCIÓN DE CARACTERÍSTICAS / POR QUÉ ELEGIRNOS -->
-    <section class="py-20 bg-dark-800/50 border-y border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <h2 class="font-display font-bold text-3xl sm:text-4xl text-white">¿Por qué somos la mejor opción en Venezuela?</h2>
-                <p class="text-gray-400 text-sm sm:text-base">Combinamos la potencia del mercado global de eBay con la confianza y cercanía que necesitas al importar.</p>
+    <!-- SECCIÓN DE CALCULADORA INSTANTÁNEA EBAY -->
+    <section id="calculadora" class="py-16 px-4 bg-dark-800/40 border-y border-white/5">
+        <div class="max-w-4xl mx-auto glass-panel rounded-3xl p-8 sm:p-10 border border-brand-500/20 shadow-2xl space-y-6">
+            <div class="text-center space-y-2">
+                <span class="text-brand-400 font-bold text-xs uppercase tracking-widest"><i class="fa-solid fa-calculator"></i> Herramienta de Cotización</span>
+                <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-white">Calculadora Automática eBay to Venezuela</h2>
+                <p class="text-gray-400 text-sm">Simula el costo de cualquier equipo introduciendo el precio original de eBay en dólares.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Tarjeta 1 -->
-                <div class="glass-card p-8 rounded-2xl space-y-4">
-                    <div class="w-14 h-14 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-400 text-2xl font-bold">
-                        <i class="fa-solid fa-calculator"></i>
-                    </div>
-                    <h3 class="font-display font-bold text-xl text-white">Precios Transparentes</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Nuestra plataforma calcula automáticamente el costo base de eBay, nuestro porcentaje justo y el envío internacional sin sorpresas ocultas.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1">Precio Base en eBay ($ USD)</label>
+                    <input type="number" id="calcPrecioEbay" value="300" oninput="calcularPrecioPersonalizado()" class="w-full bg-dark-900 text-white px-4 py-3 rounded-xl border border-white/10 focus:outline-none focus:border-brand-500 font-mono text-lg">
                 </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1">Tu Margen / Envío Estimado</label>
+                    <div class="bg-dark-900 px-4 py-3 rounded-xl border border-white/10 text-brand-400 font-mono text-lg font-bold flex justify-between items-center">
+                        <span>+20% + $25 Envío</span>
+                        <i class="fa-solid fa-shield-halved text-sm text-gray-500"></i>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1">Precio Final Calculado</label>
+                    <div class="bg-brand-500/10 border border-brand-500/30 px-4 py-2.5 rounded-xl text-brand-400 font-display font-extrabold text-xl text-center" id="calcResultadoFinal">
+                        $385.00
+                    </div>
+                </div>
+            </div>
 
-                <!-- Tarjeta 2 -->
-                <div class="glass-card p-8 rounded-2xl space-y-4">
-                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-2xl font-bold">
-                        <i class="fa-solid fa-shield-halved"></i>
-                    </div>
-                    <h3 class="font-display font-bold text-xl text-white">Filtros Antifraude</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Descartamos subastas, iPhones bloqueados por iCloud o con piezas rotas. Solo seleccionamos equipos funcionales de alta calidad.</p>
-                </div>
-
-                <!-- Tarjeta 3 -->
-                <div class="glass-card p-8 rounded-2xl space-y-4">
-                    <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-2xl font-bold">
-                        <i class="fa-solid fa-bolt-lightning"></i>
-                    </div>
-                    <h3 class="font-display font-bold text-xl text-white">Pago en Bolívares y USDT</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Paga fácilmente mediante Pago Móvil calculado a tasa BCV del día, transferencias o USDT de forma rápida y segura.</p>
-                </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-white/5">
+                <div class="text-xs text-gray-400 font-mono" id="calcResultadoBs">Equivalente: 14,052.50 Bs.</div>
+                <a id="btnCalcularWa" href="#" target="_blank" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3 rounded-xl text-sm transition-all shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Enviar esta cotización por WhatsApp
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- SECCIÓN DE CATÁLOGO DINÁMICO DE IPHONES -->
+    <!-- SECCIÓN DE CATÁLOGO DINÁMICO CON MÚLTIPLES BOTONES DE FILTRO -->
     <section id="catalogo" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-            <div>
-                <span class="text-brand-400 font-bold text-xs uppercase tracking-widest">Inventario en tiempo real</span>
-                <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white mt-1">Catálogo de iPhones Disponibles</h2>
+        <div class="space-y-8 mb-12">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                <div>
+                    <span class="text-brand-400 font-bold text-xs uppercase tracking-widest">Inventario inteligente</span>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white mt-1">Catálogo de iPhones Disponibles</h2>
+                </div>
+                
+                <!-- BUSCADOR INTERNO DE CATALOGO -->
+                <div class="w-full md:w-80 relative">
+                    <i class="fa-solid fa-filter absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                    <input type="text" id="catalogoSearchInput" placeholder="Filtrar por modelo o capacidad..." onkeyup="filtrarCatalogoTexto()" class="w-full bg-dark-800 text-white text-xs pl-10 pr-4 py-3 rounded-xl border border-white/10 focus:outline-none focus:border-brand-500">
+                </div>
             </div>
-            
-            <!-- Filtros por categoría de modelo -->
-            <div class="flex flex-wrap gap-2">
-                <button onclick="filtrarCategoria('todos')" class="cat-btn bg-brand-600 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all">Todos</button>
-                <button onclick="filtrarCategoria('11')" class="cat-btn bg-dark-700 text-gray-300 hover:bg-dark-600 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all">iPhone 11</button>
-                <button onclick="filtrarCategoria('12')" class="cat-btn bg-dark-700 text-gray-300 hover:bg-dark-600 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all">iPhone 12</button>
-                <button onclick="filtrarCategoria('13')" class="cat-btn bg-dark-700 text-gray-300 hover:bg-dark-600 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all">iPhone 13</button>
-                <button onclick="filtrarCategoria('14')" class="cat-btn bg-dark-700 text-gray-300 hover:bg-dark-600 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all">iPhone 14</button>
+
+            <!-- PANEL DE BOTONES DE FILTRO MÚLTIPLES (MODELO, CONDICIÓN, RANGO DE PRECIO) -->
+            <div class="glass-panel p-4 rounded-2xl space-y-3 border border-white/10">
+                <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-brand-400"></i> Filtros Rápidos de Categoría:
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <!-- Filtro Modelo -->
+                    <button onclick="filtrarCategoria('todos')" class="cat-btn bg-brand-600 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-md">Todos</button>
+                    <button onclick="filtrarCategoria('11')" class="cat-btn bg-dark-700 text-gray-300 hover:bg-dark-600 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all">iPhone 11</button>
+                    <button onclick="filtrarCategoria('12')" class="cat-btn bg-dark-700 text-gray-300 hover:bg-dark-600 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all">iPhone 12</button>
+                    <button onclick="filtrarCategoria('13')" class="cat-btn bg-dark-700 text-gray-300 hover:bg-dark-600 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all">iPhone 13</button>
+                    <button onclick="filtrarCategoria('14')" class="cat-btn bg-dark-700 text-gray-300 hover:bg-dark-600 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all">iPhone 14</button>
+                    
+                    <span class="text-white/20 self-center hidden sm:inline">|</span>
+
+                    <!-- Filtro Condición -->
+                    <button onclick="filtrarCondicion('nuevo')" class="cond-btn bg-dark-700 text-gray-300 hover:bg-dark-600 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all"><i class="fa-solid fa-certificate text-amber-400 mr-1"></i> Sellados / Nuevos</button>
+                    <button onclick="filtrarCondicion('gradoa')" class="cond-btn bg-dark-700 text-gray-300 hover:bg-dark-600 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all"><i class="fa-solid fa-star text-emerald-400 mr-1"></i> Grado A+ (Impecable)</button>
+
+                    <span class="text-white/20 self-center hidden sm:inline">|</span>
+
+                    <!-- Filtro Precio -->
+                    <button onclick="filtrarPrecioMax(450)" class="price-btn bg-dark-700 text-gray-300 hover:bg-dark-600 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all">Menos de $450</button>
+                    <button onclick="filtrarPrecioMax(9999)" class="price-btn bg-dark-700 text-gray-300 hover:bg-dark-600 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all">Ver Todos los Precios</button>
+                </div>
             </div>
         </div>
 
         <!-- GRILLA DE PRODUCTOS -->
         <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Los productos se inyectan dinámicamente con JavaScript -->
+            <!-- Inyectado por JS -->
         </div>
     </section>
 
-    <!-- SECCIÓN DE CÓMO FUNCIONA / PASO A PASO -->
+    <!-- SECCIÓN DE CÓMO FUNCIONA -->
     <section id="como-funciona" class="py-20 bg-dark-800/40 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
                 <span class="text-brand-400 font-bold text-xs uppercase tracking-widest">Proceso Simplificado</span>
                 <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white">¿Cómo traemos tu iPhone desde eBay?</h2>
-                <p class="text-gray-400 text-sm sm:text-base">Tres simples pasos para estrenar teléfono sin estrés ni complicaciones.</p>
+                <p class="text-gray-400 text-sm sm:text-base">Tres simples pasos para estrenar teléfono con total seguridad en Venezuela.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-                <!-- Paso 1 -->
                 <div class="glass-card p-8 rounded-2xl relative space-y-4">
-                    <div class="absolute -top-4 -left-4 w-10 h-10 rounded-xl bg-brand-600 text-white font-display font-bold flex items-center justify-center text-lg shadow-lg shadow-brand-600/40">1</div>
+                    <div class="absolute -top-4 -left-4 w-10 h-10 rounded-xl bg-brand-600 text-dark-900 font-display font-bold flex items-center justify-center text-lg shadow-lg">1</div>
                     <div class="text-brand-400 text-3xl mb-2"><i class="fa-solid fa-mobile-screen"></i></div>
                     <h3 class="font-display font-bold text-xl text-white">Eliges tu modelo ideal</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Navega por nuestra web optimizada, busca el iPhone que deseas y verifica el precio final en Bolívares ya con envío incluido.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">Navega por nuestro catálogo con filtros o usa la calculadora para verificar precios en Bolívares.</p>
                 </div>
 
-                <!-- Paso 2 -->
                 <div class="glass-card p-8 rounded-2xl relative space-y-4">
-                    <div class="absolute -top-4 -left-4 w-10 h-10 rounded-xl bg-brand-600 text-white font-display font-bold flex items-center justify-center text-lg shadow-lg shadow-brand-600/40">2</div>
+                    <div class="absolute -top-4 -left-4 w-10 h-10 rounded-xl bg-brand-600 text-dark-900 font-display font-bold flex items-center justify-center text-lg shadow-lg">2</div>
                     <div class="text-brand-400 text-3xl mb-2"><i class="fa-brands fa-whatsapp"></i></div>
                     <h3 class="font-display font-bold text-xl text-white">Conectas por WhatsApp</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Haz clic en el botón de encargo y el sistema enviará automáticamente los detalles del equipo a nuestro WhatsApp para coordinar tu pago móvil o USDT.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">El botón automatizado envía el enlace exacto de eBay a nuestro chat para coordinar tu pago móvil o USDT.</p>
                 </div>
 
-                <!-- Paso 3 -->
                 <div class="glass-card p-8 rounded-2xl relative space-y-4">
-                    <div class="absolute -top-4 -left-4 w-10 h-10 rounded-xl bg-brand-600 text-white font-display font-bold flex items-center justify-center text-lg shadow-lg shadow-brand-600/40">3</div>
+                    <div class="absolute -top-4 -left-4 w-10 h-10 rounded-xl bg-brand-600 text-dark-900 font-display font-bold flex items-center justify-center text-lg shadow-lg">3</div>
                     <div class="text-brand-400 text-3xl mb-2"><i class="fa-solid fa-box-open"></i></div>
                     <h3 class="font-display font-bold text-xl text-white">Recibes en Venezuela</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Compramos el equipo en eBay de inmediato y gestionamos su importación segura hasta entregártelo en tus manos.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">Compramos el equipo en eBay de inmediato y gestionamos su envío seguro hasta tus manos.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECCIÓN DE GARANTÍA Y CONFIANZA -->
-    <section id="garantia" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="glass-panel rounded-3xl p-8 sm:p-12 relative overflow-hidden border border-brand-500/20">
-            <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
-                <div class="space-y-6">
-                    <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 rounded-full text-emerald-400 text-xs font-semibold">
-                        <i class="fa-solid fa-shield-check"></i> Garantía Smart Hauss
-                    </div>
-                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white">Tu dinero y tu inversión 100% protegidos</h2>
-                    <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
-                        Sabemos lo importante que es comprar tecnología de valor. Por eso, cada importación desde eBay pasa por un riguroso control de calidad, verificación de número de serie y seguimiento satelital de envíos.
-                    </p>
-                    <ul class="space-y-3 text-sm text-gray-300">
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-400"></i> Seguimiento en tiempo real de tu paquete</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-400"></i> Trato directo y personalizado con técnicos expertos</li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-brand-400"></i> Cero intermediarios engañosos</li>
-                    </ul>
-                </div>
-
-                <div class="bg-dark-900/80 p-8 rounded-2xl border border-white/10 space-y-6 text-center">
-                    <div class="w-16 h-16 bg-brand-500/20 rounded-2xl mx-auto flex items-center justify-center text-brand-400 text-3xl">
-                        <i class="fa-solid fa-headset"></i>
-                    </div>
-                    <h3 class="font-display font-bold text-2xl text-white">¿Tienes dudas con un modelo específico de eBay?</h3>
-                    <p class="text-gray-400 text-sm">Si encontraste un iPhone en eBay que no está en nuestra lista rápida, envíanos el enlace y te calculamos el precio exacto en 2 minutos.</p>
-                    <a href="https://wa.me/584120000000?text=Hola%20Smart%20Hauss,%20tengo%20un%20link%20de%20eBay%20que%20quiero%20cotizar." target="_blank" class="w-full bg-brand-600 hover:bg-brand-500 text-dark-900 font-bold py-3.5 rounded-xl block transition-all shadow-lg shadow-brand-500/30">
-                        Cotizar enlace externo de eBay
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER / PIE DE PÁGINA -->
+    <!-- FOOTER -->
     <footer id="contacto" class="bg-dark-900 border-t border-white/10 pt-16 pb-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
             <div class="space-y-4">
@@ -402,7 +360,7 @@
                     <span class="font-display font-extrabold text-xl text-white">SMART<span class="text-brand-400">HAUSS</span></span>
                 </div>
                 <p class="text-gray-400 text-xs sm:text-sm leading-relaxed">
-                    La agencia de importación y tecnología líder en Venezuela. Conectando las mejores ofertas globales de eBay directo a tus manos con total transparencia.
+                    La agencia de importación de tecnología líder en Venezuela. Conectando ofertas globales de eBay directo a tus manos con total transparencia.
                 </p>
                 <div class="flex gap-4 text-gray-400 text-lg">
                     <a href="#" class="hover:text-brand-400 transition-colors"><i class="fa-brands fa-tiktok"></i></a>
@@ -415,19 +373,19 @@
                 <h4 class="font-display font-bold text-white mb-4">Enlaces Rápidos</h4>
                 <ul class="space-y-2 text-sm text-gray-400">
                     <li><a href="#catalogo" class="hover:text-brand-400 transition-colors">Catálogo de iPhones</a></li>
+                    <li><a href="#calculadora" class="hover:text-brand-400 transition-colors">Calculadora eBay</a></li>
                     <li><a href="#como-funciona" class="hover:text-brand-400 transition-colors">¿Cómo Importamos?</a></li>
-                    <li><a href="#garantia" class="hover:text-brand-400 transition-colors">Garantía y Seguridad</a></li>
-                    <li><a href="#contacto" class="hover:text-brand-400 transition-colors">Soporte por WhatsApp</a></li>
+                    <li><a href="#contacto" class="hover:text-brand-400 transition-colors">Soporte WhatsApp</a></li>
                 </ul>
             </div>
 
             <div>
-                <h4 class="font-display font-bold text-white mb-4">Modelos Populares</h4>
+                <h4 class="font-display font-bold text-white mb-4">Filtros Populares</h4>
                 <ul class="space-y-2 text-sm text-gray-400">
-                    <li><span class="hover:text-brand-400 cursor-pointer" onclick="filtrarCategoria('11')">Apple iPhone 11 Series</span></li>
-                    <li><span class="hover:text-brand-400 cursor-pointer" onclick="filtrarCategoria('12')">Apple iPhone 12 Series</span></li>
-                    <li><span class="hover:text-brand-400 cursor-pointer" onclick="filtrarCategoria('13')">Apple iPhone 13 Series</span></li>
-                    <li><span class="hover:text-brand-400 cursor-pointer" onclick="filtrarCategoria('14')">Apple iPhone 14 Series</span></li>
+                    <li><span class="hover:text-brand-400 cursor-pointer" onclick="filtrarCategoria('11')">iPhone 11 Series</span></li>
+                    <li><span class="hover:text-brand-400 cursor-pointer" onclick="filtrarCategoria('12')">iPhone 12 Series</span></li>
+                    <li><span class="hover:text-brand-400 cursor-pointer" onclick="filtrarCategoria('13')">iPhone 13 Series</span></li>
+                    <li><span class="hover:text-brand-400 cursor-pointer" onclick="filtrarCategoria('14')">iPhone 14 Series</span></li>
                 </ul>
             </div>
 
@@ -441,29 +399,36 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-white/5 pt-8 text-center text-xs text-gray-500">
-            &copy; 2026 Smart Hauss Venezuela. Todos los derechos reservados. Desarrollado con tecnología de importación automatizada.
+            &copy; 2026 Smart Hauss Venezuela. Todos los derechos reservados. Desarrollado con automatización API eBay.
         </div>
     </footer>
 
-    <!-- SCRIPT DE LÓGICA Y DINAMISMO DE PRODUCTOS -->
+    <!-- SCRIPT AVANZADO -->
     <script>
-        // Tasa BCV y Número de WhatsApp configurables
-        const tasaBCV = 36.50;
+        let tasaBCV = 36.50;
         const numeroWhatsApp = "584120000000";
 
-        // Base de datos de productos simulada con integración de eBay simulada y precios calculados
         const productos = [
-            { id: 1, categoria: "11", nombre: "Apple iPhone 11 - 64GB", condicion: "Grado A+ (Impecable)", precioUsd: 275, imagen: "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=500" },
-            { id: 2, categoria: "11", nombre: "Apple iPhone 11 Pro - 256GB", condicion: "Libre de fábrica", precioUsd: 340, imagen: "https://images.unsplash.com/photo-1573148192801-631d2f277422?w=500" },
-            { id: 3, categoria: "12", nombre: "Apple iPhone 12 - 128GB", condicion: "Como Nuevo (Batería 90%+)", precioUsd: 375, imagen: "https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=500" },
-            { id: 4, categoria: "12", nombre: "Apple iPhone 12 Pro Max - 128GB", condicion: "Excelente Estado", precioUsd: 510, imagen: "https://images.unsplash.com/photo-1611329857572-5c45ce476b4a?w=500" },
-            { id: 5, categoria: "13", nombre: "Apple iPhone 13 - 128GB", condicion: "Sellado / Original", precioUsd: 480, imagen: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500" },
-            { id: 6, categoria: "13", nombre: "Apple iPhone 13 Pro - 256GB", condicion: "Grado A+ (Impecable)", precioUsd: 610, imagen: "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500" },
-            { id: 7, categoria: "14", nombre: "Apple iPhone 14 - 128GB", condicion: "Nuevo de Paquete", precioUsd: 615, imagen: "https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=500" },
-            { id: 8, categoria: "14", nombre: "Apple iPhone 14 Pro Max - 256GB", condicion: "Libre • Garantía Activa", precioUsd: 780, imagen: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500" }
+            { id: 1, categoria: "11", condicionTipo: "gradoa", nombre: "Apple iPhone 11 - 64GB", condicion: "Grado A+ (Impecable)", precioUsd: 275, imagen: "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=500" },
+            { id: 2, categoria: "11", condicionTipo: "gradoa", nombre: "Apple iPhone 11 Pro - 256GB", condicion: "Libre de fábrica", precioUsd: 340, imagen: "https://images.unsplash.com/photo-1573148192801-631d2f277422?w=500" },
+            { id: 3, categoria: "12", condicionTipo: "gradoa", nombre: "Apple iPhone 12 - 128GB", condicion: "Como Nuevo (Batería 90%+)", precioUsd: 375, imagen: "https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=500" },
+            { id: 4, categoria: "12", condicionTipo: "nuevo", nombre: "Apple iPhone 12 Pro Max - 128GB", condicion: "Excelente Estado / Sellado", precioUsd: 510, imagen: "https://images.unsplash.com/photo-1611329857572-5c45ce476b4a?w=500" },
+            { id: 5, categoria: "13", condicionTipo: "nuevo", nombre: "Apple iPhone 13 - 128GB", condicion: "Sellado / Original", precioUsd: 480, imagen: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500" },
+            { id: 6, categoria: "13", condicionTipo: "gradoa", nombre: "Apple iPhone 13 Pro - 256GB", condicion: "Grado A+ (Impecable)", precioUsd: 610, imagen: "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500" },
+            { id: 7, categoria: "14", condicionTipo: "nuevo", nombre: "Apple iPhone 14 - 128GB", condicion: "Nuevo de Paquete", precioUsd: 615, imagen: "https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=500" },
+            { id: 8, categoria: "14", condicionTipo: "gradoa", nombre: "Apple iPhone 14 Pro Max - 256GB", condicion: "Libre • Garantía Activa", precioUsd: 780, imagen: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500" }
         ];
 
-        // Función para renderizar los productos en la interfaz
+        function actualizarTasa(nuevaTasa) {
+            tasaBCV = parseFloat(nuevaTasa) || 36.50;
+            mostrarProductos(productos);
+            calcularPrecioPersonalizado();
+            // Actualizar precio destacado del hero
+            const usdHero = 780;
+            const bsHero = (usdHero * tasaBCV).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('heroFeaturedBs').innerText = `≈ ${bsHero} Bs.`;
+        }
+
         function mostrarProductos(lista) {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = "";
@@ -472,9 +437,8 @@
                 grid.innerHTML = `
                     <div class="col-span-full text-center py-16 glass-card rounded-2xl">
                         <i class="fa-solid fa-triangle-exclamation text-4xl text-amber-400 mb-3"></i>
-                        <h3 class="font-display font-bold text-xl text-white">No encontramos ese modelo exacto</h3>
-                        <p class="text-gray-400 text-sm mt-1">Escríbenos directamente por WhatsApp para cotizarlo personalizado desde eBay.</p>
-                        <a href="https://wa.me/${numeroWhatsApp}?text=Hola,%20busco%20un%20modelo%20especifico%20que%20no%20esta%20en%20la%20web" target="_blank" class="inline-block mt-4 bg-emerald-600 text-white font-bold px-6 py-2.5 rounded-xl text-sm">Cotizar por WhatsApp</a>
+                        <h3 class="font-display font-bold text-xl text-white">No encontramos resultados con esos filtros</h3>
+                        <p class="text-gray-400 text-sm mt-1">Prueba restableciendo los filtros o escríbenos al WhatsApp para cotizar tu equipo.</p>
                     </div>
                 `;
                 return;
@@ -482,7 +446,7 @@
 
             lista.forEach(producto => {
                 const precioBs = (producto.precioUsd * tasaBCV).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                const mensajeWa = `Hola Smart Hauss 👋, quiero encargar este equipo:%0A📱 *${producto.nombre}*%0A✨ Condición: ${producto.condicion}%0A💵 Precio Final: $${producto.precioUsd} USD (${precioBs} Bs.)%0A¿Cómo procedemos con el pago móvil o USDT?`;
+                const mensajeWa = `Hola Smart Hauss 👋, quiero encargar este equipo:%0A📱 *${producto.nombre}*%0A✨ Condición: ${producto.condicion}%0A💵 Precio Final: $${producto.precioUsd} USD (${precioBs} Bs. a tasa ${tasaBCV})%0A¿Cómo procedemos con el pago móvil o USDT?`;
                 const urlWa = `https://wa.me/${numeroWhatsApp}?text=${mensajeWa}`;
 
                 const card = document.createElement('div');
@@ -490,7 +454,7 @@
                 card.innerHTML = `
                     <div>
                         <div class="relative h-56 flex items-center justify-center bg-dark-900/60 rounded-xl mb-4 overflow-hidden border border-white/5">
-                            <span class="absolute top-3 left-3 bg-brand-500/20 text-brand-400 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase">eBay Import</span>
+                            <span class="absolute top-3 left-3 bg-brand-500/20 text-brand-400 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase">eBay Live</span>
                             <img src="${producto.imagen}" alt="${producto.nombre}" class="h-full object-contain group-hover:scale-105 transition-transform duration-300 p-2">
                         </div>
                         <span class="text-xs text-gray-400 font-medium">${producto.condicion}</span>
@@ -517,14 +481,8 @@
             });
         }
 
-        // Función para filtrar por categorías de botones
+        // Filtro por modelo
         function filtrarCategoria(cat) {
-            // Cambiar estilos de botones activos
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.className = "cat-btn bg-dark-700 text-gray-300 hover:bg-dark-600 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all";
-            });
-            event.target.className = "cat-btn bg-brand-600 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all";
-
             if (cat === 'todos') {
                 mostrarProductos(productos);
             } else {
@@ -533,25 +491,56 @@
             }
         }
 
-        // Búsqueda desde el buscador del Hero
+        // Filtro por condición
+        function filtrarCondicion(cond) {
+            const filtrados = productos.filter(p => p.condicionTipo === cond);
+            mostrarProductos(filtrados);
+        }
+
+        // Filtro por precio máximo
+        function filtrarPrecioMax(max) {
+            const filtrados = productos.filter(p => p.precioUsd <= max);
+            mostrarProductos(filtrados);
+        }
+
+        // Búsqueda por texto libre
+        function filtrarCatalogoTexto() {
+            const query = document.getElementById('catalogoSearchInput').value.toLowerCase().trim();
+            const filtrados = productos.filter(p => p.nombre.toLowerCase().includes(query) || p.condicion.toLowerCase().includes(query));
+            mostrarProductos(filtrados);
+        }
+
         function ejecutarBusquedaHero() {
             const query = document.getElementById('heroSearchInput').value.toLowerCase().trim();
             if (!query) return;
             const filtrados = productos.filter(p => p.nombre.toLowerCase().includes(query) || p.condicion.toLowerCase().includes(query));
             mostrarProductos(filtrados);
-            // Hacer scroll suave hacia el catálogo
             document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Menú móvil toggle
+        // Lógica de la calculadora interactiva
+        function calcularPrecioPersonalizado() {
+            const base = parseFloat(document.getElementById('calcPrecioEbay').value) || 0;
+            // Fórmula: (Precio eBay * 1.20) + 25 de envío
+            const finalUsd = (base * 1.20) + 25;
+            const finalBs = finalUsd * tasaBCV;
+
+            document.getElementById('calcResultadoFinal').innerText = `$${finalUsd.toFixed(2)} USD`;
+            document.getElementById('calcResultadoBs').innerText = `Equivalente: ${finalBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs.`;
+            
+            const mensajeWa = `Hola Smart Hauss 👋, hice una cotización personalizada:%0A💵 Precio Base eBay: $${base}%0A🚀 Precio Final Calculado: $${finalUsd.toFixed(2)} USD (${finalBs.toFixed(2)} Bs.)%0A¿Cómo procedemos con el encargo?`;
+            document.getElementById('btnCalcularWa').href = `https://wa.me/${numeroWhatsApp}?text=${mensajeWa}`;
+        }
+
         const menuBtn = document.getElementById('menuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         menuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Inicializar mostrando todos los productos al cargar la página
+        // Inicializar
         mostrarProductos(productos);
+        calcularPrecioPersonalizado();
     </script>
 </body>
 </html>
