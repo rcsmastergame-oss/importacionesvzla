@@ -1,9 +1,9 @@
 const eBayApi = require('ebay-api');
 
 const ebay = new eBayApi({
-  appId: 'smarthau-SmartHauPRD-fa49b4867-1a082e31',
-  certId: 'PRD-a49b48675d27-9205-40f0-970c-9950',
-  sandbox: false,
+  appId: 'smarthau-SmartHauBX-9a4a6ebfb-0f6b1284',
+  certId: 'SBX-a4a6ebfbee5f-0661-4966-a364-d577',
+  sandbox: true, // Cambiado a true para usar el entorno de pruebas
   siteId: 'EBAY-US'
 });
 
