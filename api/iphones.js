@@ -21,11 +21,11 @@ export default async function handler(req, res) {
     const tokenData = await tokenResponse.json();
     
     if (!tokenData.access_token) {
-      throw new Error("No se pudo obtener el token de acceso de eBay");
+      throw new Error("No se pudo obtener el token de acceso de eBay USA");
     }
 
-    // Consulta enfocada en la tienda ItsWorthMore / alta calidad de inventario verificado
-    const ebayResponse = await fetch('https://api.ebay.com/buy/browse/v1/item_summary/search?q=iPhone+ItsWorthMore&limit=100', {
+    // Petición directa a la región US buscando inventario masivo de iPhones certificados
+    const ebayResponse = await fetch('https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+iPhone+Unlocked&limit=100', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${tokenData.access_token}`,
@@ -36,12 +36,12 @@ export default async function handler(req, res) {
     const ebayData = await ebayResponse.json();
 
     if (!ebayData.itemSummaries || ebayData.itemSummaries.length === 0) {
-      throw new Error("No se encontraron elementos en la búsqueda");
+      throw new Error("No se encontraron elementos en la región US");
     }
 
-    const productosReales = ebayData.itemSummaries.map((item, index) => {
-      const precioBase = item.price ? parseFloat(item.price.value) : 350;
-      // Fórmula exacta: Precio de eBay + 7% comisión + $20 envío a Venezuela
+    const productosUsa = ebayData.itemSummaries.map((item, index) => {
+      const precioBase = item.price ? parseFloat(item.price.value) : 320;
+      // Cálculo: Precio en USA + 7% comisión + $20 de envío a Venezuela
       const precioFinalUsd = Math.round((precioBase * 1.07) + 20);
       
       const tituloLower = item.title.toLowerCase();
@@ -56,26 +56,24 @@ export default async function handler(req, res) {
         categoria: categoria,
         condicionTipo: item.condition && item.condition.toLowerCase().includes('new') ? 'nuevo' : 'gradoa',
         nombre: item.title,
-        proveedor: "ItsWorthMore (Verified Store)",
-        condicion: item.condition || 'Certified Refurbished / Grado A',
+        proveedor: "US Certified Supplier",
+        condicion: item.condition || 'Certified Refurbished (US)',
         precioUsd: precioFinalUsd,
         imagen: item.image ? item.image.imageUrl : 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500',
-        enlaceEbay: item.itemWebUrl || 'https://www.ebay.com/str/itsworthmore'
+        enlaceEbay: item.itemWebUrl || 'https://www.ebay.com'
       };
     });
 
-    return res.status(200).json(productosReales);
+    return res.status(200).json(productosUsa);
 
   } catch (error) {
-    // Respaldo robusto con estructura de inventario real en caso de restricciones de la red de eBay
-    const respaldoTienda = [
-      { id: 1, categoria: "13", condicionTipo: "gradoa", nombre: "Apple iPhone 13 128GB - Unlocked (ItsWorthMore)", proveedor: "ItsWorthMore (Verified Store)", condicion: "Certified Refurbished - Grado A", precioUsd: Math.round((420 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500", enlaceEbay: "https://www.ebay.com/str/itsworthmore" },
-      { id: 2, categoria: "13", condicionTipo: "gradoa", nombre: "Apple iPhone 13 Pro 256GB - Graphite", proveedor: "ItsWorthMore (Verified Store)", condicion: "Certified Refurbished - Impecable", precioUsd: Math.round((550 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500", enlaceEbay: "https://www.ebay.com/str/itsworthmore" },
-      { id: 3, categoria: "14", condicionTipo: "gradoa", nombre: "Apple iPhone 14 128GB - Midnight", proveedor: "ItsWorthMore (Verified Store)", condicion: "Open Box - Como Nuevo", precioUsd: Math.round((580 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=500", enlaceEbay: "https://www.ebay.com/str/itsworthmore" },
-      { id: 4, categoria: "14", condicionTipo: "gradoa", nombre: "Apple iPhone 14 Pro Max 256GB - Deep Purple", proveedor: "ItsWorthMore (Verified Store)", condicion: "Certified Refurbished - Grado A+", precioUsd: Math.round((750 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500", enlaceEbay: "https://www.ebay.com/str/itsworthmore" },
-      { id: 5, categoria: "15", condicionTipo: "nuevo", nombre: "Apple iPhone 15 128GB - Blue (Original Box)", proveedor: "ItsWorthMore (Verified Store)", condition: "Nuevo / Open Box", precioUsd: Math.round((720 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500", enlaceEbay: "https://www.ebay.com/str/itsworthmore" }
+    // Respaldo de alta gama enfocado en mercado de EE. UU.
+    const respaldoUsa = [
+      { id: 1, categoria: "13", condicionTipo: "gradoa", nombre: "Apple iPhone 13 128GB - Factory Unlocked (US Stock)", proveedor: "US Certified Supplier", condicion: "Certified Refurbished", precioUsd: Math.round((410 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500", enlaceEbay: "https://www.ebay.com" },
+      { id: 2, categoria: "14", condicionTipo: "gradoa", nombre: "Apple iPhone 14 Pro 256GB - US Specs", proveedor: "US Certified Supplier", condicion: "Grado A+ (Impecable)", precioUsd: Math.round((700 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500", enlaceEbay: "https://www.ebay.com" },
+      { id: 3, categoria: "15", condicionTipo: "nuevo", nombre: "Apple iPhone 15 128GB - US Model Sealed", proveedor: "US Certified Supplier", condicion: "Nuevo / Sellado", precioUsd: Math.round((750 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500", enlaceEbay: "https://www.ebay.com" }
     ];
 
-    return res.status(200).json(respaldoTienda);
+    return res.status(200).json(respaldoUsa);
   }
 }
