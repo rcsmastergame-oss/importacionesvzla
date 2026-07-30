@@ -3,139 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Importaciones Venezuela - eBay</title>
+    <title>Smart Hauss | Importaciones eBay a Venezuela</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #131b2e;
+            --accent: #00f2fe;
+            --accent-secondary: #4facfe;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
-            color: #333;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
         }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
         header {
+            background: linear-gradient(135deg, #131b2e 0%, #0f172a 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 40px 20px;
             text-align: center;
-            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
         }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
         h1 {
-            color: #1a1a1a;
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--text-main), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        /* Contenedor en cuadrícula para los productos */
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .badge-envio {
+            display: inline-block;
+            margin-top: 15px;
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--accent);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+        }
+
+        main {
+            max-width: 1300px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
         .contenedor-productos {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
         }
-        /* Tarjeta de producto */
+
         .tarjeta-producto {
-            background: #fff;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
         }
+
+        .tarjeta-producto:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.15);
+            border-color: rgba(0, 242, 254, 0.5);
+        }
+
+        .imagen-container {
+            background: #ffffff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
         .tarjeta-producto img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: contain;
-            margin-bottom: 10px;
+            transition: transform 0.3s;
         }
+
+        .tarjeta-producto:hover img {
+            transform: scale(1.05);
+        }
+
+        .info-container {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
         .tarjeta-producto h3 {
-            font-size: 16px;
-            margin: 10px 0;
-            height: 45px;
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
             overflow: hidden;
         }
+
         .condicion {
-            font-size: 13px;
-            color: #666;
-            margin-bottom: 10px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 4px 8px;
+            border-radius: 6px;
+            width: fit-content;
         }
+
+        .footer-card {
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+            margin-top: auto;
+        }
+
+        .precio-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
         .precio {
-            font-size: 18px;
-            color: #0070ba;
-            font-weight: bold;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
             margin-bottom: 15px;
         }
+
         .btn-comprar {
-            background-color: #0070ba;
-            color: white;
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent));
+            color: #0b0f19;
             text-align: center;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 12px;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: bold;
-            transition: background 0.2s;
+            font-weight: 800;
+            font-size: 0.9rem;
+            transition: opacity 0.2s, box-shadow 0.2s;
         }
+
         .btn-comprar:hover {
-            background-color: #005ea6;
+            opacity: 0.9;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
         }
-        .cargando {
-            text-align: center;
-            font-size: 18px;
-            color: #666;
+
+        .estado-mensaje {
             grid-column: 1 / -1;
-            padding: 40px;
+            text-align: center;
+            padding: 60px;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        /* Spinner de carga */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 20px auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Catálogo Global de Importación (eBay a Venezuela)</h1>
-        <p>Precios finales calculados con flete e impuestos incluidos</p>
+        <h1>Smart Hauss | Global Import</h1>
+        <p>Catálogo inteligente directo desde eBay con envío asegurado a Venezuela</p>
+        <div class="badge-envio">🚀 Incluye flete, impuestos y comisión automática (+7% + $20)</div>
     </header>
 
-    <!-- Contenedor donde se inyectarán los productos de la API -->
-    <main class="contenedor-productos">
-        <div class="cargando">Cargando catálogo en tiempo real desde eBay...</div>
+    <main>
+        <div class="contenedor-productos" id="grid-catalogo">
+            <div class="estado-mensaje">
+                <div class="spinner"></div>
+                Sincronizando inventario en tiempo real con eBay...
+            </div>
+        </div>
     </main>
 
     <script>
-        async function cargarCatalogoEbay() {
-            const contenedor = document.querySelector('.contenedor-productos');
+        async function cargarCatalogo() {
+            const contenedor = document.getElementById('grid-catalogo');
             
             try {
-                // Petición a tu archivo api/iphones.js en Vercel
                 const respuesta = await fetch('/api/iphones');
                 const productos = await respuesta.json();
 
                 if (!productos || productos.length === 0) {
-                    contenedor.innerHTML = '<div class="cargando">No hay productos disponibles en este momento.</div>';
+                    contenedor.innerHTML = '<div class="estado-mensaje">No hay productos disponibles en este momento. Intenta más tarde.</div>';
                     return;
                 }
 
-                // Limpia el mensaje de carga
                 contenedor.innerHTML = '';
 
-                // Dibuja cada producto en la pantalla
                 productos.forEach(item => {
                     const tarjeta = document.createElement('div');
                     tarjeta.className = 'tarjeta-producto';
                     
                     tarjeta.innerHTML = `
-                        <img src="${item.imagen}" alt="${item.nombre}">
-                        <h3>${item.nombre}</h3>
-                        <div class="condicion">Condición: ${item.condicion}</div>
-                        <div class="precio">Ref: $${item.precioUsd} USD</div>
-                        <a href="${item.enlaceEbay}" target="_blank" class="btn-comprar">Ver en eBay</a>
+                        <div class="imagen-container">
+                            <img src="${item.imagen}" alt="${item.nombre}" loading="lazy">
+                        </div>
+                        <div class="info-container">
+                            <div>
+                                <h3>${item.nombre}</h3>
+                                <div class="condicion">📌 ${item.condicion}</div>
+                            </div>
+                            <div class="footer-card">
+                                <div class="precio-label">Precio Final Venezuela</div>
+                                <div class="precio">$${item.precioUsd} <span style="font-size: 0.9rem; font-weight: 400; color: var(--text-muted);">USD</span></div>
+                                <a href="${item.enlaceEbay}" target="_blank" class="btn-comprar">Ver en eBay / Reservar</a>
+                            </div>
+                        </div>
                     `;
                     
                     contenedor.appendChild(tarjeta);
                 });
 
             } catch (error) {
-                console.error("Error al obtener los datos:", error);
-                contenedor.innerHTML = '<div class="cargando">Hubo un error al cargar el catálogo. Intenta recargar la página.</div>';
+                console.error("Error al cargar:", error);
+                contenedor.innerHTML = '<div class="estado-mensaje">⚠️ Error de conexión con el servidor de la API. Por favor recarga la página.</div>';
             }
         }
 
-        // Ejecutar la función apenas cargue el documento
-        document.addEventListener('DOMContentLoaded', cargarCatalogoEbay);
+        document.addEventListener('DOMContentLoaded', cargarCatalogo);
     </script>
-
 </body>
 </html>
