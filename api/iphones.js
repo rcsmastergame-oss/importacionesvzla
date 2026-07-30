@@ -3,23 +3,74 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
 
-  // Catálogo completo y masivo garantizado para Smart Hauss
-  const catalogoSmartHauss = [
-    { id: 1, categoria: "11", condicionTipo: "gradoa", nombre: "Apple iPhone 11 - 64GB", condicion: "Grado A+ (Impecable)", precioUsd: Math.round((275 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=500", enlaceEbay: "https://www.ebay.com/sch/i.html?_nkw=iphone+11" },
-    { id: 2, categoria: "11", condicionTipo: "gradoa", nombre: "Apple iPhone 11 Pro - 256GB", condicion: "Libre de fábrica", precioUsd: Math.round((320 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1573148192801-631d2f277422?w=500", enlaceEbay: "https://www.ebay.com/sch/i.html?_nkw=iphone+11+pro" },
-    { id: 3, categoria: "11", condicionTipo: "nuevo", nombre: "Apple iPhone 11 Pro Max - 512GB", condicion: "Nuevo / Original", precioUsd: Math.round((410 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500", enlaceEbay: "https://www.ebay.com/sch/i.html?_nkw=iphone+11+pro+max" },
-    { id: 4, categoria: "12", condicionTipo: "gradoa", nombre: "Apple iPhone 12 - 128GB", condicion: "Como Nuevo (Batería 90%+)", precioUsd: Math.round((350 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=500", enlaceEbay: "https://www.ebay.com/sch/i.html?_nkw=iphone+12" },
-    { id: 5, categoria: "12", condicionTipo: "gradoa", nombre: "Apple iPhone 12 Pro - 128GB", condicion: "Grado A+ (Impecable)", precioUsd: Math.round((430 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=500", enlaceEbay: "https://www.ebay.com/sch/i.html?_nkw=iphone+12+pro" },
-    { id: 6, categoria: "12", condicionTipo: "nuevo", nombre: "Apple iPhone 12 Pro Max - 128GB", condicion: "Excelente Estado / Sellado", precioUsd: Math.round((480 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1611329857572-5c45ce476b4a?w=500", enlaceEbay: "https://www.ebay.com/sch/i.html?_nkw=iphone+12+pro+max" },
-    { id: 7, categoria: "13", condicionTipo: "nuevo", nombre: "Apple iPhone 13 - 128GB", condicion: "Sellado / Original", precioUsd: Math.round((450 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500", enlaceEbay: "https://www.ebay.com/sch/i.html?_nkw=iphone+13" },
-    { id: 8, categoria: "13", condicionTipo: "gradoa", nombre: "Apple iPhone 13 mini - 128GB", condicion: "Libre de fábrica", precioUsd: Math.round((380 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=500", enlaceEbay: "https://www.ebay.com/sch/i.html?_nkw=iphone+13+mini" },
-    { id: 9, categoria: "13", condicionTipo: "gradoa", nombre: "Apple iPhone 13 Pro - 256GB", condicion: "Grado A+ (Impecable)", precioUsd: Math.round((580 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500", enlaceEbay: "https://www.ebay.com/sch/i.html?_nkw=iphone+13+pro" },
-    { id: 10, categoria: "13", condicionTipo: "nuevo", nombre: "Apple iPhone 13 Pro Max - 256GB", condicion: "Impecable • Garantía", precioUsd: Math.round((680 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=500", enlaceEbay: "https://www.ebay.com/sch/i.html?_nkw=iphone+13+pro+max" },
-    { id: 11, categoria: "14", condicionTipo: "nuevo", nombre: "Apple iPhone 14 - 128GB", condicion: "Nuevo de Paquete", precioUsd: Math.round((590 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=500", enlaceEbay: "https://www.ebay.com/sch/i.html?_nkw=iphone+14" },
-    { id: 12, categoria: "14", condicionTipo: "gradoa", nombre: "Apple iPhone 14 Plus - 128GB", condicion: "Grado A+ (Impecable)", precioUsd: Math.round((620 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500", enlaceEbay: "https://www.ebay.com/sch/i.html?_nkw=iphone+14+plus" },
-    { id: 13, categoria: "14", condicionTipo: "gradoa", nombre: "Apple iPhone 14 Pro - 256GB", condicion: "Libre • Garantía Activa", precioUsd: Math.round((720 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500", enlaceEbay: "https://www.ebay.com/sch/i.html?_nkw=iphone+14+pro" },
-    { id: 14, categoria: "14", condicionTipo: "nuevo", nombre: "Apple iPhone 14 Pro Max - 256GB", condicion: "Sellado / Original", precioUsd: Math.round((750 * 1.07) + 20), imagen: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500", enlaceEbay: "https://www.ebay.com/sch/i.html?_nkw=iphone+14+pro+max" }
+  const modelosBase = [
+    { nombre: "Apple iPhone 11 - 64GB", baseUsd: 240, cat: "11" },
+    { nombre: "Apple iPhone 11 - 128GB", baseUsd: 270, cat: "11" },
+    { nombre: "Apple iPhone 11 Pro - 256GB", baseUsd: 310, cat: "11" },
+    { nombre: "Apple iPhone 11 Pro Max - 256GB", baseUsd: 360, cat: "11" },
+    { nombre: "Apple iPhone 12 - 64GB", baseUsd: 310, cat: "12" },
+    { nombre: "Apple iPhone 12 - 128GB", baseUsd: 340, cat: "12" },
+    { nombre: "Apple iPhone 12 Pro - 128GB", baseUsd: 410, cat: "12" },
+    { nombre: "Apple iPhone 12 Pro Max - 256GB", baseUsd: 470, cat: "12" },
+    { nombre: "Apple iPhone 13 - 128GB", baseUsd: 430, cat: "13" },
+    { nombre: "Apple iPhone 13 - 256GB", baseUsd: 480, cat: "13" },
+    { nombre: "Apple iPhone 13 Pro - 256GB", baseUsd: 560, cat: "13" },
+    { nombre: "Apple iPhone 13 Pro Max - 256GB", baseUsd: 650, cat: "13" },
+    { nombre: "Apple iPhone 14 - 128GB", baseUsd: 570, cat: "14" },
+    { nombre: "Apple iPhone 14 Plus - 128GB", baseUsd: 610, cat: "14" },
+    { nombre: "Apple iPhone 14 Pro - 256GB", baseUsd: 710, cat: "14" },
+    { nombre: "Apple iPhone 14 Pro Max - 256GB", baseUsd: 760, cat: "14" },
+    { nombre: "Apple iPhone 15 - 128GB", baseUsd: 730, cat: "15" },
+    { nombre: "Apple iPhone 15 Pro - 256GB", baseUsd: 890, cat: "15" },
+    { nombre: "Apple iPhone 15 Pro Max - 256GB", baseUsd: 990, cat: "15" }
   ];
 
-  return res.status(200).json(catalogoSmartHauss);
+  const proveedores = ["Smart Hauss Direct", "Global Electronics USA", "Miami Stock Supplier", "Liquidadores Apple US"];
+  const condiciones = [
+    { texto: "Grado A+ (Impecable)", tipo: "gradoa" },
+    { texto: "Como Nuevo (Batería 90%+)", tipo: "gradoa" },
+    { texto: "Nuevo / Sellado de Fábrica", tipo: "nuevo" },
+    { texto: "Libre • Garantía Activa", tipo: "gradoa" }
+  ];
+
+  const imagenesUrls = [
+    "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=500",
+    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500",
+    "https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=500",
+    "https://images.unsplash.com/photo-1611329857572-5c45ce476b4a?w=500",
+    "https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=500"
+  ];
+
+  let inventarioMasivo = [];
+  let idContador = 1;
+
+  // Generar más de 500 productos combinando modelos, proveedores y variantes
+  while (inventarioMasivo.length < 520) {
+    modelosBase.forEach((mod, idxModel) => {
+      proveedores.forEach((prov, idxProv) => {
+        condiciones.forEach((cond, idxCond) => {
+          if (inventarioMasivo.length >= 520) return;
+
+          // Variación leve de precio según proveedor/condición
+          const variacion = (idxProv * 5) + (idxCond * 3);
+          const precioBaseReal = mod.baseUsd + variacion;
+          const precioFinalUsd = Math.round((precioBaseReal * 1.07) + 20);
+
+          inventarioMasivo.push({
+            id: idContador++,
+            categoria: mod.cat,
+            condicionTipo: cond.tipo,
+            nombre: `${mod.nombre} (${prov.split(' ')[0]})`,
+            proveedor: prov,
+            condicion: cond.texto,
+            precioUsd: precioFinalUsd,
+            imagen: imagenesUrls[(idContador + idxModel) % imagenesUrls.length],
+            enlaceEbay: `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(mod.nombre)}`
+          });
+        });
+      });
+    });
+  }
+
+  return res.status(200).json(inventarioMasivo);
 }
