@@ -1,9 +1,9 @@
 const eBayApi = require('ebay-api');
 
 const ebay = new eBayApi({
-  appId: process.env.EBAY_APP_ID,
-  certId: process.env.EBAY_CERT_ID,
-  sandbox: false
+  appId: 'smarthau-SmartHauPRD-fa49b4867-1a082e31',
+  certId: 'PRD-a49b48675d27-9205-40f0-970c-9950',
+  sandbox: false // Como estamos usando llaves de Producción, esto va en falso
 });
 
 export default async function handler(req, res) {
