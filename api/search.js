@@ -4,7 +4,7 @@ const ebay = new eBayApi({
   appId: 'smarthau-SmartHauPRD-fa49b4867-1a082e31',
   certId: 'PRD-a49b48675d27-9205-40f0-970c-9950',
   sandbox: false,
-  siteId: ebay.sites.EBAY_US // Forzar el mercado de Estados Unidos para asegurar resultados masivos
+  siteId: 'EBAY-US'
 });
 
 export default async function handler(req, res) {
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
       items: response.itemSummaries || []
     });
   } catch (error) {
-    console.error('Error al conectar con eBay:', error);
+    console.error('Error detallado de eBay:', error);
     return res.status(500).json({
       success: false,
       error: error.message || 'Error interno al consultar la API de eBay'
