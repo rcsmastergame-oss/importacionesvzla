@@ -1,6 +1,8 @@
 {
-  "name": "importacionesvazla",
+  "name": "ebay-vercel-app",
   "version": "1.0.0",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "ebay-api": "^9.5.2"
+  }
 }
