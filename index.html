@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Hauss | Importaciones eBay a Venezuela</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Smart Hauss | Tu Marketplace Global en Venezuela</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: #131b2e;
-            --accent: #00f2fe;
-            --accent-secondary: #4facfe;
-            --text-main: #f8fafc;
+            --bg-main: #0f141c;
+            --bg-card: #161f2e;
+            --bg-header: #131921;
+            --accent-ebay: #0064d2;
+            --accent-yellow: #febd69;
+            --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --border: #1e293b;
+            --border: #232f3e;
         }
 
         * {
@@ -24,193 +25,241 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-main);
             color: var(--text-main);
             min-height: 100vh;
-            padding-bottom: 50px;
         }
 
+        /* Header estilo Amazon / E-commerce masivo */
         header {
-            background: linear-gradient(135deg, #131b2e 0%, #0f172a 100%);
+            background-color: var(--bg-header);
             border-bottom: 1px solid var(--border);
-            padding: 40px 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
-        header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        h1 {
-            font-size: 2.5rem;
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo-area h1 {
+            font-size: 1.5rem;
             font-weight: 800;
+            color: var(--text-main);
             letter-spacing: -0.5px;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, var(--text-main), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
+        .logo-area span {
+            color: var(--accent-yellow);
         }
 
-        .badge-envio {
-            display: inline-block;
-            margin-top: 15px;
-            background: rgba(0, 242, 254, 0.1);
-            color: var(--accent);
+        /* Barra de búsqueda masiva global */
+        .search-bar-container {
+            display: flex;
+            flex: 1;
+            max-width: 700px;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .search-bar-container input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .search-bar-container button {
+            background-color: var(--accent-yellow);
+            border: none;
+            padding: 0 25px;
+            font-weight: 700;
+            color: #111;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-bar-container button:hover {
+            background-color: #f3a847;
+        }
+
+        /* Categorías rápidas */
+        .categorias-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            scrollbar-width: none;
+        }
+
+        .categorias-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .pill-categoria {
+            background-color: var(--border);
+            color: var(--text-main);
+            border: none;
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
-            border: 1px solid rgba(0, 242, 254, 0.3);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s, transform 0.2s;
         }
 
+        .pill-categoria:hover, .pill-categoria.active {
+            background-color: var(--accent-ebay);
+            transform: translateY(-2px);
+        }
+
+        /* Contenedor principal de productos estilo cuadrícula masiva */
         main {
-            max-width: 1300px;
-            margin: 40px auto;
+            max-width: 1400px;
+            margin: 25px auto;
             padding: 0 20px;
         }
 
-        .contenedor-productos {
+        .grid-productos {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
         }
 
-        .tarjeta-producto {
-            background-color: var(--card-bg);
+        /* Tarjeta de producto */
+        .tarjeta {
+            background-color: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
+            border-radius: 10px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .tarjeta-producto:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.15);
-            border-color: rgba(0, 242, 254, 0.5);
+        .tarjeta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 100, 210, 0.2);
+            border-color: var(--accent-ebay);
         }
 
-        .imagen-container {
-            background: #ffffff;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-        }
-
-        .tarjeta-producto img {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-            transition: transform 0.3s;
-        }
-
-        .tarjeta-producto:hover img {
-            transform: scale(1.05);
-        }
-
-        .info-container {
-            padding: 20px;
+        .imagen-box {
+            background: #fff;
+            border-radius: 6px;
+            padding: 10px;
+            height: 180px;
             display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            justify-content: space-between;
-        }
-
-        .tarjeta-producto h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            line-height: 1.4;
+            align-items: center;
+            justify-content: center;
             margin-bottom: 12px;
+            position: relative;
+        }
+
+        .imagen-box img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .badge-condicion {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0,0,0,0.7);
+            color: var(--accent-yellow);
+            font-size: 0.7rem;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .titulo-producto {
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.3;
             color: var(--text-main);
+            margin-bottom: 10px;
+            height: 38px;
+            overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            overflow: hidden;
         }
 
-        .condicion {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 4px 8px;
-            border-radius: 6px;
-            width: fit-content;
-        }
-
-        .footer-card {
+        .detalles-precio {
             border-top: 1px solid var(--border);
-            padding-top: 15px;
+            padding-top: 10px;
             margin-top: auto;
         }
 
-        .precio-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
+        .etiqueta-venezuela {
+            font-size: 0.7rem;
             color: var(--text-muted);
-            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
-        .precio {
-            font-size: 1.5rem;
+        .precio-final {
+            font-size: 1.3rem;
             font-weight: 800;
-            color: var(--accent);
-            margin-bottom: 15px;
+            color: var(--accent-yellow);
+            margin-bottom: 12px;
         }
 
         .btn-comprar {
             display: block;
             width: 100%;
-            background: linear-gradient(135deg, var(--accent-secondary), var(--accent));
-            color: #0b0f19;
+            background-color: var(--accent-ebay);
+            color: white;
             text-align: center;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 10px;
+            border-radius: 6px;
             text-decoration: none;
-            font-weight: 800;
-            font-size: 0.9rem;
-            transition: opacity 0.2s, box-shadow 0.2s;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: background 0.2s;
         }
 
         .btn-comprar:hover {
-            opacity: 0.9;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+            background-color: #0050a4;
         }
 
-        .estado-mensaje {
+        .estado-carga {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 60px;
-            font-size: 1.2rem;
+            padding: 80px;
             color: var(--text-muted);
+            font-size: 1.1rem;
         }
 
-        /* Spinner de carga */
         .spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.1);
             border-radius: 50%;
-            border-top-color: var(--accent);
-            animation: spin 1s ease-in-out infinite;
-            margin: 0 auto 20px auto;
+            border-top-color: var(--accent-yellow);
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 15px auto;
         }
 
         @keyframes spin {
@@ -221,30 +270,84 @@
 <body>
 
     <header>
-        <h1>Smart Hauss | Global Import</h1>
-        <p>Catálogo inteligente directo desde eBay con envío asegurado a Venezuela</p>
-        <div class="badge-envio">🚀 Incluye flete, impuestos y comisión automática (+7% + $20)</div>
+        <div class="header-container">
+            <div class="header-top">
+                <div class="logo-area">
+                    <h1>Smart <span>Hauss</span></h1>
+                </div>
+                <!-- Barra de búsqueda global tipo Amazon -->
+                <div class="search-bar-container">
+                    <input type="text" id="input-busqueda" placeholder="Busca cualquier producto en eBay (iPhone, RX 580, Laptops, Tenis)...">
+                    <button onclick="buscarProductos()">Buscar</button>
+                </div>
+            </div>
+            <!-- Filtros rápidos de categorías -->
+            <div class="categorias-scroll">
+                <button class="pill-categoria active" onclick="filtrarBusqueda('Apple iPhone', this)">📱 iPhones</button>
+                <button class="pill-categoria" onclick="filtrarBusqueda('RX 580', this)">🎮 Tarjetas Gráficas (RX 580)</button>
+                <button class="pill-categoria" onclick="filtrarBusqueda('PlayStation 5', this)">🕹️ Consolas</button>
+                <button class="pill-categoria" onclick="filtrarBusqueda('MacBook Pro', this)">💻 Laptops</button>
+                <button class="pill-categoria" onclick="filtrarBusqueda('Samsung Galaxy', this)">📱 Samsung</button>
+                <button class="pill-categoria" onclick="filtrarBusqueda('Smartwatch', this)">⌚ Relojes</button>
+                <button class="pill-categoria" onclick="filtrarBusqueda('AirPods', this)">🎧 Audio</button>
+            </div>
+        </div>
     </header>
 
     <main>
-        <div class="contenedor-productos" id="grid-catalogo">
-            <div class="estado-mensaje">
+        <div class="grid-productos" id="contenedor-grid">
+            <div class="estado-carga">
                 <div class="spinner"></div>
-                Sincronizando inventario en tiempo real con eBay...
+                Cargando todo el inventario global de eBay con flete a Venezuela...
             </div>
         </div>
     </main>
 
     <script>
-        async function cargarCatalogo() {
-            const contenedor = document.getElementById('grid-catalogo');
-            
+        // Cargar búsqueda por defecto al iniciar
+        document.addEventListener("DOMContentLoaded", () => {
+            cargarCatalogoEbay("Apple iPhone");
+
+            // Permitir buscar presionando Enter
+            document.getElementById("input-busqueda").addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    buscarProductos();
+                }
+            });
+        });
+
+        function buscarProductos() {
+            const query = document.getElementById("input-busqueda").value.trim();
+            if (query) {
+                // Quitar clase active de los pills
+                document.querySelectorAll('.pill-categoria').forEach(p => p.classList.remove('active'));
+                cargarCatalogoEbay(query);
+            }
+        }
+
+        function filtrarBusqueda(termino, elemento) {
+            document.getElementById("input-busqueda").value = termino;
+            document.querySelectorAll('.pill-categoria').forEach(p => p.classList.remove('active'));
+            elemento.classList.add('active');
+            cargarCatalogoEbay(termino);
+        }
+
+        async function cargarCatalogoEbay(terminoBusqueda) {
+            const contenedor = document.getElementById('contenedor-grid');
+            contenedor.innerHTML = `
+                <div class="estado-carga">
+                    <div class="spinner"></div>
+                    Buscando "${terminoBusqueda}" en tiempo real en todo eBay...
+                </div>
+            `;
+
             try {
-                const respuesta = await fetch('/api/iphones');
+                // Llamada a tu API pasando el término dinámico
+                const respuesta = await fetch(`/api/iphones?q=${encodeURIComponent(terminoBusqueda)}`);
                 const productos = await respuesta.json();
 
                 if (!productos || productos.length === 0) {
-                    contenedor.innerHTML = '<div class="estado-mensaje">No hay productos disponibles en este momento. Intenta más tarde.</div>';
+                    contenedor.innerHTML = `<div class="estado-carga">No se encontraron resultados para "${terminoBusqueda}" en eBay.</div>`;
                     return;
                 }
 
@@ -252,22 +355,20 @@
 
                 productos.forEach(item => {
                     const tarjeta = document.createElement('div');
-                    tarjeta.className = 'tarjeta-producto';
+                    tarjeta.className = 'tarjeta';
                     
                     tarjeta.innerHTML = `
-                        <div class="imagen-container">
-                            <img src="${item.imagen}" alt="${item.nombre}" loading="lazy">
+                        <div>
+                            <div class="imagen-box">
+                                <span class="badge-condicion">${item.condicion}</span>
+                                <img src="${item.imagen}" alt="${item.nombre}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=500'">
+                            </div>
+                            <div class="titulo-producto" title="${item.nombre}">${item.nombre}</div>
                         </div>
-                        <div class="info-container">
-                            <div>
-                                <h3>${item.nombre}</h3>
-                                <div class="condicion">📌 ${item.condicion}</div>
-                            </div>
-                            <div class="footer-card">
-                                <div class="precio-label">Precio Final Venezuela</div>
-                                <div class="precio">$${item.precioUsd} <span style="font-size: 0.9rem; font-weight: 400; color: var(--text-muted);">USD</span></div>
-                                <a href="${item.enlaceEbay}" target="_blank" class="btn-comprar">Ver en eBay / Reservar</a>
-                            </div>
+                        <div class="detalles-precio">
+                            <div class="etiqueta-venezuela">Precio Final Venezuela</div>
+                            <div class="precio-final">$${item.precioUsd} <span style="font-size: 0.8rem; font-weight: 400; color: #94a3b8;">USD</span></div>
+                            <a href="${item.enlaceEbay}" target="_blank" class="btn-comprar">Comprar / Ver en eBay</a>
                         </div>
                     `;
                     
@@ -275,12 +376,10 @@
                 });
 
             } catch (error) {
-                console.error("Error al cargar:", error);
-                contenedor.innerHTML = '<div class="estado-mensaje">⚠️ Error de conexión con el servidor de la API. Por favor recarga la página.</div>';
+                console.error("Error al conectar:", error);
+                contenedor.innerHTML = `<div class="estado-carga">⚠️ Error al sincronizar con la pasarela de eBay. Intenta de nuevo.</div>`;
             }
         }
-
-        document.addEventListener('DOMContentLoaded', cargarCatalogo);
     </script>
 </body>
 </html>
