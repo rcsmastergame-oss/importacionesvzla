@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Hauss | Importaciones de Tecnología Premium en Venezuela</title>
+    <title>Smart Hauss | Catálogo Mayorista y Detal de iPhones</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -15,27 +15,24 @@
                         dark: { 900: '#020617', 800: '#090d16', 700: '#0f172a', 600: '#1e293b' },
                         brand: { 500: '#22c55e', 600: '#16a34a', 700: '#15803d' }
                     },
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif']
-                    }
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] }
                 }
             }
         }
     </script>
     <style>
         body { background-color: #020617; color: #f3f4f6; overflow-x: hidden; }
-        .glass-panel { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .glass-card { background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.85) 100%); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.06); transition: all 0.4s ease; }
-        .glass-card:hover { transform: translateY(-6px); border-color: rgba(34, 197, 94, 0.4); box-shadow: 0 20px 40px -15px rgba(34, 197, 94, 0.2); }
+        .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-card { background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.85) 100%); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.06); transition: all 0.3s ease; }
+        .glass-card:hover { transform: translateY(-4px); border-color: rgba(34, 197, 94, 0.4); box-shadow: 0 15px 30px -10px rgba(34, 197, 94, 0.2); }
     </style>
 </head>
 <body class="selection:bg-brand-500 selection:text-white">
 
-    <!-- BARRA SUPERIOR BCV -->
+    <!-- BARRA BCV -->
     <div class="bg-gradient-to-r from-brand-700 via-emerald-600 to-teal-700 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium relative z-50">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-            <span>🇻🇪 Envíos directos desde eBay sincronizados con API oficial en tiempo real</span>
+            <span>🇻🇪 Importaciones directas de EE.UU. con +500 equipos en stock</span>
             <div class="bg-black/30 px-3 py-1 rounded-full border border-white/10 font-mono flex items-center gap-2">
                 <span>Tasa BCV:</span>
                 <input type="number" id="inputTasaBCV" value="36.50" step="0.1" onchange="actualizarTasa(this.value)" class="w-16 bg-dark-900 text-brand-400 font-bold px-1 rounded border border-white/20 text-center focus:outline-none">
@@ -44,7 +41,7 @@
         </div>
     </div>
 
-    <!-- NAVEGACIÓN -->
+    <!-- HEADER -->
     <header class="glass-panel sticky top-0 z-40 border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="#" class="flex items-center gap-3">
@@ -53,93 +50,130 @@
                 </div>
                 <div>
                     <span class="font-display font-extrabold text-2xl tracking-wider text-white">SMART<span class="text-brand-400">HAUSS</span></span>
-                    <span class="block text-[10px] text-gray-400 tracking-widest uppercase font-semibold">API eBay Oficial</span>
+                    <span class="block text-[10px] text-gray-400 tracking-widest uppercase font-semibold">Mayorista Oficial</span>
                 </div>
             </a>
-            <a href="https://wa.me/584120000000?text=Hola%20Smart%20Hauss,%20quiero%20cotizar%20un%20equipo." target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-lg flex items-center gap-2">
+            <a href="https://wa.me/584120000000?text=Hola%20Smart%20Hauss,%20quiero%20cotizar%20al%20mayor." target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-lg flex items-center gap-2">
                 <i class="fa-brands fa-whatsapp text-lg"></i> Soporte WhatsApp
             </a>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <section class="py-16 px-4 text-center relative">
-        <div class="max-w-4xl mx-auto space-y-6">
-            <span class="bg-brand-500/10 border border-brand-500/20 px-4 py-2 rounded-full text-brand-400 text-xs font-semibold">
-                <i class="fa-solid fa-sync fa-spin"></i> Conexión activa con inventario en vivo de eBay
-            </span>
-            <h1 class="font-display font-extrabold text-4xl sm:text-6xl text-white tracking-tight">
-                Catálogo en Directo de <span class="text-brand-400">iPhones en eBay</span>
-            </h1>
-            <p class="text-gray-400 text-base sm:text-lg">
-                Los precios se calculan automáticamente sumando el costo de eBay, 7% de comisión de importación y $20 de envío a Venezuela.
-            </p>
+    <!-- HERO -->
+    <section class="py-12 px-4 text-center max-w-4xl mx-auto space-y-4">
+        <h1 class="font-display font-extrabold text-3xl sm:text-5xl text-white">
+            Catálogo Global de <span class="text-brand-400">iPhones Disponibles</span>
+        </h1>
+        <p class="text-gray-400 text-sm sm:text-base">Filtra por modelo, proveedor o condición. Precios calculados con flete e importación incluidos.</p>
+    </section>
+
+    <!-- PANEL DE FILTROS AVANZADOS -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+        <div class="glass-panel rounded-2xl p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div>
+                <label class="block text-xs font-semibold text-gray-400 mb-1 uppercase">Buscar Modelo</label>
+                <input type="text" id="filtroTexto" placeholder="Ej. iPhone 13 Pro..." oninput="filtrarProductos()" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-brand-500">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-gray-400 mb-1 uppercase">Filtrar por Serie</label>
+                <select id="filtroCategoria" onchange="filtrarProductos()" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-brand-500">
+                    <option value="todos">Todas las Series (11 al 15)</option>
+                    <option value="11">iPhone 11 Series</option>
+                    <option value="12">iPhone 12 Series</option>
+                    <option value="13">iPhone 13 Series</option>
+                    <option value="14">iPhone 14 Series</option>
+                    <option value="15">iPhone 15 Series</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-gray-400 mb-1 uppercase">Proveedor</label>
+                <select id="filtroProveedor" onchange="filtrarProductos()" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-brand-500">
+                    <option value="todos">Todos los Proveedores</option>
+                    <option value="Smart">Smart Hauss Direct</option>
+                    <option value="Global">Global Electronics USA</option>
+                    <option value="Miami">Miami Stock Supplier</option>
+                    <option value="Liquidadores">Liquidadores Apple US</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-gray-400 mb-1 uppercase">Precio Máximo ($)</label>
+                <input type="number" id="filtroPrecio" placeholder="Ej. 700" oninput="filtrarProductos()" class="w-full bg-dark-900 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-brand-500">
+            </div>
+        </div>
+        <div class="mt-4 text-xs text-gray-400 px-2 flex justify-between items-center">
+            <span id="contadorResultados">Cargando inventario...</span>
         </div>
     </section>
 
-    <!-- CATÁLOGO DINÁMICO DESDE API -->
-    <section class="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <!-- GRID DE PRODUCTOS -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div id="loaderCatalogo" class="text-center py-20">
             <i class="fa-solid fa-circle-notch fa-spin text-4xl text-brand-400 mb-4"></i>
-            <p class="text-gray-400 font-medium">Conectando con la API de eBay y descargando inventario...</p>
+            <p class="text-gray-400">Sincronizando más de 500 equipos del stock...</p>
         </div>
         <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-dark-900 border-t border-white/10 py-10 text-center text-xs text-gray-500 mt-20">
-        &copy; 2026 Smart Hauss Venezuela • Sincronización API Producción eBay Exitosa.
+    <footer class="bg-dark-900 border-t border-white/10 py-10 text-center text-xs text-gray-500">
+        &copy; 2026 Smart Hauss Venezuela • Sistema de Importación Mayorista Avanzado.
     </footer>
 
-    <!-- SCRIPT DE CONSUMO DE API -->
+    <!-- SCRIPT DE FILTRADO Y CARGA -->
     <script>
         let tasaBCV = 36.50;
-        let productosGlobales = [];
+        let listaCompleta = [];
         const numeroWhatsApp = "584120000000";
 
         window.addEventListener('DOMContentLoaded', async () => {
-            await obtenerProductosAPI();
+            try {
+                const res = await fetch('/api/iphones');
+                listaCompleta = await res.json();
+                document.getElementById('loaderCatalogo').style.display = 'none';
+                filtrarProductos();
+            } catch (err) {
+                document.getElementById('loaderCatalogo').innerHTML = `<p class="text-red-400">Error cargando el inventario masivo.</p>`;
+            }
         });
 
-        async function obtenerProductosAPI() {
-            const grid = document.getElementById('productGrid');
-            const loader = document.getElementById('loaderCatalogo');
+        function filtrarProductos() {
+            const texto = document.getElementById('filtroTexto').value.toLowerCase();
+            const categoria = document.getElementById('filtroCategoria').value;
+            const proveedor = document.getElementById('filtroProveedor').value;
+            const precioMax = parseFloat(document.getElementById('filtroPrecio').value) || Infinity;
 
-            try {
-                const response = await fetch('/api/iphones');
-                const data = await response.json();
+            const filtrados = listaCompleta.filter(item => {
+                const coincideTexto = item.nombre.toLowerCase().includes(texto);
+                const coincideCat = (categoria === 'todos' || item.categoria === categoria);
+                const coincideProv = (proveedor === 'todos' || item.proveedor.includes(proveedor));
+                const coincidePrecio = item.precioUsd <= precioMax;
+                return coincideTexto && coincideCat && coincideProv && coincidePrecio;
+            });
 
-                loader.style.display = 'none';
-
-                if (!Array.isArray(data) || data.length === 0) {
-                    grid.innerHTML = `<div class="col-span-full text-center py-10 text-gray-400">No se encontraron productos activos en este momento.</div>`;
-                    return;
-                }
-
-                productosGlobales = data;
-                renderizarProductos(productosGlobales);
-
-            } catch (error) {
-                loader.style.display = 'none';
-                grid.innerHTML = `<div class="col-span-full text-center py-10 text-red-400">Error al conectar con la API de eBay. Verifica tus credenciales.</div>`;
-            }
+            document.getElementById('contadorResultados').innerText = `Mostrando ${filtrados.length} equipos disponibles en stock`;
+            renderizar(filtrados);
         }
 
-        function renderizarProductos(lista) {
+        function renderizar(productos) {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = "";
 
-            lista.forEach(producto => {
+            if (productos.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-16 text-gray-400 font-medium">No se encontraron iPhones con los filtros seleccionados.</div>`;
+                return;
+            }
+
+            productos.forEach(producto => {
                 const precioBs = (producto.precioUsd * tasaBCV).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                const mensajeWa = `Hola Smart Hauss 👋, quiero encargar este iPhone de la API eBay:%0A📱 *${producto.nombre}*%0A💵 Precio Final: $${producto.precioUsd} USD (${precioBs} Bs.)%0AEnlace eBay: ${producto.enlaceEbay}`;
+                const mensajeWa = `Hola Smart Hauss 👋, quiero encargar este equipo:%0A📱 *${producto.nombre}*%0A🏢 Proveedor: ${producto.proveedor}%0A💵 Precio Final: $${producto.precioUsd} USD (${precioBs} Bs.)`;
                 const urlWa = `https://wa.me/${numeroWhatsApp}?text=${mensajeWa}`;
 
                 const card = document.createElement('div');
                 card.className = "glass-card rounded-2xl p-5 flex flex-col justify-between group";
                 card.innerHTML = `
                     <div>
-                        <div class="relative h-52 flex items-center justify-center bg-dark-900/60 rounded-xl mb-4 overflow-hidden border border-white/5">
-                            <span class="absolute top-3 left-3 bg-brand-500/20 text-brand-400 text-[10px] font-bold px-2 py-0.5 rounded uppercase">API eBay PRD</span>
+                        <div class="relative h-48 flex items-center justify-center bg-dark-900/60 rounded-xl mb-4 overflow-hidden border border-white/5">
+                            <span class="absolute top-3 left-3 bg-brand-500/20 text-brand-400 text-[10px] font-bold px-2 py-0.5 rounded uppercase">${producto.proveedor}</span>
                             <img src="${producto.imagen}" alt="${producto.nombre}" class="h-full object-contain group-hover:scale-105 transition-transform p-2">
                         </div>
                         <span class="text-xs text-emerald-400 font-semibold">${producto.condicion}</span>
@@ -167,7 +201,7 @@
 
         function actualizarTasa(nuevaTasa) {
             tasaBCV = parseFloat(nuevaTasa) || 36.50;
-            renderizarProductos(productosGlobales);
+            filtrarProductos();
         }
     </script>
 </body>
