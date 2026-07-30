@@ -1,9 +1,11 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/iphones.js", "use": "@vercel/node" }
+    { "src": "api/iphones.js", "use": "@vercel/node" },
+    { "src": "public/index.html", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/api/iphones", "dest": "/api/iphones.js" }
+    { "src": "/api/iphones", "dest": "/api/iphones.js" },
+    { "src": "/", "dest": "/public/index.html" }
   ]
 }
