@@ -3,7 +3,7 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
 
-  // Tus credenciales oficiales de la API de eBay
+  // Credenciales oficiales de la API de eBay
   const clientId = 'smarthau-SmartHau-PRD-fa49b4867-1a082e31';
   const clientSecret = 'PRD-a49b4867d27-9205-40f0-970c-9950';
 
@@ -45,7 +45,7 @@ export default async function handler(req, res) {
     const catalogoIphones = ebayData.itemSummaries.map((item, index) => {
       const precioBase = item.price ? parseFloat(item.price.value) : 250;
       
-      // Aplicación de tu fórmula matemática de importación
+      // Fórmula matemática de importación: (Precio Base * 1.07) + $20
       const precioFinalUsd = Math.round((precioBase * 1.07) + 20);
       
       // Detectar la categoría según el título del iPhone
@@ -79,7 +79,7 @@ export default async function handler(req, res) {
     return res.status(200).json(catalogoIphones);
 
   } catch (error) {
-    // Plan de respaldo por si la API de eBay llega a fallar en algún momento
+    // Plan de respaldo por si la API de eBay llega a fallar temporalmente
     const respaldoEmergencia = [
       {
         id: 1,
