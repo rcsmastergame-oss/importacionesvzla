@@ -3,67 +3,79 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
 
-  const modelosTienda = [
-    { nombre: "Apple iPhone 11 64GB - Unlocked", base: 230, cat: "11" },
-    { nombre: "Apple iPhone 11 Pro 256GB - Fully Unlocked", base: 290, cat: "11" },
-    { nombre: "Apple iPhone 12 128GB - Midnight (US Specs)", base: 320, cat: "12" },
-    { nombre: "Apple iPhone 12 Pro Max 128GB - Graphite", base: 440, cat: "12" },
-    { nombre: "Apple iPhone 13 128GB - Certified Refurbished", base: 410, cat: "13" },
-    { nombre: "Apple iPhone 13 Pro 256GB - Sierra Blue", base: 530, cat: "13" },
-    { nombre: "Apple iPhone 13 Pro Max 256GB - Gold", base: 620, cat: "13" },
-    { nombre: "Apple iPhone 14 128GB - Starlight", base: 540, cat: "14" },
-    { nombre: "Apple iPhone 14 Plus 128GB - Purple", base: 580, cat: "14" },
-    { nombre: "Apple iPhone 14 Pro 256GB - Deep Purple", base: 680, cat: "14" },
-    { nombre: "Apple iPhone 14 Pro Max 256GB - Space Black", base: 730, cat: "14" },
-    { nombre: "Apple iPhone 15 128GB - Blue (Open Box)", base: 700, cat: "15" },
-    { nombre: "Apple iPhone 15 Pro 256GB - Natural Titanium", base: 860, cat: "15" },
-    { nombre: "Apple iPhone 15 Pro Max 256GB - Black Titanium", base: 950, cat: "15" }
-  ];
+  const clientId = 'smarthau-SmartHau-PRD-fa49b4867-1a082e31';
+  const clientSecret = 'PRD-a49b4867d27-9205-40f0-970c-9950';
 
-  const condiciones = [
-    { texto: "Certified Refurbished - Grado A+", tipo: "gradoa" },
-    { texto: "Open Box - Impecable (Batería 95%+)", tipo: "gradoa" },
-    { texto: "Excelente Estado (100% Funcional)", tipo: "gradoa" },
-    { texto: "Nuevo / Sellado de Fábrica", tipo: "nuevo" }
-  ];
-
-  // Imágenes reales de alta calidad optimizadas para dispositivos Apple
-  const fotosReales = [
-    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500",
-    "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=500",
-    "https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=500",
-    "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500",
-    "https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=500",
-    "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500"
-  ];
-
-  let inventarioMasivo = [];
-  let idContador = 1;
-
-  // Generar más de 500 equipos con variedad total de modelos, condiciones y precios exactos
-  while (inventarioMasivo.length < 520) {
-    modelosTienda.forEach((mod, idxM) => {
-      condiciones.forEach((cond, idxC) => {
-        if (inventarioMasivo.length >= 520) return;
-
-        const precioBase = mod.base + (idxC * 15);
-        // Fórmula exacta requerida: Precio base + 7% comisión + $20 envío a Venezuela
-        const precioFinalUsd = Math.round((precioBase * 1.07) + 20);
-
-        inventarioMasivo.push({
-          id: idContador++,
-          categoria: mod.cat,
-          condicionTipo: cond.tipo,
-          nombre: `${mod.nombre} - Stock Verificado`,
-          proveedor: "ItsWorthMore / US Store",
-          condicion: cond.texto,
-          precioUsd: precioFinalUsd,
-          imagen: fotosReales[(idContador + idxM) % fotosReales.length],
-          enlaceEbay: "https://www.ebay.com/str/itsworthmore"
-        });
-      });
+  try {
+    const credentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
+    
+    const tokenResponse = await fetch('https://api.ebay.com/identity/v1/oauth2/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Basic ${credentials}`
+      },
+      body: 'grant_type=client_credentials&scope=https://api.ebay.com/oauth/api_scope'
     });
-  }
 
-  return res.status(200).json(inventarioMasivo);
+    const tokenData = await tokenResponse.json();
+    
+    if (!tokenData.access_token) {
+      throw new Error("Error obteniendo token de eBay");
+    }
+
+    // Búsqueda abierta y masiva sin restricciones de palabras clave específicas
+    const ebayResponse = await fetch('https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+iPhone&limit=100', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenData.access_token}`,
+        'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US'
+      }
+    });
+
+    const ebayData = await ebayResponse.json();
+
+    if (!ebayData.itemSummaries || ebayData.itemSummaries.length === 0) {
+      throw new Error("No se encontraron elementos en eBay");
+    }
+
+    // Mapeo dinámico total de lo que arroje eBay sin hardcodear nombres ni limitar modelos
+    const todosLosIphonesDeEbay = ebayData.itemSummaries.map((item, index) => {
+      const precioBase = item.price ? parseFloat(item.price.value) : 300;
+      // Tu fórmula exacta: Precio de eBay + 7% comisión + $20 envío a Venezuela
+      const precioFinalUsd = Math.round((precioBase * 1.07) + 20);
+      
+      const tituloLower = item.title.toLowerCase();
+      let categoria = "13";
+      if (tituloLower.includes('15')) categoria = "15";
+      else if (tituloLower.includes('14')) categoria = "14";
+      else if (tituloLower.includes('13')) categoria = "13";
+      else if (tituloLower.includes('12')) categoria = "12";
+      else if (tituloLower.includes('11')) categoria = "11";
+
+      // Obtener imagen real de la API de eBay
+      let imagenUrl = "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500";
+      if (item.image && item.image.imageUrl) {
+        imagenUrl = item.image.imageUrl;
+      }
+
+      return {
+        id: index + 1,
+        categoria: categoria,
+        condicionTipo: item.condition && item.condition.toLowerCase().includes('new') ? 'nuevo' : 'gradoa',
+        nombre: item.title, // Título exacto y real devuelto por eBay
+        proveedor: item.seller ? `${item.seller.username} (eBay US)` : "eBay US Seller",
+        condicion: item.condition || 'Certified / Refurbished',
+        precioUsd: precioFinalUsd,
+        imagen: imagenUrl,
+        enlaceEbay: item.itemWebUrl || 'https://www.ebay.com'
+      };
+    });
+
+    return res.status(200).json(todosLosIphonesDeEbay);
+
+  } catch (error) {
+    // Manejo de error en caso de que la API de eBay requiera reintento o límite de cuota
+    return res.status(500).json({ error: "Error al conectar con la API de eBay: " + error.message });
+  }
 }
