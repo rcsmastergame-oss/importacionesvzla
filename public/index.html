@@ -6,18 +6,18 @@
     <title>Smart Hauss | Importaciones Oficiales de eBay a Venezuela</title>
     <style>
         :root {
-            --bg-body: #0a0a0a;
-            --bg-card: #141414;
-            --bg-card-hover: #1c1c1c;
+            --bg-body: #f4f6f9;
+            --bg-card: #ffffff;
+            --bg-card-hover: #fafbfc;
+            --primary-blue: #007185;
             --amazon-orange: #ff9900;
             --amazon-orange-hover: #fa8800;
-            --accent-red: #ff3333;
-            --whatsapp-green: #00e676;
-            --whatsapp-hover: #00c853;
-            --text-main: #ffffff;
-            --text-muted: #a0a0a0;
-            --border-color: #262626;
-            --trust-blue: #3b82f6;
+            --whatsapp-green: #25d366;
+            --whatsapp-hover: #1ebe5d;
+            --text-main: #0f1111;
+            --text-muted: #565959;
+            --border-color: #d5d9d9;
+            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
         * {
@@ -37,11 +37,10 @@
 
         /* Barra Superior de Confianza */
         .top-trust-bar {
-            background: #050505;
-            border-bottom: 1px solid var(--border-color);
-            padding: 8px 20px;
+            background: #232f3e;
+            color: #ffffff;
+            padding: 10px 20px;
             font-size: 13px;
-            color: var(--text-muted);
             display: flex;
             justify-content: center;
             gap: 30px;
@@ -55,14 +54,10 @@
             gap: 6px;
         }
 
-        .top-trust-bar strong {
-            color: var(--text-main);
-        }
-
-        /* Header Profesional Estilo E-commerce */
+        /* Header Profesional Estilo E-commerce Claro */
         header {
-            background: linear-gradient(180deg, #121212 0%, var(--bg-body) 100%);
-            border-bottom: 2px solid var(--amazon-orange);
+            background: linear-gradient(135deg, #131921 0%, #232f3e 100%);
+            color: white;
             padding: 25px 20px;
             display: flex;
             flex-direction: column;
@@ -70,7 +65,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .header-content {
@@ -86,13 +81,12 @@
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--amazon-orange);
-            box-shadow: 0 0 10px rgba(255, 153, 0, 0.4);
+            background: white;
         }
 
         header h1 {
             font-size: 2rem;
-            letter-spacing: 1.5px;
-            color: var(--text-main);
+            letter-spacing: 1px;
             font-weight: 800;
             text-transform: uppercase;
         }
@@ -102,7 +96,7 @@
         }
 
         header p {
-            color: var(--text-muted);
+            color: #ccc;
             font-size: 0.95rem;
             text-align: center;
         }
@@ -115,37 +109,81 @@
             flex: 1;
         }
 
-        /* Sección de Garantías Visuales (Trust Badges Grid) */
+        /* Banner Promocional Multitono y Colorido */
+        .promo-banner {
+            background: linear-gradient(135deg, #007185 0%, #2575fc 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 25px rgba(0, 113, 133, 0.3);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .promo-text h2 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+
+        .promo-text p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .promo-badge {
+            background: #ff9900;
+            color: #131921;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Sección de Garantías Visuales (Trust Badges) */
         .trust-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
             margin-bottom: 30px;
         }
 
         .trust-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            padding: 15px 20px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            gap: 15px;
+            box-shadow: var(--shadow-subtle);
+            transition: transform 0.2s;
+        }
+
+        .trust-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary-blue);
         }
 
         .trust-icon {
-            font-size: 24px;
+            font-size: 30px;
+            background: #e6f2f4;
+            padding: 12px;
+            border-radius: 10px;
         }
 
         .trust-info h4 {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-main);
-            margin-bottom: 2px;
+            margin-bottom: 3px;
         }
 
         .trust-info p {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--text-muted);
         }
 
@@ -156,7 +194,7 @@
             border-radius: 12px;
             padding: 25px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: var(--shadow-subtle);
         }
 
         .search-bar-wrapper {
@@ -169,7 +207,7 @@
             flex: 1;
             padding: 16px 20px;
             font-size: 16px;
-            background: #000000;
+            background: #ffffff;
             border: 2px solid var(--border-color);
             border-radius: 8px;
             color: var(--text-main);
@@ -179,7 +217,7 @@
 
         input[type="text"]:focus {
             border-color: var(--amazon-orange);
-            box-shadow: 0 0 12px rgba(255, 153, 0, 0.25);
+            box-shadow: 0 0 10px rgba(255, 153, 0, 0.2);
         }
 
         .btn-search {
@@ -187,7 +225,7 @@
             font-size: 16px;
             font-weight: bold;
             background: var(--amazon-orange);
-            color: #000000;
+            color: #131921;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -217,7 +255,7 @@
         }
 
         .tag {
-            background: #0a0a0a;
+            background: #f0f2f2;
             border: 1px solid var(--border-color);
             color: var(--text-muted);
             padding: 8px 16px;
@@ -229,13 +267,13 @@
         }
 
         .tag:hover, .tag.active {
-            background: var(--amazon-orange);
-            color: #000000;
-            border-color: var(--amazon-orange);
+            background: #131921;
+            color: white;
+            border-color: #131921;
         }
 
         .sort-select {
-            background: #000000;
+            background: #ffffff;
             color: var(--text-main);
             border: 1px solid var(--border-color);
             padding: 10px 15px;
@@ -245,10 +283,10 @@
             cursor: pointer;
         }
 
-        /* Calculadora Comercial */
+        /* Calculadora Comercial Colorida */
         .calc-banner {
-            background: linear-gradient(135deg, #141414 0%, #201500 100%);
-            border: 1px solid var(--amazon-orange);
+            background: linear-gradient(135deg, #232f3e 100%, #37475a 0%);
+            color: white;
             border-radius: 12px;
             padding: 25px;
             margin-bottom: 35px;
@@ -257,7 +295,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 20px;
-            box-shadow: 0 8px 25px rgba(255, 153, 0, 0.1);
+            box-shadow: var(--shadow-subtle);
         }
 
         .calc-text h3 {
@@ -267,7 +305,7 @@
         }
 
         .calc-text p {
-            color: var(--text-muted);
+            color: #d5d9d9;
             font-size: 0.95rem;
         }
 
@@ -275,15 +313,15 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            background: #000000;
+            background: #ffffff;
+            color: #131921;
             padding: 12px 20px;
             border-radius: 8px;
-            border: 1px solid var(--border-color);
         }
 
         .calc-action select {
-            background: #141414;
-            color: white;
+            background: #f0f2f2;
+            color: #131921;
             border: 1px solid var(--border-color);
             padding: 8px 12px;
             border-radius: 6px;
@@ -294,7 +332,7 @@
         .calc-total {
             font-size: 1.3rem;
             font-weight: bold;
-            color: var(--whatsapp-green);
+            color: #007185;
         }
 
         /* Grid de Productos */
@@ -315,22 +353,22 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            box-shadow: var(--shadow-subtle);
         }
 
         .card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-5px);
             border-color: var(--amazon-orange);
-            box-shadow: 0 15px 35px rgba(255, 153, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
         }
 
         .card-badge {
             position: absolute;
             top: 12px;
             right: 12px;
-            background: rgba(255, 153, 0, 0.15);
-            color: var(--amazon-orange);
-            border: 1px solid var(--amazon-orange);
+            background: #e6f2f4;
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
             font-size: 10px;
             font-weight: bold;
             padding: 3px 8px;
@@ -373,7 +411,7 @@
         }
 
         .price-box {
-            background: #000000;
+            background: #f8f9fa;
             border: 1px solid var(--border-color);
             padding: 12px;
             border-radius: 8px;
@@ -383,7 +421,7 @@
         .price-main {
             font-size: 20px;
             font-weight: 800;
-            color: var(--amazon-orange);
+            color: #b12704;
         }
 
         .price-sub {
@@ -398,7 +436,7 @@
             justify-content: center;
             gap: 10px;
             background: var(--whatsapp-green);
-            color: #000000;
+            color: #ffffff;
             text-decoration: none;
             padding: 12px;
             border-radius: 8px;
@@ -422,33 +460,34 @@
 
         /* Footer Institucional */
         footer {
-            background: #050505;
-            border-top: 1px solid var(--border-color);
-            padding: 30px 20px;
+            background: #131921;
+            color: white;
+            padding: 40px 20px;
             margin-top: 50px;
             text-align: center;
-            color: var(--text-muted);
             font-size: 0.9rem;
         }
 
         footer p {
             margin-bottom: 8px;
+            color: #ccc;
         }
 
         @media (max-width: 768px) {
             .search-bar-wrapper { flex-direction: column; }
             .btn-search { padding: 15px; }
             .filters-row { flex-direction: column; align-items: stretch; gap: 10px; }
+            .promo-banner { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-<!-- Barra de Confianza Superior -->
+<!-- Barra Superior de Confianza -->
 <div class="top-trust-bar">
-    <span>🛡️ <strong>100% Garantizado</strong> en tus transacciones</span>
-    <span>🇻🇪 <strong>Envíos Directos</strong> a toda Venezuela</span>
-    <span>⚡ <strong>Cotización Inmediata</strong> vía WhatsApp</span>
+    <span>🛡️ <strong>Transacciones 100% Seguras</strong> y Respaldadas</span>
+    <span>🇻🇪 <strong>Envíos Directos</strong> a Puerta en Venezuela</span>
+    <span>⚡ <strong>Atención Inmediata</strong> por Asesor Humano</span>
 </div>
 
 <header>
@@ -456,39 +495,48 @@
         <img src="https://i.ibb.co/3m041Q3/smart-hauss-logo.png" alt="Smart Hauss Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/55'">
         <h1>Smart <span>Hauss</span></h1>
     </div>
-    <p>Tu importador de confianza conectado en tiempo real con millones de proveedores en eBay</p>
+    <p>Tu plataforma oficial de importaciones directas desde eBay con entrega segura en Venezuela</p>
 </header>
 
 <div class="main-container">
+
+    <!-- Banner Promocional Colorido -->
+    <div class="promo-banner">
+        <div class="promo-text">
+            <h2>¡Importa de forma rápida, transparente y sin intermediarios!</h2>
+            <p>Cotiza cualquier producto del inventario global de eBay y recíbelo en tus manos en Venezuela.</p>
+        </div>
+        <div class="promo-badge">¡Soporte Operativo Activo!</div>
+    </div>
 
     <!-- Sección de Insignias de Confianza -->
     <div class="trust-grid">
         <div class="trust-card">
             <div class="trust-icon">📦</div>
             <div class="trust-info">
-                <h4>Compra Internacional</h4>
-                <p>Acceso a inventario global directo</p>
+                <h4>Inventario Global</h4>
+                <p>Acceso directo a millones de artículos en eBay</p>
             </div>
         </div>
         <div class="trust-card">
             <div class="trust-icon">🔒</div>
             <div class="trust-info">
-                <h4>Pagos Seguros</h4>
-                <p>Verificación y respaldo operativo</p>
+                <h4>Garantía Operativa</h4>
+                <p>Seguridad y control en cada etapa del envío</p>
             </div>
         </div>
         <div class="trust-card">
             <div class="trust-icon">✈️</div>
             <div class="trust-info">
-                <h4>Logística Eficiente</h4>
+                <h4>Logística Especializada</h4>
                 <p>Embarques aéreos y marítimos seguros</p>
             </div>
         </div>
         <div class="trust-card">
             <div class="trust-icon">💬</div>
             <div class="trust-info">
-                <h4>Atención Personalizada</h4>
-                <p>Soporte directo con asesor humano</p>
+                <h4>Atención por WhatsApp</h4>
+                <p>Asesoría personalizada y cotizaciones al instante</p>
             </div>
         </div>
     </div>
@@ -496,8 +544,8 @@
     <!-- Buscador y Filtros -->
     <div class="search-panel">
         <div class="search-bar-wrapper">
-            <input type="text" id="keyword" placeholder="Busca cualquier producto o repuesto en eBay (Ej: iPhone 14, MacBook, tarjetas...)" value="iphone" onkeypress="handleKeyPress(event)">
-            <button class="btn-search" onclick="buscarProductos()">Buscar en eBay</button>
+            <input type="text" id="keyword" placeholder="¿Qué producto buscas en eBay? (Ej: iPhone 13, laptop, repuestos...)" value="iphone" onkeypress="handleKeyPress(event)">
+            <button class="btn-search" onclick="buscarProductos()">Buscar Ofertas</button>
         </div>
 
         <div class="filters-row">
@@ -520,11 +568,11 @@
     <!-- Calculadora de Peso -->
     <div class="calc-banner">
         <div class="calc-text">
-            <h3>Calculadora de Envío y Peso</h3>
+            <h3>Calculadora de Envío y Peso a Venezuela</h3>
             <p>Tarifa estimada de importación: <strong>$19 por cada 0.5 kg</strong> adicionales.</p>
         </div>
         <div class="calc-action">
-            <label for="pesoSelect">Peso:</label>
+            <label for="pesoSelect" style="font-weight:bold;">Peso:</label>
             <select id="pesoSelect" onchange="calcularPeso()">
                 <option value="0.5">0.5 kg</option>
                 <option value="1.0" selected>1.0 kg</option>
@@ -543,8 +591,8 @@
 </div>
 
 <footer>
-    <p><strong>Smart Hauss</strong> — Importaciones y Soluciones Tecnológicas.</p>
-    <p>Trabajando con tasas transparentes y soporte directo para toda Venezuela.</p>
+    <p><strong>Smart Hauss</strong> — Tu socio comercial en importaciones tecnológicas.</p>
+    <p>Tasas transparentes, atención directa y envíos seguros a toda Venezuela.</p>
 </footer>
 
 <script>
@@ -593,7 +641,7 @@
             }
         } catch (error) {
             loadingDiv.style.display = 'none';
-            resultsDiv.innerHTML = '<div class="message-state" style="color: var(--accent-red);">Hubo un error al conectar con el servidor de eBay.</div>';
+            resultsDiv.innerHTML = '<div class="message-state" style="color: #b12704;">Hubo un error al conectar con el servidor de eBay.</div>';
             console.error(error);
         }
     }
