@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados de eBay</title>
+    <title>Buscador de Productos en eBay</title>
     <style>
         body { font-family: Arial, sans-serif; background: #f4f4f9; margin: 0; padding: 20px; color: #333; }
         .container { max-width: 1000px; margin: 0 auto; text-align: center; }
@@ -26,7 +26,7 @@
 <div class="container">
     <h1>Buscador de Productos en eBay</h1>
     <div class="search-box">
-        <input type="text" id="keyword" placeholder="¿Qué producto buscas?" value="iPhone">
+        <input type="text" id="keyword" placeholder="¿Qué producto buscas?" value="iphone">
         <button onclick="buscarProductos()">Buscar</button>
     </div>
 
@@ -49,7 +49,7 @@
 
             loadingDiv.style.display = 'none';
 
-            if (data.success && data.items.length > 0) {
+            if (data.success && data.items && data.items.length > 0) {
                 data.items.forEach(item => {
                     const title = item.title;
                     const price = item.price ? `${item.price.value} ${item.price.currency}` : 'Precio no disponible';
@@ -80,6 +80,7 @@
         }
     }
 
+    // Ejecutar búsqueda por defecto al cargar la página
     window.onload = buscarProductos;
 </script>
 
