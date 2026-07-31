@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   const keyword = urlParams.get('q') || 'iphone';
 
   // Credenciales de PRODUCCIÓN oficiales de eBay
-  const clientId = 'smarthau-SmartHauPRD-fa49b4867-1a082e31';
+  const clientId = 'smarthau-SmartHau-PRD-fa49b4867-1a082e31';
   const clientSecret = 'PRD-a49b48675d27-9205-40f0-970c-9950';
 
   try {
