@@ -35,7 +35,7 @@ export default async function handler(req, res) {
 
     const searchUrl = new URL('https://api.ebay.com/buy/browse/v1/item_summary/search');
     searchUrl.searchParams.append('q', keyword);
-    searchUrl.searchParams.append('limit', '24');
+    searchUrl.searchParams.append('limit', '48'); // Aumentado para traer más variedad de vendedores
 
     const searchResponse = await fetch(searchUrl.toString(), {
       method: 'GET',
@@ -47,12 +47,10 @@ export default async function handler(req, res) {
 
     const searchData = await searchResponse.json();
 
-    // Procesar precios agregando el 7% de ganancia de Smart Hauss
     const items = (searchData.itemSummaries || []).map(item => {
       let rawPrice = item.price ? parseFloat(item.price.value) : 0;
       let currency = item.price ? item.price.currency : 'USD';
       
-      // Aplicar 7% de incremento
       let finalPrice = (rawPrice * 1.07).toFixed(2);
 
       return {
