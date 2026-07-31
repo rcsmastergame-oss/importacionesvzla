@@ -1,1 +1,5 @@
-const res = await fetch(`https://importacionesvzla.vercel.app/api/search?q=${encodeURIComponent(query)}`);
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" }
+  ]
+}
