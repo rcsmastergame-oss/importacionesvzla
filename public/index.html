@@ -251,6 +251,49 @@
             border-color: transparent;
         }
 
+        /* Secciones y Carruseles */
+        .section-block {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .section-title span {
+            font-size: 12px;
+            background: rgba(0, 210, 255, 0.15);
+            color: var(--neon-blue);
+            padding: 3px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+        }
+
+        .carousel-container {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--neon-purple) rgba(255,255,255,0.05);
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .carousel-container::-webkit-scrollbar-thumb {
+            background: var(--neon-purple);
+            border-radius: 10px;
+        }
+
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -269,6 +312,8 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             cursor: pointer;
+            min-width: 260px;
+            flex-shrink: 0;
         }
 
         .card:hover {
@@ -366,7 +411,7 @@
             border-color: var(--neon-blue);
         }
 
-        /* MODAL AVANZADO CON GALERÍA Y DETALLES DE VENDEDOR */
+        /* MODAL DE DETALLES */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -438,7 +483,6 @@
             .modal-grid { grid-template-columns: 1fr 1fr; }
         }
 
-        /* Galería de Imágenes Múltiples */
         .gallery-container {
             display: flex;
             flex-direction: column;
@@ -495,7 +539,6 @@
             object-fit: contain;
         }
 
-        /* Información del Producto y Vendedor */
         .modal-info h2 {
             font-size: 1.25rem;
             font-weight: 700;
@@ -578,9 +621,8 @@
         }
 
         .loading, .message-state {
-            grid-column: 1 / -1;
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
             color: var(--text-muted);
         }
 
@@ -603,7 +645,7 @@
 </div>
 
 <div class="top-ticker">
-    ⚡ CATÁLOGO CON FOTOS MÚLTIPLES, DATOS DE VENDEDOR Y DESCRIPCIÓN OFICIAL DE EBAY ⚡
+    ⚡ VITRINA GLOBAL INTELIGENTE • IMPORTACIÓN DIRECTA A VENEZUELA SIN INTERMEDIARIOS ⚡
 </div>
 
 <header>
@@ -619,24 +661,25 @@
 
 <div class="main-container">
 
+    <!-- Panel de Búsqueda y Filtros -->
     <div class="search-panel">
         <div class="search-bar-wrapper">
-            <input type="text" id="keyword" placeholder="Busca en todo eBay (Ej: iPhone, MacBook, cámara...)" value="iphone" onkeypress="handleKeyPress(event)">
-            <button class="btn-search" onclick="aplicarFiltrosYBuscar()">Explorar</button>
+            <input type="text" id="keyword" placeholder="Busca cualquier producto en eBay (Ej: MacBook Air, RTX 4080, Garmin...)" onkeypress="handleKeyPress(event)">
+            <button class="btn-search" onclick="realizarBusquedaManual()">Buscar</button>
         </div>
 
         <div class="category-tags">
-            <span class="tag active" onclick="filtrarCategoria('iphone', this)">Smartphones</span>
-            <span class="tag" onclick="filtrarCategoria('laptop', this)">Laptops</span>
-            <span class="tag" onclick="filtrarCategoria('gpu card', this)">Tarjetas Gráficas</span>
-            <span class="tag" onclick="filtrarCategoria('smart watch', this)">Relojes</span>
-            <span class="tag" onclick="filtrarCategoria('tools', this)">Herramientas</span>
+            <span class="tag" onclick="filtrarCategoria('laptop gamer', this)">Laptops Gamer</span>
+            <span class="tag" onclick="filtrarCategoria('smart watch', this)">Smartwatches</span>
+            <span class="tag" onclick="filtrarCategoria('dji drone', this)">Drones</span>
+            <span class="tag" onclick="filtrarCategoria('sony camera', this)">Cámaras</span>
+            <span class="tag" onclick="filtrarCategoria('mechanical keyboard', this)">Teclados Pro</span>
         </div>
 
         <div class="ebay-filters-grid">
             <div class="filter-group">
-                <label>Condición del Artículo</label>
-                <select id="filterCondition" class="filter-select" onchange="aplicarFiltrosYBuscar()">
+                <label>Condición</label>
+                <select id="filterCondition" class="filter-select" onchange="realizarBusquedaManual()">
                     <option value="">Todas las condiciones</option>
                     <option value="NEW">Nuevo</option>
                     <option value="USED">Usado / Reacondicionado</option>
@@ -645,35 +688,58 @@
 
             <div class="filter-group">
                 <label>Tipo de Compra</label>
-                <select id="filterBuyingFormat" class="filter-select" onchange="aplicarFiltrosYBuscar()">
+                <select id="filterBuyingFormat" class="filter-select" onchange="realizarBusquedaManual()">
                     <option value="">Cualquiera</option>
-                    <option value="FIXED_PRICE">Comprar Ahora (Fixed Price)</option>
-                    <option value="AUCTION">Subasta (Auction)</option>
+                    <option value="FIXED_PRICE">Comprar Ahora</option>
+                    <option value="AUCTION">Subasta</option>
                 </select>
             </div>
 
             <div class="filter-group">
                 <label>Ordenar Resultados</label>
-                <select id="sortOrder" class="filter-select" onchange="ordenarProductos()">
+                <select id="sortOrder" class="filter-select" onchange="ordenarResultadosActuales()">
                     <option value="default">Relevancia</option>
-                    <option value="low">Menor Precio Final</option>
-                    <option value="high">Mayor Precio Final</option>
+                    <option value="low">Menor Precio</option>
+                    <option value="high">Mayor Precio</option>
                 </select>
             </div>
         </div>
     </div>
 
-    <div id="loading" class="loading" style="display: none;">Cargando inventario detallado de eBay...</div>
-    <div id="results" class="grid"></div>
+    <!-- CONTENEDOR DE RESULTADOS DE BÚSQUEDA MANUAL -->
+    <div id="searchContainer" class="section-block" style="display: none;">
+        <div class="section-title">Resultados de Búsqueda <span>Live eBay</span></div>
+        <div id="loadingSearch" class="loading" style="display: none;">Buscando en servidores globales...</div>
+        <div id="searchResultsGrid" class="grid"></div>
+    </div>
+
+    <!-- SECCIÓN 1: CARRUSEL DE TENDENCIAS / DESTACADOS -->
+    <div class="section-block">
+        <div class="section-title">🔥 Tendencias Globales <span>Top Ventas</span></div>
+        <div id="loadingTrending" class="loading">Cargando tendencias aleatorias de eBay...</div>
+        <div id="carouselTrending" class="carousel-container" style="display: none;"></div>
+    </div>
+
+    <!-- SECCIÓN 2: UNA GESTIÓN PARA TI (RECOMENDADOS) -->
+    <div class="section-block">
+        <div class="section-title">⭐ Una gestión para ti <span>Curaduría Smart</span></div>
+        <div id="loadingCurated" class="loading">Preparando recomendaciones exclusivas...</div>
+        <div id="carouselCurated" class="carousel-container" style="display: none;"></div>
+    </div>
+
+    <!-- SECCIÓN 3: ÚLTIMOS VISTOS -->
+    <div class="section-block" id="recentBlock" style="display: none;">
+        <div class="section-title">🕒 Últimos Vistos <span>Tu Historial</span></div>
+        <div id="carouselRecent" class="carousel-container"></div>
+    </div>
+
 </div>
 
-<!-- MODAL CON GALERÍA Y DATOS DEL VENDEDOR -->
+<!-- MODAL DE DETALLES -->
 <div id="productModal" class="modal-overlay" onclick="cerrarModalFuera(event)">
     <div class="modal-content">
         <button class="modal-close" onclick="cerrarModal()">✕</button>
-        <div id="modalBody">
-            <!-- Inyección dinámica -->
-        </div>
+        <div id="modalBody"></div>
     </div>
 </div>
 
@@ -683,32 +749,79 @@
 </footer>
 
 <script>
-    const numeroWhatsApp = "584120000000"; // CAMBIA ESTE NÚMERO POR TU WHATSAPP REAL
-    let productosGlobales = [];
+    const numeroWhatsApp = "584120000000"; // CAMBIA POR TU NÚMERO REAL
+    let productosBusquedaActual = [];
+    let todosLosProductosCargados = {}; // Diccionario para encontrar productos por ID simulado o índice
+
+    // Términos aleatorios iniciales para evitar mostrar siempre iPhone
+    const terminosAleatorios1 = ['MacBook Pro', 'PlayStation 5', 'Garmin Watch', 'GoPro Hero'];
+    const terminosAleatorios2 = ['iPad Air', 'Nintendo Switch', 'Mechanical Keyboard', 'AirPods Pro'];
+
+    window.onload = () => {
+        cargarVitrinaInicial();
+        renderizarUltimosVistos();
+    };
 
     function handleKeyPress(e) {
         if (e.key === 'Enter') {
-            aplicarFiltrosYBuscar();
+            realizarBusquedaManual();
         }
     }
 
     function filtrarCategoria(termino, elementoTag) {
         document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
-        elementoTag.classList.add('active');
+        if(elementoTag) elementoTag.classList.add('active');
         document.getElementById('keyword').value = termino;
-        aplicarFiltrosYBuscar();
+        realizarBusquedaManual();
     }
 
-    async function aplicarFiltrosYBuscar() {
-        const query = document.getElementById('keyword').value;
+    async function cargarVitrinaInicial() {
+        // Seleccionar términos aleatorios diferentes al abrir
+        const query1 = terminosAleatorios1[Math.floor(Math.random() * terminosAleatorios1.length)];
+        const query2 = terminosAleatorios2[Math.floor(Math.random() * terminosAleatorios2.length)];
+
+        // Cargar Carrusel 1 (Tendencias)
+        try {
+            const res1 = await fetch(`/api/search?q=${encodeURIComponent(query1)}`);
+            const data1 = await res1.json();
+            document.getElementById('loadingTrending').style.display = 'none';
+            if (data1.success && data1.items) {
+                renderizarCarrusel('carouselTrending', data1.items);
+            }
+        } catch (e) {
+            document.getElementById('loadingTrending').innerText = 'No se pudieron cargar las tendencias.';
+        }
+
+        // Cargar Carrusel 2 (Una gestión para ti)
+        try {
+            const res2 = await fetch(`/api/search?q=${encodeURIComponent(query2)}`);
+            const data2 = await res2.json();
+            document.getElementById('loadingCurated').style.display = 'none';
+            if (data2.success && data2.items) {
+                renderizarCarrusel('carouselCurated', data2.items);
+            }
+        } catch (e) {
+            document.getElementById('loadingCurated').innerText = 'No se pudieron cargar las recomendaciones.';
+        }
+    }
+
+    async function realizarBusquedaManual() {
+        const query = document.getElementById('keyword').value.trim();
+        const searchContainer = document.getElementById('searchContainer');
+        const loadingSearch = document.getElementById('loadingSearch');
+        const searchResultsGrid = document.getElementById('searchResultsGrid');
+
+        if (!query) {
+            searchContainer.style.display = 'none';
+            return;
+        }
+
+        searchContainer.style.display = 'block';
+        searchResultsGrid.innerHTML = '';
+        loadingSearch.style.display = 'block';
+
         const condition = document.getElementById('filterCondition').value;
         const buyingFormat = document.getElementById('filterBuyingFormat').value;
-
-        const resultsDiv = document.getElementById('results');
-        const loadingDiv = document.getElementById('loading');
-
-        resultsDiv.innerHTML = '';
-        loadingDiv.style.display = 'block';
 
         let url = `/api/search?q=${encodeURIComponent(query)}`;
         if (condition) url += `&condition=${condition}`;
@@ -717,76 +830,83 @@
         try {
             const res = await fetch(url);
             const data = await res.json();
-
-            loadingDiv.style.display = 'none';
+            loadingSearch.style.display = 'none';
 
             if (data.success && data.items && data.items.length > 0) {
-                productosGlobales = data.items;
-                renderizarProductos(productosGlobales);
+                productosBusquedaActual = data.items;
+                renderizarGrilla(searchResultsGrid, productosBusquedaActual);
             } else {
-                resultsDiv.innerHTML = '<div class="message-state">No se encontraron productos con estos filtros en eBay.</div>';
+                searchResultsGrid.innerHTML = '<div class="message-state">No se encontraron productos con estos criterios.</div>';
             }
         } catch (error) {
-            loadingDiv.style.display = 'none';
-            resultsDiv.innerHTML = '<div class="message-state" style="color: #f43f5e;">Error de conexión con la API de eBay.</div>';
-            console.error(error);
+            loadingSearch.style.display = 'none';
+            searchResultsGrid.innerHTML = '<div class="message-state" style="color: #f43f5e;">Error de conexión con la API.</div>';
         }
     }
 
-    function ordenarProductos() {
-        const criterio = document.getElementById('sortOrder').value;
-        let listaOrdenada = [...productosGlobales];
+    function renderizarCarrusel(elementId, items) {
+        const container = document.getElementById(elementId);
+        container.style.display = 'flex';
+        container.innerHTML = '';
 
-        if (criterio === 'low') {
-            listaOrdenada.sort((a, b) => parseFloat(a.calculatedPrice) - parseFloat(b.calculatedPrice));
-        } else if (criterio === 'high') {
-            listaOrdenada.sort((a, b) => parseFloat(b.calculatedPrice) - parseFloat(a.calculatedPrice));
-        }
-
-        renderizarProductos(listaOrdenada);
-    }
-
-    function renderizarProductos(items) {
-        const resultsDiv = document.getElementById('results');
-        resultsDiv.innerHTML = '';
-
-        items.forEach((item, index) => {
-            const title = item.title;
-            const price = item.calculatedPrice;
-            const currency = item.currency || 'USD';
-            const image = item.image ? item.image.imageUrl : 'https://via.placeholder.com/200';
-
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.onclick = () => abrirModalProducto(index);
-            card.innerHTML = `
-                <div class="card-badge">eBay Pro</div>
-                <div>
-                    <div class="card-img-container">
-                        <img src="${image}" alt="${title}">
-                    </div>
-                    <h3>${title}</h3>
-                </div>
-                <div>
-                    <div class="price-box">
-                        <div class="price-main">$${price} <span>${currency}</span></div>
-                        <div class="price-sub">Incluye tasa operativa del 7%</div>
-                    </div>
-                    <button class="btn-details">Ver Fotos y Vendedor</button>
-                </div>
-            `;
-            resultsDiv.appendChild(card);
+        items.forEach((item) => {
+            const cardHtml = crearTarjetaHTML(item);
+            container.appendChild(cardHtml);
+            guardarEnDiccionario(item);
         });
     }
 
-    function abrirModalProducto(index) {
-        const item = productosGlobales[index];
+    function renderizarGrilla(containerElement, items) {
+        containerElement.innerHTML = '';
+        items.forEach((item) => {
+            const cardHtml = crearTarjetaHTML(item);
+            containerElement.appendChild(cardHtml);
+            guardarEnDiccionario(item);
+        });
+    }
+
+    function crearTarjetaHTML(item) {
+        const title = item.title;
+        const price = item.calculatedPrice;
+        const currency = item.currency || 'USD';
+        const image = item.image ? item.image.imageUrl : 'https://via.placeholder.com/200';
+        const itemId = item.itemId || Math.random().toString(36).substr(2, 9);
+        item.tempId = itemId;
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => abrirModalProducto(item);
+        card.innerHTML = `
+            <div class="card-badge">Smart Pro</div>
+            <div>
+                <div class="card-img-container">
+                    <img src="${image}" alt="${title}">
+                </div>
+                <h3>${title}</h3>
+            </div>
+            <div>
+                <div class="price-box">
+                    <div class="price-main">$${price} <span>${currency}</span></div>
+                    <div class="price-sub">Incluye flete e impuestos</div>
+                </div>
+                <button class="btn-details">Ver Detalles y Fotos</button>
+            </div>
+        `;
+        return card;
+    }
+
+    function guardarEnDiccionario(item) {
+        todosLosProductosCargados[item.tempId || item.itemId] = item;
+    }
+
+    function abrirModalProducto(item) {
+        registrarUltimoVisto(item);
+
         const title = item.title;
         const price = item.calculatedPrice;
         const currency = item.currency || 'USD';
         const itemUrl = item.itemWebUrl;
-        
-        // Manejo de imágenes múltiples (si la API de eBay entrega additionalImages o image principal)
+
         let imagenes = [];
         if (item.image && item.image.imageUrl) imagenes.push(item.image.imageUrl);
         if (item.additionalImages && Array.isArray(item.additionalImages)) {
@@ -796,58 +916,46 @@
         }
         if (imagenes.length === 0) imagenes.push('https://via.placeholder.com/300');
 
-        // Datos del vendedor
         const sellerName = item.seller ? item.seller.username : 'Vendedor Verificado eBay';
         const sellerScore = item.seller && item.seller.feedbackPercentage ? `${item.seller.feedbackPercentage}% Positivo` : 'Alta Reputación';
         const sellerFeedbackCount = item.seller && item.seller.feedbackScore ? `(${item.seller.feedbackScore} votos)` : '';
+        const shortDesc = item.shortDescription || item.description || 'Artículo verificado en la red global de eBay con garantía de origen y especificaciones originales.';
 
-        // Descripción del producto
-        const shortDesc = item.shortDescription || item.description || 'Este artículo proviene directamente de la red global de eBay. Cuenta con los estándares de calidad del fabricante y garantía de origen internacional.';
-
-        const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, deseo gestionar la importación de este producto:\n\n📦 *${title}*\n💲 *Precio Final:* $${price} ${currency}\n🔗 *Enlace:* ${itemUrl}`);
+        const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, deseo encargar este producto:\n\n📦 *${title}*\n💲 *Precio Final:* $${price} ${currency}\n🔗 *Enlace:* ${itemUrl}`);
         const whatsappLink = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
 
         const modalBody = document.getElementById('modalBody');
         modalBody.innerHTML = `
             <div class="modal-grid">
-                <!-- Columna de Galería de Imágenes -->
                 <div class="gallery-container">
                     <div class="main-img-display">
                         <img id="mainModalImg" src="${imagenes[0]}" alt="${title}">
                     </div>
-                    <div class="thumbnails-row" id="thumbRow">
+                    <div class="thumbnails-row">
                         ${imagenes.map((img, i) => `
                             <div class="thumb-box ${i === 0 ? 'active' : ''}" onclick="cambiarImagenPrincipal('${img}', this)">
-                                <img src="${img}" alt="Thumbnail ${i}">
+                                <img src="${img}" alt="Thumb">
                             </div>
                         `).join('')}
                     </div>
                 </div>
-
-                <!-- Columna de Información, Vendedor y Descripción -->
                 <div class="modal-info">
                     <h2>${title}</h2>
-
-                    <!-- Información del Vendedor -->
                     <div class="seller-card">
-                        <h4>Reputación del Vendedor en eBay</h4>
+                        <h4>Reputación del Vendedor</h4>
                         <div class="seller-details">
                             <span>👤 <strong>${sellerName}</strong> ${sellerFeedbackCount}</span>
                             <span>⭐ <strong>${sellerScore}</strong></span>
                         </div>
                     </div>
-
-                    <!-- Descripción del Producto -->
                     <div class="product-description-box">
                         <h4>Descripción Oficial</h4>
                         <p>${shortDesc}</p>
                     </div>
-
                     <div class="price-box" style="margin-bottom: 15px;">
                         <div class="price-main">$${price} <span>${currency}</span></div>
-                        <div class="price-sub">Precio final en Venezuela (Incluye flete, impuestos y gestión)</div>
+                        <div class="price-sub">Precio final en Venezuela (Flete + Gestoría)</div>
                     </div>
-
                     <a href="${whatsappLink}" target="_blank" class="btn-whatsapp-modal">
                         💬 Gestionar Importación por WhatsApp
                     </a>
@@ -876,9 +984,47 @@
         }
     }
 
-    window.onload = () => {
-        aplicarFiltrosYBuscar();
-    };
+    /* GESTIÓN DE ÚLTIMOS VISTOS EN LOCALSTORAGE */
+    function registrarUltimoVisto(item) {
+        let recents = JSON.parse(localStorage.getItem('smart_hauss_recent') || '[]');
+        // Evitar duplicados
+        recents = recents.filter(r => r.tempId !== item.tempId && r.itemId !== item.itemId);
+        recents.unshift(item);
+        if (recents.length > 8) recents.pop(); // Mantener máximo 8
+        localStorage.setItem('smart_hauss_recent', JSON.stringify(recents));
+        renderizarUltimosVistos();
+    }
+
+    function renderizarUltimosVistos() {
+        const recents = JSON.parse(localStorage.getItem('smart_hauss_recent') || '[]');
+        const recentBlock = document.getElementById('recentBlock');
+        const container = document.getElementById('carouselRecent');
+
+        if (recents.length === 0) {
+            recentBlock.style.display = 'none';
+            return;
+        }
+
+        recentBlock.style.display = 'block';
+        container.innerHTML = '';
+        recents.forEach(item => {
+            const cardHtml = crearTarjetaHTML(item);
+            container.appendChild(cardHtml);
+        });
+    }
+
+    function ordenarResultadosActuales() {
+        const criterio = document.getElementById('sortOrder').value;
+        if (productosBusquedaActual.length === 0) return;
+
+        let ordenada = [...productosBusquedaActual];
+        if (criterio === 'low') {
+            ordenada.sort((a, b) => parseFloat(a.calculatedPrice) - parseFloat(b.calculatedPrice));
+        } else if (criterio === 'high') {
+            ordenada.sort((a, b) => parseFloat(b.calculatedPrice) - parseFloat(a.calculatedPrice));
+        }
+        renderizarGrilla(document.getElementById('searchResultsGrid'), ordenada);
+    }
 </script>
 
 </body>
