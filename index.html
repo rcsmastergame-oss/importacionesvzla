@@ -3,173 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Hauss - Importaciones Directas</title>
+    <title>Resultados de eBay</title>
     <style>
-        :root {
-            --primary: #0066cc;
-            --dark: #111;
-            --light: #f9f9f9;
-            --gray: #e5e5e5;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--light);
-            color: var(--dark);
-        }
-        header {
-            background: var(--dark);
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .search-container {
-            margin: 20px auto;
-            text-align: center;
-            padding: 0 15px;
-        }
-        input[type="text"] {
-            width: 100%;
-            max-width: 500px;
-            padding: 12px 20px;
-            font-size: 16px;
-            border: 2px solid var(--gray);
-            border-radius: 25px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        input[type="text"]:focus {
-            border-color: var(--primary);
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: translateY(-4px);
-        }
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background: #eee;
-        }
-        .card-content {
-            padding: 15px;
-        }
-        .card h3 {
-            font-size: 16px;
-            margin: 0 0 10px 0;
-            color: #333;
-            line-height: 1.4;
-        }
-        .condicion {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-        .price {
-            font-size: 20px;
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-        .btn-ebay {
-            display: block;
-            width: 100%;
-            background: #e53238;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-        .btn-ebay:hover {
-            background: #c9282d;
-        }
+        body { font-family: Arial, sans-serif; background: #f4f4f9; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 1000px; margin: 0 auto; text-align: center; }
+        .search-box { margin-bottom: 30px; }
+        input { padding: 10px; width: 60%; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px 20px; font-size: 16px; background: #0053a0; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #003d73; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; text-align: left; }
+        .card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between; }
+        .card img { max-width: 100%; height: 160px; object-fit: contain; margin-bottom: 10px; }
+        .card h3 { font-size: 14px; margin: 0 0 10px 0; height: 40px; overflow: hidden; }
+        .price { font-weight: bold; color: #28a745; font-size: 18px; margin-bottom: 10px; }
+        .btn-buy { display: block; text-align: center; background: #e53238; color: white; text-decoration: none; padding: 8px; border-radius: 4px; font-weight: bold; }
+        .btn-buy:hover { background: #c5272c; }
+        .loading { font-size: 18px; color: #666; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Smart Hauss Store</h1>
-        <p>Catálogo de Importación Directa y Segura</p>
-    </header>
-
-    <div class="search-container">
-        <input type="text" id="buscador" placeholder="Busca iPhone, tarjetas gráficas, ropa..." onkeyup="buscarProductos(event)">
+<div class="container">
+    <h1>Buscador de Productos en eBay</h1>
+    <div class="search-box">
+        <input type="text" id="keyword" placeholder="¿Qué producto buscas?" value="iPhone">
+        <button onclick="buscarProductos()">Buscar</button>
     </div>
 
-    <div id="resultados" class="grid">
-        <!-- Los productos se cargarán dinámicamente aquí -->
-    </div>
+    <div id="loading" class="loading" style="display: none;">Cargando productos de eBay...</div>
+    <div id="results" class="grid"></div>
+</div>
 
-    <script>
-        async function cargarProductos(termino = 'iPhone') {
-            try {
-                const response = await fetch(`/api/iphones?q=${encodeURIComponent(termino)}`);
-                const productos = await response.json();
-                
-                const contenedor = document.getElementById('resultados');
-                contenedor.innerHTML = '';
+<script>
+    async function buscarProductos() {
+        const query = document.getElementById('keyword').value;
+        const resultsDiv = document.getElementById('results');
+        const loadingDiv = document.getElementById('loading');
 
-                if (productos.length === 0) {
-                    contenedor.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">No se encontraron resultados.</p>';
-                    return;
-                }
+        resultsDiv.innerHTML = '';
+        loadingDiv.style.display = 'block';
 
-                productos.forEach(item => {
-                    const tarjeta = document.createElement('div');
-                    tarjeta.className = 'card';
-                    tarjeta.innerHTML = `
+        try {
+            const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+            const data = await res.json();
+
+            loadingDiv.style.display = 'none';
+
+            if (data.success && data.items.length > 0) {
+                data.items.forEach(item => {
+                    const title = item.title;
+                    const price = item.price ? `${item.price.value} ${item.price.currency}` : 'Precio no disponible';
+                    const image = item.image ? item.image.imageUrl : 'https://via.placeholder.com/150';
+                    const itemUrl = item.itemWebUrl;
+
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
                         <div>
-                            <img src="${item.imagen}" alt="${item.nombre}">
-                            <div class="card-content">
-                                <div class="condicion">${item.condicion}</div>
-                                <h3>${item.nombre}</h3>
-                                <div class="price">US $${item.precioUsd}</div>
-                            </div>
+                            <img src="${image}" alt="${title}">
+                            <h3>${title}</h3>
                         </div>
-                        <div style="padding: 0 15px 15px 15px;">
-                            <a href="${item.enlaceEbay}" target="_blank" class="btn-ebay">Ver en eBay (20K+ Resultados)</a>
+                        <div>
+                            <div class="price">${price}</div>
+                            <a href="${itemUrl}" target="_blank" class="btn-buy">Ver en eBay</a>
                         </div>
                     `;
-                    contenedor.appendChild(tarjeta);
+                    resultsDiv.appendChild(card);
                 });
-            } catch (error) {
-                console.error('Error al cargar el inventario:', error);
+            } else {
+                resultsDiv.innerHTML = '<p>No se encontraron productos para esta búsqueda.</p>';
             }
+        } catch (error) {
+            loadingDiv.style.display = 'none';
+            resultsDiv.innerHTML = '<p style="color: red;">Hubo un error al realizar la consulta.</p>';
+            console.error(error);
         }
+    }
 
-        function buscarProductos(e) {
-            const termino = e.target.value.trim();
-            if (termino.length > 1 || termino.length === 0) {
-                cargarProductos(termino || 'iPhone');
-            }
-        }
+    window.onload = buscarProductos;
+</script>
 
-        // Carga inicial al abrir la página
-        cargarProductos('iPhone');
-    </script>
 </body>
 </html>
