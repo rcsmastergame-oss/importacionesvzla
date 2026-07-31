@@ -10,7 +10,6 @@ export default async function handler(req, res) {
   const urlParams = new URL(req.url, `https://${req.headers.host}`).searchParams;
   const keyword = urlParams.get('q') || 'iphone';
 
-  // Credenciales de PRODUCCIÓN oficiales de eBay
   const clientId = 'smarthau-SmartHau-PRD-fa49b4867-1a082e31';
   const clientSecret = 'PRD-a49b48675d27-9205-40f0-970c-9950';
 
@@ -36,7 +35,7 @@ export default async function handler(req, res) {
 
     const searchUrl = new URL('https://api.ebay.com/buy/browse/v1/item_summary/search');
     searchUrl.searchParams.append('q', keyword);
-    searchUrl.searchParams.append('limit', '20');
+    searchUrl.searchParams.append('limit', '24');
 
     const searchResponse = await fetch(searchUrl.toString(), {
       method: 'GET',
@@ -48,16 +47,31 @@ export default async function handler(req, res) {
 
     const searchData = await searchResponse.json();
 
+    // Procesar precios agregando el 7% de ganancia de Smart Hauss
+    const items = (searchData.itemSummaries || []).map(item => {
+      let rawPrice = item.price ? parseFloat(item.price.value) : 0;
+      let currency = item.price ? item.price.currency : 'USD';
+      
+      // Aplicar 7% de incremento
+      let finalPrice = (rawPrice * 1.07).toFixed(2);
+
+      return {
+        ...item,
+        calculatedPrice: finalPrice,
+        currency: currency
+      };
+    });
+
     return res.status(200).json({
       success: true,
-      items: searchData.itemSummaries || []
+      items: items
     });
 
   } catch (error) {
     console.error('Error detallado:', error);
     return res.status(500).json({
       success: false,
-      error: error.message || 'Error interno al consultar la API de eBay'
+      error: error.message || 'Error interno al consultar la API'
     });
   }
 }
