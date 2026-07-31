@@ -6,141 +6,231 @@
     <title>Smart Hauss | Importaciones de eBay a Venezuela</title>
     <style>
         :root {
-            --primary: #0f172a;
-            --accent: #2563eb;
-            --whatsapp: #16a34a;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #1e293b;
-            --gray: #64748b;
+            --bg-main: #0a0a0a;
+            --bg-card: #141414;
+            --bg-card-hover: #1f1f1f;
+            --primary-red: #e53238;
+            --primary-red-hover: #c5272c;
+            --whatsapp-green: #25d366;
+            --whatsapp-hover: #1ebe5d;
+            --text-main: #ffffff;
+            --text-muted: #a3a3a3;
+            --border-color: #262626;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
+        /* Header Profesional */
         header {
-            background: var(--primary);
-            color: white;
-            padding: 30px 20px;
+            background: linear-gradient(180deg, #000000 0%, var(--bg-main) 100%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 25px 20px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-red);
+            animation: pulseLogo 3s infinite;
         }
 
         header h1 {
-            margin: 0;
-            font-size: 2.2rem;
-            letter-spacing: 1px;
+            font-size: 1.8rem;
+            letter-spacing: 1.5px;
+            color: var(--text-main);
+            text-transform: uppercase;
+        }
+
+        header h1 span {
+            color: var(--primary-red);
         }
 
         header p {
-            margin: 8px 0 0 0;
-            color: #94a3b8;
-            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
         }
 
         .main-container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            width: 100%;
+            flex: 1;
         }
 
         /* Buscador y Filtros */
-        .search-section {
-            background: var(--card-bg);
-            padding: 25px;
+        .search-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            align-items: center;
+            padding: 25px;
             margin-bottom: 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
             animation: fadeIn 0.8s ease;
         }
 
-        .search-input-group {
+        .search-bar-wrapper {
             display: flex;
-            gap: 10px;
-            width: 100%;
-            max-width: 650px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         input[type="text"] {
             flex: 1;
-            padding: 14px 18px;
+            padding: 15px 20px;
             font-size: 16px;
-            border: 2px solid #e2e8f0;
+            background: #000;
+            border: 1px solid var(--border-color);
             border-radius: 10px;
+            color: var(--text-main);
             outline: none;
             transition: all 0.3s;
         }
 
         input[type="text"]:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+            border-color: var(--primary-red);
+            box-shadow: 0 0 10px rgba(229, 50, 56, 0.3);
         }
 
-        button {
-            padding: 14px 24px;
+        .btn-search {
+            padding: 0 30px;
             font-size: 16px;
-            font-weight: 600;
-            background: var(--accent);
+            font-weight: bold;
+            background: var(--primary-red);
             color: white;
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
+            transition: all 0.3s;
         }
 
-        button:hover {
-            background: #1d4ed8;
+        .btn-search:hover {
+            background: var(--primary-red-hover);
             transform: translateY(-2px);
         }
 
-        /* Sección de Calculadora de Peso */
-        .calculator-card {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        /* Filtros Rápidos y Orden */
+        .filters-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 18px;
+        }
+
+        .category-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: #1f1f1f;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tag:hover, .tag.active {
+            background: var(--primary-red);
             color: white;
-            padding: 20px 25px;
+            border-color: var(--primary-red);
+        }
+
+        .sort-select {
+            background: #000;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Calculadora de Peso Profesional */
+        .calc-banner {
+            background: linear-gradient(135deg, #141414 0%, #1f1f1f 100%);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--primary-red);
             border-radius: 16px;
-            margin-bottom: 40px;
+            padding: 25px;
+            margin-bottom: 35px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            animation: slideUp 0.8s ease;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
-        .calc-info h3 { margin: 0 0 5px 0; font-size: 1.2rem; color: #60a5fa; }
-        .calc-info p { margin: 0; font-size: 0.95rem; color: #cbd5e1; }
-        
-        .calc-controls {
+        .calc-text h3 {
+            font-size: 1.25rem;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .calc-text p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .calc-action {
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-top: 10px;
+            background: #000;
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
         }
 
-        .calc-controls select {
-            padding: 10px 15px;
-            border-radius: 8px;
-            background: #334155;
+        .calc-action select {
+            background: #141414;
             color: white;
-            border: 1px solid #475569;
-            font-size: 15px;
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 8px;
             outline: none;
+            font-size: 15px;
         }
 
-        .calc-result {
-            font-size: 1.3rem;
+        .calc-total {
+            font-size: 1.2rem;
             font-weight: bold;
             color: #4ade80;
         }
@@ -148,161 +238,223 @@
         /* Grid de Productos */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
         }
 
         .card {
-            background: var(--card-bg);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeIn 0.6s ease;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease;
             position: relative;
             overflow: hidden;
         }
 
         .card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-red);
+            box-shadow: 0 15px 35px rgba(229, 50, 56, 0.15);
+        }
+
+        .card-img-container {
+            width: 100%;
+            height: 190px;
+            background: #ffffff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            position: relative;
         }
 
         .card img {
-            width: 100%;
-            height: 180px;
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
-            margin-bottom: 15px;
             transition: transform 0.3s;
         }
 
         .card:hover img {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
         .card h3 {
-            font-size: 15px;
-            margin: 0 0 10px 0;
-            height: 44px;
+            font-size: 14px;
+            line-height: 1.4;
+            height: 40px;
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            color: var(--text);
+            margin-bottom: 15px;
+            color: var(--text-main);
         }
 
-        .price-container {
+        .price-box {
+            background: #000;
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 10px;
             margin-bottom: 15px;
         }
 
-        .price {
+        .price-main {
             font-size: 20px;
-            font-weight: 700;
-            color: var(--accent);
+            font-weight: bold;
+            color: var(--primary-red);
         }
 
-        .price-note {
+        .price-sub {
             font-size: 11px;
-            color: var(--gray);
+            color: var(--text-muted);
+            margin-top: 2px;
         }
 
         .btn-whatsapp {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            background: var(--whatsapp);
-            color: white;
+            gap: 10px;
+            background: var(--whatsapp-green);
+            color: #000;
             text-decoration: none;
             padding: 12px;
             border-radius: 10px;
-            font-weight: 600;
-            transition: background 0.2s, transform 0.1s;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.2s;
         }
 
         .btn-whatsapp:hover {
-            background: #15803d;
+            background: var(--whatsapp-hover);
+            transform: scale(1.02);
         }
 
-        .loading, .no-results {
-            text-align: center;
+        .loading, .message-state {
             grid-column: 1 / -1;
-            padding: 50px;
+            text-align: center;
+            padding: 60px;
+            color: var(--text-muted);
             font-size: 1.1rem;
-            color: var(--gray);
         }
 
+        /* Animaciones */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes pulseLogo {
+            0% { box-shadow: 0 0 0 0 rgba(229, 50, 56, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(229, 50, 56, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(229, 50, 56, 0); }
+        }
+
+        @media (max-width: 768px) {
+            .search-bar-wrapper { flex-direction: column; }
+            .btn-search { padding: 14px; }
+            .filters-row { flex-direction: column; align-items: stretch; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Smart Hauss</h1>
-    <p>Importaciones directas de eBay a Venezuela de forma rápida y segura</p>
+    <div class="logo-container">
+        <!-- Reemplaza este enlace con la URL de tu logo si lo deseas -->
+        <img src="https://i.ibb.co/3m041Q3/smart-hauss-logo.png" alt="Smart Hauss Logo" class="logo-img" onerror="this.src='https://via.selector.com/55'">
+        <h1>Smart <span>Hauss</span></h1>
+    </div>
+    <p>Importaciones directas y seguras desde eBay hasta la puerta de tu casa en Venezuela</p>
 </header>
 
 <div class="main-container">
 
-    <!-- Buscador Avanzado -->
-    <div class="search-section">
-        <div class="search-input-group">
-            <input type="text" id="keyword" placeholder="Busca repuestos, tecnología, ropa..." value="iphone" onkeypress="handleKeyPress(event)">
-            <button onclick="buscarProductos()">Buscar</button>
+    <!-- Panel de Búsqueda y Filtros -->
+    <div class="search-panel">
+        <div class="search-bar-wrapper">
+            <input type="text" id="keyword" placeholder="¿Qué producto deseas buscar en eBay? (Ej: iPhone, tarjeta gráfica, repuestos...)" value="iphone" onkeypress="handleKeyPress(event)">
+            <button class="btn-search" onclick="buscarProductos()">Buscar</button>
+        </div>
+
+        <div class="filters-row">
+            <!-- Filtros Rápidos (Categorías) -->
+            <div class="category-tags">
+                <span class="tag active" onclick="filtrarCategoria('iphone', this)">Smartphones</span>
+                <span class="tag" onclick="filtrarCategoria('laptop', this)">Laptops</span>
+                <span class="tag" onclick="filtrarCategoria('gpu card', this)">Tarjetas Gráficas</span>
+                <span class="tag" onclick="filtrarCategoria('smart watch', this)">Relojes</span>
+                <span class="tag" onclick="filtrarCategoria('tools', this)">Herramientas</span>
+            </div>
+
+            <!-- Selector de Orden -->
+            <select id="sortOrder" class="sort-select" onchange="ordenarProductos()">
+                <option value="default">Ordenar por defecto</option>
+                <option value="low">Precio: Menor a Mayor</option>
+                <option value="high">Precio: Mayor a Menor</option>
+            </select>
         </div>
     </div>
 
-    <!-- Calculadora de Importación por Peso -->
-    <div class="calculator-card">
-        <div class="calc-info">
-            <h3>Calculadora de Envío por Peso</h3>
-            <p>Costo base: 19$ por cada 0.5 kg aproximados hasta Venezuela.</p>
+    <!-- Calculadora de Peso -->
+    <div class="calc-banner">
+        <div class="calc-text">
+            <h3>Calculadora de Envío por Peso (Venezuela)</h3>
+            <p>Tarifa estimada de importación: <strong>$19 por cada 0.5 kg</strong> adicionales.</p>
         </div>
-        <div class="calc-controls">
-            <label for="pesoSelect">Peso:</label>
+        <div class="calc-action">
+            <label for="pesoSelect">Peso estimado:</label>
             <select id="pesoSelect" onchange="calcularPeso()">
                 <option value="0.5">0.5 kg</option>
-                <option value="1.0">1.0 kg</option>
+                <option value="1.0" selected>1.0 kg</option>
                 <option value="1.5">1.5 kg</option>
                 <option value="2.0">2.0 kg</option>
-                <option value="2.5">2.5 kg</option>
                 <option value="3.0">3.0 kg</option>
                 <option value="4.0">4.0 kg</option>
                 <option value="5.0">5.0 kg</option>
             </select>
-            <div class="calc-result" id="resultadoEnvio">Total: $19</div>
+            <div class="calc-total" id="resultadoEnvio">$38.00</div>
         </div>
     </div>
 
-    <div id="loading" class="loading" style="display: none;">Buscando los mejores productos en eBay...</div>
+    <!-- Contenedor de Resultados -->
+    <div id="loading" class="loading" style="display: none;">Conectando con servidores de eBay... Buscando ofertas...</div>
     <div id="results" class="grid"></div>
 </div>
 
 <script>
-    const numeroWhatsApp = "584120000000"; // CAMBIA ESTE NÚMERO POR TU WHATSAPP REAL (con código de país)
+    const numeroWhatsApp = "584120000000"; // CAMBIA ESTE NÚMERO POR TU WHATSAPP REAL
+    let productosGlobales = [];
 
     function calcularPeso() {
-        const select = document.getElementById('pesoSelect').value;
-        const bloques = parseFloat(select) / 0.5;
-        const costoTotal = bloques * 19;
-        document.getElementById('resultadoEnvio').innerText = `Total: $${costoTotal.toFixed(2)}`;
+        const peso = parseFloat(document.getElementById('pesoSelect').value);
+        const bloques = peso / 0.5;
+        const total = bloques * 19;
+        document.getElementById('resultadoEnvio').innerText = `$${total.toFixed(2)}`;
     }
 
     function handleKeyPress(e) {
         if (e.key === 'Enter') {
             buscarProductos();
         }
+    }
+
+    function filtrarCategoria(termino, elementoTag) {
+        // Cambiar estilo visual de etiquetas
+        document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+        elementoTag.classList.add('active');
+
+        // Poner texto en el buscador y ejecutar
+        document.getElementById('keyword').value = termino;
+        buscarProductos();
     }
 
     async function buscarProductos() {
@@ -320,47 +472,70 @@
             loadingDiv.style.display = 'none';
 
             if (data.success && data.items && data.items.length > 0) {
-                data.items.forEach(item => {
-                    const title = item.title;
-                    const price = item.calculatedPrice;
-                    const currency = item.currency || 'USD';
-                    const image = item.image ? item.image.imageUrl : 'https://via.placeholder.com/200';
-                    const itemUrl = item.itemWebUrl;
-
-                    // Mensaje estructurado para WhatsApp
-                    const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, estoy interesado en importar este producto desde su web:\n\n📦 *${title}*\n💲 *Precio Final:* $${price} ${currency}\n🔗 *Enlace:* ${itemUrl}`);
-                    const whatsappLink = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
-
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `
-                        <div>
-                            <img src="${image}" alt="${title}">
-                            <h3>${title}</h3>
-                        </div>
-                        <div>
-                            <div class="price-container">
-                                <div class="price">$${price} <span style="font-size:12px; font-weight:normal;">${currency}</span></div>
-                                <div class="price-note">Incluye tasa operativa Smart Hauss</div>
-                            </div>
-                            <a href="${whatsappLink}" target="_blank" class="btn-whatsapp">
-                                Comprar por WhatsApp
-                            </a>
-                        </div>
-                    `;
-                    resultsDiv.appendChild(card);
-                });
+                productosGlobales = data.items;
+                renderizarProductos(productosGlobales);
             } else {
-                resultsDiv.innerHTML = '<div class="no-results">No se encontraron productos para esta búsqueda. Intenta con otra palabra.</div>';
+                resultsDiv.innerHTML = '<div class="message-state">No se encontraron productos para esta búsqueda. Intenta con otro término.</div>';
             }
         } catch (error) {
             loadingDiv.style.display = 'none';
-            resultsDiv.innerHTML = '<div class="no-results" style="color: #dc2626;">Hubo un error al realizar la consulta con el servidor.</div>';
+            resultsDiv.innerHTML = '<div class="message-state" style="color: var(--primary-red);">Hubo un error al conectar con el servidor de búsqueda.</div>';
             console.error(error);
         }
     }
 
-    // Cargar automáticamente al abrir la página
+    function ordenarProductos() {
+        const criterio = document.getElementById('sortOrder').value;
+        let listaOrdenada = [...productosGlobales];
+
+        if (criterio === 'low') {
+            listaOrdenada.sort((a, b) => parseFloat(a.calculatedPrice) - parseFloat(b.calculatedPrice));
+        } else if (criterio === 'high') {
+            listaOrdenada.sort((a, b) => parseFloat(b.calculatedPrice) - parseFloat(a.calculatedPrice));
+        }
+
+        renderizarProductos(listaOrdenada);
+    }
+
+    function renderizarProductos(items) {
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '';
+
+        items.forEach(item => {
+            const title = item.title;
+            const price = item.calculatedPrice;
+            const currency = item.currency || 'USD';
+            const image = item.image ? item.image.imageUrl : 'https://via.placeholder.com/200';
+            const itemUrl = item.itemWebUrl;
+
+            // Mensaje estructurado para WhatsApp
+            const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, me interesa este producto:\n\n📦 *${title}*\n💲 *Precio Final:* $${price} ${currency}\n🔗 *Enlace:* ${itemUrl}`);
+            const whatsappLink = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
+
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div>
+                    <div class="card-img-container">
+                        <img src="${image}" alt="${title}">
+                    </div>
+                    <h3>${title}</h3>
+                </div>
+                <div>
+                    <div class="price-box">
+                        <div class="price-main">$${price} <span style="font-size:12px; font-weight:normal; color:var(--text-muted);">${currency}</span></div>
+                        <div class="price-sub">Incluye recargo operativo del 7%</div>
+                    </div>
+                    <a href="${whatsappLink}" target="_blank" class="btn-whatsapp">
+                        Solicitar por WhatsApp
+                    </a>
+                </div>
+            `;
+            resultsDiv.appendChild(card);
+        });
+    }
+
+    // Inicializar al cargar
     window.onload = () => {
         calcularPeso();
         buscarProductos();
