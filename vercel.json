@@ -1,5 +1,1 @@
-{
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/iphones.js" }
-  ]
-}
+const res = await fetch(`https://importacionesvzla.vercel.app/api/search?q=${encodeURIComponent(query)}`);
