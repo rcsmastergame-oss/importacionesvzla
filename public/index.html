@@ -562,6 +562,11 @@
         }
         .btn-auth-submit:hover { opacity: 0.9; }
 
+        .auth-link {
+            display: block; text-align: center; font-size: 11px; color: var(--neon-blue);
+            margin-top: 12px; cursor: pointer; text-decoration: underline;
+        }
+
         .client-dashboard { text-align: left; }
         .client-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-glass); padding-bottom: 10px; }
         .client-header-flex h2 { font-size: 1.1rem; color: white; }
@@ -714,6 +719,20 @@
     const numeroWhatsApp = "584120000000"; // CAMBIA POR TU NÚMERO REAL
     let productosBusquedaActual = [];
     let todosLosProductosCargados = {}; 
+
+    // BANCO DE 100 CÓDIGOS PREGENERADOS ALEATORIOS
+    const bancoCodigos = [
+        "1048", "3829", "9281", "5402", "7193", "6520", "4819", "3021", "8934", "1256",
+        "4782", "9012", "3456", "7890", "2345", "6789", "1122", "3344", "5566", "7788",
+        "9900", "1357", "2468", "3579", "4680", "5791", "6802", "7913", "8024", "9135",
+        "1029", "3847", "5610", "7294", "8462", "1938", "2847", "3756", "4665", "5574",
+        "6483", "7392", "8201", "9110", "1593", "2604", "3715", "4826", "5937", "6048",
+        "7159", "8260", "9371", "1482", "2593", "3604", "4715", "5826", "6937", "7048",
+        "8159", "9260", "1379", "2480", "3591", "4602", "5713", "6824", "7935", "8046",
+        "9157", "1268", "2379", "3480", "4591", "5602", "6713", "7824", "8935", "9046",
+        "1827", "2938", "3049", "4150", "5261", "6372", "7483", "8594", "9605", "1716",
+        "2827", "3938", "5049", "6150", "7261", "8372", "9483", "1594", "2605", "3716"
+    ];
 
     const terminosAleatorios1 = ['MacBook Pro', 'PlayStation 5', 'Garmin Watch', 'GoPro Hero'];
     const terminosAleatorios2 = ['iPad Air', 'Nintendo Switch', 'Mechanical Keyboard', 'AirPods Pro'];
@@ -920,7 +939,7 @@
         document.getElementById('modalBody').innerHTML = `
             <div class="auth-container">
                 <h2>Portal de Clientes</h2>
-                <p>Inicia sesión con tu contraseña o regístrate para consultar el estatus de tus importaciones.</p>
+                <p>Inicia sesión o crea una cuenta segura verificada con código.</p>
                 <div class="form-group">
                     <label>Correo Electrónico</label>
                     <input type="email" id="authEmail" placeholder="tucorreo@email.com">
@@ -929,12 +948,13 @@
                     <label>Contraseña</label>
                     <input type="password" id="authPassword" placeholder="••••••••">
                 </div>
-                <button class="btn-auth-submit" onclick="procesarLogin()">Ingresar / Registrarse</button>
+                <button class="btn-auth-submit" onclick="procesarAccesoPrincipal()">Continuar</button>
+                <span class="auth-link" onclick="renderizarFormularioOlvido()">¿Olvidaste tu contraseña?</span>
             </div>
         `;
     }
 
-    function procesarLogin() {
+    function procesarAccesoPrincipal() {
         const email = document.getElementById('authEmail').value.trim().toLowerCase();
         const pass = document.getElementById('authPassword').value.trim();
 
@@ -943,9 +963,9 @@
             return;
         }
 
-        // BLOQUE DE SEGURIDAD EXCLUSIVO PARA ADMINISTRADOR
+        // ACCESO DE ADMIN EXCLUSIVO
         if (email === 'admin@smarthauss.com') {
-            if (pass === 'admin2026') { // <--- CAMBIA AQUÍ TU CLAVE DE ADMIN SI LO DESEAS
+            if (pass === 'admin2026') {
                 const adminUser = { email, nombre: 'Administrador', role: 'admin' };
                 localStorage.setItem('smart_hauss_current_user', JSON.stringify(adminUser));
                 actualizarBotonCuentaUI();
@@ -957,27 +977,135 @@
             }
         }
 
-        // VALIDACIÓN Y REGISTRO SEGURO PARA CLIENTES NORMALES
         let users = JSON.parse(localStorage.getItem('smart_hauss_users') || '[]');
         let user = users.find(u => u.email === email);
 
         if (user) {
-            // Si el cliente ya existe, validamos su contraseña estricta
             if (user.pass !== pass) {
-                alert('Contraseña incorrecta para este correo.');
+                alert('Contraseña incorrecta.');
                 return;
             }
+            localStorage.setItem('smart_hauss_current_user', JSON.stringify(user));
+            actualizarBotonCuentaUI();
+            abrirPortalCliente();
         } else {
-            // Si no existe, se crea con la clave que introdujo
-            user = { email, pass, nombre: email.split('@')[0], role: 'client' };
-            users.push(user);
-            localStorage.setItem('smart_hauss_users', JSON.stringify(users));
-            alert('¡Cuenta creada y registrada con éxito!');
+            // Selecciona un código al azar del banco de 100 códigos
+            const codigoAleatorio = bancoCodigos[Math.floor(Math.random() * bancoCodigos.length)];
+            window.tempRegistroPendiente = { email, pass, codigo: codigoAleatorio };
+
+            document.getElementById('modalBody').innerHTML = `
+                <div class="auth-container">
+                    <h2>Verificación de Cuenta</h2>
+                    <p>Para comprobar tu correo <strong>${email}</strong>, introduce el código generado aleatoriamente:</p>
+                    <div style="background: rgba(0, 210, 255, 0.1); border: 1px dashed var(--neon-blue); padding: 10px; border-radius: 8px; text-align: center; margin-bottom: 12px;">
+                        <span style="font-size: 10px; color: var(--text-muted); display: block;">CÓDIGO SELECCIONADO AL AZAR:</span>
+                        <strong style="font-size: 20px; color: var(--neon-blue); letter-spacing: 3px;">${codigoAleatorio}</strong>
+                    </div>
+                    <div class="form-group">
+                        <label>Ingresa el Código de 4 Dígitos</label>
+                        <input type="text" id="inputCodigoVerificacion" placeholder="Ej: ${codigoAleatorio}" maxlength="4">
+                    </div>
+                    <button class="btn-auth-submit" onclick="verificarCodigoRegistro()">Validar y Registrar</button>
+                    <span class="auth-link" onclick="renderizarFormularioLogin()">Cancelar</span>
+                </div>
+            `;
+        }
+    }
+
+    function verificarCodigoRegistro() {
+        const codigoIngresado = document.getElementById('inputCodigoVerificacion').value.trim();
+        const pendiente = window.tempRegistroPendiente;
+
+        if (codigoIngresado !== pendiente.codigo) {
+            alert('Código incorrecto. Inténtalo de nuevo.');
+            return;
         }
 
-        localStorage.setItem('smart_hauss_current_user', JSON.stringify(user));
+        let users = JSON.parse(localStorage.getItem('smart_hauss_users') || '[]');
+        const nuevoUsuario = { email: pendiente.email, pass: pendiente.pass, nombre: pendiente.email.split('@')[0], role: 'client' };
+        users.push(nuevoUsuario);
+        localStorage.setItem('smart_hauss_users', JSON.stringify(users));
+        localStorage.setItem('smart_hauss_current_user', JSON.stringify(nuevoUsuario));
+
+        alert('¡Cuenta verificada y creada con éxito!');
         actualizarBotonCuentaUI();
         abrirPortalCliente();
+    }
+
+    function renderizarFormularioOlvido() {
+        document.getElementById('modalBody').innerHTML = `
+            <div class="auth-container">
+                <h2>Recuperar Contraseña</h2>
+                <p>Introduce tu correo registrado para generar un código de restablecimiento.</p>
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="recuperarEmail" placeholder="tucorreo@email.com">
+                </div>
+                <button class="btn-auth-submit" onclick="enviarCodigoRecuperacion()">Generar Código de Recuperación</button>
+                <span class="auth-link" onclick="renderizarFormularioLogin()">Volver al inicio de sesión</span>
+            </div>
+        `;
+    }
+
+    function enviarCodigoRecuperacion() {
+        const email = document.getElementById('recuperarEmail').value.trim().toLowerCase();
+        let users = JSON.parse(localStorage.getItem('smart_hauss_users') || '[]');
+        let user = users.find(u => u.email === email);
+
+        if (!user) {
+            alert('Este correo no está registrado en el sistema.');
+            return;
+        }
+
+        // Selecciona otro código al azar del banco
+        const codigoRecuperacion = bancoCodigos[Math.floor(Math.random() * bancoCodigos.length)];
+        window.tempRecuperacion = { email, codigo: codigoRecuperacion };
+
+        document.getElementById('modalBody').innerHTML = `
+            <div class="auth-container">
+                <h2>Restablecer Clave</h2>
+                <p>Se ha asignado un código de seguridad aleatorio para tu correo <strong>${email}</strong>.</p>
+                <div style="background: rgba(157, 78, 221, 0.1); border: 1px dashed var(--neon-purple); padding: 10px; border-radius: 8px; text-align: center; margin-bottom: 12px;">
+                    <span style="font-size: 10px; color: var(--text-muted); display: block;">CÓDIGO DE RESTABLECIMIENTO:</span>
+                    <strong style="font-size: 20px; color: #d8b4fe; letter-spacing: 3px;">${codigoRecuperacion}</strong>
+                </div>
+                <div class="form-group">
+                    <label>Código de Verificación</label>
+                    <input type="text" id="inputCodigoRecup" placeholder="4 dígitos" maxlength="4">
+                </div>
+                <div class="form-group">
+                    <label>Nueva Contraseña</label>
+                    <input type="password" id="nuevaClavePass" placeholder="Nueva contraseña">
+                </div>
+                <button class="btn-auth-submit" onclick="ejecutarCambioPassword()">Actualizar Contraseña</button>
+                <span class="auth-link" onclick="renderizarFormularioLogin()">Cancelar</span>
+            </div>
+        `;
+    }
+
+    function ejecutarCambioPassword() {
+        const codigoIngresado = document.getElementById('inputCodigoRecup').value.trim();
+        const nuevaClave = document.getElementById('nuevaClavePass').value.trim();
+        const recupData = window.tempRecuperacion;
+
+        if (codigoIngresado !== recupData.codigo) {
+            alert('Código de recuperación inválido.');
+            return;
+        }
+        if (!nuevaClave) {
+            alert('Introduce una nueva contraseña válida.');
+            return;
+        }
+
+        let users = JSON.parse(localStorage.getItem('smart_hauss_users') || '[]');
+        let userIndex = users.findIndex(u => u.email === recupData.email);
+
+        if (userIndex !== -1) {
+            users[userIndex].pass = nuevaClave;
+            localStorage.setItem('smart_hauss_users', JSON.stringify(users));
+            alert('¡Contraseña actualizada con éxito! Ya puedes iniciar sesión.');
+            renderizarFormularioLogin();
+        }
     }
 
     function cerrarSesion() {
