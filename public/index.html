@@ -284,7 +284,6 @@
             border-color: transparent;
         }
 
-        /* Secciones y Carruseles */
         .section-block {
             margin-bottom: 25px;
         }
@@ -320,13 +319,8 @@
             scrollbar-color: var(--neon-purple) rgba(255,255,255,0.05);
         }
 
-        .carousel-container::-webkit-scrollbar {
-            height: 4px;
-        }
-        .carousel-container::-webkit-scrollbar-thumb {
-            background: var(--neon-purple);
-            border-radius: 8px;
-        }
+        .carousel-container::-webkit-scrollbar { height: 4px; }
+        .carousel-container::-webkit-scrollbar-thumb { background: var(--neon-purple); border-radius: 8px; }
 
         .grid {
             display: grid;
@@ -352,11 +346,7 @@
         }
 
         @media (min-width: 768px) {
-            .card {
-                min-width: 230px;
-                max-width: none;
-                padding: 16px;
-            }
+            .card { min-width: 230px; max-width: none; padding: 16px; }
         }
 
         .card:hover {
@@ -367,8 +357,7 @@
 
         .card-badge {
             position: absolute;
-            top: 8px;
-            right: 8px;
+            top: 8px; right: 8px;
             background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
             color: white;
             font-size: 8px;
@@ -390,15 +379,9 @@
             padding: 8px;
         }
 
-        @media (min-width: 768px) {
-            .card-img-container { height: 160px; }
-        }
+        @media (min-width: 768px) { .card-img-container { height: 160px; } }
 
-        .card img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
+        .card img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
         .card h3 {
             font-size: 12px;
@@ -413,9 +396,7 @@
             color: #f1f5f9;
         }
 
-        @media (min-width: 768px) {
-            .card h3 { font-size: 13px; height: 38px; }
-        }
+        @media (min-width: 768px) { .card h3 { font-size: 13px; height: 38px; } }
 
         .price-box {
             background: rgba(0, 0, 0, 0.3);
@@ -425,26 +406,10 @@
             margin-bottom: 10px;
         }
 
-        .price-main {
-            font-size: 16px;
-            font-weight: 800;
-            color: #ffffff;
-        }
-
-        @media (min-width: 768px) {
-            .price-main { font-size: 19px; }
-        }
-
-        .price-main span {
-            color: #f43f5e;
-            font-size: 11px;
-        }
-
-        .price-sub {
-            font-size: 10px;
-            color: var(--text-muted);
-            margin-top: 1px;
-        }
+        .price-main { font-size: 16px; font-weight: 800; color: #ffffff; }
+        @media (min-width: 768px) { .price-main { font-size: 19px; } }
+        .price-main span { color: #f43f5e; font-size: 11px; }
+        .price-sub { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
 
         .btn-details {
             display: block;
@@ -460,13 +425,8 @@
             transition: 0.2s;
         }
 
-        .btn-details:hover {
-            background: var(--neon-blue);
-            color: #030305;
-            border-color: var(--neon-blue);
-        }
+        .btn-details:hover { background: var(--neon-blue); color: #030305; border-color: var(--neon-blue); }
 
-        /* MODAL GENERAL Y DE CLIENTES */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -482,10 +442,7 @@
             transition: opacity 0.3s ease;
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
         .modal-content {
             background: #0b0b12;
@@ -502,30 +459,21 @@
             transition: transform 0.3s ease;
         }
 
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
+        .modal-overlay.active .modal-content { transform: scale(1); }
 
         .modal-close {
             position: absolute;
             top: 14px; right: 14px;
             background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
+            border: none; color: white;
             width: 32px; height: 32px;
             border-radius: 50%;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
-            z-index: 10;
+            font-size: 16px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.2s; z-index: 10;
         }
 
-        .modal-close:hover {
-            background: #f43f5e;
-        }
+        .modal-close:hover { background: #f43f5e; }
 
         .modal-grid {
             display: grid;
@@ -534,15 +482,9 @@
             margin-top: 10px;
         }
 
-        @media (min-width: 768px) {
-            .modal-grid { grid-template-columns: 1fr 1fr; gap: 25px; }
-        }
+        @media (min-width: 768px) { .modal-grid { grid-template-columns: 1fr 1fr; gap: 25px; } }
 
-        .gallery-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+        .gallery-container { display: flex; flex-direction: column; gap: 10px; }
 
         .main-img-display {
             background: #ffffff;
@@ -554,292 +496,111 @@
             height: 220px;
         }
 
-        @media (min-width: 768px) {
-            .main-img-display { height: 300px; }
-        }
+        @media (min-width: 768px) { .main-img-display { height: 300px; } }
+        .main-img-display img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
-        .main-img-display img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .thumbnails-row {
-            display: flex;
-            gap: 6px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
+        .thumbnails-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
 
         .thumb-box {
-            width: 50px;
-            height: 50px;
-            background: #ffffff;
-            border-radius: 6px;
-            padding: 4px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.6;
-            transition: 0.2s;
+            width: 50px; height: 50px;
+            background: #ffffff; border-radius: 6px;
+            padding: 4px; cursor: pointer;
+            border: 2px solid transparent; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0.6; transition: 0.2s;
         }
 
-        .thumb-box.active, .thumb-box:hover {
-            border-color: var(--neon-blue);
-            opacity: 1;
-        }
+        .thumb-box.active, .thumb-box:hover { border-color: var(--neon-blue); opacity: 1; }
+        .thumb-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
-        .thumb-box img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .modal-info h2 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: #ffffff;
-            line-height: 1.3;
-        }
+        .modal-info h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: #ffffff; line-height: 1.3; }
 
         .seller-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 12px;
+            border-radius: 10px; padding: 10px; margin-bottom: 12px;
         }
 
-        .seller-card h4 {
-            font-size: 11px;
-            text-transform: uppercase;
-            color: var(--neon-blue);
-            margin-bottom: 4px;
-            font-weight: 700;
-        }
-
-        .seller-details {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .seller-details strong {
-            color: white;
-        }
+        .seller-card h4 { font-size: 11px; text-transform: uppercase; color: var(--neon-blue); margin-bottom: 4px; font-weight: 700; }
+        .seller-details { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
+        .seller-details strong { color: white; }
 
         .product-description-box {
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 14px;
-            max-height: 110px;
-            overflow-y: auto;
+            border-radius: 10px; padding: 10px; margin-bottom: 14px;
+            max-height: 110px; overflow-y: auto;
         }
 
-        .product-description-box h4 {
-            font-size: 11px;
-            text-transform: uppercase;
-            color: #e2e8f0;
-            margin-bottom: 4px;
-            font-weight: 700;
-        }
-
-        .product-description-box p {
-            font-size: 11px;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
+        .product-description-box h4 { font-size: 11px; text-transform: uppercase; color: #e2e8f0; margin-bottom: 4px; font-weight: 700; }
+        .product-description-box p { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
 
         .btn-whatsapp-modal {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
             background: linear-gradient(135deg, #00df6f, #00b050);
-            color: white;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 12px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(0, 223, 111, 0.3);
+            color: white; text-decoration: none; padding: 12px;
+            border-radius: 10px; font-weight: 800; font-size: 12px;
+            text-transform: uppercase; box-shadow: 0 4px 15px rgba(0, 223, 111, 0.3);
             transition: 0.2s;
         }
 
-        .btn-whatsapp-modal:hover {
-            transform: scale(1.02);
-            background: linear-gradient(135deg, #00f576, #00c853);
-        }
+        .btn-whatsapp-modal:hover { transform: scale(1.02); background: linear-gradient(135deg, #00f576, #00c853); }
 
-        /* Panel de Portal de Cliente */
-        .auth-container {
-            max-width: 420px;
-            margin: 0 auto;
-            text-align: left;
-        }
+        .auth-container { max-width: 420px; margin: 0 auto; text-align: left; }
+        .auth-container h2 { font-size: 1.2rem; margin-bottom: 6px; color: white; }
+        .auth-container p { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
 
-        .auth-container h2 {
-            font-size: 1.2rem;
-            margin-bottom: 6px;
-            color: white;
-        }
-
-        .auth-container p {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
-
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
 
         .btn-auth-submit {
-            width: 100%;
-            padding: 12px;
+            width: 100%; padding: 12px;
             background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 12px;
-            text-transform: uppercase;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.2s;
+            color: white; border: none; border-radius: 10px;
+            font-weight: 800; font-size: 12px; text-transform: uppercase;
+            cursor: pointer; margin-top: 10px; transition: 0.2s;
         }
+        .btn-auth-submit:hover { opacity: 0.9; }
 
-        .btn-auth-submit:hover {
-            opacity: 0.9;
-        }
-
-        .auth-switch {
-            text-align: center;
-            margin-top: 12px;
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .auth-switch span {
-            color: var(--neon-blue);
-            cursor: pointer;
-            font-weight: 700;
-        }
-
-        /* Dashboard de Pedidos del Cliente */
-        .client-dashboard {
-            text-align: left;
-        }
-
-        .client-header-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            border-bottom: 1px solid var(--border-glass);
-            padding-bottom: 10px;
-        }
-
-        .client-header-flex h2 {
-            font-size: 1.1rem;
-            color: white;
-        }
+        .client-dashboard { text-align: left; }
+        .client-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-glass); padding-bottom: 10px; }
+        .client-header-flex h2 { font-size: 1.1rem; color: white; }
 
         .btn-logout {
             background: rgba(244, 63, 94, 0.15);
             border: 1px solid rgba(244, 63, 94, 0.4);
-            color: #f43f5e;
-            padding: 5px 10px;
-            border-radius: 8px;
-            font-size: 10px;
-            font-weight: 700;
-            cursor: pointer;
+            color: #f43f5e; padding: 5px 10px; border-radius: 8px;
+            font-size: 10px; font-weight: 700; cursor: pointer;
         }
 
         .order-card-item {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 10px;
+            border-radius: 12px; padding: 12px; margin-bottom: 10px;
         }
 
-        .order-top-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #fff;
-        }
-
-        .order-status-badge {
-            font-size: 9px;
-            padding: 3px 8px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            font-weight: 800;
-        }
+        .order-top-row { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; margin-bottom: 6px; color: #fff; }
+        .order-status-badge { font-size: 9px; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; font-weight: 800; }
 
         .status-recibido { background: rgba(0, 210, 255, 0.15); color: var(--neon-blue); border: 1px solid rgba(0, 210, 255, 0.3); }
         .status-transito { background: rgba(157, 78, 221, 0.15); color: #d8b4fe; border: 1px solid rgba(157, 78, 221, 0.3); }
         .status-venezuela { background: rgba(255, 159, 28, 0.15); color: #ff9f1c; border: 1px solid rgba(255, 159, 28, 0.3); }
         .status-entregado { background: rgba(0, 245, 118, 0.15); color: var(--whatsapp-green); border: 1px solid rgba(0, 245, 118, 0.3); }
 
-        .order-details-text {
-            font-size: 11px;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
+        .order-details-text { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
 
-        /* Panel de Administrador (Para ti) */
         .admin-secret-panel {
             background: rgba(255, 159, 28, 0.05);
             border: 1px dashed rgba(255, 159, 28, 0.3);
-            border-radius: 12px;
-            padding: 12px;
-            margin-top: 15px;
+            border-radius: 12px; padding: 12px; margin-top: 15px;
         }
+        .admin-secret-panel h4 { color: #ff9f1c; font-size: 11px; text-transform: uppercase; margin-bottom: 8px; }
 
-        .admin-secret-panel h4 {
-            color: #ff9f1c;
-            font-size: 11px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .loading, .message-state {
-            text-align: center;
-            padding: 30px 15px;
-            color: var(--text-muted);
-            font-size: 13px;
-        }
+        .loading, .message-state { text-align: center; padding: 30px 15px; color: var(--text-muted); font-size: 13px; }
 
         footer {
-            background: #020204;
-            border-top: 1px solid var(--border-glass);
-            padding: 30px 15px;
-            margin-top: 30px;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.75rem;
+            background: #020204; border-top: 1px solid var(--border-glass);
+            padding: 30px 15px; margin-top: 30px; text-align: center; color: var(--text-muted); font-size: 0.75rem;
         }
     </style>
 </head>
@@ -871,8 +632,6 @@
 </header>
 
 <div class="main-container">
-
-    <!-- Panel de Búsqueda y Filtros -->
     <div class="search-panel">
         <div class="search-bar-wrapper">
             <input type="text" id="keyword" placeholder="Busca en eBay (Ej: MacBook, RTX, Garmin...)" onkeypress="handleKeyPress(event)">
@@ -896,7 +655,6 @@
                     <option value="USED">Usado</option>
                 </select>
             </div>
-
             <div class="filter-group">
                 <label>Compra</label>
                 <select id="filterBuyingFormat" class="filter-select" onchange="realizarBusquedaManual()">
@@ -905,7 +663,6 @@
                     <option value="AUCTION">Subasta</option>
                 </select>
             </div>
-
             <div class="filter-group">
                 <label>Ordenar</label>
                 <select id="sortOrder" class="filter-select" onchange="ordenarResultadosActuales()">
@@ -917,36 +674,30 @@
         </div>
     </div>
 
-    <!-- CONTENEDOR DE RESULTADOS DE BÚSQUEDA MANUAL -->
     <div id="searchContainer" class="section-block" style="display: none;">
         <div class="section-title">Resultados de Búsqueda <span>Live eBay</span></div>
         <div id="loadingSearch" class="loading" style="display: none;">Buscando en servidores globales...</div>
         <div id="searchResultsGrid" class="grid"></div>
     </div>
 
-    <!-- SECCIÓN 1: CARRUSEL DE TENDENCIAS / DESTACADOS -->
     <div class="section-block">
         <div class="section-title">🔥 Tendencias Globales <span>Top Ventas</span></div>
         <div id="loadingTrending" class="loading">Cargando tendencias aleatorias...</div>
         <div id="carouselTrending" class="carousel-container" style="display: none;"></div>
     </div>
 
-    <!-- SECCIÓN 2: UNA GESTIÓN PARA TI (RECOMENDADOS) -->
     <div class="section-block">
         <div class="section-title">⭐ Una gestión para ti <span>Curaduría Smart</span></div>
         <div id="loadingCurated" class="loading">Preparando recomendaciones...</div>
         <div id="carouselCurated" class="carousel-container" style="display: none;"></div>
     </div>
 
-    <!-- SECCIÓN 3: ÚLTIMOS VISTOS -->
     <div class="section-block" id="recentBlock" style="display: none;">
         <div class="section-title">🕒 Últimos Vistos <span>Tu Historial</span></div>
         <div id="carouselRecent" class="carousel-container"></div>
     </div>
-
 </div>
 
-<!-- MODAL DE DETALLES Y CUENTAS -->
 <div id="productModal" class="modal-overlay" onclick="cerrarModalFuera(event)">
     <div class="modal-content">
         <button class="modal-close" onclick="cerrarModal()">✕</button>
@@ -973,11 +724,7 @@
         actualizarBotonCuentaUI();
     };
 
-    function handleKeyPress(e) {
-        if (e.key === 'Enter') {
-            realizarBusquedaManual();
-        }
-    }
+    function handleKeyPress(e) { if (e.key === 'Enter') realizarBusquedaManual(); }
 
     function filtrarCategoria(termino, elementoTag) {
         document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
@@ -994,23 +741,15 @@
             const res1 = await fetch(`/api/search?q=${encodeURIComponent(query1)}`);
             const data1 = await res1.json();
             document.getElementById('loadingTrending').style.display = 'none';
-            if (data1.success && data1.items) {
-                renderizarCarrusel('carouselTrending', data1.items);
-            }
-        } catch (e) {
-            document.getElementById('loadingTrending').innerText = 'No se pudieron cargar las tendencias.';
-        }
+            if (data1.success && data1.items) renderizarCarrusel('carouselTrending', data1.items);
+        } catch (e) { document.getElementById('loadingTrending').innerText = 'No se pudieron cargar las tendencias.'; }
 
         try {
             const res2 = await fetch(`/api/search?q=${encodeURIComponent(query2)}`);
             const data2 = await res2.json();
             document.getElementById('loadingCurated').style.display = 'none';
-            if (data2.success && data2.items) {
-                renderizarCarrusel('carouselCurated', data2.items);
-            }
-        } catch (e) {
-            document.getElementById('loadingCurated').innerText = 'No se pudieron cargar las recomendaciones.';
-        }
+            if (data2.success && data2.items) renderizarCarrusel('carouselCurated', data2.items);
+        } catch (e) { document.getElementById('loadingCurated').innerText = 'No se pudieron cargar las recomendaciones.'; }
     }
 
     async function realizarBusquedaManual() {
@@ -1019,10 +758,7 @@
         const loadingSearch = document.getElementById('loadingSearch');
         const searchResultsGrid = document.getElementById('searchResultsGrid');
 
-        if (!query) {
-            searchContainer.style.display = 'none';
-            return;
-        }
+        if (!query) { searchContainer.style.display = 'none'; return; }
 
         searchContainer.style.display = 'block';
         searchResultsGrid.innerHTML = '';
@@ -1039,7 +775,6 @@
             const res = await fetch(url);
             const data = await res.json();
             loadingSearch.style.display = 'none';
-
             if (data.success && data.items && data.items.length > 0) {
                 productosBusquedaActual = data.items;
                 renderizarGrilla(searchResultsGrid, productosBusquedaActual);
@@ -1056,21 +791,12 @@
         const container = document.getElementById(elementId);
         container.style.display = 'flex';
         container.innerHTML = '';
-
-        items.forEach((item) => {
-            const cardHtml = crearTarjetaHTML(item);
-            container.appendChild(cardHtml);
-            guardarEnDiccionario(item);
-        });
+        items.forEach((item) => { container.appendChild(crearTarjetaHTML(item)); guardarEnDiccionario(item); });
     }
 
     function renderizarGrilla(containerElement, items) {
         containerElement.innerHTML = '';
-        items.forEach((item) => {
-            const cardHtml = crearTarjetaHTML(item);
-            containerElement.appendChild(cardHtml);
-            guardarEnDiccionario(item);
-        });
+        items.forEach((item) => { containerElement.appendChild(crearTarjetaHTML(item)); guardarEnDiccionario(item); });
     }
 
     function crearTarjetaHTML(item) {
@@ -1087,9 +813,7 @@
         card.innerHTML = `
             <div class="card-badge">Smart Pro</div>
             <div>
-                <div class="card-img-container">
-                    <img src="${image}" alt="${title}">
-                </div>
+                <div class="card-img-container"><img src="${image}" alt="${title}"></div>
                 <h3>${title}</h3>
             </div>
             <div>
@@ -1103,13 +827,10 @@
         return card;
     }
 
-    function guardarEnDiccionario(item) {
-        todosLosProductosCargados[item.tempId || item.itemId] = item;
-    }
+    function guardarEnDiccionario(item) { todosLosProductosCargados[item.tempId || item.itemId] = item; }
 
     function abrirModalProducto(item) {
         registrarUltimoVisto(item);
-
         const title = item.title;
         const price = item.calculatedPrice;
         const currency = item.currency || 'USD';
@@ -1118,30 +839,25 @@
         let imagenes = [];
         if (item.image && item.image.imageUrl) imagenes.push(item.image.imageUrl);
         if (item.additionalImages && Array.isArray(item.additionalImages)) {
-            item.additionalImages.forEach(img => {
-                if (img.imageUrl && !imagenes.includes(img.imageUrl)) imagenes.push(img.imageUrl);
-            });
+            item.additionalImages.forEach(img => { if (img.imageUrl && !imagenes.includes(img.imageUrl)) imagenes.push(img.imageUrl); });
         }
         if (imagenes.length === 0) imagenes.push('https://via.placeholder.com/300');
 
         const sellerName = item.seller ? item.seller.username : 'Vendedor Verificado eBay';
         const sellerScore = item.seller && item.seller.feedbackPercentage ? `${item.seller.feedbackPercentage}% Positivo` : 'Alta Reputación';
         const sellerFeedbackCount = item.seller && item.seller.feedbackScore ? `(${item.seller.feedbackScore} votos)` : '';
-        const shortDesc = item.shortDescription || item.description || 'Artículo verificado en la red global de eBay con garantía de origen y especificaciones originales.';
+        const shortDesc = item.shortDescription || item.description || 'Artículo verificado en la red global de eBay.';
 
         const currentUser = obtenerUsuarioLogueado();
-        const userEmailTxt = currentUser ? currentUser.email : 'Sin registrar (Recomendado iniciar sesión para asociar pedido)';
+        const userEmailTxt = currentUser ? currentUser.email : 'Sin registrar';
 
         const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, deseo encargar este producto:\n\n📦 *${title}*\n💲 *Precio Base + 7%:* $${price} ${currency}\n👤 *Cuenta de Cliente:* ${userEmailTxt}\n🔗 *Enlace:* ${itemUrl}`);
         const whatsappLink = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
 
-        const modalBody = document.getElementById('modalBody');
-        modalBody.innerHTML = `
+        document.getElementById('modalBody').innerHTML = `
             <div class="modal-grid">
                 <div class="gallery-container">
-                    <div class="main-img-display">
-                        <img id="mainModalImg" src="${imagenes[0]}" alt="${title}">
-                    </div>
+                    <div class="main-img-display"><img id="mainModalImg" src="${imagenes[0]}" alt="${title}"></div>
                     <div class="thumbnails-row">
                         ${imagenes.map((img, i) => `
                             <div class="thumb-box ${i === 0 ? 'active' : ''}" onclick="cambiarImagenPrincipal('${img}', this)">
@@ -1165,7 +881,7 @@
                     </div>
                     <div class="price-box" style="margin-bottom: 12px;">
                         <div class="price-main">$${price} <span>${currency}</span></div>
-                        <div class="price-sub">Incluye recargo del 7% (Flete e impuestos no incluidos)</div>
+                        <div class="price-sub">Incluye recargo del 7% (Flete/impuestos no incluidos)</div>
                     </div>
                     <a href="${whatsappLink}" target="_blank" class="btn-whatsapp-modal">
                         💬 Gestionar Importación por WhatsApp
@@ -1173,7 +889,6 @@
                 </div>
             </div>
         `;
-
         document.getElementById('productModal').classList.add('active');
         document.body.style.overflow = 'hidden';
     }
@@ -1184,7 +899,6 @@
         elementoThumb.classList.add('active');
     }
 
-    // --- SISTEMA DE CUENTAS Y ESTATUS DE PEDIDOS ---
     function obtenerUsuarioLogueado() {
         const u = localStorage.getItem('smart_hauss_current_user');
         return u ? JSON.parse(u) : null;
@@ -1192,31 +906,21 @@
 
     function actualizarBotonCuentaUI() {
         const user = obtenerUsuarioLogueado();
-        const btnText = document.getElementById('btnAccountText');
-        if (user) {
-            btnText.innerText = user.nombre.split(' ')[0];
-        } else {
-            btnText.innerText = 'Mi Cuenta';
-        }
+        document.getElementById('btnAccountText').innerText = user ? user.nombre.split(' ')[0] : 'Mi Cuenta';
     }
 
     function abrirPortalCliente() {
         const user = obtenerUsuarioLogueado();
-        if (user) {
-            renderizarDashboardCliente(user);
-        } else {
-            renderizarFormularioLogin();
-        }
+        if (user) { renderizarDashboardCliente(user); } else { renderizarFormularioLogin(); }
         document.getElementById('productModal').classList.add('active');
         document.body.style.overflow = 'hidden';
     }
 
     function renderizarFormularioLogin() {
-        const modalBody = document.getElementById('modalBody');
-        modalBody.innerHTML = `
+        document.getElementById('modalBody').innerHTML = `
             <div class="auth-container">
                 <h2>Portal de Clientes</h2>
-                <p>Inicia sesión o regístrate para consultar el estatus en tiempo real de tus importaciones.</p>
+                <p>Inicia sesión con tu contraseña o regístrate para consultar el estatus de tus importaciones.</p>
                 <div class="form-group">
                     <label>Correo Electrónico</label>
                     <input type="email" id="authEmail" placeholder="tucorreo@email.com">
@@ -1226,15 +930,12 @@
                     <input type="password" id="authPassword" placeholder="••••••••">
                 </div>
                 <button class="btn-auth-submit" onclick="procesarLogin()">Ingresar / Registrarse</button>
-                <div class="auth-switch">
-                    ¿Eres administrador? <span onclick="mostrarPanelAdminLogin()">Acceso Admin</span>
-                </div>
             </div>
         `;
     }
 
     function procesarLogin() {
-        const email = document.getElementById('authEmail').value.trim();
+        const email = document.getElementById('authEmail').value.trim().toLowerCase();
         const pass = document.getElementById('authPassword').value.trim();
 
         if (!email || !pass) {
@@ -1242,19 +943,32 @@
             return;
         }
 
-        // Modo Admin rápido integrado
-        if (email === 'admin@smarthauss.com' && pass === 'admin2026') {
-            localStorage.setItem('smart_hauss_current_user', JSON.stringify({ email, nombre: 'Administrador', role: 'admin' }));
-            actualizarBotonCuentaUI();
-            abrirPortalCliente();
-            return;
+        // BLOQUE DE SEGURIDAD EXCLUSIVO PARA ADMINISTRADOR
+        if (email === 'admin@smarthauss.com') {
+            if (pass === 'admin2026') { // <--- CAMBIA AQUÍ TU CLAVE DE ADMIN SI LO DESEAS
+                const adminUser = { email, nombre: 'Administrador', role: 'admin' };
+                localStorage.setItem('smart_hauss_current_user', JSON.stringify(adminUser));
+                actualizarBotonCuentaUI();
+                abrirPortalCliente();
+                return;
+            } else {
+                alert('Contraseña de administrador incorrecta.');
+                return;
+            }
         }
 
+        // VALIDACIÓN Y REGISTRO SEGURO PARA CLIENTES NORMALES
         let users = JSON.parse(localStorage.getItem('smart_hauss_users') || '[]');
         let user = users.find(u => u.email === email);
 
-        if (!user) {
-            // Registro automático sencillo si no existe
+        if (user) {
+            // Si el cliente ya existe, validamos su contraseña estricta
+            if (user.pass !== pass) {
+                alert('Contraseña incorrecta para este correo.');
+                return;
+            }
+        } else {
+            // Si no existe, se crea con la clave que introdujo
             user = { email, pass, nombre: email.split('@')[0], role: 'client' };
             users.push(user);
             localStorage.setItem('smart_hauss_users', JSON.stringify(users));
@@ -1264,11 +978,6 @@
         localStorage.setItem('smart_hauss_current_user', JSON.stringify(user));
         actualizarBotonCuentaUI();
         abrirPortalCliente();
-    }
-
-    function mostrarPanelAdminLogin() {
-        document.getElementById('authEmail').value = 'admin@smarthauss.com';
-        document.getElementById('authPassword').placeholder = 'Contraseña admin...';
     }
 
     function cerrarSesion() {
@@ -1281,14 +990,13 @@
         const modalBody = document.getElementById('modalBody');
 
         if (user.role === 'admin') {
-            // Panel de Control para ti (Administrador)
             modalBody.innerHTML = `
                 <div class="client-dashboard">
                     <div class="client-header-flex">
                         <h2>Panel de Control (Admin)</h2>
                         <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
                     </div>
-                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">Gestiona y actualiza el estatus de los pedidos de tus clientes registrados.</p>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">Gestiona el estatus de los pedidos de tus clientes registrados.</p>
                     
                     <div class="form-group">
                         <label>Correo del Cliente</label>
@@ -1319,7 +1027,6 @@
             return;
         }
 
-        // Vista del Cliente Final
         let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
         let myOrders = allOrders.filter(o => o.email === user.email);
 
@@ -1329,7 +1036,7 @@
                     <h2>Mis Pedidos e Importaciones</h2>
                     <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
                 </div>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">Bienvenido, <strong>${user.nombre}</strong> (${user.email}). Aquí puedes verificar el estado de tus encargos en tiempo real.</p>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">Bienvenido, <strong>${user.nombre}</strong> (${user.email}).</p>
                 
                 <div id="myOrdersContainer">
                     ${myOrders.length === 0 ? '<div class="message-state">No tienes pedidos activos registrados aún. Cuando realices un encargo por WhatsApp, el administrador asociará tu estatus aquí.</div>' : 
@@ -1339,9 +1046,7 @@
                                     <span>📦 ${o.producto}</span>
                                     <span class="order-status-badge status-${o.estatus}">${formatearEstatusTexto(o.estatus)}</span>
                                 </div>
-                                <div class="order-details-text">
-                                    Actualizado: ${o.fecha}
-                                </div>
+                                <div class="order-details-text">Actualizado: ${o.fecha}</div>
                             </div>
                         `).join('')}
                 </div>
@@ -1358,7 +1063,7 @@
     }
 
     function adminCrearOActualizarPedido() {
-        const email = document.getElementById('admClientEmail').value.trim();
+        const email = document.getElementById('admClientEmail').value.trim().toLowerCase();
         const producto = document.getElementById('admProductDesc').value.trim();
         const estatus = document.getElementById('admStatusSelect').value;
 
@@ -1412,11 +1117,7 @@
         document.body.style.overflow = 'auto';
     }
 
-    function cerrarModalFuera(e) {
-        if (e.target.id === 'productModal') {
-            cerrarModal();
-        }
-    }
+    function cerrarModalFuera(e) { if (e.target.id === 'productModal') cerrarModal(); }
 
     function registrarUltimoVisto(item) {
         let recents = JSON.parse(localStorage.getItem('smart_hauss_recent') || '[]');
@@ -1431,30 +1132,18 @@
         const recents = JSON.parse(localStorage.getItem('smart_hauss_recent') || '[]');
         const recentBlock = document.getElementById('recentBlock');
         const container = document.getElementById('carouselRecent');
-
-        if (recents.length === 0) {
-            recentBlock.style.display = 'none';
-            return;
-        }
-
+        if (recents.length === 0) { recentBlock.style.display = 'none'; return; }
         recentBlock.style.display = 'block';
         container.innerHTML = '';
-        recents.forEach(item => {
-            const cardHtml = crearTarjetaHTML(item);
-            container.appendChild(cardHtml);
-        });
+        recents.forEach(item => container.appendChild(crearTarjetaHTML(item)));
     }
 
     function ordenarResultadosActuales() {
         const criterio = document.getElementById('sortOrder').value;
         if (productosBusquedaActual.length === 0) return;
-
         let ordenada = [...productosBusquedaActual];
-        if (criterio === 'low') {
-            ordenada.sort((a, b) => parseFloat(a.calculatedPrice) - parseFloat(b.calculatedPrice));
-        } else if (criterio === 'high') {
-            ordenada.sort((a, b) => parseFloat(b.calculatedPrice) - parseFloat(a.calculatedPrice));
-        }
+        if (criterio === 'low') ordenada.sort((a, b) => parseFloat(a.calculatedPrice) - parseFloat(b.calculatedPrice));
+        else if (criterio === 'high') ordenada.sort((a, b) => parseFloat(b.calculatedPrice) - parseFloat(a.calculatedPrice));
         renderizarGrilla(document.getElementById('searchResultsGrid'), ordenada);
     }
 </script>
