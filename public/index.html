@@ -720,20 +720,6 @@
     let productosBusquedaActual = [];
     let todosLosProductosCargados = {}; 
 
-    // BANCO DE 100 CÓDIGOS PREGENERADOS ALEATORIOS
-    const bancoCodigos = [
-        "1048", "3829", "9281", "5402", "7193", "6520", "4819", "3021", "8934", "1256",
-        "4782", "9012", "3456", "7890", "2345", "6789", "1122", "3344", "5566", "7788",
-        "9900", "1357", "2468", "3579", "4680", "5791", "6802", "7913", "8024", "9135",
-        "1029", "3847", "5610", "7294", "8462", "1938", "2847", "3756", "4665", "5574",
-        "6483", "7392", "8201", "9110", "1593", "2604", "3715", "4826", "5937", "6048",
-        "7159", "8260", "9371", "1482", "2593", "3604", "4715", "5826", "6937", "7048",
-        "8159", "9260", "1379", "2480", "3591", "4602", "5713", "6824", "7935", "8046",
-        "9157", "1268", "2379", "3480", "4591", "5602", "6713", "7824", "8935", "9046",
-        "1827", "2938", "3049", "4150", "5261", "6372", "7483", "8594", "9605", "1716",
-        "2827", "3938", "5049", "6150", "7261", "8372", "9483", "1594", "2605", "3716"
-    ];
-
     const terminosAleatorios1 = ['MacBook Pro', 'PlayStation 5', 'Garmin Watch', 'GoPro Hero'];
     const terminosAleatorios2 = ['iPad Air', 'Nintendo Switch', 'Mechanical Keyboard', 'AirPods Pro'];
 
@@ -939,7 +925,7 @@
         document.getElementById('modalBody').innerHTML = `
             <div class="auth-container">
                 <h2>Portal de Clientes</h2>
-                <p>Inicia sesión o crea una cuenta segura verificada con código.</p>
+                <p>Inicia sesión o crea una cuenta segura verificada por correo.</p>
                 <div class="form-group">
                     <label>Correo Electrónico</label>
                     <input type="email" id="authEmail" placeholder="tucorreo@email.com">
@@ -954,7 +940,7 @@
         `;
     }
 
-    function procesarAccesoPrincipal() {
+    async function procesarAccesoPrincipal() {
         const email = document.getElementById('authEmail').value.trim().toLowerCase();
         const pass = document.getElementById('authPassword').value.trim();
 
@@ -989,21 +975,44 @@
             actualizarBotonCuentaUI();
             abrirPortalCliente();
         } else {
-            // Selecciona un código al azar del banco de 100 códigos
-            const codigoAleatorio = bancoCodigos[Math.floor(Math.random() * bancoCodigos.length)];
+            // Generar código aleatorio de 4 dígitos
+            const codigoAleatorio = Math.floor(1000 + Math.random() * 9000).toString();
             window.tempRegistroPendiente = { email, pass, codigo: codigoAleatorio };
+
+            // Mostrar estado de carga mientras se envía el correo
+            document.getElementById('modalBody').innerHTML = `
+                <div class="auth-container" style="text-align: center; padding: 20px;">
+                    <h2>Enviando Código...</h2>
+                    <p>Estamos enviando el código de verificación a <strong>${email}</strong> a través de Nodemailer.</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, codigo: codigoAleatorio, tipo: 'registro' })
+                });
+                const resData = await response.json();
+
+                if (!resData.success) {
+                    alert('Error al enviar el correo: ' + (resData.error || 'Desconocido'));
+                    renderizarFormularioLogin();
+                    return;
+                }
+            } catch (err) {
+                alert('Error de red al intentar enviar el correo.');
+                renderizarFormularioLogin();
+                return;
+            }
 
             document.getElementById('modalBody').innerHTML = `
                 <div class="auth-container">
                     <h2>Verificación de Cuenta</h2>
-                    <p>Para comprobar tu correo <strong>${email}</strong>, introduce el código generado aleatoriamente:</p>
-                    <div style="background: rgba(0, 210, 255, 0.1); border: 1px dashed var(--neon-blue); padding: 10px; border-radius: 8px; text-align: center; margin-bottom: 12px;">
-                        <span style="font-size: 10px; color: var(--text-muted); display: block;">CÓDIGO SELECCIONADO AL AZAR:</span>
-                        <strong style="font-size: 20px; color: var(--neon-blue); letter-spacing: 3px;">${codigoAleatorio}</strong>
-                    </div>
+                    <p>Hemos enviado un código de 4 dígitos a tu correo <strong>${email}</strong>.</p>
                     <div class="form-group">
-                        <label>Ingresa el Código de 4 Dígitos</label>
-                        <input type="text" id="inputCodigoVerificacion" placeholder="Ej: ${codigoAleatorio}" maxlength="4">
+                        <label>Ingresa el Código Recibido</label>
+                        <input type="text" id="inputCodigoVerificacion" placeholder="Ej: 1234" maxlength="4">
                     </div>
                     <button class="btn-auth-submit" onclick="verificarCodigoRegistro()">Validar y Registrar</button>
                     <span class="auth-link" onclick="renderizarFormularioLogin()">Cancelar</span>
@@ -1036,18 +1045,18 @@
         document.getElementById('modalBody').innerHTML = `
             <div class="auth-container">
                 <h2>Recuperar Contraseña</h2>
-                <p>Introduce tu correo registrado para generar un código de restablecimiento.</p>
+                <p>Introduce tu correo registrado para enviarte un código de restablecimiento.</p>
                 <div class="form-group">
                     <label>Correo Electrónico</label>
                     <input type="email" id="recuperarEmail" placeholder="tucorreo@email.com">
                 </div>
-                <button class="btn-auth-submit" onclick="enviarCodigoRecuperacion()">Generar Código de Recuperación</button>
+                <button class="btn-auth-submit" onclick="enviarCodigoRecuperacion()">Enviar Código por Correo</button>
                 <span class="auth-link" onclick="renderizarFormularioLogin()">Volver al inicio de sesión</span>
             </div>
         `;
     }
 
-    function enviarCodigoRecuperacion() {
+    async function enviarCodigoRecuperacion() {
         const email = document.getElementById('recuperarEmail').value.trim().toLowerCase();
         let users = JSON.parse(localStorage.getItem('smart_hauss_users') || '[]');
         let user = users.find(u => u.email === email);
@@ -1057,18 +1066,39 @@
             return;
         }
 
-        // Selecciona otro código al azar del banco
-        const codigoRecuperacion = bancoCodigos[Math.floor(Math.random() * bancoCodigos.length)];
+        const codigoRecuperacion = Math.floor(1000 + Math.random() * 9000).toString();
         window.tempRecuperacion = { email, codigo: codigoRecuperacion };
+
+        document.getElementById('modalBody').innerHTML = `
+            <div class="auth-container" style="text-align: center; padding: 20px;">
+                <h2>Enviando Código...</h2>
+                <p>Generando y enviando clave de restablecimiento a <strong>${email}</strong>...</p>
+            </div>
+        `;
+
+        try {
+            const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, codigo: codigoRecuperacion, tipo: 'recuperacion' })
+            });
+            const resData = await response.json();
+
+            if (!resData.success) {
+                alert('No se pudo enviar el correo de recuperación.');
+                renderizarFormularioOlvido();
+                return;
+            }
+        } catch (e) {
+            alert('Error de conexión.');
+            renderizarFormularioOlvido();
+            return;
+        }
 
         document.getElementById('modalBody').innerHTML = `
             <div class="auth-container">
                 <h2>Restablecer Clave</h2>
-                <p>Se ha asignado un código de seguridad aleatorio para tu correo <strong>${email}</strong>.</p>
-                <div style="background: rgba(157, 78, 221, 0.1); border: 1px dashed var(--neon-purple); padding: 10px; border-radius: 8px; text-align: center; margin-bottom: 12px;">
-                    <span style="font-size: 10px; color: var(--text-muted); display: block;">CÓDIGO DE RESTABLECIMIENTO:</span>
-                    <strong style="font-size: 20px; color: #d8b4fe; letter-spacing: 3px;">${codigoRecuperacion}</strong>
-                </div>
+                <p>Hemos enviado un código de seguridad a tu correo <strong>${email}</strong>.</p>
                 <div class="form-group">
                     <label>Código de Verificación</label>
                     <input type="text" id="inputCodigoRecup" placeholder="4 dígitos" maxlength="4">
