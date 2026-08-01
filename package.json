@@ -1,9 +1,9 @@
 {
-  "name": "ebay-vercel-app",
+  "name": "importacionesvzla",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "ebay-api": "^9.5.2"
+    "ebay-api": "^9.5.2",
+    "nodemailer": "^6.9.13"
   }
 }
-npm install nodemailer
