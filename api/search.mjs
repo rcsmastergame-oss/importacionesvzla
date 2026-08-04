@@ -9,6 +9,9 @@ export default async function handler(req, res) {
 
   const urlParams = new URL(req.url, `https://${req.headers.host}`).searchParams;
   const keyword = urlParams.get('q') || 'iphone';
+  const condition = urlParams.get('condition');
+  const storage = urlParams.get('storage'); // Filtro de almacenamiento para celulares/tech
+  const model = urlParams.get('model');     // Filtro de modelo específico
 
   const clientId = 'smarthau-SmartHau-PRD-fa49b4867-1a082e31';
   const clientSecret = 'PRD-a49b48675d27-9205-40f0-970c-9950';
@@ -33,9 +36,22 @@ export default async function handler(req, res) {
 
     const accessToken = tokenData.access_token;
 
+    // Construir término de búsqueda inteligente sumando modelo y almacenamiento si aplican
+    let searchFullQuery = keyword;
+    if (model) searchFullQuery += ` ${model}`;
+    if (storage) searchFullQuery += ` ${storage}`;
+
     const searchUrl = new URL('https://api.ebay.com/buy/browse/v1/item_summary/search');
-    searchUrl.searchParams.append('q', keyword);
-    searchUrl.searchParams.append('limit', '48'); // Aumentado para traer más variedad de vendedores
+    searchUrl.searchParams.append('q', searchFullQuery);
+    searchUrl.searchParams.append('limit', '48');
+    
+    // REGLA ESTRICTA: Solo compra inmediata (Sin subastas)
+    searchUrl.searchParams.append('buyingOptions', '{FIXED_PRICE}');
+
+    // Añadir filtro de condición si el usuario lo selecciona
+    if (condition) {
+      searchUrl.searchParams.append('filter', `conditionIds:{${condition}}`);
+    }
 
     const searchResponse = await fetch(searchUrl.toString(), {
       method: 'GET',
@@ -50,7 +66,6 @@ export default async function handler(req, res) {
     const items = (searchData.itemSummaries || []).map(item => {
       let rawPrice = item.price ? parseFloat(item.price.value) : 0;
       let currency = item.price ? item.price.currency : 'USD';
-      
       let finalPrice = (rawPrice * 1.07).toFixed(2);
 
       return {
