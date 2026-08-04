@@ -310,6 +310,103 @@
             font-weight: 600;
         }
 
+        /* SECCIONES DE CONFIANZA EXTRA */
+        .trust-banner {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .trust-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 14px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .trust-icon {
+            font-size: 24px;
+            background: rgba(0, 210, 255, 0.1);
+            width: 45px; height: 45px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            flex-shrink: 0;
+        }
+
+        .trust-text h4 { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .trust-text p { font-size: 10px; color: var(--text-muted); line-height: 1.3; }
+
+        /* BUSCADOR DE TRACKING PÚBLICO RÁPIDO */
+        .tracking-box {
+            background: linear-gradient(135deg, rgba(15,15,23,0.95), rgba(25,15,40,0.9));
+            border: 1px solid var(--border-glass-hover);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .tracking-box h3 { font-size: 1rem; color: #fff; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .tracking-box p { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; }
+        
+        .tracking-result-box {
+            margin-top: 12px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 10px;
+            padding: 12px;
+            display: none;
+        }
+
+        /* METODOS DE PAGO */
+        .payments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        .payment-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            transition: 0.2s;
+        }
+        .payment-card:hover { border-color: var(--neon-blue); }
+        .payment-card h5 { font-size: 12px; color: #fff; margin-top: 6px; font-weight: 700; }
+        .payment-card span { font-size: 9px; color: var(--whatsapp-green); font-weight: 600; }
+
+        /* FAQ ACORDEÓN */
+        .faq-container { display: flex; flex-direction: column; gap: 8px; margin-bottom: 25px; }
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 12px 15px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+        .faq-answer {
+            padding: 0 15px 12px 15px;
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            display: none;
+        }
+        .faq-item.active .faq-answer { display: block; }
+
         .carousel-container {
             display: flex;
             gap: 12px;
@@ -637,6 +734,43 @@
 </header>
 
 <div class="main-container">
+
+    <!-- BANNER DE CONFIANZA Y GARANTÍA -->
+    <div class="trust-banner">
+        <div class="trust-item">
+            <div class="trust-icon">🛡️</div>
+            <div class="trust-text">
+                <h4>Compra 100% Segura</h4>
+                <p>Verificamos la reputación de cada vendedor en eBay antes de procesar tu encargo.</p>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">✈️</div>
+            <div class="trust-text">
+                <h4>Envíos Directos</h4>
+                <p>Logística puerta a puerta desde Miami directo a cualquier estado de Venezuela.</p>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">💎</div>
+            <div class="trust-text">
+                <h4>Transparencia Total</h4>
+                <p>Cotizaciones exactas con recargo fijo y seguimiento en tiempo real de tu paquete.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- BUSCADOR DE TRACKING PÚBLICO -->
+    <div class="tracking-box">
+        <h3>🔍 Consulta el Estatus de tu Pedido</h3>
+        <p>Introduce tu correo registrado para visualizar en vivo por dónde va tu importación:</p>
+        <div class="search-bar-wrapper" style="margin-bottom: 0;">
+            <input type="text" id="trackingInputQuery" placeholder="Ingresa tu correo electrónico (Ej: cliente@email.com)">
+            <button class="btn-search" onclick="consultarTrackingPublico()">Consultar</button>
+        </div>
+        <div id="trackingResultContainer" class="tracking-result-box"></div>
+    </div>
+
     <div class="search-panel">
         <div class="search-bar-wrapper">
             <input type="text" id="keyword" placeholder="Busca en eBay (Ej: MacBook, RTX, Garmin...)" onkeypress="handleKeyPress(event)">
@@ -697,6 +831,52 @@
         <div id="carouselCurated" class="carousel-container" style="display: none;"></div>
     </div>
 
+    <!-- MÉTODOS DE PAGO ACEPTADOS -->
+    <div class="section-block">
+        <div class="section-title">💳 Métodos de Pago Disponibles <span>Seguros y Confiables</span></div>
+        <div class="payments-grid">
+            <div class="payment-card">
+                <div style="font-size:20px;">🏦</div>
+                <h5>Zelle</h5>
+                <span>Disponible</span>
+            </div>
+            <div class="payment-card">
+                <div style="font-size:20px;">🪙</div>
+                <h5>Binance (USDT)</h5>
+                <span>Cripto Segura</span>
+            </div>
+            <div class="payment-card">
+                <div style="font-size:20px;">📱</div>
+                <h5>Pago Móvil</h5>
+                <span>Tasa del Día</span>
+            </div>
+            <div class="payment-card">
+                <div style="font-size:20px;">💵</div>
+                <h5>Efectivo / Zinli</h5>
+                <span>Internacional</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PREGUNTAS FRECUENTES (FAQ) -->
+    <div class="section-block">
+        <div class="section-title">❓ Preguntas Frecuentes <span>Resolvemos tus Dudas</span></div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">¿Cómo se calcula el precio final de mi producto? <span>▼</span></div>
+                <div class="faq-answer">El sistema toma el precio publicado en eBay en tiempo real y le añade un margen estándar de gestión del 7%. Los costos de flete internacional por peso/volumen se calculan al llegar nuestro almacén en Miami.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">¿Cuánto tarda en llegar el pedido a Venezuela? <span>▼</span></div>
+                <div class="faq-answer">El tiempo estimado de entrega es de 8 a 15 días hábiles una vez que el producto es recibido en nuestro courier en Miami y consolidado para su despacho aéreo hacia el país.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">¿Qué pasa si mi producto llega con defectos o problemas? <span>▼</span></div>
+                <div class="faq-answer">Te acompañamos en el proceso de revisión con el vendedor de eBay dentro de los plazos de garantía permitidos por la plataforma para gestionar devoluciones o reembolsos de forma transparente.</div>
+            </div>
+        </div>
+    </div>
+
     <div class="section-block" id="recentBlock" style="display: none;">
         <div class="section-title">🕒 Últimos Vistos <span>Tu Historial</span></div>
         <div id="carouselRecent" class="carousel-container"></div>
@@ -712,7 +892,7 @@
 
 <footer>
     <p><strong>Smart Hauss</strong> — Tu pasarela de importación tecnológica directa.</p>
-    <p>Seguridad y cotización automatizada en tiempo real para Venezuela.</p>
+    <p style="margin-top: 5px;">Seguridad, trazabilidad y cotización automatizada en tiempo real para toda Venezuela.</p>
 </footer>
 
 <script>
@@ -730,6 +910,11 @@
     };
 
     function handleKeyPress(e) { if (e.key === 'Enter') realizarBusquedaManual(); }
+
+    function toggleFaq(el) {
+        const parent = el.parentElement;
+        parent.classList.toggle('active');
+    }
 
     function filtrarCategoria(termino, elementoTag) {
         document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
@@ -790,6 +975,35 @@
             loadingSearch.style.display = 'none';
             searchResultsGrid.innerHTML = '<div class="message-state" style="color: #f43f5e;">Error de conexión con la API.</div>';
         }
+    }
+
+    function consultarTrackingPublico() {
+        const email = document.getElementById('trackingInputQuery').value.trim().toLowerCase();
+        const container = document.getElementById('trackingResultContainer');
+
+        if (!email) {
+            alert('Ingresa un correo electrónico válido.');
+            return;
+        }
+
+        let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
+        let myOrders = allOrders.filter(o => o.email === email);
+
+        container.style.display = 'block';
+        if (myOrders.length === 0) {
+            container.innerHTML = '<p style="font-size: 11px; color: var(--text-muted); text-align: center;">No se encontraron pedidos activos para este correo.</p>';
+            return;
+        }
+
+        container.innerHTML = myOrders.map(o => `
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px; margin-bottom: 8px;">
+                <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color:#fff; margin-bottom: 4px;">
+                    <span>📦 ${o.producto}</span>
+                    <span class="order-status-badge status-${o.estatus}">${formatearEstatusTexto(o.estatus)}</span>
+                </div>
+                <div style="font-size: 10px; color: var(--text-muted);">Actualizado: ${o.fecha}</div>
+            </div>
+        `).join('');
     }
 
     function renderizarCarrusel(elementId, items) {
@@ -949,7 +1163,6 @@
             return;
         }
 
-        // ACCESO DE ADMIN EXCLUSIVO
         if (email === 'admin@smarthauss.com') {
             if (pass === 'admin2026') {
                 const adminUser = { email, nombre: 'Administrador', role: 'admin' };
@@ -975,11 +1188,9 @@
             actualizarBotonCuentaUI();
             abrirPortalCliente();
         } else {
-            // Generar código aleatorio de 4 dígitos
             const codigoAleatorio = Math.floor(1000 + Math.random() * 9000).toString();
             window.tempRegistroPendiente = { email, pass, codigo: codigoAleatorio };
 
-            // Mostrar estado de carga mientras se envía el correo
             document.getElementById('modalBody').innerHTML = `
                 <div class="auth-container" style="text-align: center; padding: 20px;">
                     <h2>Enviando Código...</h2>
