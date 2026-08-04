@@ -835,25 +835,25 @@
     <div class="section-block">
         <div class="section-title">💳 Métodos de Pago Disponibles <span>Seguros y Confiables</span></div>
         <div class="payments-grid">
-            <div class="payment-card">
+            <div class="payment-card" onclick="seleccionarMetododePago('Zelle')">
                 <div style="font-size:20px;">🏦</div>
                 <h5>Zelle</h5>
-                <span>Disponible</span>
+                <span>Sin Comisión</span>
             </div>
-            <div class="payment-card">
+            <div class="payment-card" onclick="seleccionarMetododePago('Binance')">
                 <div style="font-size:20px;">🪙</div>
                 <h5>Binance (USDT)</h5>
-                <span>Cripto Segura</span>
+                <span>Sin Comisión</span>
             </div>
-            <div class="payment-card">
+            <div class="payment-card" onclick="seleccionarMetododePago('PagoMovil')">
                 <div style="font-size:20px;">📱</div>
                 <h5>Pago Móvil</h5>
-                <span>Tasa del Día</span>
+                <span>Aplica Comisión</span>
             </div>
-            <div class="payment-card">
+            <div class="payment-card" onclick="seleccionarMetododePago('Zinli')">
                 <div style="font-size:20px;">💵</div>
                 <h5>Efectivo / Zinli</h5>
-                <span>Internacional</span>
+                <span>Sin Comisión</span>
             </div>
         </div>
     </div>
@@ -864,7 +864,7 @@
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cómo se calcula el precio final de mi producto? <span>▼</span></div>
-                <div class="faq-answer">El sistema toma el precio publicado en eBay en tiempo real y le añade un margen estándar de gestión del 7%. Los costos de flete internacional por peso/volumen se calculan al llegar nuestro almacén en Miami.</div>
+                <div class="faq-answer">El sistema toma el precio publicado en eBay en tiempo real. La comisión o recargo de gestión (7%) solo se aplica de manera exclusiva al seleccionar el método de pago Pago Móvil. Los demás métodos están libres de este recargo específico. Los costos de flete internacional se calculan al llegar a Miami.</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cuánto tarda en llegar el pedido a Venezuela? <span>▼</span></div>
@@ -899,6 +899,7 @@
     const numeroWhatsApp = "584120000000"; // CAMBIA POR TU NÚMERO REAL
     let productosBusquedaActual = [];
     let todosLosProductosCargados = {}; 
+    let metodoPagoSeleccionado = 'Zelle'; // Método por defecto sin comisión
 
     const terminosAleatorios1 = ['MacBook Pro', 'PlayStation 5', 'Garmin Watch', 'GoPro Hero'];
     const terminosAleatorios2 = ['iPad Air', 'Nintendo Switch', 'Mechanical Keyboard', 'AirPods Pro'];
@@ -914,6 +915,26 @@
     function toggleFaq(el) {
         const parent = el.parentElement;
         parent.classList.toggle('active');
+    }
+
+    function seleccionarMetododePago(metodo) {
+        metodoPagoSeleccionado = metodo;
+        alert(`Método de pago seleccionado: ${metodo}. ${metodo === 'PagoMovil' ? 'Se aplicará la comisión correspondiente al precio.' : 'Este método no aplica comisión adicional.'}`);
+        // Actualizar precios en pantalla si hay una búsqueda o modal activo
+        if(productosBusquedaActual.length > 0) {
+            if(document.getElementById('searchContainer').style.display !== 'none') {
+                renderizarGrilla(document.getElementById('searchResultsGrid'), productosBusquedaActual);
+            }
+        }
+    }
+
+    function calcularPrecioConComision(precioBase) {
+        let num = parseFloat(precioBase) || 0;
+        // La comisión (7%) SOLO se aplica si el método de pago seleccionado es Pago Móvil
+        if (metodoPagoSeleccionado === 'PagoMovil') {
+            num = num * 1.07;
+        }
+        return num.toFixed(2);
     }
 
     function filtrarCategoria(termino, elementoTag) {
@@ -1020,7 +1041,8 @@
 
     function crearTarjetaHTML(item) {
         const title = item.title;
-        const price = item.calculatedPrice;
+        const basePrice = item.calculatedPrice; // Precio original devuelto por la API
+        const finalPrice = calcularPrecioConComision(basePrice); // Aplica comisión solo si corresponde
         const currency = item.currency || 'USD';
         const image = item.image ? item.image.imageUrl : 'https://via.placeholder.com/200';
         const itemId = item.itemId || Math.random().toString(36).substr(2, 9);
@@ -1037,8 +1059,8 @@
             </div>
             <div>
                 <div class="price-box">
-                    <div class="price-main">$${price} <span>${currency}</span></div>
-                    <div class="price-sub">Incluye 7% aplicado (Sin flete/impuestos)</div>
+                    <div class="price-main">$${finalPrice} <span>${currency}</span></div>
+                    <div class="price-sub">${metodoPagoSeleccionado === 'PagoMovil' ? 'Incluye 7% por Pago Móvil' : 'Precio base (Pago Móvil aplica 7%)'}</div>
                 </div>
                 <button class="btn-details">Ver Detalles</button>
             </div>
@@ -1051,7 +1073,8 @@
     function abrirModalProducto(item) {
         registrarUltimoVisto(item);
         const title = item.title;
-        const price = item.calculatedPrice;
+        const basePrice = item.calculatedPrice;
+        const finalPrice = calcularPrecioConComision(basePrice);
         const currency = item.currency || 'USD';
         const itemUrl = item.itemWebUrl;
 
@@ -1070,7 +1093,7 @@
         const currentUser = obtenerUsuarioLogueado();
         const userEmailTxt = currentUser ? currentUser.email : 'Sin registrar';
 
-        const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, deseo encargar este producto:\n\n📦 *${title}*\n💲 *Precio Base + 7%:* $${price} ${currency}\n👤 *Cuenta de Cliente:* ${userEmailTxt}\n🔗 *Enlace:* ${itemUrl}`);
+        const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, deseo encargar este producto:\n\n📦 *${title}*\n💲 *Precio Final (${metodoPagoSeleccionado}):* $${finalPrice} ${currency}\n👤 *Cuenta de Cliente:* ${userEmailTxt}\n🔗 *Enlace:* ${itemUrl}`);
         const whatsappLink = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
 
         document.getElementById('modalBody').innerHTML = `
@@ -1099,8 +1122,8 @@
                         <p>${shortDesc}</p>
                     </div>
                     <div class="price-box" style="margin-bottom: 12px;">
-                        <div class="price-main">$${price} <span>${currency}</span></div>
-                        <div class="price-sub">Incluye recargo del 7% (Flete/impuestos no incluidos)</div>
+                        <div class="price-main">$${finalPrice} <span>${currency}</span></div>
+                        <div class="price-sub">${metodoPagoSeleccionado === 'PagoMovil' ? 'Incluye recargo del 7% por Pago Móvil' : 'Sin recargo (Pago Móvil aplica 7%)'}</div>
                     </div>
                     <a href="${whatsappLink}" target="_blank" class="btn-whatsapp-modal">
                         💬 Gestionar Importación por WhatsApp
@@ -1511,8 +1534,8 @@
         const criterio = document.getElementById('sortOrder').value;
         if (productosBusquedaActual.length === 0) return;
         let ordenada = [...productosBusquedaActual];
-        if (criterio === 'low') ordenada.sort((a, b) => parseFloat(a.calculatedPrice) - parseFloat(b.calculatedPrice));
-        else if (criterio === 'high') ordenada.sort((a, b) => parseFloat(b.calculatedPrice) - parseFloat(a.calculatedPrice));
+        if (criterio === 'low') ordenada.sort((a, b) => parseFloat(calcularPrecioConComision(a.calculatedPrice)) - parseFloat(calcularPrecioConComision(b.calculatedPrice)));
+        else if (criterio === 'high') ordenada.sort((a, b) => parseFloat(calcularPrecioConComision(b.calculatedPrice)) - parseFloat(calcularPrecioConComision(a.calculatedPrice)));
         renderizarGrilla(document.getElementById('searchResultsGrid'), ordenada);
     }
 </script>
