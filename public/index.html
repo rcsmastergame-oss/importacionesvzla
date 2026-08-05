@@ -8,16 +8,19 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
         :root {
-            --bg-deep: #030712;
-            --bg-card: rgba(15, 23, 42, 0.85);
-            --border-glass: rgba(56, 189, 248, 0.15);
-            --border-glass-hover: rgba(56, 189, 248, 0.5);
-            --neon-blue: #38bdf8;
-            --neon-purple: #818cf8;
-            --neon-pink: #f472b6;
-            --whatsapp-green: #22c55e;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            /* Paleta de confianza inspirada en eBay / Amazon (Azul corporativo, Amarillo/Naranja acento, Gris claro/Blanco limpio) */
+            --bg-deep: #f4f6f9;
+            --bg-card: #ffffff;
+            --border-glass: #e2e8f0;
+            --border-glass-hover: #0064d2; /* Azul eBay */
+            --brand-blue: #0064d2;
+            --brand-yellow: #f5af02; /* Amarillo estilo Amazon / acento */
+            --brand-orange: #ff9900; /* Naranja Amazon */
+            --whatsapp-green: #10b981;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 10px 30px rgba(0, 100, 210, 0.15);
         }
 
         * {
@@ -36,7 +39,7 @@
             position: relative;
         }
 
-        /* ANIMACIONES DE FONDO MEJORADAS */
+        /* ANIMACIONES DE FONDO DINÁMICAS Y FLUIDAS */
         .ambient-glow {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -48,40 +51,47 @@
         .glow-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(140px);
-            opacity: 0.2;
+            filter: blur(120px);
+            opacity: 0.12;
             animation: drift 15s infinite alternate ease-in-out;
         }
 
-        .orb-1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: var(--neon-purple); }
-        .orb-2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: var(--neon-blue); animation-delay: -7s; }
+        .orb-1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: var(--brand-blue); }
+        .orb-2 { bottom: -10%; right: -10%; width: 70vw; height: 70vw; background: var(--brand-yellow); animation-delay: -7s; }
 
         @keyframes drift {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(40px, 30px) scale(1.1); }
+            100% { transform: translate(30px, 20px) scale(1.08); }
         }
 
         @keyframes floatCard {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-4px); }
+            50% { transform: translateY(-5px); }
             100% { transform: translateY(0px); }
         }
 
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(0, 100, 210, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 100, 210, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 100, 210, 0); }
+        }
+
         .top-ticker {
-            background: linear-gradient(90deg, #f472b6, #818cf8, #38bdf8);
-            color: #030712;
+            background: linear-gradient(90deg, #0064d2, #2563eb, #1d4ed8);
+            color: #ffffff;
             font-size: 11px;
             font-weight: 800;
-            padding: 8px 12px;
+            padding: 9px 12px;
             text-align: center;
             letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25);
+            box-shadow: 0 2px 10px rgba(0, 100, 210, 0.2);
             text-transform: uppercase;
+            animation: fadeInDown 0.6s ease;
         }
 
         header {
-            background: rgba(3, 7, 18, 0.9);
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border-glass);
             padding: 12px 16px;
             display: flex;
@@ -91,6 +101,8 @@
             top: 0;
             z-index: 1000;
             gap: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
         }
 
         .header-brand {
@@ -105,10 +117,13 @@
             height: 38px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid var(--neon-blue);
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+            border: 2px solid var(--brand-blue);
+            box-shadow: 0 0 10px rgba(0, 100, 210, 0.25);
             flex-shrink: 0;
+            transition: transform 0.3s ease;
         }
+
+        .logo-img:hover { transform: rotate(10deg) scale(1.05); }
 
         .header-brand h1 {
             font-size: 1.15rem;
@@ -118,12 +133,20 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            color: #0f172a;
         }
 
         .header-brand h1 span {
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--brand-blue);
+            position: relative;
+        }
+
+        .header-brand h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0; width: 100%; height: 3px;
+            background: var(--brand-yellow);
+            border-radius: 2px;
         }
 
         .header-actions {
@@ -134,15 +157,15 @@
         }
 
         .header-status {
-            display: none; /* Oculto en móvil para ahorrar espacio, visible en desktop */
+            display: none;
             align-items: center;
             gap: 6px;
             font-size: 11px;
-            background: rgba(34, 197, 94, 0.1);
+            background: rgba(16, 185, 129, 0.1);
             color: var(--whatsapp-green);
             padding: 6px 10px;
             border-radius: 20px;
-            border: 1px solid rgba(34, 197, 94, 0.3);
+            border: 1px solid rgba(16, 185, 129, 0.3);
             font-weight: 700;
         }
 
@@ -163,16 +186,16 @@
         }
 
         @keyframes pulseDot {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         .btn-user-account {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: white;
-            padding: 8px 12px;
+            background: #f8fafc;
+            border: 1px solid var(--border-glass);
+            color: #0f172a;
+            padding: 8px 14px;
             border-radius: 12px;
             font-size: 12px;
             font-weight: 700;
@@ -180,14 +203,17 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
         .btn-user-account:hover {
-            border-color: var(--neon-blue);
-            background: rgba(56, 189, 248, 0.1);
-            transform: translateY(-1px);
+            border-color: var(--brand-blue);
+            background: rgba(0, 100, 210, 0.05);
+            color: var(--brand-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 100, 210, 0.15);
         }
 
         .main-container {
@@ -203,6 +229,12 @@
 
         .section-block {
             margin-bottom: 35px;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .section-title {
@@ -214,30 +246,30 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            color: #fff;
-            border-left: 3px solid var(--neon-blue);
+            color: #0f172a;
+            border-left: 4px solid var(--brand-blue);
             padding-left: 10px;
             gap: 8px;
         }
 
         .section-title span {
             font-size: 10px;
-            background: rgba(56, 189, 248, 0.12);
-            color: var(--neon-blue);
-            padding: 4px 8px;
+            background: rgba(0, 100, 210, 0.08);
+            color: var(--brand-blue);
+            padding: 4px 10px;
             border-radius: 10px;
-            border: 1px solid rgba(56, 189, 248, 0.25);
+            border: 1px solid rgba(0, 100, 210, 0.2);
             font-weight: 700;
             letter-spacing: 0.3px;
             white-space: nowrap;
         }
 
         @media (min-width: 640px) {
-            .section-title { font-size: 1.25rem; border-left-width: 4px; padding-left: 12px; }
+            .section-title { font-size: 1.25rem; border-left-width: 5px; padding-left: 12px; }
             .section-title span { font-size: 11px; padding: 5px 12px; }
         }
 
-        /* BANNER DE CONFIANZA REDISEÑADO (CREATIVO Y COMPACTO PARA MÓVIL) */
+        /* BANNER DE CONFIANZA MEJORADO */
         .trust-banner {
             display: grid;
             grid-template-columns: 1fr;
@@ -257,8 +289,8 @@
             display: flex;
             align-items: center;
             gap: 14px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-subtle);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
@@ -266,50 +298,72 @@
         .trust-item::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 3px; height: 100%;
-            background: linear-gradient(to bottom, var(--neon-blue), var(--neon-purple));
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: linear-gradient(to bottom, var(--brand-blue), var(--brand-yellow));
+            transition: width 0.3s ease;
         }
 
         .trust-item:hover {
-            border-color: var(--border-glass-hover);
-            transform: translateY(-2px);
+            border-color: var(--brand-blue);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
         }
+
+        .trust-item:hover::before { width: 6px; }
 
         .trust-icon {
             font-size: 24px;
-            background: rgba(56, 189, 248, 0.1);
+            background: rgba(0, 100, 210, 0.08);
             width: 48px; height: 48px;
             display: flex; align-items: center; justify-content: center;
             border-radius: 12px;
-            border: 1px solid rgba(56, 189, 248, 0.25);
+            border: 1px solid rgba(0, 100, 210, 0.2);
             flex-shrink: 0;
+            transition: transform 0.3s ease;
         }
 
-        .trust-text h4 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .trust-item:hover .trust-icon { transform: scale(1.1) rotate(5deg); }
+
+        .trust-text h4 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
         .trust-text p { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
 
         /* BUSCADOR DE TRACKING */
         .tracking-box {
-            background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,27,75,0.9));
-            border: 1px solid rgba(56, 189, 248, 0.35);
+            background: linear-gradient(135deg, #ffffff, #f8fafc);
+            border: 1px solid var(--border-glass);
             border-radius: 20px;
             padding: 20px 16px;
             margin-bottom: 35px;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+            box-shadow: var(--shadow-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tracking-box::after {
+            content: '✓ VERIFICADO';
+            position: absolute;
+            top: -10px; right: -30px;
+            background: var(--whatsapp-green);
+            color: white; font-size: 9px; font-weight: 800;
+            padding: 20px 40px 4px 40px;
+            transform: rotate(45deg);
+            opacity: 0.15;
+            pointer-events: none;
         }
 
         @media (min-width: 640px) { .tracking-box { padding: 26px; } }
 
-        .tracking-box h3 { font-size: 1.1rem; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .tracking-box h3 { font-size: 1.1rem; color: #0f172a; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         .tracking-box p { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.4; }
         
         .tracking-result-box {
             margin-top: 14px;
-            background: rgba(3, 7, 18, 0.7);
+            background: #ffffff;
             border-radius: 12px;
             padding: 14px;
             display: none;
             border: 1px solid var(--border-glass);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
 
         /* PANEL DE BÚSQUEDA Y FILTROS OPTIMIZADO */
@@ -320,8 +374,11 @@
             border-radius: 20px;
             padding: 16px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            box-shadow: var(--shadow-subtle);
+            transition: all 0.3s ease;
         }
+
+        .search-panel:hover { box-shadow: var(--shadow-hover); border-color: rgba(0, 100, 210, 0.3); }
 
         @media (min-width: 640px) { .search-panel { padding: 22px; } }
 
@@ -333,42 +390,44 @@
 
         input[type="text"], input[type="email"], input[type="password"] {
             flex: 1;
-            padding: 12px 14px;
+            padding: 12px 16px;
             font-size: 13px;
-            background: rgba(3, 7, 18, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #f8fafc;
+            border: 1px solid var(--border-glass);
             border-radius: 12px;
-            color: white;
+            color: #0f172a;
             font-weight: 500;
             outline: none;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             width: 100%;
         }
 
         input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+            border-color: var(--brand-blue);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(0, 100, 210, 0.1);
         }
 
         .btn-search {
-            padding: 0 18px;
+            padding: 0 20px;
             font-size: 12px;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            color: #030712;
+            background: linear-gradient(135deg, var(--brand-blue), #2563eb);
+            color: #ffffff;
             border: none;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 100, 210, 0.25);
             white-space: nowrap;
         }
 
         .btn-search:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 18px rgba(56, 189, 248, 0.45);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 100, 210, 0.35);
+            background: linear-gradient(135deg, #0051b0, var(--brand-blue));
         }
 
         .category-tags {
@@ -382,24 +441,24 @@
         .category-tags::-webkit-scrollbar { display: none; }
 
         .tag {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #f8fafc;
+            border: 1px solid var(--border-glass);
             color: var(--text-muted);
-            padding: 6px 12px;
+            padding: 7px 14px;
             border-radius: 16px;
             font-size: 11px;
             font-weight: 700;
             cursor: pointer;
             white-space: nowrap;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .tag:hover, .tag.active {
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            color: #030712;
+            background: linear-gradient(135deg, var(--brand-blue), #2563eb);
+            color: #ffffff;
             border-color: transparent;
-            box-shadow: 0 4px 12px rgba(129, 140, 248, 0.4);
-            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 100, 210, 0.25);
+            transform: translateY(-2px);
         }
 
         .ebay-filters-grid {
@@ -430,18 +489,25 @@
         }
 
         .filter-select {
-            background: rgba(3, 7, 18, 0.6);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #f8fafc;
+            color: #0f172a;
+            border: 1px solid var(--border-glass);
             padding: 10px;
             border-radius: 10px;
             font-size: 12px;
             outline: none;
             font-weight: 600;
             width: 100%;
+            transition: all 0.3s ease;
         }
 
-        /* METODOS DE PAGO CREATIVOS */
+        .filter-select:focus {
+            border-color: var(--brand-blue);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(0, 100, 210, 0.1);
+        }
+
+        /* METODOS DE PAGO CONFIABLES */
         .payments-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -459,17 +525,20 @@
             border-radius: 16px;
             padding: 16px 12px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            box-shadow: var(--shadow-subtle);
+            position: relative;
+            overflow: hidden;
         }
 
         .payment-card:hover {
-            border-color: var(--neon-blue);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.2);
+            border-color: var(--brand-blue);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
         }
 
-        .payment-card h5 { font-size: 13px; color: #fff; margin-top: 8px; font-weight: 700; }
+        .payment-card h5 { font-size: 13px; color: #0f172a; margin-top: 8px; font-weight: 700; }
         .payment-card span { font-size: 10px; color: var(--whatsapp-green); font-weight: 700; display: block; margin-top: 3px; }
 
         /* FAQ ACORDEÓN */
@@ -480,8 +549,9 @@
             border-radius: 14px;
             overflow: hidden;
             transition: all 0.3s ease;
+            box-shadow: var(--shadow-subtle);
         }
-        .faq-item:hover { border-color: rgba(255,255,255,0.2); }
+        .faq-item:hover { border-color: rgba(0, 100, 210, 0.3); }
         .faq-question {
             padding: 14px 16px;
             font-size: 13px;
@@ -490,7 +560,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: #fff;
+            color: #0f172a;
             gap: 10px;
         }
         .faq-answer {
@@ -499,8 +569,12 @@
             color: var(--text-muted);
             line-height: 1.5;
             display: none;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 12px;
         }
         .faq-item.active .faq-answer { display: block; }
+        .faq-item.active .faq-question span { transform: rotate(180deg); color: var(--brand-blue); }
+        .faq-question span { transition: transform 0.3s ease; }
 
         /* CARRUSELES Y GRILLAS PERFECTAMENTE ADAPTABLES */
         .carousel-container {
@@ -509,12 +583,12 @@
             overflow-x: auto;
             padding: 8px 4px 16px 4px;
             scrollbar-width: thin;
-            scrollbar-color: var(--neon-purple) rgba(255,255,255,0.05);
+            scrollbar-color: var(--brand-blue) rgba(0,0,0,0.05);
             -webkit-overflow-scrolling: touch;
         }
 
         .carousel-container::-webkit-scrollbar { height: 4px; }
-        .carousel-container::-webkit-scrollbar-thumb { background: var(--neon-purple); border-radius: 10px; }
+        .carousel-container::-webkit-scrollbar-thumb { background: var(--brand-blue); border-radius: 10px; }
 
         .grid {
             display: grid;
@@ -526,7 +600,7 @@
             .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
         }
 
-        /* TARJETAS DE PRODUCTOS OPTIMIZADAS PARA MÓVIL */
+        /* TARJETAS DE PRODUCTOS OPTIMIZADAS Y ANIMADAS */
         .card {
             background: var(--bg-card);
             backdrop-filter: blur(12px);
@@ -542,7 +616,7 @@
             width: 100%;
             min-width: 0;
             flex-shrink: 0;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow-subtle);
             animation: floatCard 6s ease-in-out infinite;
         }
 
@@ -558,23 +632,23 @@
         .card:nth-child(even) { animation-delay: -3s; }
 
         .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--border-glass-hover);
-            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.2);
+            transform: translateY(-5px);
+            border-color: var(--brand-blue);
+            box-shadow: var(--shadow-hover);
         }
 
         .card-badge {
             position: absolute;
             top: 10px; right: 10px;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            color: #030712;
+            background: linear-gradient(135deg, var(--brand-blue), #2563eb);
+            color: #ffffff;
             font-size: 9px;
             font-weight: 800;
             padding: 3px 8px;
             border-radius: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(56,189,248,0.3);
+            box-shadow: 0 2px 6px rgba(0, 100, 210, 0.2);
             z-index: 2;
         }
 
@@ -588,13 +662,14 @@
             justify-content: center;
             margin-bottom: 10px;
             padding: 8px;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
+            border: 1px solid #f1f5f9;
         }
 
         @media (min-width: 640px) { .card-img-container { height: 160px; border-radius: 12px; margin-bottom: 12px; padding: 10px; } }
 
         .card img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s ease; }
-        .card:hover img { transform: scale(1.04); }
+        .card:hover img { transform: scale(1.06); }
 
         .card h3 {
             font-size: 12px;
@@ -606,7 +681,7 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             margin-bottom: 8px;
-            color: #f8fafc;
+            color: #0f172a;
         }
 
         @media (min-width: 640px) {
@@ -614,8 +689,8 @@
         }
 
         .price-box {
-            background: rgba(3, 7, 18, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: #f8fafc;
+            border: 1px solid var(--border-glass);
             padding: 8px 10px;
             border-radius: 10px;
             margin-bottom: 10px;
@@ -623,34 +698,34 @@
 
         @media (min-width: 640px) { .price-box { padding: 10px; margin-bottom: 12px; } }
 
-        .price-main { font-size: 15px; font-weight: 800; color: #ffffff; }
+        .price-main { font-size: 15px; font-weight: 800; color: #0f172a; }
         @media (min-width: 640px) { .price-main { font-size: 18px; } }
-        .price-main span { color: var(--neon-pink); font-size: 11px; font-weight: 700; }
+        .price-main span { color: var(--brand-orange); font-size: 11px; font-weight: 700; }
         .price-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; font-weight: 500; }
 
         .btn-details {
             display: block;
             text-align: center;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: white;
+            background: #f1f5f9;
+            border: 1px solid var(--border-glass);
+            color: #0f172a;
             padding: 8px;
             border-radius: 10px;
             font-weight: 800;
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .btn-details:hover { background: var(--neon-blue); color: #030712; border-color: var(--neon-blue); box-shadow: 0 0 12px rgba(56,189,248,0.4); }
+        .btn-details:hover { background: var(--brand-blue); color: #ffffff; border-color: var(--brand-blue); box-shadow: 0 4px 12px rgba(0, 100, 210, 0.25); }
 
-        /* MODALES ADAPTABLES */
+        /* MODALES ADAPTABLES CON ANIMACIÓN SUAVE */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(3, 7, 18, 0.85);
-            backdrop-filter: blur(15px);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
             z-index: 2000;
             display: flex;
             align-items: center;
@@ -664,8 +739,8 @@
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
         .modal-content {
-            background: #0f172a;
-            border: 1px solid rgba(56, 189, 248, 0.35);
+            background: #ffffff;
+            border: 1px solid var(--border-glass);
             border-radius: 20px;
             width: 100%;
             max-width: 850px;
@@ -673,7 +748,7 @@
             overflow-y: auto;
             padding: 20px;
             position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
             transform: scale(0.95);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -685,8 +760,8 @@
         .modal-close {
             position: absolute;
             top: 14px; right: 14px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none; color: white;
+            background: #f1f5f9;
+            border: none; color: #0f172a;
             width: 32px; height: 32px;
             border-radius: 50%;
             font-size: 16px; cursor: pointer;
@@ -694,7 +769,7 @@
             transition: all 0.3s ease; z-index: 10;
         }
 
-        .modal-close:hover { background: var(--neon-pink); transform: rotate(90deg); }
+        .modal-close:hover { background: #fee2e2; color: #ef4444; transform: rotate(90deg); }
 
         .modal-grid {
             display: grid;
@@ -715,7 +790,8 @@
             align-items: center;
             justify-content: center;
             height: 220px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
+            border: 1px solid #f1f5f9;
         }
 
         @media (min-width: 640px) { .main-img-display { height: 320px; } }
@@ -727,50 +803,50 @@
             width: 55px; height: 55px;
             background: #ffffff; border-radius: 10px;
             padding: 4px; cursor: pointer;
-            border: 2px solid transparent; flex-shrink: 0;
+            border: 2px solid #e2e8f0; flex-shrink: 0;
             display: flex; align-items: center; justify-content: center;
             opacity: 0.6; transition: all 0.3s ease;
         }
 
-        .thumb-box.active, .thumb-box:hover { border-color: var(--neon-blue); opacity: 1; transform: scale(1.04); }
+        .thumb-box.active, .thumb-box:hover { border-color: var(--brand-blue); opacity: 1; transform: scale(1.04); }
         .thumb-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
-        .modal-info h2 { font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; color: #ffffff; line-height: 1.3; }
+        .modal-info h2 { font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; color: #0f172a; line-height: 1.3; }
         @media (min-width: 640px) { .modal-info h2 { font-size: 1.35rem; } }
 
         .seller-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: #f8fafc;
+            border: 1px solid var(--border-glass);
             border-radius: 12px; padding: 12px; margin-bottom: 14px;
         }
 
-        .seller-card h4 { font-size: 11px; text-transform: uppercase; color: var(--neon-blue); margin-bottom: 4px; font-weight: 800; letter-spacing: 0.5px; }
+        .seller-card h4 { font-size: 11px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 4px; font-weight: 800; letter-spacing: 0.5px; }
         .seller-details { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); gap: 8px; flex-wrap: wrap; }
-        .seller-details strong { color: white; }
+        .seller-details strong { color: #0f172a; }
 
         .product-description-box {
-            background: rgba(3, 7, 18, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: #f8fafc;
+            border: 1px solid var(--border-glass);
             border-radius: 12px; padding: 12px; margin-bottom: 16px;
             max-height: 110px; overflow-y: auto;
         }
 
-        .product-description-box h4 { font-size: 11px; text-transform: uppercase; color: #e2e8f0; margin-bottom: 4px; font-weight: 800; }
+        .product-description-box h4 { font-size: 11px; text-transform: uppercase; color: #0f172a; margin-bottom: 4px; font-weight: 800; }
         .product-description-box p { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
 
         .btn-whatsapp-modal {
             display: flex; align-items: center; justify-content: center; gap: 8px;
-            background: linear-gradient(135deg, #22c55e, #16a34a);
+            background: linear-gradient(135deg, #10b981, #059669);
             color: white; text-decoration: none; padding: 14px;
             border-radius: 12px; font-weight: 800; font-size: 12px;
-            text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 20px rgba(34, 197, 94, 0.35);
+            text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
             transition: all 0.3s ease;
         }
 
-        .btn-whatsapp-modal:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(34, 197, 94, 0.5); }
+        .btn-whatsapp-modal:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45); }
 
         .auth-container { max-width: 400px; margin: 0 auto; text-align: left; }
-        .auth-container h2 { font-size: 1.35rem; margin-bottom: 6px; color: white; font-weight: 800; }
+        .auth-container h2 { font-size: 1.35rem; margin-bottom: 6px; color: #0f172a; font-weight: 800; }
         .auth-container p { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.4; }
 
         .form-group { margin-bottom: 14px; }
@@ -778,60 +854,61 @@
 
         .btn-auth-submit {
             width: 100%; padding: 14px;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            color: #030712; border: none; border-radius: 12px;
+            background: linear-gradient(135deg, var(--brand-blue), #2563eb);
+            color: #ffffff; border: none; border-radius: 12px;
             font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
             cursor: pointer; margin-top: 10px; transition: all 0.3s ease;
-            box-shadow: 0 4px 18px rgba(56, 189, 248, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 100, 210, 0.25);
         }
-        .btn-auth-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(56, 189, 248, 0.45); }
+        .btn-auth-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0, 100, 210, 0.35); }
 
         .auth-link {
-            display: block; text-align: center; font-size: 11px; color: var(--neon-blue);
+            display: block; text-align: center; font-size: 11px; color: var(--brand-blue);
             margin-top: 14px; cursor: pointer; text-decoration: underline; font-weight: 600;
         }
 
         .client-dashboard { text-align: left; }
         .client-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-glass); padding-bottom: 12px; gap: 10px; }
-        .client-header-flex h2 { font-size: 1.15rem; color: white; font-weight: 800; }
+        .client-header-flex h2 { font-size: 1.15rem; color: #0f172a; font-weight: 800; }
 
         .btn-logout {
-            background: rgba(244, 114, 182, 0.15);
-            border: 1px solid rgba(244, 114, 182, 0.4);
-            color: var(--neon-pink); padding: 6px 12px; border-radius: 8px;
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #ef4444; padding: 6px 12px; border-radius: 8px;
             font-size: 10px; font-weight: 800; cursor: pointer; transition: all 0.3s ease;
             white-space: nowrap;
         }
-        .btn-logout:hover { background: rgba(244, 114, 182, 0.3); }
+        .btn-logout:hover { background: #fecaca; }
 
         .order-card-item {
-            background: rgba(3, 7, 18, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #f8fafc;
+            border: 1px solid var(--border-glass);
             border-radius: 12px; padding: 14px; margin-bottom: 12px;
         }
 
-        .order-top-row { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; margin-bottom: 6px; color: #fff; gap: 8px; flex-wrap: wrap; }
+        .order-top-row { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; margin-bottom: 6px; color: #0f172a; gap: 8px; flex-wrap: wrap; }
         .order-status-badge { font-size: 9px; padding: 4px 8px; border-radius: 6px; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; }
 
-        .status-recibido { background: rgba(56, 189, 248, 0.15); color: var(--neon-blue); border: 1px solid rgba(56, 189, 248, 0.3); }
-        .status-transito { background: rgba(129, 140, 248, 0.2); color: #c7d2fe; border: 1px solid rgba(129, 140, 248, 0.35); }
-        .status-venezuela { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
-        .status-entregado { background: rgba(34, 197, 94, 0.15); color: var(--whatsapp-green); border: 1px solid rgba(34, 197, 94, 0.3); }
+        .status-recibido { background: rgba(0, 100, 210, 0.1); color: var(--brand-blue); border: 1px solid rgba(0, 100, 210, 0.3); }
+        .status-transito { background: rgba(37, 99, 235, 0.1); color: #2563eb; border: 1px solid rgba(37, 99, 235, 0.3); }
+        .status-venezuela { background: rgba(245, 175, 2, 0.15); color: #b45309; border: 1px solid rgba(245, 175, 2, 0.3); }
+        .status-entregado { background: rgba(16, 185, 129, 0.15); color: var(--whatsapp-green); border: 1px solid rgba(16, 185, 129, 0.3); }
 
         .order-details-text { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
 
         .admin-secret-panel {
-            background: rgba(251, 191, 36, 0.05);
-            border: 1px dashed rgba(251, 191, 36, 0.35);
+            background: rgba(245, 175, 2, 0.08);
+            border: 1px dashed rgba(245, 175, 2, 0.5);
             border-radius: 14px; padding: 14px; margin-top: 16px;
         }
-        .admin-secret-panel h4 { color: #fbbf24; font-size: 11px; text-transform: uppercase; margin-bottom: 10px; font-weight: 800; }
+        .admin-secret-panel h4 { color: #b45309; font-size: 11px; text-transform: uppercase; margin-bottom: 10px; font-weight: 800; }
 
         .loading, .message-state { text-align: center; padding: 30px 15px; color: var(--text-muted); font-size: 13px; font-weight: 600; }
 
         footer {
-            background: #010409; border-top: 1px solid var(--border-glass);
+            background: #ffffff; border-top: 1px solid var(--border-glass);
             padding: 30px 16px; margin-top: 40px; text-align: center; color: var(--text-muted); font-size: 0.8rem; line-height: 1.5;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.02);
         }
     </style>
 </head>
@@ -870,21 +947,21 @@
             <div class="trust-icon">🛡️</div>
             <div class="trust-text">
                 <h4>Compra 100% Segura</h4>
-                <p>Verificamos la reputación de cada vendedor en eBay antes de procesar tu encargo con total garantía.</p>
+                <p>Verificamos la reputación de cada vendedor en eBay antes de procesar tu encargo con total garantía[cite: 5].</p>
             </div>
         </div>
         <div class="trust-item">
             <div class="trust-icon">✈️</div>
             <div class="trust-text">
                 <h4>Envíos Directos</h4>
-                <p>Logística puerta a puerta desde Miami directo a cualquier estado de Venezuela de forma ágil.</p>
+                <p>Logística puerta a puerta desde Miami directo a cualquier estado de Venezuela de forma ágil[cite: 5].</p>
             </div>
         </div>
         <div class="trust-item">
             <div class="trust-icon">💎</div>
             <div class="trust-text">
                 <h4>Transparencia Total</h4>
-                <p>Cotizaciones exactas con recargo fijo y seguimiento en tiempo real del estatus de tu paquete.</p>
+                <p>Cotizaciones exactas con recargo fijo y seguimiento en tiempo real del estatus de tu paquete[cite: 5].</p>
             </div>
         </div>
     </div>
@@ -892,7 +969,7 @@
     <!-- BUSCADOR DE TRACKING PÚBLICO -->
     <div class="tracking-box">
         <h3>🔍 Consulta el Estatus de tu Pedido</h3>
-        <p>Introduce tu correo electrónico registrado para visualizar en vivo por dónde va tu importación tecnológica:</p>
+        <p>Introduce tu correo electrónico registrado para visualizar en vivo por dónde va tu importación tecnológica[cite: 5]:</p>
         <div class="search-bar-wrapper" style="margin-bottom: 0;">
             <input type="text" id="trackingInputQuery" placeholder="Correo electrónico (Ej: cliente@email.com)">
             <button class="btn-search" onclick="consultarTrackingPublico()">Consultar</button>
@@ -993,15 +1070,15 @@
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cómo se calcula el precio final de mi producto? <span>▼</span></div>
-                <div class="faq-answer">El sistema toma el precio publicado en eBay en tiempo real. La comisión de gestión (7%) solo se aplica de manera exclusiva al seleccionar el método de pago Pago Móvil. Los demás métodos están libres de este recargo específico. Los costos de flete internacional se calculan al llegar a Miami.</div>
+                <div class="faq-answer">El sistema toma el precio publicado en eBay en tiempo real. La comisión de gestión (7%) solo se aplica de manera exclusiva al seleccionar el método de pago Pago Móvil. Los demás métodos están libres de este recargo específico. Los costos de flete internacional se calculan al llegar a Miami[cite: 5].</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cuánto tarda en llegar el pedido a Venezuela? <span>▼</span></div>
-                <div class="faq-answer">El tiempo estimado de entrega es de 8 a 15 días hábiles una vez que el producto es recibido en nuestro courier en Miami y consolidado para su despacho aéreo hacia el país.</div>
+                <div class="faq-answer">El tiempo estimado de entrega es de 8 a 15 días hábiles una vez que el producto es recibido en nuestro courier en Miami y consolidado para su despacho aéreo hacia el país[cite: 5].</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Qué pasa si mi producto llega con defectos o problemas? <span>▼</span></div>
-                <div class="faq-answer">Te acompañamos en el proceso de revisión con el vendedor de eBay dentro de los plazos de garantía permitidos por la plataforma para gestionar devoluciones o reembolsos de forma transparente.</div>
+                <div class="faq-answer">Te acompañamos en el proceso de revisión con el vendedor de eBay dentro de los plazos de garantía permitidos por la plataforma para gestionar devoluciones o reembolsos de forma transparente[cite: 5].</div>
             </div>
         </div>
     </div>
@@ -1020,15 +1097,15 @@
 </div>
 
 <footer>
-    <p><strong>Smart Hauss</strong> — Tu pasarela de importación tecnológica directa.</p>
-    <p style="margin-top: 6px;">Seguridad, trazabilidad y cotización automatizada en tiempo real para toda Venezuela.</p>
+    <p><strong>Smart Hauss</strong> — Tu pasarela de importación tecnológica directa[cite: 5].</p>
+    <p style="margin-top: 6px;">Seguridad, trazabilidad y cotización automatizada en tiempo real para toda Venezuela[cite: 5].</p>
 </footer>
 
 <script>
-    const numeroWhatsApp = "584244525080"; // Número actualizado configurado
+    const numeroWhatsApp = "584244525080"; // Número actualizado configurado[cite: 5]
     let productosBusquedaActual = [];
     let todosLosProductosCargados = {}; 
-    let metodoPagoSeleccionado = 'Zelle'; // Método por defecto sin comisión
+    let metodoPagoSeleccionado = 'Zelle'; // Método por defecto sin comisión[cite: 5]
 
     const terminosAleatorios1 = ['MacBook Pro', 'PlayStation 5', 'Garmin Watch', 'GoPro Hero'];
     const terminosAleatorios2 = ['iPad Air', 'Nintendo Switch', 'Mechanical Keyboard', 'AirPods Pro'];
@@ -1048,7 +1125,7 @@
 
     function seleccionarMetododePago(metodo) {
         metodoPagoSeleccionado = metodo;
-        alert(`Método de pago seleccionado: ${metodo}. ${metodo === 'PagoMovil' ? 'Se aplicará la comisión correspondiente al precio.' : 'Este método no aplica comisión adicional.'}`);
+        alert(`Método de pago seleccionado: ${metodo}. ${metodo === 'PagoMovil' ? 'Se aplicará la comisión correspondiente al precio.' : 'Este método no aplica comisión adicional.'}[cite: 5]`);
         if(productosBusquedaActual.length > 0) {
             if(document.getElementById('searchContainer').style.display !== 'none') {
                 renderizarGrilla(document.getElementById('searchResultsGrid'), productosBusquedaActual);
@@ -1058,7 +1135,7 @@
 
     function calcularPrecioConComision(precioBase) {
         let num = parseFloat(precioBase) || 0;
-        // La comisión (7%) SOLO se aplica si el método de pago seleccionado es Pago Móvil
+        // La comisión (7%) SOLO se aplica si el método de pago seleccionado es Pago Móvil[cite: 5]
         if (metodoPagoSeleccionado === 'PagoMovil') {
             num = num * 1.07;
         }
@@ -1122,7 +1199,7 @@
             }
         } catch (error) {
             loadingSearch.style.display = 'none';
-            searchResultsGrid.innerHTML = '<div class="message-state" style="color: var(--neon-pink);">Error de conexión con la API.</div>';
+            searchResultsGrid.innerHTML = '<div class="message-state" style="color: #ef4444;">Error de conexión con la API.</div>';
         }
     }
 
@@ -1140,13 +1217,13 @@
 
         container.style.display = 'block';
         if (myOrders.length === 0) {
-            container.innerHTML = '<p style="font-size: 11px; color: var(--text-muted); text-align: center;">No se encontraron pedidos activos para este correo.</p>';
+            container.innerHTML = '<p style="font-size: 11px; color: var(--text-muted); text-align: center;">No se encontraron pedidos activos para este correo[cite: 5].</p>';
             return;
         }
 
         container.innerHTML = myOrders.map(o => `
-            <div style="background: rgba(3,7,18,0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 10px; margin-bottom: 8px;">
-                <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color:#fff; margin-bottom: 4px; gap: 6px;">
+            <div style="background: #f8fafc; border: 1px solid var(--border-glass); border-radius: 10px; padding: 10px; margin-bottom: 8px;">
+                <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color:#0f172a; margin-bottom: 4px; gap: 6px;">
                     <span>📦 ${o.producto}</span>
                     <span class="order-status-badge status-${o.estatus}">${formatearEstatusTexto(o.estatus)}</span>
                 </div>
@@ -1188,7 +1265,7 @@
             <div>
                 <div class="price-box">
                     <div class="price-main">$${finalPrice} <span>${currency}</span></div>
-                    <div class="price-sub">${metodoPagoSeleccionado === 'PagoMovil' ? 'Con recargo Pago Móvil' : 'Base (Pago Móvil +7%)'}</div>
+                    <div class="price-sub">${metodoPagoSeleccionado === 'PagoMovil' ? 'Con recargo Pago Móvil' : 'Base (Pago Móvil +7%)'}[cite: 5]</div>
                 </div>
                 <button class="btn-details">Ver Detalles</button>
             </div>
@@ -1221,7 +1298,7 @@
         const currentUser = obtenerUsuarioLogueado();
         const userEmailTxt = currentUser ? currentUser.email : 'Sin registrar';
 
-        const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, deseo encargar este producto:\n\n📦 *${title}*\n💲 *Precio Final (${metodoPagoSeleccionado}):* $${finalPrice} ${currency}\n👤 *Cuenta de Cliente:* ${userEmailTxt}\n🔗 *Enlace:* ${itemUrl}`);
+        const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, deseo encargar este producto[cite: 5]:\n\n📦 *${title}*\n💲 *Precio Final (${metodoPagoSeleccionado}):* $${finalPrice} ${currency}\n👤 *Cuenta de Cliente:* ${userEmailTxt}\n🔗 *Enlace:* ${itemUrl}`);
         const whatsappLink = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
 
         document.getElementById('modalBody').innerHTML = `
@@ -1251,10 +1328,10 @@
                     </div>
                     <div class="price-box" style="margin-bottom: 14px;">
                         <div class="price-main">$${finalPrice} <span>${currency}</span></div>
-                        <div class="price-sub">${metodoPagoSeleccionado === 'PagoMovil' ? 'Incluye recargo del 7% por Pago Móvil' : 'Sin recargo (Pago Móvil aplica 7%)'}</div>
+                        <div class="price-sub">${metodoPagoSeleccionado === 'PagoMovil' ? 'Incluye recargo del 7% por Pago Móvil' : 'Sin recargo (Pago Móvil aplica 7%)'}[cite: 5]</div>
                     </div>
                     <a href="${whatsappLink}" target="_blank" class="btn-whatsapp-modal">
-                        💬 Gestionar Importación por WhatsApp
+                        💬 Gestionar Importación por WhatsApp[cite: 5]
                     </a>
                 </div>
             </div>
@@ -1290,7 +1367,7 @@
         document.getElementById('modalBody').innerHTML = `
             <div class="auth-container">
                 <h2>Portal de Clientes</h2>
-                <p>Inicia sesión o crea una cuenta segura verificada por correo electrónico.</p>
+                <p>Inicia sesión o crea una cuenta segura verificada por correo electrónico[cite: 5].</p>
                 <div class="form-group">
                     <label>Correo Electrónico</label>
                     <input type="email" id="authEmail" placeholder="tucorreo@email.com">
@@ -1345,7 +1422,7 @@
             document.getElementById('modalBody').innerHTML = `
                 <div class="auth-container" style="text-align: center; padding: 20px;">
                     <h2>Enviando Código...</h2>
-                    <p>Estamos enviando el código de verificación a <strong>${email}</strong>.</p>
+                    <p>Estamos enviando el código de verificación a <strong>${email}</strong>[cite: 5].</p>
                 </div>
             `;
 
@@ -1371,7 +1448,7 @@
             document.getElementById('modalBody').innerHTML = `
                 <div class="auth-container">
                     <h2>Verificación de Cuenta</h2>
-                    <p>Hemos enviado un código de 4 dígitos a tu correo <strong>${email}</strong>.</p>
+                    <p>Hemos enviado un código de 4 dígitos a tu correo <strong>${email}</strong>[cite: 5].</p>
                     <div class="form-group">
                         <label>Ingresa el Código Recibido</label>
                         <input type="text" id="inputCodigoVerificacion" placeholder="Ej: 1234" maxlength="4">
@@ -1398,7 +1475,7 @@
         localStorage.setItem('smart_hauss_users', JSON.stringify(users));
         localStorage.setItem('smart_hauss_current_user', JSON.stringify(nuevoUsuario));
 
-        alert('¡Cuenta verificada y creada con éxito!');
+        alert('¡Cuenta verificada y creada con éxito![cite: 5]');
         actualizarBotonCuentaUI();
         abrirPortalCliente();
     }
@@ -1407,7 +1484,7 @@
         document.getElementById('modalBody').innerHTML = `
             <div class="auth-container">
                 <h2>Recuperar Contraseña</h2>
-                <p>Introduce tu correo registrado para enviarte un código de restablecimiento.</p>
+                <p>Introduce tu correo registrado para enviarte un código de restablecimiento[cite: 5].</p>
                 <div class="form-group">
                     <label>Correo Electrónico</label>
                     <input type="email" id="recuperarEmail" placeholder="tucorreo@email.com">
@@ -1434,7 +1511,7 @@
         document.getElementById('modalBody').innerHTML = `
             <div class="auth-container" style="text-align: center; padding: 20px;">
                 <h2>Enviando Código...</h2>
-                <p>Generando y enviando clave de restablecimiento a <strong>${email}</strong>...</p>
+                <p>Generando y enviando clave de restablecimiento a <strong>${email}</strong>...[cite: 5]</p>
             </div>
         `;
 
@@ -1460,7 +1537,7 @@
         document.getElementById('modalBody').innerHTML = `
             <div class="auth-container">
                 <h2>Restablecer Clave</h2>
-                <p>Hemos enviado un código de seguridad a tu correo <strong>${email}</strong>.</p>
+                <p>Hemos enviado un código de seguridad a tu correo <strong>${email}</strong>[cite: 5].</p>
                 <div class="form-group">
                     <label>Código de Verificación</label>
                     <input type="text" id="inputCodigoRecup" placeholder="4 dígitos" maxlength="4">
@@ -1495,7 +1572,7 @@
         if (userIndex !== -1) {
             users[userIndex].pass = nuevaClave;
             localStorage.setItem('smart_hauss_users', JSON.stringify(users));
-            alert('¡Contraseña actualizada con éxito! Ya puedes iniciar sesión.');
+            alert('¡Contraseña actualizada con éxito! Ya puedes iniciar sesión[cite: 5].');
             renderizarFormularioLogin();
         }
     }
@@ -1516,7 +1593,7 @@
                         <h2>Panel de Control (Admin)</h2>
                         <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
                     </div>
-                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Gestiona el estatus de los pedidos de tus clientes registrados en tiempo real.</p>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Gestiona el estatus de los pedidos de tus clientes registrados en tiempo real[cite: 5].</p>
                     
                     <div class="form-group">
                         <label>Correo del Cliente</label>
@@ -1559,7 +1636,7 @@
                 <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Bienvenido, <strong>${user.nombre}</strong> (${user.email}).</p>
                 
                 <div id="myOrdersContainer">
-                    ${myOrders.length === 0 ? '<div class="message-state">No tienes pedidos activos registrados aún. Cuando realices un encargo por WhatsApp, el administrador asociará tu estatus aquí.</div>' : 
+                    ${myOrders.length === 0 ? '<div class="message-state">No tienes pedidos activos registrados aún. Cuando realices un encargo por WhatsApp, el administrador asociará tu estatus aquí[cite: 5].</div>' : 
                         myOrders.map(o => `
                             <div class="order-card-item">
                                 <div class="order-top-row">
@@ -1598,7 +1675,7 @@
         allOrders.unshift({ email, producto, estatus, fecha });
         localStorage.setItem('smart_hauss_orders', JSON.stringify(allOrders));
 
-        alert('¡Estatus de pedido actualizado con éxito!');
+        alert('¡Estatus de pedido actualizado con éxito![cite: 5]');
         document.getElementById('admClientEmail').value = '';
         document.getElementById('admProductDesc').value = '';
         cargarListaAdminPedidos();
@@ -1615,12 +1692,12 @@
         }
 
         listDiv.innerHTML = allOrders.map((o, idx) => `
-            <div style="background: rgba(3,7,18,0.5); padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+            <div style="background: #ffffff; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; gap: 8px; border: 1px solid var(--border-glass);">
                 <div style="overflow: hidden; text-overflow: ellipsis;">
                     <strong>${o.email}</strong><br>
-                    <span style="color: #fff;">${o.producto}</span> - <span style="color: var(--neon-blue);">${formatearEstatusTexto(o.estatus)}</span>
+                    <span style="color: #0f172a;">${o.producto}</span> - <span style="color: var(--brand-blue);">${formatearEstatusTexto(o.estatus)}</span>
                 </div>
-                <button onclick="eliminarPedidoAdmin(${idx})" style="background: var(--neon-pink); color:#030712; border:none; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; cursor:pointer; flex-shrink:0;">Eliminar</button>
+                <button onclick="eliminarPedidoAdmin(${idx})" style="background: #fee2e2; color:#ef4444; border:none; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; cursor:pointer; flex-shrink:0;">Eliminar</button>
             </div>
         `).join('');
     }
