@@ -317,7 +317,6 @@
         .trust-text h4 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
         .trust-text p { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
 
-        /* CUADRITO COMPACTO DE TRACKING */
         .tracking-box-compact {
             max-width: 460px;
             margin: 0 auto 30px auto;
@@ -395,7 +394,6 @@
             border: 1px solid var(--border-glass);
         }
 
-        /* PANEL DE BÚSQUEDA GENERAL */
         .search-panel {
             background: var(--bg-card);
             backdrop-filter: blur(15px);
@@ -991,7 +989,7 @@
         </div>
     </div>
 
-    <!-- CUADRITO COMPACTO DE TRACKING (MÁS PEQUEÑO Y CLARO) -->
+    <!-- CUADRITO COMPACTO DE TRACKING -->
     <div class="tracking-box-compact">
         <h3>📦 Consulta el Estatus de tu Pedido</h3>
         <p>Introduce tu correo electrónico registrado:</p>
@@ -1078,9 +1076,9 @@
             <div class="payment-card" onclick="seleccionarMetododePago('PagoMovil')">
                 <div style="font-size:24px;">📱</div>
                 <h5>Pago Móvil</h5>
-                <span>Sin comisión</span>
+                <span>Aplica 7%</span>
             </div>
-            <div class="payment-card" onclick="seleccionarMetododePago('Zinli')">
+            <div class="payment-card" onclick="seleccionarMetododePago('Efectivo')">
                 <div style="font-size:24px;">💵</div>
                 <h5>Efectivo</h5>
                 <span>Sin Comisión</span>
@@ -1275,7 +1273,6 @@
         const finalPrice = calcularPrecioConComision(basePrice);
         const currency = item.currency || 'USD';
         
-        // Convertimos miniaturas de eBay a alta resolución si aplica
         let rawImg = item.image ? item.image.imageUrl : 'https://via.placeholder.com/200';
         const image = rawImg.replace(/s-l\d+/, 's-l1600');
 
