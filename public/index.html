@@ -70,12 +70,6 @@
             100% { transform: translateY(0px); }
         }
 
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(0, 100, 210, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 100, 210, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 100, 210, 0); }
-        }
-
         .top-ticker {
             background: linear-gradient(90deg, #0064d2, #2563eb, #1d4ed8);
             color: #ffffff;
@@ -947,21 +941,21 @@
             <div class="trust-icon">🛡️</div>
             <div class="trust-text">
                 <h4>Compra 100% Segura</h4>
-                <p>Verificamos la reputación de cada vendedor en eBay antes de procesar tu encargo con total garantía[cite: 5].</p>
+                <p>Verificamos la reputación de cada vendedor en eBay antes de procesar tu encargo con total garantía.</p>
             </div>
         </div>
         <div class="trust-item">
             <div class="trust-icon">✈️</div>
             <div class="trust-text">
                 <h4>Envíos Directos</h4>
-                <p>Logística puerta a puerta desde Miami directo a cualquier estado de Venezuela de forma ágil[cite: 5].</p>
+                <p>Logística puerta a puerta desde Miami directo a cualquier estado de Venezuela de forma ágil.</p>
             </div>
         </div>
         <div class="trust-item">
             <div class="trust-icon">💎</div>
             <div class="trust-text">
                 <h4>Transparencia Total</h4>
-                <p>Cotizaciones exactas con recargo fijo y seguimiento en tiempo real del estatus de tu paquete[cite: 5].</p>
+                <p>Cotizaciones exactas con recargo fijo y seguimiento en tiempo real del estatus de tu paquete.</p>
             </div>
         </div>
     </div>
@@ -969,7 +963,7 @@
     <!-- BUSCADOR DE TRACKING PÚBLICO -->
     <div class="tracking-box">
         <h3>🔍 Consulta el Estatus de tu Pedido</h3>
-        <p>Introduce tu correo electrónico registrado para visualizar en vivo por dónde va tu importación tecnológica[cite: 5]:</p>
+        <p>Introduce tu correo electrónico registrado para visualizar en vivo por dónde va tu importación tecnológica:</p>
         <div class="search-bar-wrapper" style="margin-bottom: 0;">
             <input type="text" id="trackingInputQuery" placeholder="Correo electrónico (Ej: cliente@email.com)">
             <button class="btn-search" onclick="consultarTrackingPublico()">Consultar</button>
@@ -1070,15 +1064,15 @@
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cómo se calcula el precio final de mi producto? <span>▼</span></div>
-                <div class="faq-answer">El sistema toma el precio publicado en eBay en tiempo real. La comisión de gestión (7%) solo se aplica de manera exclusiva al seleccionar el método de pago Pago Móvil. Los demás métodos están libres de este recargo específico. Los costos de flete internacional se calculan al llegar a Miami[cite: 5].</div>
+                <div class="faq-answer">El sistema toma el precio publicado en eBay en tiempo real. La comisión de gestión (7%) solo se aplica de manera exclusiva al seleccionar el método de pago Pago Móvil. Los demás métodos están libres de este recargo específico. Los costos de flete internacional se calculan al llegar a Miami.</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cuánto tarda en llegar el pedido a Venezuela? <span>▼</span></div>
-                <div class="faq-answer">El tiempo estimado de entrega es de 8 a 15 días hábiles una vez que el producto es recibido en nuestro courier en Miami y consolidado para su despacho aéreo hacia el país[cite: 5].</div>
+                <div class="faq-answer">El tiempo estimado de entrega es de 8 a 15 días hábiles una vez que el producto es recibido en nuestro courier en Miami y consolidado para su despacho aéreo hacia el país.</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Qué pasa si mi producto llega con defectos o problemas? <span>▼</span></div>
-                <div class="faq-answer">Te acompañamos en el proceso de revisión con el vendedor de eBay dentro de los plazos de garantía permitidos por la plataforma para gestionar devoluciones o reembolsos de forma transparente[cite: 5].</div>
+                <div class="faq-answer">Te acompañamos en el proceso de revisión con el vendedor de eBay dentro de los plazos de garantía permitidos por la plataforma para gestionar devoluciones o reembolsos de forma transparente.</div>
             </div>
         </div>
     </div>
@@ -1097,15 +1091,15 @@
 </div>
 
 <footer>
-    <p><strong>Smart Hauss</strong> — Tu pasarela de importación tecnológica directa[cite: 5].</p>
-    <p style="margin-top: 6px;">Seguridad, trazabilidad y cotización automatizada en tiempo real para toda Venezuela[cite: 5].</p>
+    <p><strong>Smart Hauss</strong> — Tu pasarela de importación tecnológica directa.</p>
+    <p style="margin-top: 6px;">Seguridad, trazabilidad y cotización automatizada en tiempo real para toda Venezuela.</p>
 </footer>
 
 <script>
-    const numeroWhatsApp = "584244525080"; // Número actualizado configurado[cite: 5]
+    const numeroWhatsApp = "584244525080"; // Número actualizado configurado
     let productosBusquedaActual = [];
     let todosLosProductosCargados = {}; 
-    let metodoPagoSeleccionado = 'Zelle'; // Método por defecto sin comisión[cite: 5]
+    let metodoPagoSeleccionado = 'Zelle'; // Método por defecto sin comisión
 
     const terminosAleatorios1 = ['MacBook Pro', 'PlayStation 5', 'Garmin Watch', 'GoPro Hero'];
     const terminosAleatorios2 = ['iPad Air', 'Nintendo Switch', 'Mechanical Keyboard', 'AirPods Pro'];
@@ -1125,7 +1119,7 @@
 
     function seleccionarMetododePago(metodo) {
         metodoPagoSeleccionado = metodo;
-        alert(`Método de pago seleccionado: ${metodo}. ${metodo === 'PagoMovil' ? 'Se aplicará la comisión correspondiente al precio.' : 'Este método no aplica comisión adicional.'}[cite: 5]`);
+        alert(`Método de pago seleccionado: ${metodo}. ${metodo === 'PagoMovil' ? 'Se aplicará la comisión correspondiente al precio.' : 'Este método no aplica comisión adicional.'}`);
         if(productosBusquedaActual.length > 0) {
             if(document.getElementById('searchContainer').style.display !== 'none') {
                 renderizarGrilla(document.getElementById('searchResultsGrid'), productosBusquedaActual);
@@ -1135,7 +1129,7 @@
 
     function calcularPrecioConComision(precioBase) {
         let num = parseFloat(precioBase) || 0;
-        // La comisión (7%) SOLO se aplica si el método de pago seleccionado es Pago Móvil[cite: 5]
+        // La comisión (7%) SOLO se aplica si el método de pago seleccionado es Pago Móvil
         if (metodoPagoSeleccionado === 'PagoMovil') {
             num = num * 1.07;
         }
@@ -1208,16 +1202,20 @@
         const container = document.getElementById('trackingResultContainer');
 
         if (!email) {
-            alert('Ingresa un correo electrónico válido.');
+            alert('Por favor, ingresa un correo electrónico válido.');
             return;
         }
 
         let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        let myOrders = allOrders.filter(o => o.email === email);
+        let myOrders = allOrders.filter(o => o.email && o.email.trim().toLowerCase() === email);
 
         container.style.display = 'block';
         if (myOrders.length === 0) {
-            container.innerHTML = '<p style="font-size: 11px; color: var(--text-muted); text-align: center;">No se encontraron pedidos activos para este correo[cite: 5].</p>';
+            container.innerHTML = `
+                <div style="text-align: center; padding: 10px;">
+                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 6px;">No se encontraron pedidos activos para <strong>${email}</strong>.</p>
+                    <p style="font-size: 10px; color: var(--brand-blue);">💡 Asegúrate de usar el mismo correo con el que realizaste tu gestión por WhatsApp.</p>
+                </div>`;
             return;
         }
 
@@ -1265,7 +1263,7 @@
             <div>
                 <div class="price-box">
                     <div class="price-main">$${finalPrice} <span>${currency}</span></div>
-                    <div class="price-sub">${metodoPagoSeleccionado === 'PagoMovil' ? 'Con recargo Pago Móvil' : 'Base (Pago Móvil +7%)'}[cite: 5]</div>
+                    <div class="price-sub">${metodoPagoSeleccionado === 'PagoMovil' ? 'Con recargo Pago Móvil' : 'Base (Pago Móvil +7%)'}</div>
                 </div>
                 <button class="btn-details">Ver Detalles</button>
             </div>
@@ -1298,7 +1296,7 @@
         const currentUser = obtenerUsuarioLogueado();
         const userEmailTxt = currentUser ? currentUser.email : 'Sin registrar';
 
-        const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, deseo encargar este producto[cite: 5]:\n\n📦 *${title}*\n💲 *Precio Final (${metodoPagoSeleccionado}):* $${finalPrice} ${currency}\n👤 *Cuenta de Cliente:* ${userEmailTxt}\n🔗 *Enlace:* ${itemUrl}`);
+        const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, deseo encargar este producto:\n\n📦 *${title}*\n💲 *Precio Final (${metodoPagoSeleccionado}):* $${finalPrice} ${currency}\n👤 *Cuenta de Cliente:* ${userEmailTxt}\n🔗 *Enlace:* ${itemUrl}`);
         const whatsappLink = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
 
         document.getElementById('modalBody').innerHTML = `
@@ -1328,10 +1326,10 @@
                     </div>
                     <div class="price-box" style="margin-bottom: 14px;">
                         <div class="price-main">$${finalPrice} <span>${currency}</span></div>
-                        <div class="price-sub">${metodoPagoSeleccionado === 'PagoMovil' ? 'Incluye recargo del 7% por Pago Móvil' : 'Sin recargo (Pago Móvil aplica 7%)'}[cite: 5]</div>
+                        <div class="price-sub">${metodoPagoSeleccionado === 'PagoMovil' ? 'Incluye recargo del 7% por Pago Móvil' : 'Sin recargo (Pago Móvil aplica 7%)'}</div>
                     </div>
                     <a href="${whatsappLink}" target="_blank" class="btn-whatsapp-modal">
-                        💬 Gestionar Importación por WhatsApp[cite: 5]
+                        💬 Gestionar Importación por WhatsApp
                     </a>
                 </div>
             </div>
@@ -1367,7 +1365,7 @@
         document.getElementById('modalBody').innerHTML = `
             <div class="auth-container">
                 <h2>Portal de Clientes</h2>
-                <p>Inicia sesión o crea una cuenta segura verificada por correo electrónico[cite: 5].</p>
+                <p>Inicia sesión o crea una cuenta segura verificada por correo electrónico.</p>
                 <div class="form-group">
                     <label>Correo Electrónico</label>
                     <input type="email" id="authEmail" placeholder="tucorreo@email.com">
@@ -1422,7 +1420,7 @@
             document.getElementById('modalBody').innerHTML = `
                 <div class="auth-container" style="text-align: center; padding: 20px;">
                     <h2>Enviando Código...</h2>
-                    <p>Estamos enviando el código de verificación a <strong>${email}</strong>[cite: 5].</p>
+                    <p>Estamos enviando el código de verificación a <strong>${email}</strong>.</p>
                 </div>
             `;
 
@@ -1448,7 +1446,7 @@
             document.getElementById('modalBody').innerHTML = `
                 <div class="auth-container">
                     <h2>Verificación de Cuenta</h2>
-                    <p>Hemos enviado un código de 4 dígitos a tu correo <strong>${email}</strong>[cite: 5].</p>
+                    <p>Hemos enviado un código de 4 dígitos a tu correo <strong>${email}</strong>.</p>
                     <div class="form-group">
                         <label>Ingresa el Código Recibido</label>
                         <input type="text" id="inputCodigoVerificacion" placeholder="Ej: 1234" maxlength="4">
@@ -1475,7 +1473,7 @@
         localStorage.setItem('smart_hauss_users', JSON.stringify(users));
         localStorage.setItem('smart_hauss_current_user', JSON.stringify(nuevoUsuario));
 
-        alert('¡Cuenta verificada y creada con éxito![cite: 5]');
+        alert('¡Cuenta verificada y creada con éxito!');
         actualizarBotonCuentaUI();
         abrirPortalCliente();
     }
@@ -1484,7 +1482,7 @@
         document.getElementById('modalBody').innerHTML = `
             <div class="auth-container">
                 <h2>Recuperar Contraseña</h2>
-                <p>Introduce tu correo registrado para enviarte un código de restablecimiento[cite: 5].</p>
+                <p>Introduce tu correo registrado para enviarte un código de restablecimiento.</p>
                 <div class="form-group">
                     <label>Correo Electrónico</label>
                     <input type="email" id="recuperarEmail" placeholder="tucorreo@email.com">
@@ -1511,7 +1509,7 @@
         document.getElementById('modalBody').innerHTML = `
             <div class="auth-container" style="text-align: center; padding: 20px;">
                 <h2>Enviando Código...</h2>
-                <p>Generando y enviando clave de restablecimiento a <strong>${email}</strong>...[cite: 5]</p>
+                <p>Generando y enviando clave de restablecimiento a <strong>${email}</strong>...</p>
             </div>
         `;
 
@@ -1537,7 +1535,7 @@
         document.getElementById('modalBody').innerHTML = `
             <div class="auth-container">
                 <h2>Restablecer Clave</h2>
-                <p>Hemos enviado un código de seguridad a tu correo <strong>${email}</strong>[cite: 5].</p>
+                <p>Hemos enviado un código de seguridad a tu correo <strong>${email}</strong>.</p>
                 <div class="form-group">
                     <label>Código de Verificación</label>
                     <input type="text" id="inputCodigoRecup" placeholder="4 dígitos" maxlength="4">
@@ -1572,7 +1570,7 @@
         if (userIndex !== -1) {
             users[userIndex].pass = nuevaClave;
             localStorage.setItem('smart_hauss_users', JSON.stringify(users));
-            alert('¡Contraseña actualizada con éxito! Ya puedes iniciar sesión[cite: 5].');
+            alert('¡Contraseña actualizada con éxito! Ya puedes iniciar sesión.');
             renderizarFormularioLogin();
         }
     }
@@ -1593,11 +1591,11 @@
                         <h2>Panel de Control (Admin)</h2>
                         <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
                     </div>
-                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Gestiona el estatus de los pedidos de tus clientes registrados en tiempo real[cite: 5].</p>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Gestiona el estatus de los pedidos de tus clientes registrados en tiempo real.</p>
                     
                     <div class="form-group">
                         <label>Correo del Cliente</label>
-                        <input type="text" id="admClientEmail" placeholder="cliente@email.com">
+                        <input type="email" id="admClientEmail" placeholder="cliente@email.com">
                     </div>
                     <div class="form-group">
                         <label>Descripción del Producto / Pedido</label>
@@ -1625,7 +1623,7 @@
         }
 
         let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        let myOrders = allOrders.filter(o => o.email === user.email);
+        let myOrders = allOrders.filter(o => o.email && o.email.trim().toLowerCase() === user.email.trim().toLowerCase());
 
         modalBody.innerHTML = `
             <div class="client-dashboard">
@@ -1636,7 +1634,7 @@
                 <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Bienvenido, <strong>${user.nombre}</strong> (${user.email}).</p>
                 
                 <div id="myOrdersContainer">
-                    ${myOrders.length === 0 ? '<div class="message-state">No tienes pedidos activos registrados aún. Cuando realices un encargo por WhatsApp, el administrador asociará tu estatus aquí[cite: 5].</div>' : 
+                    ${myOrders.length === 0 ? '<div class="message-state">No tienes pedidos activos registrados aún. Cuando realices un encargo por WhatsApp, el administrador asociará tu estatus aquí.</div>' : 
                         myOrders.map(o => `
                             <div class="order-card-item">
                                 <div class="order-top-row">
@@ -1675,7 +1673,7 @@
         allOrders.unshift({ email, producto, estatus, fecha });
         localStorage.setItem('smart_hauss_orders', JSON.stringify(allOrders));
 
-        alert('¡Estatus de pedido actualizado con éxito![cite: 5]');
+        alert('¡Estatus de pedido actualizado con éxito!');
         document.getElementById('admClientEmail').value = '';
         document.getElementById('admProductDesc').value = '';
         cargarListaAdminPedidos();
