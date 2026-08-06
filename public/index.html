@@ -8,14 +8,13 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
         :root {
-            /* Paleta de confianza inspirada en eBay / Amazon (Azul corporativo, Amarillo/Naranja acento, Gris claro/Blanco limpio) */
             --bg-deep: #f4f6f9;
             --bg-card: #ffffff;
             --border-glass: #e2e8f0;
-            --border-glass-hover: #0064d2; /* Azul eBay */
+            --border-glass-hover: #0064d2;
             --brand-blue: #0064d2;
-            --brand-yellow: #f5af02; /* Amarillo estilo Amazon / acento */
-            --brand-orange: #ff9900; /* Naranja Amazon */
+            --brand-yellow: #f5af02;
+            --brand-orange: #ff9900;
             --whatsapp-green: #10b981;
             --text-main: #1e293b;
             --text-muted: #64748b;
@@ -39,7 +38,6 @@
             position: relative;
         }
 
-        /* ANIMACIONES DE FONDO DINÁMICAS Y FLUIDAS */
         .ambient-glow {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -80,7 +78,6 @@
             letter-spacing: 0.5px;
             box-shadow: 0 2px 10px rgba(0, 100, 210, 0.2);
             text-transform: uppercase;
-            animation: fadeInDown 0.6s ease;
         }
 
         header {
@@ -263,16 +260,15 @@
             .section-title span { font-size: 11px; padding: 5px 12px; }
         }
 
-        /* BANNER DE CONFIANZA MEJORADO */
         .trust-banner {
             display: grid;
             grid-template-columns: 1fr;
             gap: 12px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         @media (min-width: 768px) {
-            .trust-banner { grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+            .trust-banner { grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
         }
 
         .trust-item {
@@ -321,46 +317,85 @@
         .trust-text h4 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
         .trust-text p { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
 
-        /* BUSCADOR DE TRACKING */
-        .tracking-box {
+        /* CUADRITO COMPACTO DE TRACKING */
+        .tracking-box-compact {
+            max-width: 460px;
+            margin: 0 auto 30px auto;
             background: linear-gradient(135deg, #ffffff, #f8fafc);
             border: 1px solid var(--border-glass);
-            border-radius: 20px;
-            padding: 20px 16px;
-            margin-bottom: 35px;
+            border-radius: 16px;
+            padding: 14px 18px;
             box-shadow: var(--shadow-subtle);
             position: relative;
             overflow: hidden;
         }
 
-        .tracking-box::after {
-            content: '✓ VERIFICADO';
-            position: absolute;
-            top: -10px; right: -30px;
-            background: var(--whatsapp-green);
-            color: white; font-size: 9px; font-weight: 800;
-            padding: 20px 40px 4px 40px;
-            transform: rotate(45deg);
-            opacity: 0.15;
-            pointer-events: none;
+        .tracking-box-compact h3 {
+            font-size: 0.95rem;
+            color: #0f172a;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 800;
         }
 
-        @media (min-width: 640px) { .tracking-box { padding: 26px; } }
+        .tracking-box-compact p {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
 
-        .tracking-box h3 { font-size: 1.1rem; color: #0f172a; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-        .tracking-box p { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.4; }
-        
-        .tracking-result-box {
-            margin-top: 14px;
+        .tracking-input-wrapper {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tracking-input-wrapper input {
+            flex: 1;
+            padding: 8px 12px;
+            font-size: 12px;
             background: #ffffff;
-            border-radius: 12px;
-            padding: 14px;
+            border: 1px solid var(--border-glass);
+            border-radius: 10px;
+            color: #0f172a;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .tracking-input-wrapper input:focus {
+            border-color: var(--brand-blue);
+            box-shadow: 0 0 0 3px rgba(0, 100, 210, 0.1);
+        }
+
+        .btn-tracking-mini {
+            padding: 0 14px;
+            font-size: 11px;
+            font-weight: 800;
+            background: var(--brand-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .btn-tracking-mini:hover { background: #0051b0; }
+
+        .tracking-result-box {
+            margin-top: 10px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 10px;
             display: none;
             border: 1px solid var(--border-glass);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        /* PANEL DE BÚSQUEDA Y FILTROS OPTIMIZADO */
+        /* PANEL DE BÚSQUEDA GENERAL */
         .search-panel {
             background: var(--bg-card);
             backdrop-filter: blur(15px);
@@ -501,7 +536,6 @@
             box-shadow: 0 0 0 3px rgba(0, 100, 210, 0.1);
         }
 
-        /* METODOS DE PAGO CONFIABLES */
         .payments-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -535,7 +569,6 @@
         .payment-card h5 { font-size: 13px; color: #0f172a; margin-top: 8px; font-weight: 700; }
         .payment-card span { font-size: 10px; color: var(--whatsapp-green); font-weight: 700; display: block; margin-top: 3px; }
 
-        /* FAQ ACORDEÓN */
         .faq-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
         .faq-item {
             background: var(--bg-card);
@@ -570,7 +603,6 @@
         .faq-item.active .faq-question span { transform: rotate(180deg); color: var(--brand-blue); }
         .faq-question span { transition: transform 0.3s ease; }
 
-        /* CARRUSELES Y GRILLAS PERFECTAMENTE ADAPTABLES */
         .carousel-container {
             display: flex;
             gap: 14px;
@@ -594,7 +626,6 @@
             .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
         }
 
-        /* TARJETAS DE PRODUCTOS OPTIMIZADAS Y ANIMADAS */
         .card {
             background: var(--bg-card);
             backdrop-filter: blur(12px);
@@ -714,7 +745,6 @@
 
         .btn-details:hover { background: var(--brand-blue); color: #ffffff; border-color: var(--brand-blue); box-shadow: 0 4px 12px rgba(0, 100, 210, 0.25); }
 
-        /* MODALES ADAPTABLES CON ANIMACIÓN SUAVE */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -783,12 +813,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 220px;
+            height: 260px;
             box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
             border: 1px solid #f1f5f9;
+            cursor: zoom-in;
+            position: relative;
         }
 
-        @media (min-width: 640px) { .main-img-display { height: 320px; } }
+        @media (min-width: 640px) { .main-img-display { height: 340px; } }
         .main-img-display img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
         .thumbnails-row { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
@@ -935,7 +967,6 @@
 
 <div class="main-container">
 
-    <!-- BANNER DE CONFIANZA REDISEÑADO -->
     <div class="trust-banner">
         <div class="trust-item">
             <div class="trust-icon">🛡️</div>
@@ -960,13 +991,13 @@
         </div>
     </div>
 
-    <!-- BUSCADOR DE TRACKING PÚBLICO -->
-    <div class="tracking-box">
-        <h3>🔍 Consulta el Estatus de tu Pedido</h3>
-        <p>Introduce tu correo electrónico registrado para visualizar en vivo por dónde va tu importación tecnológica:</p>
-        <div class="search-bar-wrapper" style="margin-bottom: 0;">
-            <input type="text" id="trackingInputQuery" placeholder="Correo electrónico (Ej: cliente@email.com)">
-            <button class="btn-search" onclick="consultarTrackingPublico()">Consultar</button>
+    <!-- CUADRITO COMPACTO DE TRACKING (MÁS PEQUEÑO Y CLARO) -->
+    <div class="tracking-box-compact">
+        <h3>📦 Consulta el Estatus de tu Pedido</h3>
+        <p>Introduce tu correo electrónico registrado:</p>
+        <div class="tracking-input-wrapper">
+            <input type="text" id="trackingInputQuery" placeholder="correo@email.com">
+            <button class="btn-tracking-mini" onclick="consultarTrackingPublico()">Consultar</button>
         </div>
         <div id="trackingResultContainer" class="tracking-result-box"></div>
     </div>
@@ -1031,7 +1062,6 @@
         <div id="carouselCurated" class="carousel-container" style="display: none;"></div>
     </div>
 
-    <!-- MÉTODOS DE PAGO ACEPTADOS -->
     <div class="section-block">
         <div class="section-title">💳 Métodos de Pago <span>Seguros y Confiables</span></div>
         <div class="payments-grid">
@@ -1048,7 +1078,7 @@
             <div class="payment-card" onclick="seleccionarMetododePago('PagoMovil')">
                 <div style="font-size:24px;">📱</div>
                 <h5>Pago Móvil</h5>
-                <span>Sin comision</span>
+                <span>Sin comisión</span>
             </div>
             <div class="payment-card" onclick="seleccionarMetododePago('Zinli')">
                 <div style="font-size:24px;">💵</div>
@@ -1058,7 +1088,6 @@
         </div>
     </div>
 
-    <!-- PREGUNTAS FRECUENTES (FAQ) -->
     <div class="section-block">
         <div class="section-title">❓ Preguntas Frecuentes <span>Resolvemos tus Dudas</span></div>
         <div class="faq-container">
@@ -1096,10 +1125,10 @@
 </footer>
 
 <script>
-    const numeroWhatsApp = "584244525080"; // Número actualizado configurado
+    const numeroWhatsApp = "584244525080";
     let productosBusquedaActual = [];
     let todosLosProductosCargados = {}; 
-    let metodoPagoSeleccionado = 'Zelle'; // Método por defecto sin comisión
+    let metodoPagoSeleccionado = 'Zelle';
 
     const terminosAleatorios1 = ['MacBook Pro', 'PlayStation 5', 'Garmin Watch', 'GoPro Hero'];
     const terminosAleatorios2 = ['iPad Air', 'Nintendo Switch', 'Mechanical Keyboard', 'AirPods Pro'];
@@ -1129,7 +1158,6 @@
 
     function calcularPrecioConComision(precioBase) {
         let num = parseFloat(precioBase) || 0;
-        // La comisión (7%) SOLO se aplica si el método de pago seleccionado es Pago Móvil
         if (metodoPagoSeleccionado === 'PagoMovil') {
             num = num * 1.07;
         }
@@ -1212,16 +1240,15 @@
         container.style.display = 'block';
         if (myOrders.length === 0) {
             container.innerHTML = `
-                <div style="text-align: center; padding: 10px;">
-                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 6px;">No se encontraron pedidos activos para <strong>${email}</strong>.</p>
-                    <p style="font-size: 10px; color: var(--brand-blue);">💡 Asegúrate de usar el mismo correo con el que realizaste tu gestión por WhatsApp.</p>
+                <div style="text-align: center; padding: 6px;">
+                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">No hay pedidos para <strong>${email}</strong>.</p>
                 </div>`;
             return;
         }
 
         container.innerHTML = myOrders.map(o => `
-            <div style="background: #f8fafc; border: 1px solid var(--border-glass); border-radius: 10px; padding: 10px; margin-bottom: 8px;">
-                <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color:#0f172a; margin-bottom: 4px; gap: 6px;">
+            <div style="background: #f8fafc; border: 1px solid var(--border-glass); border-radius: 8px; padding: 8px; margin-bottom: 6px;">
+                <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color:#0f172a; margin-bottom: 2px; gap: 6px;">
                     <span>📦 ${o.producto}</span>
                     <span class="order-status-badge status-${o.estatus}">${formatearEstatusTexto(o.estatus)}</span>
                 </div>
@@ -1247,7 +1274,11 @@
         const basePrice = item.calculatedPrice;
         const finalPrice = calcularPrecioConComision(basePrice);
         const currency = item.currency || 'USD';
-        const image = item.image ? item.image.imageUrl : 'https://via.placeholder.com/200';
+        
+        // Convertimos miniaturas de eBay a alta resolución si aplica
+        let rawImg = item.image ? item.image.imageUrl : 'https://via.placeholder.com/200';
+        const image = rawImg.replace(/s-l\d+/, 's-l1600');
+
         const itemId = item.itemId || Math.random().toString(36).substr(2, 9);
         item.tempId = itemId;
 
@@ -1282,9 +1313,16 @@
         const itemUrl = item.itemWebUrl;
 
         let imagenes = [];
-        if (item.image && item.image.imageUrl) imagenes.push(item.image.imageUrl);
+        if (item.image && item.image.imageUrl) {
+            imagenes.push(item.image.imageUrl.replace(/s-l\d+/, 's-l1600'));
+        }
         if (item.additionalImages && Array.isArray(item.additionalImages)) {
-            item.additionalImages.forEach(img => { if (img.imageUrl && !imagenes.includes(img.imageUrl)) imagenes.push(img.imageUrl); });
+            item.additionalImages.forEach(img => { 
+                if (img.imageUrl) {
+                    let highResUrl = img.imageUrl.replace(/s-l\d+/, 's-l1600');
+                    if (!imagenes.includes(highResUrl)) imagenes.push(highResUrl); 
+                }
+            });
         }
         if (imagenes.length === 0) imagenes.push('https://via.placeholder.com/300');
 
@@ -1302,10 +1340,13 @@
         document.getElementById('modalBody').innerHTML = `
             <div class="modal-grid">
                 <div class="gallery-container">
-                    <div class="main-img-display"><img id="mainModalImg" src="${imagenes[0]}" alt="${title}"></div>
+                    <div class="main-img-display" onclick="window.open(document.getElementById('mainModalImg').src, '_blank')" title="Haz clic para abrir imagen en tamaño real">
+                        <img id="mainModalImg" src="${imagenes[0]}" alt="${title}">
+                    </div>
+                    <div style="font-size: 10px; color: var(--text-muted); text-align: center; margin-top: -4px;">🔍 Haz clic en la imagen para ampliar en alta resolución</div>
                     <div class="thumbnails-row">
                         ${imagenes.map((img, i) => `
-                            <div class="thumb-box ${i === 0 ? 'active' : ''}" onclick="cambiarImagenPrincipal('${img}', this)">
+                            <div class="thumb-box ${i === 0 ? 'active' : ''}" onclick="event.stopPropagation(); cambiarImagenPrincipal('${img}', this)">
                                 <img src="${img}" alt="Thumb">
                             </div>
                         `).join('')}
