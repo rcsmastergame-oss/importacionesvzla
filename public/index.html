@@ -81,20 +81,57 @@
             text-transform: uppercase;
         }
 
+        /* CABECERA PRINCIPAL FIJA CON BUSCADOR Y NAVBAR DE CATEGORÍAS */
         header {
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border-glass);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-main-row {
             padding: 10px 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            gap: 8px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+            gap: 12px;
+            width: 100%;
+        }
+
+        @media (min-width: 640px) {
+            .header-main-row { padding: 12px 24px; }
+        }
+
+        /* BARRA DE BÚSQUEDA SUPERIOR EN LA CABECERA */
+        .header-search-container {
+            flex: 1;
+            max-width: 600px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .header-search-container input[type="text"] {
+            flex: 1;
+            padding: 8px 12px;
+            font-size: 12px;
+            background: #f8fafc;
+            border: 1px solid var(--border-glass);
+            border-radius: 10px;
+            color: #0f172a;
+            font-weight: 500;
+            outline: none;
             transition: all 0.3s ease;
+        }
+
+        .header-search-container input[type="text"]:focus {
+            border-color: var(--brand-blue);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(0, 100, 210, 0.1);
         }
 
         .header-brand {
@@ -133,14 +170,6 @@
             position: relative;
         }
 
-        .header-brand h1 span::after {
-            content: '';
-            position: absolute;
-            bottom: -2px; left: 0; width: 100%; height: 2px;
-            background: var(--brand-yellow);
-            border-radius: 2px;
-        }
-
         .header-actions {
             display: flex;
             align-items: center;
@@ -163,10 +192,8 @@
 
         @media (min-width: 640px) {
             .header-status { display: flex; }
-            header { padding: 14px 24px; }
-            .logo-img { width: 44px; height: 44px; }
-            .header-brand h1 { font-size: 1.35rem; }
-            .top-ticker { font-size: 11px; padding: 9px 12px; }
+            .logo-img { width: 40px; height: 40px; }
+            .header-brand h1 { font-size: 1.2rem; }
         }
 
         .status-dot {
@@ -201,16 +228,106 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
-        @media (min-width: 640px) {
-            .btn-user-account { padding: 8px 14px; border-radius: 12px; font-size: 12px; }
-        }
-
         .btn-user-account:hover {
             border-color: var(--brand-blue);
             background: rgba(0, 100, 210, 0.05);
             color: var(--brand-blue);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 100, 210, 0.15);
+        }
+
+        /* NAVBAR DE CATEGORÍAS PRINCIPALES FIJAS EN LA CABECERA CON DESPLEGABLES */
+        .header-nav-categories {
+            background: #ffffff;
+            border-top: 1px solid var(--border-glass);
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            padding: 0 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .header-nav-categories::-webkit-scrollbar { display: none; }
+
+        @media (min-width: 640px) {
+            .header-nav-categories { gap: 15px; padding: 0 24px; }
+        }
+
+        .nav-category-item {
+            position: relative;
+            padding: 10px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        @media (min-width: 640px) {
+            .nav-category-item { font-size: 12px; padding: 12px 18px; }
+        }
+
+        /* Cambio de color al pasar el cursor */
+        .nav-category-item:hover, .nav-category-item.active-nav {
+            color: var(--brand-blue);
+            background: rgba(0, 100, 210, 0.04);
+        }
+
+        .nav-category-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 0; height: 2px;
+            background: var(--brand-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-category-item:hover::after, .nav-category-item.active-nav::after {
+            width: 100%;
+        }
+
+        /* Subcategorías desplegables (Dropdown) */
+        .nav-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            border: 1px solid var(--border-glass);
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            min-width: 210px;
+            display: none;
+            flex-direction: column;
+            padding: 6px 0;
+            z-index: 1100;
+            animation: fadeInUp 0.2s ease;
+        }
+
+        .nav-category-item:hover .nav-dropdown-menu {
+            display: flex;
+        }
+
+        .nav-dropdown-item {
+            padding: 8px 14px;
+            font-size: 11px;
+            color: var(--text-main);
+            font-weight: 600;
+            text-transform: none;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-dropdown-item:hover {
+            background: rgba(0, 100, 210, 0.08);
+            color: var(--brand-blue);
+            padding-left: 18px;
         }
 
         .main-container {
@@ -1323,19 +1440,55 @@
     ⚡ VITRINA GLOBAL INTELIGENTE • IMPORTACIÓN DIRECTA A VENEZUELA SIN INTERMEDIARIOS ⚡
 </div>
 
+<!-- CABECERA PRINCIPAL MODIFICADA CON BUSCADOR ARRIBA Y CATEGORÍAS FIJAS CON SUBCATEGORÍAS -->
 <header>
-    <div class="header-brand">
-        <img src="https://i.pinimg.com/736x/0c/2b/47/0c2b473ac905566c4e7feb06c6f87b86.jpg" alt="Logo Smart Hauss" class="logo-img" onerror="this.src='https://via.placeholder.com/45'">
-        <h1>Smart <span>Hauss</span></h1>
-    </div>
-    <div class="header-actions">
-        <div class="header-status">
-            <div class="status-dot"></div>
-            <span>API Sincronizada</span>
+    <div class="header-main-row">
+        <div class="header-brand">
+            <img src="https://i.pinimg.com/736x/0c/2b/47/0c2b473ac905566c4e7feb06c6f87b86.jpg" alt="Logo Smart Hauss" class="logo-img" onerror="this.src='https://via.placeholder.com/45'">
+            <h1>Smart <span>Hauss</span></h1>
         </div>
-        <button class="btn-user-account" onclick="abrirPortalCliente()">
-            👤 <span id="btnAccountText">Mi Cuenta</span>
-        </button>
+        
+        <!-- BUSCADOR GLOBAL ARRIBA DE PRIMERO EN LA CABECERA -->
+        <div class="header-search-container">
+            <input type="text" id="keyword" placeholder="Busca en eBay (Ej: MacBook, RTX, Garmin...)" onkeypress="handleKeyPress(event)">
+            <button class="btn-search" onclick="realizarBusquedaManual()">Buscar</button>
+        </div>
+
+        <div class="header-actions">
+            <div class="header-status">
+                <div class="status-dot"></div>
+                <span>API Sincronizada</span>
+            </div>
+            <button class="btn-user-account" onclick="abrirPortalCliente()">
+                👤 <span id="btnAccountText">Mi Cuenta</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- NAVBAR DE CATEGORÍAS PRINCIPALES FIJAS CON EFECTO HOVER Y DESPLEGABLES -->
+    <div class="header-nav-categories">
+        <div class="nav-category-item" onclick="seleccionarVentanaCategoria(1)">
+            🌍 Importaciones eBay ▾
+            <div class="nav-dropdown-menu">
+                <div class="nav-dropdown-item" onclick="event.stopPropagation(); filtrarCategoria('laptop gamer', null); seleccionarVentanaCategoria(1);">💻 Laptops Gamer</div>
+                <div class="nav-dropdown-item" onclick="event.stopPropagation(); filtrarCategoria('smart watch', null); seleccionarVentanaCategoria(1);">⌚ Smartwatches</div>
+                <div class="nav-dropdown-item" onclick="event.stopPropagation(); filtrarCategoria('dji drone', null); seleccionarVentanaCategoria(1);">🚁 Drones y Cámaras</div>
+            </div>
+        </div>
+        <div class="nav-category-item" onclick="seleccionarVentanaCategoria(2)">
+            📚 Cursos y Manuales ▾
+            <div class="nav-dropdown-menu">
+                <div class="nav-dropdown-item" onclick="event.stopPropagation(); seleccionarVentanaCategoria(2);">📘 Manual de Importación</div>
+                <div class="nav-dropdown-item" onclick="event.stopPropagation(); seleccionarVentanaCategoria(2);">💻 Curso de Electrónica</div>
+            </div>
+        </div>
+        <div class="nav-category-item" onclick="seleccionarVentanaCategoria(3)">
+            🏬 Disponible en Tienda ▾
+            <div class="nav-dropdown-menu">
+                <div class="nav-dropdown-item" onclick="event.stopPropagation(); seleccionarVentanaCategoria(3);">🔌 Estaciones de Soldadura</div>
+                <div class="nav-dropdown-item" onclick="event.stopPropagation(); seleccionarVentanaCategoria(3);">🛠️ Kits de Herramientas</div>
+            </div>
+        </div>
     </div>
 </header>
 
@@ -1346,26 +1499,26 @@
             <div class="trust-icon">🛡️</div>
             <div class="trust-text">
                 <h4>Compra 100% Segura</h4>
-                <p>Verificamos la reputación de cada vendedor en eBay antes de procesar tu encargo con total garantía.</p>
+                <p>Verificamos la reputación de cada vendedor en eBay antes de procesar tu encargo con total garantía[cite: 8].</p>
             </div>
         </div>
         <div class="trust-item">
             <div class="trust-icon">✈️</div>
             <div class="trust-text">
                 <h4>Envíos Directos</h4>
-                <p>Logística puerta a puerta desde Miami directo a cualquier estado de Venezuela de forma ágil.</p>
+                <p>Logística puerta a puerta desde Miami directo a cualquier estado de Venezuela de forma ágil[cite: 8].</p>
             </div>
         </div>
         <div class="trust-item">
             <div class="trust-icon">💎</div>
             <div class="trust-text">
                 <h4>Transparencia Total</h4>
-                <p>Cotizaciones exactas con recargo fijo y seguimiento en tiempo real del estatus de tu paquete.</p>
+                <p>Cotizaciones exactas con recargo fijo y seguimiento en tiempo real del estatus de tu paquete[cite: 8].</p>
             </div>
         </div>
     </div>
 
-    <!-- SECCIÓN DE CATEGORÍAS PRINCIPALES -->
+    <!-- SECCIÓN DE CATEGORÍAS PRINCIPALES (TARJETAS) -->
     <div class="section-block">
         <div class="section-title">📂 Categorías Principales <span>Selecciona una Ventana</span></div>
         <div class="categories-grid-selection">
@@ -1373,7 +1526,7 @@
                 <div>
                     <div class="category-icon-wrapper">🌍</div>
                     <h3>1. Importaciones Directas de eBay</h3>
-                    <p>Búsqueda en vivo mediante API global, tendencias y cotización automatizada.</p>
+                    <p>Búsqueda en vivo mediante API global, tendencias y cotización automatizada[cite: 8].</p>
                 </div>
                 <button class="btn-open-category">Abrir Ventana</button>
             </div>
@@ -1382,7 +1535,7 @@
                 <div>
                     <div class="category-icon-wrapper">📚</div>
                     <h3>2. Cursos y Manuales</h3>
-                    <p>Capacitación profesional, manuales avanzados de importación y electrónica.</p>
+                    <p>Capacitación profesional, manuales avanzados de importación y electrónica[cite: 8].</p>
                 </div>
                 <button class="btn-open-category">Abrir Ventana</button>
             </div>
@@ -1391,7 +1544,7 @@
                 <div>
                     <div class="category-icon-wrapper">🏬</div>
                     <h3>3. Disponible en Tienda</h3>
-                    <p>Stock local de herramientas y equipos listos para entrega inmediata.</p>
+                    <p>Stock local de herramientas y equipos listos para entrega inmediata[cite: 8].</p>
                 </div>
                 <button class="btn-open-category">Abrir Ventana</button>
             </div>
@@ -1406,11 +1559,6 @@
         </div>
         
         <div class="search-panel" style="margin-bottom: 20px; box-shadow: none; border: 1px solid var(--border-glass);">
-            <div class="search-bar-wrapper">
-                <input type="text" id="keyword" placeholder="Busca en eBay (Ej: MacBook, RTX, Garmin...)" onkeypress="handleKeyPress(event)">
-                <button class="btn-search" onclick="realizarBusquedaManual()">Buscar</button>
-            </div>
-
             <div class="category-tags">
                 <span class="tag" onclick="filtrarCategoria('laptop gamer', this)">💻 Laptops Gamer</span>
                 <span class="tag" onclick="filtrarCategoria('smart watch', this)">⌚ Smartwatches</span>
@@ -1472,7 +1620,7 @@
             <h2>📚 2. Cursos y Manuales</h2>
             <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Ver Todas las Ventanas</button>
         </div>
-        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Accede a material formativo especializado, guías técnicas y manuales de importación y electrónica.</p>
+        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Accede a material formativo especializado, guías técnicas y manuales de importación y electrónica[cite: 8].</p>
         <div class="grid">
             <div class="card" style="cursor: default; animation: none;">
                 <div class="card-badge">Guía Pro</div>
@@ -1511,7 +1659,7 @@
             <h2>🏬 3. Disponible en Tienda</h2>
             <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Ver Todas las Ventanas</button>
         </div>
-        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Productos listos para entrega inmediata o retiro directo en local sin esperar tiempos de importación.</p>
+        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Productos listos para entrega inmediata o retiro directo en local sin esperar tiempos de importación[cite: 8].</p>
         <div class="grid">
             <div class="card" style="cursor: default; animation: none;">
                 <div class="card-badge" style="background: linear-gradient(135deg, #10b981, #059669);">Stock Local</div>
@@ -1601,22 +1749,17 @@
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cómo se calcula el precio final de mi producto? <span>▼</span></div>
-                <div class="faq-answer">El sistema toma el precio publicado en eBay en tiempo real. La comisión de gestión (7%) solo se aplica de manera exclusiva al seleccionar el método de pago Pago Móvil. Los demás métodos están libres de este recargo específico. Los costos de flete internacional se calculan al llegar a Miami.</div>
+                <div class="faq-answer">El sistema toma el precio publicado en eBay en tiempo real. La comisión de gestión (7%) solo se aplica de manera exclusiva al seleccionar el método de pago Pago Móvil. Los demás métodos están libres de este recargo específico. Los costos de flete internacional se calculan al llegar a Miami[cite: 8].</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cuánto tarda en llegar el pedido a Venezuela? <span>▼</span></div>
-                <div class="faq-answer">El tiempo estimado de entrega es de 8 a 15 días hábiles una vez que el producto es recibido en nuestro courier en Miami y consolidado para su despacho aéreo hacia el país.</div>
+                <div class="faq-answer">El tiempo estimado de entrega es de 8 a 15 días hábiles una vez que el producto es recibido en nuestro courier en Miami y consolidado para su despacho aéreo hacia el país[cite: 8].</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Qué pasa si mi producto llega con defectos o problemas? <span>▼</span></div>
-                <div class="faq-answer">Te acompañamos en el proceso de revisión con el vendedor de eBay dentro de los plazos de garantía permitidos por la plataforma para gestionar devoluciones o reembolsos de forma transparente.</div>
+                <div class="faq-answer">Te acompañamos en el proceso de revisión con el vendedor de eBay dentro de los plazos de garantía permitidos por la plataforma para gestionar devoluciones o reembolsos de forma transparente[cite: 8].</div>
             </div>
         </div>
-    </div>
-
-    <div class="section-block" id="recentBlock" style="display: none;">
-        <div class="section-title">🕒 Últimos Vistos <span>Tu Historial</span></div>
-        <div id="carouselRecent" class="carousel-container"></div>
     </div>
 </div>
 
@@ -1628,12 +1771,12 @@
 </div>
 
 <footer>
-    <p><strong>Smart Hauss</strong> — Tu pasarela de importación tecnológica directa.</p>
-    <p style="margin-top: 4px;">Seguridad, trazabilidad y cotización automatizada en tiempo real para toda Venezuela.</p>
+    <p><strong>Smart Hauss</strong> — Tu pasarela de importación tecnológica directa[cite: 8].</p>
+    <p style="margin-top: 4px;">Seguridad, trazabilidad y cotización automatizada en tiempo real para toda Venezuela[cite: 8].</p>
 </footer>
 
 <script>
-    const numeroWhatsApp = "584244525080";
+    const numeroWhatsApp = "04244525080";
     let productosBusquedaActual = [];
     let todosLosProductosCargados = {}; 
     let metodoPagoSeleccionado = 'Zelle';
@@ -1643,7 +1786,6 @@
 
     window.onload = () => {
         seleccionarVentanaCategoria(1);
-        renderizarUltimosVistos();
         actualizarBotonCuentaUI();
     };
 
@@ -1710,8 +1852,10 @@
     }
 
     function filtrarCategoria(termino, elementoTag) {
-        document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
-        if(elementoTag) elementoTag.classList.add('active');
+        if(elementoTag) {
+            document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+            elementoTag.classList.add('active');
+        }
         document.getElementById('keyword').value = termino;
         realizarBusquedaManual();
     }
@@ -1864,7 +2008,6 @@
     function guardarEnDiccionario(item) { todosLosProductosCargados[item.tempId || item.itemId] = item; }
 
     function abrirModalProducto(item) {
-        registrarUltimoVisto(item);
         const title = item.title;
         const basePrice = item.calculatedPrice;
         const finalPrice = calcularPrecioConComision(basePrice);
@@ -2223,38 +2366,35 @@
         }
 
         let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        let myOrders = allOrders.filter(o => o.email && o.email.trim().toLowerCase() === user.email.trim().toLowerCase());
+        let userOrders = allOrders.filter(o => o.email.toLowerCase() === user.email.toLowerCase());
 
         modalBody.innerHTML = `
             <div class="client-dashboard">
                 <div class="client-header-flex">
-                    <h2>Mis Pedidos e Importaciones</h2>
+                    <h2>Hola, ${user.nombre}</h2>
                     <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
                 </div>
-                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Bienvenido, <strong>${user.nombre}</strong> (${user.email}).</p>
-                
-                <div id="myOrdersContainer">
-                    ${myOrders.length === 0 ? '<div class="message-state">No tienes pedidos activos registrados aún. Cuando realices un encargo por WhatsApp, el administrador asociará tu estatus aquí.</div>' : 
-                        myOrders.map(o => `
-                            <div class="order-card-item">
-                                <div class="order-top-row">
-                                    <span>📦 ${o.producto}</span>
-                                    <span class="order-status-badge status-${o.estatus}">${formatearEstatusTexto(o.estatus)}</span>
-                                </div>
-                                <div class="order-details-text">Actualizado: ${o.fecha}</div>
+                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 14px;">Tus pedidos activos y trazabilidad de importación:</p>
+                ${userOrders.length === 0 ? '<p style="font-size:11px; color:var(--text-muted); text-align:center; padding: 15px;">No tienes pedidos registrados todavía.</p>' : 
+                    userOrders.map(o => `
+                        <div class="order-card-item">
+                            <div class="order-top-row">
+                                <span>📦 ${o.producto}</span>
+                                <span class="order-status-badge status-${o.estatus}">${formatearEstatusTexto(o.estatus)}</span>
                             </div>
-                        `).join('')}
-                </div>
+                            <div class="order-details-text">Fecha de actualización: ${o.fecha}</div>
+                        </div>
+                    `).join('')}
             </div>
         `;
     }
 
-    function formatearEstatusTexto(status) {
-        if (status === 'recibido') return 'Recibido';
-        if (status === 'transito') return 'En Tránsito';
-        if (status === 'venezuela') return 'En Venezuela';
-        if (status === 'entregado') return 'Entregado';
-        return status;
+    function formatearEstatusTexto(est) {
+        if (est === 'recibido') return 'Recibido';
+        if (est === 'transito') return 'En Tránsito';
+        if (est === 'venezuela') return 'En Venezuela';
+        if (est === 'entregado') return 'Entregado';
+        return est;
     }
 
     function adminCrearOActualizarPedido() {
@@ -2263,17 +2403,17 @@
         const estatus = document.getElementById('admStatusSelect').value;
 
         if (!email || !producto) {
-            alert('Ingresa el correo del cliente y la descripción del producto.');
+            alert('Completa el correo y la descripción del producto.');
             return;
         }
 
         let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        const fecha = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        const fecha = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
         
-        allOrders.unshift({ email, producto, estatus, fecha });
+        allOrders.push({ email, producto, estatus, fecha });
         localStorage.setItem('smart_hauss_orders', JSON.stringify(allOrders));
 
-        alert('¡Estatus de pedido actualizado con éxito!');
+        alert('Pedido guardado correctamente.');
         document.getElementById('admClientEmail').value = '';
         document.getElementById('admProductDesc').value = '';
         cargarListaAdminPedidos();
@@ -2285,63 +2425,35 @@
         if (!listDiv) return;
 
         if (allOrders.length === 0) {
-            listDiv.innerHTML = '<p style="font-size: 10px; color: var(--text-muted);">No hay pedidos registrados.</p>';
+            listDiv.innerHTML = '<p style="font-size: 10px; color: var(--text-muted);">No hay pedidos en la base de datos local.</p>';
             return;
         }
 
         listDiv.innerHTML = allOrders.map((o, idx) => `
-            <div style="background: #ffffff; padding: 6px 8px; border-radius: 6px; margin-bottom: 4px; font-size: 10px; display: flex; justify-content: space-between; align-items: center; gap: 6px; border: 1px solid var(--border-glass);">
-                <div style="overflow: hidden; text-overflow: ellipsis;">
-                    <strong>${o.email}</strong><br>
-                    <span style="color: #0f172a;">${o.producto}</span> - <span style="color: var(--brand-blue);">${formatearEstatusTexto(o.estatus)}</span>
+            <div style="background: #ffffff; padding: 6px; border-radius: 6px; margin-bottom: 4px; font-size: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-glass);">
+                <div>
+                    <strong>${o.email}</strong> - ${o.producto} <span style="color:var(--brand-blue)">[${o.estatus}]</span>
                 </div>
-                <button onclick="eliminarPedidoAdmin(${idx})" style="background: #fee2e2; color:#ef4444; border:none; padding: 3px 6px; border-radius: 4px; font-size: 9px; font-weight: 800; cursor:pointer; flex-shrink:0;">Eliminar</button>
+                <button onclick="eliminarPedidoAdmin(${idx})" style="background:#fee2e2; color:#ef4444; border:none; padding: 2px 6px; border-radius: 4px; cursor:pointer; font-weight:bold;">X</button>
             </div>
         `).join('');
     }
 
-    function eliminarPedidoAdmin(idx) {
+    function eliminarPedidoAdmin(index) {
         let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        allOrders.splice(idx, 1);
+        allOrders.splice(index, 1);
         localStorage.setItem('smart_hauss_orders', JSON.stringify(allOrders));
         cargarListaAdminPedidos();
     }
 
     function cerrarModal() {
         document.getElementById('productModal').classList.remove('active');
-        document.body.style.overflow = 'auto';
+        document.body.style.overflow = '';
     }
 
-    function cerrarModalFuera(e) { if (e.target.id === 'productModal') cerrarModal(); }
-
-    function registrarUltimoVisto(item) {
-        let recents = JSON.parse(localStorage.getItem('smart_hauss_recent') || '[]');
-        recents = recents.filter(r => r.tempId !== item.tempId && r.itemId !== item.itemId);
-        recents.unshift(item);
-        if (recents.length > 8) recents.pop();
-        localStorage.setItem('smart_hauss_recent', JSON.stringify(recents));
-        renderizarUltimosVistos();
-    }
-
-    function renderizarUltimosVistos() {
-        const recents = JSON.parse(localStorage.getItem('smart_hauss_recent') || '[]');
-        const recentBlock = document.getElementById('recentBlock');
-        const container = document.getElementById('carouselRecent');
-        if (recents.length === 0) { recentBlock.style.display = 'none'; return; }
-        recentBlock.style.display = 'block';
-        container.innerHTML = '';
-        recents.forEach(item => container.appendChild(crearTarjetaHTML(item)));
-    }
-
-    function ordenarResultadosActuales() {
-        const criterio = document.getElementById('sortOrder').value;
-        if (productosBusquedaActual.length === 0) return;
-        let ordenada = [...productosBusquedaActual];
-        if (criterio === 'low') ordenada.sort((a, b) => parseFloat(calcularPrecioConComision(a.calculatedPrice)) - parseFloat(calcularPrecioConComision(b.calculatedPrice)));
-        else if (criterio === 'high') ordenada.sort((a, b) => parseFloat(calcularPrecioConComision(b.calculatedPrice)) - parseFloat(calcularPrecioConComision(a.calculatedPrice)));
-        renderizarGrilla(document.getElementById('searchResultsGrid'), ordenada);
+    function cerrarModalFuera(e) {
+        if (e.target.id === 'productModal') cerrarModal();
     }
 </script>
-
 </body>
 </html>
