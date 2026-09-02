@@ -941,31 +941,166 @@
 
         .loading, .message-state { text-align: center; padding: 30px 15px; color: var(--text-muted); font-size: 13px; font-weight: 600; }
 
-        /* Estilos específicos para categorías principales de la página */
-        .main-category-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glass);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow-subtle);
+        /* Estilos específicos para categorías principales de la página en formato ventana flotante/tarjeta interactiva */
+        .categories-grid-selection {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 35px;
         }
 
-        .main-category-header {
+        @media (min-width: 768px) {
+            .categories-grid-selection {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .category-window-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 24px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-subtle);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .category-window-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--brand-blue), var(--brand-yellow));
+            opacity: 0.8;
+            transition: height 0.3s ease;
+        }
+
+        .category-window-card:hover, .category-window-card.active-window {
+            border-color: var(--brand-blue);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            background: #ffffff;
+        }
+
+        .category-window-card:hover::before {
+            height: 8px;
+        }
+
+        .category-icon-wrapper {
+            font-size: 42px;
+            margin-bottom: 14px;
+            background: rgba(0, 100, 210, 0.08);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 14px auto;
+            border: 1px solid rgba(0, 100, 210, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .category-window-card:hover .category-icon-wrapper {
+            transform: scale(1.1) rotate(6deg);
+        }
+
+        .category-window-card h3 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .category-window-card p {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .btn-open-category {
+            background: #f1f5f9;
+            border: 1px solid var(--border-glass);
+            color: var(--brand-blue);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .category-window-card:hover .btn-open-category, .category-window-card.active-window .btn-open-category {
+            background: var(--brand-blue);
+            color: #ffffff;
+            border-color: var(--brand-blue);
+            box-shadow: 0 4px 12px rgba(0, 100, 210, 0.25);
+        }
+
+        /* Contenedor dinámico de la categoría activa */
+        .dynamic-category-content-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 35px;
+            box-shadow: var(--shadow-subtle);
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .dynamic-category-content-panel.active {
+            display: block;
+        }
+
+        .dynamic-panel-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border-bottom: 2px solid var(--border-glass);
-            padding-bottom: 10px;
+            padding-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .main-category-header h2 {
-            font-size: 1.1rem;
+        .dynamic-panel-header h2 {
+            font-size: 1.2rem;
             font-weight: 800;
             color: #0f172a;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back-categories {
+            background: #f8fafc;
+            border: 1px solid var(--border-glass);
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back-categories:hover {
+            background: var(--brand-blue);
+            color: #ffffff;
+            border-color: var(--brand-blue);
         }
 
         footer {
@@ -1028,11 +1163,46 @@
         </div>
     </div>
 
-    <!-- CATEGORÍA 1: IMPORTACIONES DIRECTAS DE EBAY (CON TODA LA API Y FUNCIONALIDADES DE BÚSQUEDA) -->
-    <div class="main-category-section">
-        <div class="main-category-header">
+    <!-- SECCIÓN DE CATEGORÍAS PRINCIPALES EN FORMATO DE VENTANAS / TARJETAS INTERACTIVAS -->
+    <div class="section-block">
+        <div class="section-title">📂 Categorías Principales <span>Selecciona una Ventana</span></div>
+        <div class="categories-grid-selection">
+            <div class="category-window-card" id="windowCard1" onclick="seleccionarVentanaCategoria(1)">
+                <div>
+                    <div class="category-icon-wrapper">🌍</div>
+                    <h3>1. Importaciones Directas de eBay</h3>
+                    <p>Búsqueda en vivo mediante API global, tendencias y cotización automatizada.</p>
+                </div>
+                <button class="btn-open-category">Abrir Ventana</button>
+            </div>
+
+            <div class="category-window-card" id="windowCard2" onclick="seleccionarVentanaCategoria(2)">
+                <div>
+                    <div class="category-icon-wrapper">📚</div>
+                    <h3>2. Cursos y Manuales</h3>
+                    <p>Capacitación profesional, manuales avanzados de importación y electrónica.</p>
+                </div>
+                <button class="btn-open-category">Abrir Ventana</button>
+            </div>
+
+            <div class="category-window-card" id="windowCard3" onclick="seleccionarVentanaCategoria(3)">
+                <div>
+                    <div class="category-icon-wrapper">🏬</div>
+                    <h3>3. Disponible en Tienda</h3>
+                    <p>Stock local de herramientas y equipos listos para entrega inmediata.</p>
+                </div>
+                <button class="btn-open-category">Abrir Ventana</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL DINÁMICO DE CONTENIDO SEGÚN LA VENTANA SELECCIONADA -->
+    
+    <!-- CATEGORÍA 1: IMPORTACIONES DIRECTAS DE EBAY -->
+    <div id="panelCategory1" class="dynamic-category-content-panel">
+        <div class="dynamic-panel-header">
             <h2>🌍 1. Importaciones Directas de eBay</h2>
-            <span>Live eBay API</span>
+            <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Ver Todas las Ventanas</button>
         </div>
         
         <div class="search-panel" style="margin-bottom: 20px; box-shadow: none; border: 1px solid var(--border-glass);">
@@ -1097,12 +1267,12 @@
     </div>
 
     <!-- CATEGORÍA 2: CURSOS Y MANUALES -->
-    <div class="main-category-section">
-        <div class="main-category-header">
+    <div id="panelCategory2" class="dynamic-category-content-panel">
+        <div class="dynamic-panel-header">
             <h2>📚 2. Cursos y Manuales</h2>
-            <span>Capacitación Profesional</span>
+            <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Ver Todas las Ventanas</button>
         </div>
-        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">Accede a material formativo especializado, guías técnicas y manuales de importación y electrónica.</p>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Accede a material formativo especializado, guías técnicas y manuales de importación y electrónica.</p>
         <div class="grid">
             <div class="card" style="cursor: default; animation: none;">
                 <div class="card-badge">Guía Pro</div>
@@ -1136,12 +1306,12 @@
     </div>
 
     <!-- CATEGORÍA 3: DISPONIBLE EN TIENDA -->
-    <div class="main-category-section">
-        <div class="main-category-header">
+    <div id="panelCategory3" class="dynamic-category-content-panel">
+        <div class="dynamic-panel-header">
             <h2>🏬 3. Disponible en Tienda</h2>
-            <span>Entrega Inmediata</span>
+            <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Ver Todas las Ventanas</button>
         </div>
-        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">Productos listos para entrega inmediata o retiro directo en local sin esperar tiempos de importación.</p>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Productos listos para entrega inmediata o retiro directo en local sin esperar tiempos de importación.</p>
         <div class="grid">
             <div class="card" style="cursor: default; animation: none;">
                 <div class="card-badge" style="background: linear-gradient(135deg, #10b981, #059669);">Stock Local</div>
@@ -1274,10 +1444,53 @@
     const terminosAleatorios2 = ['iPad Air', 'Nintendo Switch', 'Mechanical Keyboard', 'AirPods Pro'];
 
     window.onload = () => {
-        cargarVitrinaInicial();
+        // Por defecto abrimos la categoría 1 en su ventana al cargar o dejamos la selección general visible
+        seleccionarVentanaCategoria(1);
         renderizarUltimosVistos();
         actualizarBotonCuentaUI();
     };
+
+    function seleccionarVentanaCategoria(num) {
+        // Ocultar todos los paneles
+        document.getElementById('panelCategory1').classList.remove('active');
+        document.getElementById('panelCategory2').classList.remove('active');
+        document.getElementById('panelCategory3').classList.remove('active');
+
+        // Quitar estado activo de las tarjetas ventana
+        document.getElementById('windowCard1').classList.remove('active-window');
+        document.getElementById('windowCard2').classList.remove('active-window');
+        document.getElementById('windowCard3').classList.remove('active-window');
+
+        // Mostrar el panel seleccionado y activar tarjeta
+        const panelTarget = document.getElementById(`panelCategory${num}`);
+        const cardTarget = document.getElementById(`windowCard${num}`);
+
+        if(panelTarget) panelTarget.classList.add('active');
+        if(cardTarget) cardTarget.classList.add('active-window');
+
+        // Si es la categoría 1 y aún no se ha cargado la vitrina inicial, la cargamos
+        if(num === 1 && !window.vitrinaCargada) {
+            cargarVitrinaInicial();
+            window.vitrinaCargada = true;
+        }
+
+        // Desplazar suavemente hacia el panel activo
+        if(panelTarget) {
+            panelTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    function cerrarVentanaCategorias() {
+        document.getElementById('panelCategory1').classList.remove('active');
+        document.getElementById('panelCategory2').classList.remove('active');
+        document.getElementById('panelCategory3').classList.remove('active');
+
+        document.getElementById('windowCard1').classList.remove('active-window');
+        document.getElementById('windowCard2').classList.remove('active-window');
+        document.getElementById('windowCard3').classList.remove('active-window');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     function handleKeyPress(e) { if (e.key === 'Enter') realizarBusquedaManual(); }
 
@@ -1397,7 +1610,6 @@
         `).join('');
     }
 
-    // FUNCIÓN DE CÁLCULO DE ENVÍO AÉREO ($19 POR CADA MEDIO KILO)
     function calcularEnvioAereo() {
         const pesoInput = document.getElementById('pesoEnvio').value;
         const peso = parseFloat(pesoInput);
