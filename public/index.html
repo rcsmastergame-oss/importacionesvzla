@@ -318,7 +318,6 @@
         .trust-text h4 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
         .trust-text p { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
 
-        /* GRID PARA TRACKING Y CALCULADORA AÉREA AL LADO */
         .tracking-calculator-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -941,7 +940,6 @@
 
         .loading, .message-state { text-align: center; padding: 30px 15px; color: var(--text-muted); font-size: 13px; font-weight: 600; }
 
-        /* Estilos específicos para categorías principales de la página en formato ventana flotante/tarjeta interactiva */
         .categories-grid-selection {
             display: grid;
             grid-template-columns: 1fr;
@@ -1047,7 +1045,6 @@
             box-shadow: 0 4px 12px rgba(0, 100, 210, 0.25);
         }
 
-        /* Contenedor dinámico de la categoría activa */
         .dynamic-category-content-panel {
             background: var(--bg-card);
             border: 1px solid var(--border-glass);
@@ -1163,7 +1160,7 @@
         </div>
     </div>
 
-    <!-- SECCIÓN DE CATEGORÍAS PRINCIPALES EN FORMATO DE VENTANAS / TARJETAS INTERACTIVAS -->
+    <!-- SECCIÓN DE CATEGORÍAS PRINCIPALES -->
     <div class="section-block">
         <div class="section-title">📂 Categorías Principales <span>Selecciona una Ventana</span></div>
         <div class="categories-grid-selection">
@@ -1196,9 +1193,7 @@
         </div>
     </div>
 
-    <!-- PANEL DINÁMICO DE CONTENIDO SEGÚN LA VENTANA SELECCIONADA -->
-    
-    <!-- CATEGORÍA 1: IMPORTACIONES DIRECTAS DE EBAY -->
+    <!-- PANEL 1: IMPORTACIONES DIRECTAS DE EBAY -->
     <div id="panelCategory1" class="dynamic-category-content-panel">
         <div class="dynamic-panel-header">
             <h2>🌍 1. Importaciones Directas de eBay</h2>
@@ -1266,7 +1261,7 @@
         </div>
     </div>
 
-    <!-- CATEGORÍA 2: CURSOS Y MANUALES -->
+    <!-- PANEL 2: CURSOS Y MANUALES -->
     <div id="panelCategory2" class="dynamic-category-content-panel">
         <div class="dynamic-panel-header">
             <h2>📚 2. Cursos y Manuales</h2>
@@ -1305,7 +1300,7 @@
         </div>
     </div>
 
-    <!-- CATEGORÍA 3: DISPONIBLE EN TIENDA -->
+    <!-- PANEL 3: DISPONIBLE EN TIENDA -->
     <div id="panelCategory3" class="dynamic-category-content-panel">
         <div class="dynamic-panel-header">
             <h2>🏬 3. Disponible en Tienda</h2>
@@ -1344,9 +1339,8 @@
         </div>
     </div>
 
-    <!-- APARTADO DE TRACKING Y CALCULADORA DE ENVÍO -->
+    <!-- TRACKING Y CALCULADORA DE ENVÍO -->
     <div class="tracking-calculator-grid">
-        <!-- Consulta de Estatus -->
         <div class="tracking-box-compact">
             <h3>📦 Consulta el Estatus de tu Pedido</h3>
             <p>Introduce tu correo electrónico registrado:</p>
@@ -1357,7 +1351,6 @@
             <div id="trackingResultContainer" class="tracking-result-box"></div>
         </div>
 
-        <!-- Calculadora de Envío Aéreo -->
         <div class="tracking-box-compact">
             <h3>✈️ Calcula tu Envío</h3>
             <p>Tarifa: $19 por cada 0.5 kg de peso:</p>
@@ -1444,37 +1437,31 @@
     const terminosAleatorios2 = ['iPad Air', 'Nintendo Switch', 'Mechanical Keyboard', 'AirPods Pro'];
 
     window.onload = () => {
-        // Por defecto abrimos la categoría 1 en su ventana al cargar o dejamos la selección general visible
         seleccionarVentanaCategoria(1);
         renderizarUltimosVistos();
         actualizarBotonCuentaUI();
     };
 
     function seleccionarVentanaCategoria(num) {
-        // Ocultar todos los paneles
         document.getElementById('panelCategory1').classList.remove('active');
         document.getElementById('panelCategory2').classList.remove('active');
         document.getElementById('panelCategory3').classList.remove('active');
 
-        // Quitar estado activo de las tarjetas ventana
         document.getElementById('windowCard1').classList.remove('active-window');
         document.getElementById('windowCard2').classList.remove('active-window');
         document.getElementById('windowCard3').classList.remove('active-window');
 
-        // Mostrar el panel seleccionado y activar tarjeta
         const panelTarget = document.getElementById(`panelCategory${num}`);
         const cardTarget = document.getElementById(`windowCard${num}`);
 
         if(panelTarget) panelTarget.classList.add('active');
         if(cardTarget) cardTarget.classList.add('active-window');
 
-        // Si es la categoría 1 y aún no se ha cargado la vitrina inicial, la cargamos
         if(num === 1 && !window.vitrinaCargada) {
             cargarVitrinaInicial();
             window.vitrinaCargada = true;
         }
 
-        // Desplazar suavemente hacia el panel activo
         if(panelTarget) {
             panelTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
