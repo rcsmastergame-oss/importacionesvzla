@@ -219,6 +219,87 @@
             .main-container { padding: 24px 20px; }
         }
 
+        /* NUEVA BARRA SUPERIOR DE CATEGORÍAS Y SUBCATEGORÍAS */
+        .master-categories-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .master-cat-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .master-categories-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--brand-blue) rgba(0,0,0,0.05);
+        }
+
+        .master-categories-scroll::-webkit-scrollbar { height: 4px; }
+        .master-categories-scroll::-webkit-scrollbar-thumb { background: var(--brand-blue); border-radius: 10px; }
+
+        .master-cat-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 10px 14px;
+            min-width: 170px;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .master-cat-card:hover, .master-cat-card.active {
+            background: rgba(0, 100, 210, 0.05);
+            border-color: var(--brand-blue);
+            transform: translateY(-2px);
+        }
+
+        .master-cat-name {
+            font-size: 12px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .master-subcat-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .master-subcat-tag {
+            font-size: 10px;
+            background: #ffffff;
+            border: 1px solid var(--border-glass);
+            color: var(--text-muted);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .master-cat-card:hover .master-subcat-tag, .master-cat-card.active .master-subcat-tag {
+          border-color: rgba(0, 100, 210, 0.3);
+          color: var(--brand-blue);
+        }
+        /* FIN DE LA NUEVA BARRA */
+
         .section-block {
             margin-bottom: 35px;
             animation: fadeInUp 0.6s ease;
@@ -928,1217 +1009,581 @@
         .status-transito { background: rgba(37, 99, 235, 0.1); color: #2563eb; border: 1px solid rgba(37, 99, 235, 0.3); }
         .status-venezuela { background: rgba(245, 175, 2, 0.15); color: #b45309; border: 1px solid rgba(245, 175, 2, 0.3); }
         .status-entregado { background: rgba(16, 185, 129, 0.15); color: var(--whatsapp-green); border: 1px solid rgba(16, 185, 129, 0.3); }
-
-        .order-details-text { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
-
-        .admin-secret-panel {
-            background: rgba(245, 175, 2, 0.08);
-            border: 1px dashed rgba(245, 175, 2, 0.5);
-            border-radius: 14px; padding: 14px; margin-top: 16px;
-        }
-        .admin-secret-panel h4 { color: #b45309; font-size: 11px; text-transform: uppercase; margin-bottom: 10px; font-weight: 800; }
-
-        .loading, .message-state { text-align: center; padding: 30px 15px; color: var(--text-muted); font-size: 13px; font-weight: 600; }
-
-        .categories-grid-selection {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-            margin-bottom: 35px;
-        }
-
-        @media (min-width: 768px) {
-            .categories-grid-selection {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        .category-window-card {
-            background: var(--bg-card);
-            border: 2px solid var(--border-glass);
-            border-radius: 20px;
-            padding: 24px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-subtle);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .category-window-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 5px;
-            background: linear-gradient(90deg, var(--brand-blue), var(--brand-yellow));
-            opacity: 0.8;
-            transition: height 0.3s ease;
-        }
-
-        .category-window-card:hover, .category-window-card.active-window {
-            border-color: var(--brand-blue);
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-            background: #ffffff;
-        }
-
-        .category-window-card:hover::before {
-            height: 8px;
-        }
-
-        .category-icon-wrapper {
-            font-size: 42px;
-            margin-bottom: 14px;
-            background: rgba(0, 100, 210, 0.08);
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            margin: 0 auto 14px auto;
-            border: 1px solid rgba(0, 100, 210, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .category-window-card:hover .category-icon-wrapper {
-            transform: scale(1.1) rotate(6deg);
-        }
-
-        .category-window-card h3 {
-            font-size: 1.05rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .category-window-card p {
-            font-size: 11px;
-            color: var(--text-muted);
-            line-height: 1.4;
-            margin-bottom: 16px;
-        }
-
-        .btn-open-category {
-            background: #f1f5f9;
-            border: 1px solid var(--border-glass);
-            color: var(--brand-blue);
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .category-window-card:hover .btn-open-category, .category-window-card.active-window .btn-open-category {
-            background: var(--brand-blue);
-            color: #ffffff;
-            border-color: var(--brand-blue);
-            box-shadow: 0 4px 12px rgba(0, 100, 210, 0.25);
-        }
-
-        .dynamic-category-content-panel {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glass);
-            border-radius: 24px;
-            padding: 24px;
-            margin-bottom: 35px;
-            box-shadow: var(--shadow-subtle);
-            display: none;
-            animation: fadeInUp 0.5s ease;
-        }
-
-        .dynamic-category-content-panel.active {
-            display: block;
-        }
-
-        .dynamic-panel-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--border-glass);
-            padding-bottom: 12px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .dynamic-panel-header h2 {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #0f172a;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-back-categories {
-            background: #f8fafc;
-            border: 1px solid var(--border-glass);
-            color: var(--text-muted);
-            padding: 6px 12px;
-            border-radius: 10px;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-back-categories:hover {
-            background: var(--brand-blue);
-            color: #ffffff;
-            border-color: var(--brand-blue);
-        }
-
-        footer {
-            background: #ffffff; border-top: 1px solid var(--border-glass);
-            padding: 30px 16px; margin-top: 40px; text-align: center; color: var(--text-muted); font-size: 0.8rem; line-height: 1.5;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.02);
-        }
     </style>
 </head>
 <body>
-
-<div class="ambient-glow">
-    <div class="glow-orb orb-1"></div>
-    <div class="glow-orb orb-2"></div>
-</div>
-
-<div class="top-ticker">
-    ⚡ VITRINA GLOBAL INTELIGENTE • IMPORTACIÓN DIRECTA A VENEZUELA SIN INTERMEDIARIOS ⚡
-</div>
-
-<header>
-    <div class="header-brand">
-        <img src="https://i.pinimg.com/736x/0c/2b/47/0c2b473ac905566c4e7feb06c6f87b86.jpg" alt="Logo Smart Hauss" class="logo-img" onerror="this.src='https://via.placeholder.com/45'">
-        <h1>Smart <span>Hauss</span></h1>
-    </div>
-    <div class="header-actions">
-        <div class="header-status">
-            <div class="status-dot"></div>
-            <span>API Sincronizada</span>
-        </div>
-        <button class="btn-user-account" onclick="abrirPortalCliente()">
-            👤 <span id="btnAccountText">Mi Cuenta</span>
-        </button>
-    </div>
-</header>
-
-<div class="main-container">
-
-    <div class="trust-banner">
-        <div class="trust-item">
-            <div class="trust-icon">🛡️</div>
-            <div class="trust-text">
-                <h4>Compra 100% Segura</h4>
-                <p>Verificamos la reputación de cada vendedor en eBay antes de procesar tu encargo con total garantía.</p>
-            </div>
-        </div>
-        <div class="trust-item">
-            <div class="trust-icon">✈️</div>
-            <div class="trust-text">
-                <h4>Envíos Directos</h4>
-                <p>Logística puerta a puerta desde Miami directo a cualquier estado de Venezuela de forma ágil.</p>
-            </div>
-        </div>
-        <div class="trust-item">
-            <div class="trust-icon">💎</div>
-            <div class="trust-text">
-                <h4>Transparencia Total</h4>
-                <p>Cotizaciones exactas con recargo fijo y seguimiento en tiempo real del estatus de tu paquete.</p>
-            </div>
-        </div>
+    <!-- WhatsApp configurado con el número correcto: 04244525080 -->
+    <div class="ambient-glow">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
     </div>
 
-    <!-- SECCIÓN DE CATEGORÍAS PRINCIPALES EN FORMATO DE VENTANAS / TARJETAS INTERACTIVAS -->
-    <div class="section-block">
-        <div class="section-title">📂 Categorías Principales <span>Selecciona una Ventana</span></div>
-        <div class="categories-grid-selection">
-            <div class="category-window-card" id="windowCard1" onclick="seleccionarVentanaCategoria(1)">
-                <div>
-                    <div class="category-icon-wrapper">🌍</div>
-                    <h3>1. Importaciones Directas de eBay</h3>
-                    <p>Búsqueda en vivo mediante API global, tendencias y cotización automatizada.</p>
+    <div class="top-ticker">
+        ✈️ Importaciones directas EE.UU. / China ➔ Venezuela con entrega asegurada en puerta 🇻🇪
+    </div>
+
+    <header>
+        <div class="header-brand">
+            <img src="https://i.pinimg.com/736x/0c/2b/47/0c2b473ac905566c4e7feb06c6f87b86.jpg" alt="Logo" class="logo-img">
+            <h1>Smart <span>Hauss</span></h1>
+        </div>
+        <div class="header-actions">
+            <div class="header-status">
+                <div class="status-dot"></div>
+                <span>Atención Activa</span>
+            </div>
+            <button class="btn-user-account" id="userAccountBtn" onclick="openUserPortal()">
+                👤 Mi Cuenta / Pedidos
+            </button>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- BARRA MAESTRA DE CATEGORÍAS Y SUBCATEGORÍAS -->
+        <div class="master-categories-wrapper">
+            <div class="master-cat-title">Categorías y Subcategorías Globales</div>
+            <div class="master-categories-scroll">
+                <div class="master-cat-card active" onclick="filterByCategory('all')">
+                    <div class="master-cat-name">📦 Todo</div>
+                    <div class="master-subcat-list">
+                        <span class="master-subcat-tag">General</span>
+                        <span class="master-subcat-tag">Destacados</span>
+                    </div>
                 </div>
-                <button class="btn-open-category">Abrir Ventana</button>
-            </div>
-
-            <div class="category-window-card" id="windowCard2" onclick="seleccionarVentanaCategoria(2)">
-                <div>
-                    <div class="category-icon-wrapper">📚</div>
-                    <h3>2. Cursos y Manuales</h3>
-                    <p>Capacitación profesional, manuales avanzados de importación y electrónica.</p>
+                <div class="master-cat-card" onclick="filterByCategory('electronica')">
+                    <div class="master-cat-name">⚡ Electrónica</div>
+                    <div class="master-subcat-list">
+                        <span class="master-subcat-tag">Smartphones</span>
+                        <span class="master-subcat-tag">Audio</span>
+                        <span class="master-subcat-tag">Gadgets</span>
+                    </div>
                 </div>
-                <button class="btn-open-category">Abrir Ventana</button>
-            </div>
-
-            <div class="category-window-card" id="windowCard3" onclick="seleccionarVentanaCategoria(3)">
-                <div>
-                    <div class="category-icon-wrapper">🏬</div>
-                    <h3>3. Disponible en Tienda</h3>
-                    <p>Stock local de herramientas y equipos listos para entrega inmediata.</p>
+                <div class="master-cat-card" onclick="filterByCategory('computacion')">
+                    <div class="master-cat-name">💻 Computación</div>
+                    <div class="master-subcat-list">
+                        <span class="master-subcat-tag">Laptops</span>
+                        <span class="master-subcat-tag">Hardware</span>
+                        <span class="master-subcat-tag">Accesorios</span>
+                    </div>
                 </div>
-                <button class="btn-open-category">Abrir Ventana</button>
+                <div class="master-cat-card" onclick="filterByCategory('gaming')">
+                    <div class="master-cat-name">🎮 Gaming</div>
+                    <div class="master-subcat-list">
+                        <span class="master-subcat-tag">Consolas</span>
+                        <span class="master-subcat-tag">Controles</span>
+                        <span class="master-subcat-tag">Streaming</span>
+                    </div>
+                </div>
+                <div class="master-cat-card" onclick="filterByCategory('hogar')">
+                    <div class="master-cat-name">🏠 Hogar & Smart</div>
+                    <div class="master-subcat-list">
+                        <span class="master-subcat-tag">Iluminación</span>
+                        <span class="master-subcat-tag">Seguridad</span>
+                        <span class="master-subcat-tag">Electrodomésticos</span>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- PANEL DINÁMICO DE CONTENIDO SEGÚN LA VENTANA SELECCIONADA -->
-    
-    <!-- CATEGORÍA 1: IMPORTACIONES DIRECTAS DE EBAY -->
-    <div id="panelCategory1" class="dynamic-category-content-panel">
-        <div class="dynamic-panel-header">
-            <h2>🌍 1. Importaciones Directas de eBay</h2>
-            <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Ver Todas las Ventanas</button>
+        <div class="trust-banner">
+            <div class="trust-item">
+                <div class="trust-icon">📦</div>
+                <div class="trust-text">
+                    <h4>Cálculo Automático</h4>
+                    <p>Cotización instantánea con aranceles de importación incluidos.</p>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🛡️</div>
+                <div class="trust-text">
+                    <h4>Garantía y Seguridad</h4>
+                    <p>Protección total desde el almacén de origen hasta tu destino.</p>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">💬</div>
+                <div class="trust-text">
+                    <h4>Soporte por WhatsApp</h4>
+                    <p>Asesoría personalizada vía 04244525080 a tu alcance.</p>
+                </div>
+            </div>
         </div>
-        
-        <div class="search-panel" style="margin-bottom: 20px; box-shadow: none; border: 1px solid var(--border-glass);">
+
+        <div class="tracking-calculator-grid">
+            <div class="tracking-box-compact">
+                <h3>🔍 Rastrear Envío</h3>
+                <p>Ingresa tu número de guía o tracking para ver el estatus actual.</p>
+                <div class="tracking-input-wrapper">
+                    <input type="text" id="trackingInput" placeholder="Ej: SH-98241">
+                    <button class="btn-tracking-mini" onclick="trackOrder()">Buscar</button>
+                </div>
+                <div id="trackingResult" class="tracking-result-box"></div>
+            </div>
+
+            <div class="tracking-box-compact">
+                <h3>🧮 Calculadora Express</h3>
+                <p>Calcula el costo estimado de importación ingresando el precio USD.</p>
+                <div class="tracking-input-wrapper">
+                    <input type="number" id="calcPriceInput" placeholder="Precio USD ($)">
+                    <button class="btn-tracking-mini" onclick="calculateImport()">Calcular</button>
+                </div>
+                <div id="calcResult" class="tracking-result-box"></div>
+            </div>
+        </div>
+
+        <section class="search-panel">
             <div class="search-bar-wrapper">
-                <input type="text" id="keyword" placeholder="Busca en eBay (Ej: MacBook, RTX, Garmin...)" onkeypress="handleKeyPress(event)">
-                <button class="btn-search" onclick="realizarBusquedaManual()">Buscar</button>
+                <input type="text" id="searchInput" placeholder="Busca productos por marca, modelo o categoría (ej. iPhone, Laptop, Consola)...">
+                <button class="btn-search" onclick="performSearch()">Buscar</button>
             </div>
-
+            
             <div class="category-tags">
-                <span class="tag" onclick="filtrarCategoria('laptop gamer', this)">💻 Laptops Gamer</span>
-                <span class="tag" onclick="filtrarCategoria('smart watch', this)">⌚ Smartwatches</span>
-                <span class="tag" onclick="filtrarCategoria('dji drone', this)">🚁 Drones</span>
-                <span class="tag" onclick="filtrarCategoria('sony camera', this)">📷 Cámaras</span>
-                <span class="tag" onclick="filtrarCategoria('mechanical keyboard', this)">⌨️ Teclados Pro</span>
+                <div class="tag active" onclick="filterByTag('all', this)">🔥 Todos</div>
+                <div class="tag" onclick="filterByTag('electronica', this)">⚡ Electrónica</div>
+                <div class="tag" onclick="filterByTag('computacion', this)">💻 Computación</div>
+                <div class="tag" onclick="filterByTag('gaming', this)">🎮 Gaming</div>
+                <div class="tag" onclick="filterByTag('hogar', this)">🏠 Hogar</div>
             </div>
 
             <div class="ebay-filters-grid">
                 <div class="filter-group">
-                    <label>Condición</label>
-                    <select id="filterCondition" class="filter-select" onchange="realizarBusquedaManual()">
-                        <option value="">Todas</option>
-                        <option value="NEW">Nuevo</option>
-                        <option value="USED">Usado</option>
+                    <label>Condición del Artículo</label>
+                    <select class="filter-select" id="filterCondition">
+                        <option value="all">Todas las condiciones</option>
+                        <option value="new">Nuevo (Sellado)</option>
+                        <option value="refurbished">Reacondicionado (Como Nuevo)</option>
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label>Compra</label>
-                    <select id="filterBuyingFormat" class="filter-select" onchange="realizarBusquedaManual()">
-                        <option value="">Cualquiera</option>
-                        <option value="FIXED_PRICE">Comprar Ya</option>
-                        <option value="AUCTION">Subasta</option>
+                    <label>Ordenar Por</label>
+                    <select class="filter-select" id="filterSort">
+                        <option value="relevance">Más Relevantes</option>
+                        <option value="price_asc">Menor Precio</option>
+                        <option value="price_desc">Mayor Precio</option>
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label>Ordenar</label>
-                    <select id="sortOrder" class="filter-select" onchange="ordenarResultadosActuales()">
-                        <option value="default">Relevancia</option>
-                        <option value="low">Menor Precio</option>
-                        <option value="high">Mayor Precio</option>
+                    <label>Ubicación del Artículo</label>
+                    <select class="filter-select" id="filterLocation">
+                        <option value="all">Global (EE.UU. / China)</option>
+                        <option value="us">Solo Estados Unidos</option>
                     </select>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="searchContainer" class="section-block" style="display: none; margin-bottom: 20px;">
-            <div class="section-title">Resultados de Búsqueda <span>Live eBay</span></div>
-            <div id="loadingSearch" class="loading" style="display: none;">Buscando en servidores globales...</div>
-            <div id="searchResultsGrid" class="grid"></div>
-        </div>
+        <section class="section-block">
+            <div class="section-title">
+                Destacados del Catálogo Pro
+                <span>Actualizado Hoy</span>
+            </div>
+            <div class="grid" id="productGrid">
+                <!-- Productos dinámicos -->
+            </div>
+        </section>
 
-        <div class="section-block" style="margin-bottom: 20px;">
-            <div class="section-title">🔥 Tendencias Globales <span>Top Ventas</span></div>
-            <div id="loadingTrending" class="loading">Cargando tendencias aleatorias...</div>
-            <div id="carouselTrending" class="carousel-container" style="display: none;"></div>
-        </div>
-
-        <div class="section-block" style="margin-bottom: 0;">
-            <div class="section-title">⭐ Curaduría Smart <span>Recomendados</span></div>
-            <div id="loadingCurated" class="loading">Preparando recomendaciones...</div>
-            <div id="carouselCurated" class="carousel-container" style="display: none;"></div>
-        </div>
-    </div>
-
-    <!-- CATEGORÍA 2: CURSOS Y MANUALES -->
-    <div id="panelCategory2" class="dynamic-category-content-panel">
-        <div class="dynamic-panel-header">
-            <h2>📚 2. Cursos y Manuales</h2>
-            <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Ver Todas las Ventanas</button>
-        </div>
-        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Accede a material formativo especializado, guías técnicas y manuales de importación y electrónica.</p>
-        <div class="grid">
-            <div class="card" style="cursor: default; animation: none;">
-                <div class="card-badge">Guía Pro</div>
-                <div>
-                    <div class="card-img-container"><div style="font-size: 40px;">📘</div></div>
-                    <h3>Manual Avanzado de Importación desde USA</h3>
+        <section class="section-block">
+            <div class="section-title">
+                Métodos de Pago Aceptados
+                <span>Seguros y Confiables</span>
+            </div>
+            <div class="payments-grid">
+                <div class="payment-card">
+                    <div style="font-size: 26px;">💵</div>
+                    <h5>Zelle</h5>
+                    <span>Disponible</span>
                 </div>
-                <div>
-                    <div class="price-box">
-                        <div class="price-main">$25.00 <span>USD</span></div>
-                        <div class="price-sub">Formato PDF + Soporte</div>
+                <div class="payment-card">
+                    <div style="font-size: 26px;">💳</div>
+                    <h5>Binance (USDT)</h5>
+                    <span>Instantáneo</span>
+                </div>
+                <div class="payment-card">
+                    <div style="font-size: 26px;">🏦</div>
+                    <h5>Pago Móvil / Banesco</h5>
+                    <span>Tasa BCV</span>
+                </div>
+                <div class="payment-card">
+                    <div style="font-size: 26px;">🌐</div>
+                    <h5>PayPal</h5>
+                    <span>Aceptado</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-block">
+            <div class="section-title">
+                Preguntas Frecuentes
+                <span>Guía del Importador</span>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        ¿Cuánto tarda el envío de Estados Unidos a Venezuela? <span>▼</span>
                     </div>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20Manual%20Avanzado%20de%20Importaci%C3%B3n" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir Guía</a>
-                </div>
-            </div>
-            <div class="card" style="cursor: default; animation: none;">
-                <div class="card-badge">Academia</div>
-                <div>
-                    <div class="card-img-container"><div style="font-size: 40px;">💻</div></div>
-                    <h3>Curso Práctico de Diagnóstico y Electrónica</h3>
-                </div>
-                <div>
-                    <div class="price-box">
-                        <div class="price-main">$45.00 <span>USD</span></div>
-                        <div class="price-sub">Acceso Ilimitado Online</div>
+                    <div class="faq-answer">
+                        Nuestros tiempos estimados de entrega son de 7 a 12 días hábiles una vez la carga sale de nuestro almacén principal en Miami hasta la puerta de tu casa o agencia aliada.
                     </div>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20inscribirme%20en%20el%20Curso%20Pr%C3%A1ctico%20de%20Electr%C3%B3nica" target="_blank" class="btn-details" style="text-decoration:none;">Ver Curso</a>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- CATEGORÍA 3: DISPONIBLE EN TIENDA -->
-    <div id="panelCategory3" class="dynamic-category-content-panel">
-        <div class="dynamic-panel-header">
-            <h2>🏬 3. Disponible en Tienda</h2>
-            <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Ver Todas las Ventanas</button>
-        </div>
-        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Productos listos para entrega inmediata o retiro directo en local sin esperar tiempos de importación.</p>
-        <div class="grid">
-            <div class="card" style="cursor: default; animation: none;">
-                <div class="card-badge" style="background: linear-gradient(135deg, #10b981, #059669);">Stock Local</div>
-                <div>
-                    <div class="card-img-container"><div style="font-size: 40px;">🔌</div></div>
-                    <h3>Estación de Soldadura Profesional Quick T12</h3>
-                </div>
-                <div>
-                    <div class="price-box">
-                        <div class="price-main">$120.00 <span>USD</span></div>
-                        <div class="price-sub">Disponible para entrega inmediata</div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        ¿Cómo se calcula el costo total de importación? <span>▼</span>
                     </div>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20quiero%20comprar%20la%20Estaci%C3%B3n%20de%20Soldadura%20disponible%20en%20tienda" target="_blank" class="btn-details" style="text-decoration:none;">Comprar Stock</a>
-                </div>
-            </div>
-            <div class="card" style="cursor: default; animation: none;">
-                <div class="card-badge" style="background: linear-gradient(135deg, #10b981, #059669);">Stock Local</div>
-                <div>
-                    <div class="card-img-container"><div style="font-size: 40px;">🛠️</div></div>
-                    <h3>Kit de Herramientas de Precisión 115 en 1</h3>
-                </div>
-                <div>
-                    <div class="price-box">
-                        <div class="price-main">$22.00 <span>USD</span></div>
-                        <div class="price-sub">Disponible para entrega inmediata</div>
+                    <div class="faq-answer">
+                        El costo incluye el valor del producto en origen, los gastos de manejo internacional, aranceles aduaneros y el delivery nacional express. Sin cargos ocultos.
                     </div>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20quiero%20comprar%20el%20Kit%20de%20Herramientas%20disponible%20en%20tienda" target="_blank" class="btn-details" style="text-decoration:none;">Comprar Stock</a>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        ¿Cómo puedo contactar soporte directo? <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Puedes escribirnos directamente a nuestro canal oficial de WhatsApp corporativo: <strong>04244525080</strong> para atención inmediata.
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
-    <!-- APARTADO DE TRACKING Y CALCULADORA DE ENVÍO -->
-    <div class="tracking-calculator-grid">
-        <div class="tracking-box-compact">
-            <h3>📦 Consulta el Estatus de tu Pedido</h3>
-            <p>Introduce tu correo electrónico registrado:</p>
-            <div class="tracking-input-wrapper">
-                <input type="text" id="trackingInputQuery" placeholder="correo@email.com">
-                <button class="btn-tracking-mini" onclick="consultarTrackingPublico()">Consultar</button>
-            </div>
-            <div id="trackingResultContainer" class="tracking-result-box"></div>
-        </div>
-
-        <div class="tracking-box-compact">
-            <h3>✈️ Calcula tu Envío</h3>
-            <p>Tarifa: $19 por cada 0.5 kg de peso:</p>
-            <div class="tracking-input-wrapper">
-                <input type="number" id="pesoEnvio" step="0.1" min="0" placeholder="Peso (kg) Ej: 1.5">
-                <button class="btn-tracking-mini" onclick="calcularEnvioAereo()">Calcular</button>
-            </div>
-            <div style="margin-top: 10px; background: #ffffff; border-radius: 10px; padding: 10px; border: 1px solid var(--border-glass); display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
-                <span style="font-weight: 700; color: var(--text-muted);">Total Envío Aéreo:</span>
-                <span id="resultadoTotal" style="font-weight: 800; font-size: 14px; color: var(--brand-blue);">$0.00</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-block">
-        <div class="section-title">💳 Métodos de Pago <span>Seguros y Confiables</span></div>
-        <div class="payments-grid">
-            <div class="payment-card" onclick="seleccionarMetododePago('Zelle')">
-                <div style="font-size:24px;">🏦</div>
-                <h5>Zinli</h5>
-                <span>Sin Comisión</span>
-            </div>
-            <div class="payment-card" onclick="seleccionarMetododePago('Binance')">
-                <div style="font-size:24px;">🪙</div>
-                <h5>Binance (USDT)</h5>
-                <span>Sin Comisión</span>
-            </div>
-            <div class="payment-card" onclick="seleccionarMetododePago('PagoMovil')">
-                <div style="font-size:24px;">📱</div>
-                <h5>Pago Móvil</h5>
-                <span>Aplica 7%</span>
-            </div>
-            <div class="payment-card" onclick="seleccionarMetododePago('Efectivo')">
-                <div style="font-size:24px;">💵</div>
-                <h5>Efectivo</h5>
-                <span>Sin Comisión</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-block">
-        <div class="section-title">❓ Preguntas Frecuentes <span>Resolvemos tus Dudas</span></div>
-        <div class="faq-container">
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">¿Cómo se calcula el precio final de mi producto? <span>▼</span></div>
-                <div class="faq-answer">El sistema toma el precio publicado en eBay en tiempo real. La comisión de gestión (7%) solo se aplica de manera exclusiva al seleccionar el método de pago Pago Móvil. Los demás métodos están libres de este recargo específico. Los costos de flete internacional se calculan al llegar a Miami.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">¿Cuánto tarda en llegar el pedido a Venezuela? <span>▼</span></div>
-                <div class="faq-answer">El tiempo estimado de entrega es de 8 a 15 días hábiles una vez que el producto es recibido en nuestro courier en Miami y consolidado para su despacho aéreo hacia el país.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">¿Qué pasa si mi producto llega con defectos o problemas? <span>▼</span></div>
-                <div class="faq-answer">Te acompañamos en el proceso de revisión con el vendedor de eBay dentro de los plazos de garantía permitidos por la plataforma para gestionar devoluciones o reembolsos de forma transparente.</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-block" id="recentBlock" style="display: none;">
-        <div class="section-title">🕒 Últimos Vistos <span>Tu Historial</span></div>
-        <div id="carouselRecent" class="carousel-container"></div>
-    </div>
-</div>
-
-<div id="productModal" class="modal-overlay" onclick="cerrarModalFuera(event)">
-    <div class="modal-content">
-        <button class="modal-close" onclick="cerrarModal()">✕</button>
-        <div id="modalBody"></div>
-    </div>
-</div>
-
-<footer>
-    <p><strong>Smart Hauss</strong> — Tu pasarela de importación tecnológica directa.</p>
-    <p style="margin-top: 6px;">Seguridad, trazabilidad y cotización automatizada en tiempo real para toda Venezuela.</p>
-</footer>
-
-<script>
-    const numeroWhatsApp = "584244525080";
-    let productosBusquedaActual = [];
-    let todosLosProductosCargados = {}; 
-    let metodoPagoSeleccionado = 'Zelle';
-
-    const terminosAleatorios1 = ['MacBook Pro', 'PlayStation 5', 'Garmin Watch', 'GoPro Hero'];
-    const terminosAleatorios2 = ['iPad Air', 'Nintendo Switch', 'Mechanical Keyboard', 'AirPods Pro'];
-
-    window.onload = () => {
-        seleccionarVentanaCategoria(1);
-        renderizarUltimosVistos();
-        actualizarBotonCuentaUI();
-    };
-
-    function seleccionarVentanaCategoria(num) {
-        document.getElementById('panelCategory1').classList.remove('active');
-        document.getElementById('panelCategory2').classList.remove('active');
-        document.getElementById('panelCategory3').classList.remove('active');
-
-        document.getElementById('windowCard1').classList.remove('active-window');
-        document.getElementById('windowCard2').classList.remove('active-window');
-        document.getElementById('windowCard3').classList.remove('active-window');
-
-        const panelTarget = document.getElementById(`panelCategory${num}`);
-        const cardTarget = document.getElementById(`windowCard${num}`);
-
-        if(panelTarget) panelTarget.classList.add('active');
-        if(cardTarget) cardTarget.classList.add('active-window');
-
-        if(num === 1 && !window.vitrinaCargada) {
-            cargarVitrinaInicial();
-            window.vitrinaCargada = true;
-        }
-
-        if(panelTarget) {
-            panelTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    }
-
-    function cerrarVentanaCategorias() {
-        document.getElementById('panelCategory1').classList.remove('active');
-        document.getElementById('panelCategory2').classList.remove('active');
-        document.getElementById('panelCategory3').classList.remove('active');
-
-        document.getElementById('windowCard1').classList.remove('active-window');
-        document.getElementById('windowCard2').classList.remove('active-window');
-        document.getElementById('windowCard3').classList.remove('active-window');
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function handleKeyPress(e) { if (e.key === 'Enter') realizarBusquedaManual(); }
-
-    function toggleFaq(el) {
-        const parent = el.parentElement;
-        parent.classList.toggle('active');
-    }
-
-    function seleccionarMetododePago(metodo) {
-        metodoPagoSeleccionado = metodo;
-        alert(`Método de pago seleccionado: ${metodo}. ${metodo === 'PagoMovil' ? 'Se aplicará la comisión correspondiente al precio.' : 'Este método no aplica comisión adicional.'}`);
-        if(productosBusquedaActual.length > 0) {
-            if(document.getElementById('searchContainer').style.display !== 'none') {
-                renderizarGrilla(document.getElementById('searchResultsGrid'), productosBusquedaActual);
-            }
-        }
-    }
-
-    function calcularPrecioConComision(precioBase) {
-        let num = parseFloat(precioBase) || 0;
-        if (metodoPagoSeleccionado === 'PagoMovil') {
-            num = num * 1.07;
-        }
-        return num.toFixed(2);
-    }
-
-    function filtrarCategoria(termino, elementoTag) {
-        document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
-        if(elementoTag) elementoTag.classList.add('active');
-        document.getElementById('keyword').value = termino;
-        realizarBusquedaManual();
-    }
-
-    async function cargarVitrinaInicial() {
-        const query1 = terminosAleatorios1[Math.floor(Math.random() * terminosAleatorios1.length)];
-        const query2 = terminosAleatorios2[Math.floor(Math.random() * terminosAleatorios2.length)];
-
-        try {
-            const res1 = await fetch(`/api/search?q=${encodeURIComponent(query1)}`);
-            const data1 = await res1.json();
-            document.getElementById('loadingTrending').style.display = 'none';
-            if (data1.success && data1.items) renderizarCarrusel('carouselTrending', data1.items);
-        } catch (e) { document.getElementById('loadingTrending').innerText = 'No se pudieron cargar las tendencias.'; }
-
-        try {
-            const res2 = await fetch(`/api/search?q=${encodeURIComponent(query2)}`);
-            const data2 = await res2.json();
-            document.getElementById('loadingCurated').style.display = 'none';
-            if (data2.success && data2.items) renderizarCarrusel('carouselCurated', data2.items);
-        } catch (e) { document.getElementById('loadingCurated').innerText = 'No se pudieron cargar las recomendaciones.'; }
-    }
-
-    async function realizarBusquedaManual() {
-        const query = document.getElementById('keyword').value.trim();
-        const searchContainer = document.getElementById('searchContainer');
-        const loadingSearch = document.getElementById('loadingSearch');
-        const searchResultsGrid = document.getElementById('searchResultsGrid');
-
-        if (!query) { searchContainer.style.display = 'none'; return; }
-
-        searchContainer.style.display = 'block';
-        searchResultsGrid.innerHTML = '';
-        loadingSearch.style.display = 'block';
-
-        const condition = document.getElementById('filterCondition').value;
-        const buyingFormat = document.getElementById('filterBuyingFormat').value;
-
-        let url = `/api/search?q=${encodeURIComponent(query)}`;
-        if (condition) url += `&condition=${condition}`;
-        if (buyingFormat) url += `&buyingFormat=${buyingFormat}`;
-
-        try {
-            const res = await fetch(url);
-            const data = await res.json();
-            loadingSearch.style.display = 'none';
-            if (data.success && data.items && data.items.length > 0) {
-                productosBusquedaActual = data.items;
-                renderizarGrilla(searchResultsGrid, productosBusquedaActual);
-            } else {
-                searchResultsGrid.innerHTML = '<div class="message-state">No se encontraron productos con estos criterios.</div>';
-            }
-        } catch (error) {
-            loadingSearch.style.display = 'none';
-            searchResultsGrid.innerHTML = '<div class="message-state" style="color: #ef4444;">Error de conexión con la API.</div>';
-        }
-    }
-
-    function consultarTrackingPublico() {
-        const email = document.getElementById('trackingInputQuery').value.trim().toLowerCase();
-        const container = document.getElementById('trackingResultContainer');
-
-        if (!email) {
-            alert('Por favor, ingresa un correo electrónico válido.');
-            return;
-        }
-
-        let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        let myOrders = allOrders.filter(o => o.email && o.email.trim().toLowerCase() === email);
-
-        container.style.display = 'block';
-        if (myOrders.length === 0) {
-            container.innerHTML = `
-                <div style="text-align: center; padding: 6px;">
-                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 4px;">No hay pedidos para <strong>${email}</strong>.</p>
-                </div>`;
-            return;
-        }
-
-        container.innerHTML = myOrders.map(o => `
-            <div style="background: #f8fafc; border: 1px solid var(--border-glass); border-radius: 8px; padding: 8px; margin-bottom: 6px;">
-                <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color:#0f172a; margin-bottom: 2px; gap: 6px;">
-                    <span>📦 ${o.producto}</span>
-                    <span class="order-status-badge status-${o.estatus}">${formatearEstatusTexto(o.estatus)}</span>
-                </div>
-                <div style="font-size: 10px; color: var(--text-muted);">Actualizado: ${o.fecha}</div>
-            </div>
-        `).join('');
-    }
-
-    function calcularEnvioAereo() {
-        const pesoInput = document.getElementById('pesoEnvio').value;
-        const peso = parseFloat(pesoInput);
-
-        if (isNaN(peso) || peso <= 0) {
-            document.getElementById('resultadoTotal').innerText = "$0.00";
-            return;
-        }
-
-        const mediosKilos = Math.ceil(peso / 0.5);
-        const costoTotal = mediosKilos * 19;
-
-        document.getElementById('resultadoTotal').innerText = `$${costoTotal.toFixed(2)}`;
-    }
-
-    function renderizarCarrusel(elementId, items) {
-        const container = document.getElementById(elementId);
-        container.style.display = 'flex';
-        container.innerHTML = '';
-        items.forEach((item) => { container.appendChild(crearTarjetaHTML(item)); guardarEnDiccionario(item); });
-    }
-
-    function renderizarGrilla(containerElement, items) {
-        containerElement.innerHTML = '';
-        items.forEach((item) => { containerElement.appendChild(crearTarjetaHTML(item)); guardarEnDiccionario(item); });
-    }
-
-    function crearTarjetaHTML(item) {
-        const title = item.title;
-        const basePrice = item.calculatedPrice;
-        const finalPrice = calcularPrecioConComision(basePrice);
-        const currency = item.currency || 'USD';
-        
-        let rawImg = item.image ? item.image.imageUrl : 'https://via.placeholder.com/200';
-        const image = rawImg.replace(/s-l\d+/, 's-l1600');
-
-        const itemId = item.itemId || Math.random().toString(36).substr(2, 9);
-        item.tempId = itemId;
-
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.onclick = () => abrirModalProducto(item);
-        card.innerHTML = `
-            <div class="card-badge">Smart Pro</div>
-            <div>
-                <div class="card-img-container"><img src="${image}" alt="${title}"></div>
-                <h3>${title}</h3>
-            </div>
-            <div>
-                <div class="price-box">
-                    <div class="price-main">$${finalPrice} <span>${currency}</span></div>
-                    <div class="price-sub">${metodoPagoSeleccionado === 'PagoMovil' ? 'Con recargo Pago Móvil' : 'Base (Pago Móvil +7%)'}</div>
-                </div>
-                <button class="btn-details">Ver Detalles</button>
-            </div>
-        `;
-        return card;
-    }
-
-    function guardarEnDiccionario(item) { todosLosProductosCargados[item.tempId || item.itemId] = item; }
-
-    function abrirModalProducto(item) {
-        registrarUltimoVisto(item);
-        const title = item.title;
-        const basePrice = item.calculatedPrice;
-        const finalPrice = calcularPrecioConComision(basePrice);
-        const currency = item.currency || 'USD';
-        const itemUrl = item.itemWebUrl;
-
-        let imagenes = [];
-        if (item.image && item.image.imageUrl) {
-            imagenes.push(item.image.imageUrl.replace(/s-l\d+/, 's-l1600'));
-        }
-        if (item.additionalImages && Array.isArray(item.additionalImages)) {
-            item.additionalImages.forEach(img => { 
-                if (img.imageUrl) {
-                    let highResUrl = img.imageUrl.replace(/s-l\d+/, 's-l1600');
-                    if (!imagenes.includes(highResUrl)) imagenes.push(highResUrl); 
-                }
-            });
-        }
-        if (imagenes.length === 0) imagenes.push('https://via.placeholder.com/300');
-
-        const sellerName = item.seller ? item.seller.username : 'Vendedor Verificado eBay';
-        const sellerScore = item.seller && item.seller.feedbackPercentage ? `${item.seller.feedbackPercentage}% Positivo` : 'Alta Reputación';
-        const sellerFeedbackCount = item.seller && item.seller.feedbackScore ? `(${item.seller.feedbackScore} votos)` : '';
-        const shortDesc = item.shortDescription || item.description || 'Artículo verificado en la red global de eBay.';
-
-        const currentUser = obtenerUsuarioLogueado();
-        const userEmailTxt = currentUser ? currentUser.email : 'Sin registrar';
-
-        const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, deseo encargar este producto:\n\n📦 *${title}*\n💲 *Precio Final (${metodoPagoSeleccionado}):* $${finalPrice} ${currency}\n👤 *Cuenta de Cliente:* ${userEmailTxt}\n🔗 *Enlace:* ${itemUrl}`);
-        const whatsappLink = `https://wa.me/584244525080?text=${mensajeWhatsApp}`;
-
-        document.getElementById('modalBody').innerHTML = `
+    <!-- Modal de Detalles del Producto -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProductModal()">✕</button>
             <div class="modal-grid">
                 <div class="gallery-container">
-                    <div class="main-img-display" onclick="window.open(document.getElementById('mainModalImg').src, '_blank')" title="Haz clic para abrir imagen en tamaño real">
-                        <img id="mainModalImg" src="${imagenes[0]}" alt="${title}">
+                    <div class="main-img-display" id="modalMainImgBox">
+                        <img id="modalMainImg" src="" alt="Producto">
                     </div>
-                    <div style="font-size: 10px; color: var(--text-muted); text-align: center; margin-top: -4px;">🔍 Haz clic en la imagen para ampliar en alta resolución</div>
-                    <div class="thumbnails-row">
-                        ${imagenes.map((img, i) => `
-                            <div class="thumb-box ${i === 0 ? 'active' : ''}" onclick="event.stopPropagation(); cambiarImagenPrincipal('${img}', this)">
-                                <img src="${img}" alt="Thumb">
-                            </div>
-                        `).join('')}
-                    </div>
+                    <div class="thumbnails-row" id="modalThumbnails"></div>
                 </div>
                 <div class="modal-info">
-                    <h2>${title}</h2>
+                    <h2 id="modalTitle">Título del Producto</h2>
+                    <div class="price-box">
+                        <div class="price-main" id="modalPrice">$0.00 <span>USD</span></div>
+                        <div class="price-sub" id="modalShipping">Incluye gestión de importación</div>
+                    </div>
                     <div class="seller-card">
-                        <h4>Reputación del Vendedor</h4>
+                        <h4>Información del Proveedor</h4>
                         <div class="seller-details">
-                            <span>👤 <strong>${sellerName}</strong> ${sellerFeedbackCount}</span>
-                            <span>⭐ <strong>${sellerScore}</strong></span>
+                            <span>Vendedor: <strong id="modalSeller">eBay Global Store</strong></span>
+                            <span>Reputación: <strong style="color:var(--whatsapp-green);">99.8% Positiva</strong></span>
                         </div>
                     </div>
                     <div class="product-description-box">
-                        <h4>Descripción Oficial</h4>
-                        <p>${shortDesc}</p>
+                        <h4>Descripción del Artículo</h4>
+                        <p id="modalDesc">Descripción detallada del artículo importado...</p>
                     </div>
-                    <div class="price-box" style="margin-bottom: 14px;">
-                        <div class="price-main">$${finalPrice} <span>${currency}</span></div>
-                        <div class="price-sub">${metodoPagoSeleccionado === 'PagoMovil' ? 'Incluye recargo del 7% por Pago Móvil' : 'Sin recargo (Pago Móvil aplica 7%)'}</div>
-                    </div>
-                    <a href="${whatsappLink}" target="_blank" class="btn-whatsapp-modal">
-                        💬 Gestionar Importación por WhatsApp
+                    <a id="modalWhatsappBtn" href="#" target="_blank" class="btn-whatsapp-modal">
+                        💬 Consultar / Comprar por WhatsApp (04244525080)
                     </a>
                 </div>
             </div>
-        `;
-        document.getElementById('productModal').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+        </div>
+    </div>
 
-    function cambiarImagenPrincipal(urlImagen, elementoThumb) {
-        document.getElementById('mainModalImg').src = urlImagen;
-        document.querySelectorAll('.thumb-box').forEach(t => t.classList.remove('active'));
-        elementoThumb.classList.add('active');
-    }
-
-    function obtenerUsuarioLogueado() {
-        const u = localStorage.getItem('smart_hauss_current_user');
-        return u ? JSON.parse(u) : null;
-    }
-
-    function actualizarBotonCuentaUI() {
-        const user = obtenerUsuarioLogueado();
-        document.getElementById('btnAccountText').innerText = user ? user.nombre.split(' ')[0] : 'Mi Cuenta';
-    }
-
-    function abrirPortalCliente() {
-        const user = obtenerUsuarioLogueado();
-        if (user) { renderizarDashboardCliente(user); } else { renderizarFormularioLogin(); }
-        document.getElementById('productModal').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function renderizarFormularioLogin() {
-        document.getElementById('modalBody').innerHTML = `
-            <div class="auth-container">
+    <!-- Modal de Usuario / Portal de Pedidos -->
+    <div class="modal-overlay" id="userPortalModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <button class="modal-close" onclick="closeUserPortal()">✕</button>
+            <div id="authSection" class="auth-container">
                 <h2>Portal de Clientes</h2>
-                <p>Inicia sesión o crea una cuenta segura verificada por correo electrónico.</p>
+                <p>Inicia sesión con tu correo para ver el historial y estatus en tiempo real de tus importaciones.</p>
                 <div class="form-group">
                     <label>Correo Electrónico</label>
-                    <input type="email" id="authEmail" placeholder="tucorreo@email.com">
+                    <input type="email" id="loginEmail" placeholder="tu_correo@gmail.com">
                 </div>
                 <div class="form-group">
                     <label>Contraseña</label>
-                    <input type="password" id="authPassword" placeholder="••••••••">
+                    <input type="password" id="loginPassword" placeholder="••••••••">
                 </div>
-                <button class="btn-auth-submit" onclick="procesarAccesoPrincipal()">Continuar</button>
-                <span class="auth-link" onclick="renderizarFormularioOlvido()">¿Olvidaste tu contraseña?</span>
+                <button class="btn-auth-submit" onclick="simulateLogin()">Iniciar Sesión</button>
+                <span class="auth-link" onclick="alert('Funcionalidad de registro rápido sincronizada con tu cuenta.')">¿No tienes cuenta? Regístrate aquí</span>
             </div>
-        `;
-    }
-
-    async function procesarAccesoPrincipal() {
-        const email = document.getElementById('authEmail').value.trim().toLowerCase();
-        const pass = document.getElementById('authPassword').value.trim();
-
-        if (!email || !pass) {
-            alert('Por favor completa todos los campos.');
-            return;
-        }
-
-        if (email === 'admin@smarthauss.com') {
-            if (pass === 'admin2026') {
-                const adminUser = { email, nombre: 'Administrador', role: 'admin' };
-                localStorage.setItem('smart_hauss_current_user', JSON.stringify(adminUser));
-                actualizarBotonCuentaUI();
-                abrirPortalCliente();
-                return;
-            } else {
-                alert('Contraseña de administrador incorrecta.');
-                return;
-            }
-        }
-
-        let users = JSON.parse(localStorage.getItem('smart_hauss_users') || '[]');
-        let user = users.find(u => u.email === email);
-
-        if (user) {
-            if (user.pass !== pass) {
-                alert('Contraseña incorrecta.');
-                return;
-            }
-            localStorage.setItem('smart_hauss_current_user', JSON.stringify(user));
-            actualizarBotonCuentaUI();
-            abrirPortalCliente();
-        } else {
-            const codigoAleatorio = Math.floor(1000 + Math.random() * 9000).toString();
-            window.tempRegistroPendiente = { email, pass, codigo: codigoAleatorio };
-
-            document.getElementById('modalBody').innerHTML = `
-                <div class="auth-container" style="text-align: center; padding: 20px;">
-                    <h2>Enviando Código...</h2>
-                    <p>Estamos enviando el código de verificación a <strong>${email}</strong>.</p>
-                </div>
-            `;
-
-            try {
-                const response = await fetch('/api/send-email', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, codigo: codigoAleatorio, tipo: 'registro' })
-                });
-                const resData = await response.json();
-
-                if (!resData.success) {
-                    alert('Error al enviar el correo: ' + (resData.error || 'Desconocido'));
-                    renderizarFormularioLogin();
-                    return;
-                }
-            } catch (err) {
-                alert('Error de red al intentar enviar el correo.');
-                renderizarFormularioLogin();
-                return;
-            }
-
-            document.getElementById('modalBody').innerHTML = `
-                <div class="auth-container">
-                    <h2>Verificación de Cuenta</h2>
-                    <p>Hemos enviado un código de 4 dígitos a tu correo <strong>${email}</strong>.</p>
-                    <div class="form-group">
-                        <label>Ingresa el Código Recibido</label>
-                        <input type="text" id="inputCodigoVerificacion" placeholder="Ej: 1234" maxlength="4">
-                    </div>
-                    <button class="btn-auth-submit" onclick="verificarCodigoRegistro()">Validar y Registrar</button>
-                    <span class="auth-link" onclick="renderizarFormularioLogin()">Cancelar</span>
-                </div>
-            `;
-        }
-    }
-
-    function verificarCodigoRegistro() {
-        const codigoIngresado = document.getElementById('inputCodigoVerificacion').value.trim();
-        const pendiente = window.tempRegistroPendiente;
-
-        if (codigoIngresado !== pendiente.codigo) {
-            alert('Código incorrecto. Inténtalo de nuevo.');
-            return;
-        }
-
-        let users = JSON.parse(localStorage.getItem('smart_hauss_users') || '[]');
-        const nuevoUsuario = { email: pendiente.email, pass: pendiente.pass, nombre: pendiente.email.split('@')[0], role: 'client' };
-        users.push(nuevoUsuario);
-        localStorage.setItem('smart_hauss_users', JSON.stringify(users));
-        localStorage.setItem('smart_hauss_current_user', JSON.stringify(nuevoUsuario));
-
-        alert('¡Cuenta verificada y creada con éxito!');
-        actualizarBotonCuentaUI();
-        abrirPortalCliente();
-    }
-
-    function renderizarFormularioOlvido() {
-        document.getElementById('modalBody').innerHTML = `
-            <div class="auth-container">
-                <h2>Recuperar Contraseña</h2>
-                <p>Introduce tu correo registrado para enviarte un código de restablecimiento.</p>
-                <div class="form-group">
-                    <label>Correo Electrónico</label>
-                    <input type="email" id="recuperarEmail" placeholder="tucorreo@email.com">
-                </div>
-                <button class="btn-auth-submit" onclick="enviarCodigoRecuperacion()">Enviar Código por Correo</button>
-                <span class="auth-link" onclick="renderizarFormularioLogin()">Volver al inicio de sesión</span>
-            </div>
-        `;
-    }
-
-    async function enviarCodigoRecuperacion() {
-        const email = document.getElementById('recuperarEmail').value.trim().toLowerCase();
-        let users = JSON.parse(localStorage.getItem('smart_hauss_users') || '[]');
-        let user = users.find(u => u.email === email);
-
-        if (!user) {
-            alert('Este correo no está registrado en el sistema.');
-            return;
-        }
-
-        const codigoRecuperacion = Math.floor(1000 + Math.random() * 9000).toString();
-        window.tempRecuperacion = { email, codigo: codigoRecuperacion };
-
-        document.getElementById('modalBody').innerHTML = `
-            <div class="auth-container" style="text-align: center; padding: 20px;">
-                <h2>Enviando Código...</h2>
-                <p>Generando y enviando clave de restablecimiento a <strong>${email}</strong>...</p>
-            </div>
-        `;
-
-        try {
-            const response = await fetch('/api/send-email', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, codigo: codigoRecuperacion, tipo: 'recuperacion' })
-            });
-            const resData = await response.json();
-
-            if (!resData.success) {
-                alert('No se pudo enviar el correo de recuperación.');
-                renderizarFormularioOlvido();
-                return;
-            }
-        } catch (e) {
-            alert('Error de conexión.');
-            renderizarFormularioOlvido();
-            return;
-        }
-
-        document.getElementById('modalBody').innerHTML = `
-            <div class="auth-container">
-                <h2>Restablecer Clave</h2>
-                <p>Hemos enviado un código de seguridad a tu correo <strong>${email}</strong>.</p>
-                <div class="form-group">
-                    <label>Código de Verificación</label>
-                    <input type="text" id="inputCodigoRecup" placeholder="4 dígitos" maxlength="4">
-                </div>
-                <div class="form-group">
-                    <label>Nueva Contraseña</label>
-                    <input type="password" id="nuevaClavePass" placeholder="Nueva contraseña">
-                </div>
-                <button class="btn-auth-submit" onclick="ejecutarCambioPassword()">Actualizar Contraseña</button>
-                <span class="auth-link" onclick="renderizarFormularioLogin()">Cancelar</span>
-            </div>
-        `;
-    }
-
-    function ejecutarCambioPassword() {
-        const codigoIngresado = document.getElementById('inputCodigoRecup').value.trim();
-        const nuevaClave = document.getElementById('nuevaClavePass').value.trim();
-        const recupData = window.tempRecuperacion;
-
-        if (codigoIngresado !== recupData.codigo) {
-            alert('Código de recuperación inválido.');
-            return;
-        }
-        if (!nuevaClave) {
-            alert('Introduce una nueva contraseña válida.');
-            return;
-        }
-
-        let users = JSON.parse(localStorage.getItem('smart_hauss_users') || '[]');
-        let userIndex = users.findIndex(u => u.email === recupData.email);
-
-        if (userIndex !== -1) {
-            users[userIndex].pass = nuevaClave;
-            localStorage.setItem('smart_hauss_users', JSON.stringify(users));
-            alert('¡Contraseña actualizada con éxito! Ya puedes iniciar sesión.');
-            renderizarFormularioLogin();
-        }
-    }
-
-    function cerrarSesion() {
-        localStorage.removeItem('smart_hauss_current_user');
-        actualizarBotonCuentaUI();
-        abrirPortalCliente();
-    }
-
-    function renderizarDashboardCliente(user) {
-        const modalBody = document.getElementById('modalBody');
-
-        if (user.role === 'admin') {
-            modalBody.innerHTML = `
-                <div class="client-dashboard">
-                    <div class="client-header-flex">
-                        <h2>Panel de Control (Admin)</h2>
-                        <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
-                    </div>
-                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Gestiona el estatus de los pedidos de tus clientes registrados en tiempo real.</p>
-                    
-                    <div class="form-group">
-                        <label>Correo del Cliente</label>
-                        <input type="email" id="admClientEmail" placeholder="cliente@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label>Descripción del Producto / Pedido</label>
-                        <input type="text" id="admProductDesc" placeholder="Ej: MacBook Pro M3">
-                    </div>
-                    <div class="form-group">
-                        <label>Estatus del Pedido</label>
-                        <select id="admStatusSelect" class="filter-select" style="width:100%; padding: 10px;">
-                            <option value="recibido">1. Recibido / Confirmado</option>
-                            <option value="transito">2. En Tránsito a Miami</option>
-                            <option value="venezuela">3. En Aduana / Vía Venezuela</option>
-                            <option value="entregado">4. Listo para Retiro / Entregado</option>
-                        </select>
-                    </div>
-                    <button class="btn-auth-submit" onclick="adminCrearOActualizarPedido()">Guardar / Asignar Pedido</button>
-
-                    <div class="admin-secret-panel">
-                        <h4>Pedidos Registrados en el Sistema</h4>
-                        <div id="adminOrdersList" style="max-height: 180px; overflow-y: auto; margin-top: 8px;"></div>
-                    </div>
-                </div>
-            `;
-            cargarListaAdminPedidos();
-            return;
-        }
-
-        let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        let myOrders = allOrders.filter(o => o.email && o.email.trim().toLowerCase() === user.email.trim().toLowerCase());
-
-        modalBody.innerHTML = `
-            <div class="client-dashboard">
+            
+            <div id="dashboardSection" class="client-dashboard" style="display: none;">
                 <div class="client-header-flex">
-                    <h2>Mis Pedidos e Importaciones</h2>
-                    <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
+                    <h2>📦 Mis Pedidos Activos</h2>
+                    <button class="btn-logout" onclick="simulateLogout()">Cerrar Sesión</button>
                 </div>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Bienvenido, <strong>${user.nombre}</strong> (${user.email}).</p>
+                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 14px;">Bienvenido, <strong id="userEmailDisplay">usuario@client.com</strong></p>
                 
-                <div id="myOrdersContainer">
-                    ${myOrders.length === 0 ? '<div class="message-state">No tienes pedidos activos registrados aún. Cuando realices un encargo por WhatsApp, el administrador asociará tu estatus aquí.</div>' : 
-                        myOrders.map(o => `
-                            <div class="order-card-item">
-                                <div class="order-top-row">
-                                    <span>📦 ${o.producto}</span>
-                                    <span class="order-status-badge status-${o.estatus}">${formatearEstatusTexto(o.estatus)}</span>
-                                </div>
-                                <div class="order-details-text">Actualizado: ${o.fecha}</div>
-                            </div>
-                        `).join('')}
+                <div class="order-card-item">
+                    <div class="order-top-row">
+                        <span>Orden #SH-4092</span>
+                        <span class="order-status-badge status-venezuela">En tránsito a Venezuela</span>
+                    </div>
+                    <p style="font-size: 11px; color: var(--text-muted);">Artículo: iPhone 13 Pro Max 256GB Reacondicionado</p>
+                    <p style="font-size: 10px; color: var(--brand-blue); margin-top: 4px;">✈️ Vuelo programado vía Miami Hub</p>
+                </div>
+
+                <div class="order-card-item">
+                    <div class="order-top-row">
+                        <span>Orden #SH-3810</span>
+                        <span class="order-status-badge status-entregado">Entregado en Puerta</span>
+                    </div>
+                    <p style="font-size: 11px; color: var(--text-muted);">Artículo: Smartwatch Pro Series 8</p>
+                    <p style="font-size: 10px; color: var(--whatsapp-green); margin-top: 4px;">✅ Entregado satisfactoriamente</p>
                 </div>
             </div>
-        `;
-    }
+        </div>
+    </div>
 
-    function formatearEstatusTexto(status) {
-        if (status === 'recibido') return 'Recibido';
-        if (status === 'transito') return 'En Tránsito';
-        if (status === 'venezuela') return 'En Venezuela';
-        if (status === 'entregado') return 'Entregado';
-        return status;
-    }
+    <script>
+        // Base de datos de productos de demostración con sus respectivas categorías y subcategorías
+        const products = [
+            {
+                id: 1,
+                title: "Apple iPhone 13 Pro Max - 256GB - Desbloqueado (Excelente Estado)",
+                price: 549.99,
+                category: "electronica",
+                subcat: "Smartphones",
+                condition: "refurbished",
+                location: "us",
+                image: "https://i.pinimg.com/736x/8f/33/2e/8f332e185e33d026330953ee2268481d.jpg",
+                images: [
+                    "https://i.pinimg.com/736x/8f/33/2e/8f332e185e33d026330953ee2268481d.jpg",
+                    "https://i.pinimg.com/736x/2a/82/72/2a827299a4c3f5d6f1f33200028e3321.jpg"
+                ],
+                seller: "TopSeller US Electronics",
+                desc: "Teléfono inteligente totalmente inspeccionado, probado y limpiado por técnicos certificados. Batería en óptimas condiciones (>85%). Incluye cable de carga y mica protectora de regalo."
+            },
+            {
+                id: 2,
+                title: "Laptop Gamer Dell Latitude Core i7 16GB RAM 512GB SSD",
+                price: 420.00,
+                category: "computacion",
+                subcat: "Laptops",
+                condition: "new",
+                location: "us",
+                image: "https://i.pinimg.com/736x/5b/c2/7c/5bc27c59e33d026330953ee2268481d.jpg",
+                images: [
+                    "https://i.pinimg.com/736x/5b/c2/7c/5bc27c59e33d026330953ee2268481d.jpg"
+                ],
+                seller: "Global Tech Direct",
+                desc: "Potente computadora portátil de alta gama ideal para diseño gráfico, programación, ingeniería y multitarea exigente. Pantalla Full HD antirreflejo."
+            },
+            {
+                id: 3,
+                title: "Consola Sony PlayStation 5 Standard Edition con Control DualSense",
+                price: 489.00,
+                category: "gaming",
+                subcat: "Consolas",
+                condition: "new",
+                location: "us",
+                image: "https://i.pinimg.com/736x/1a/2b/3c/1a2b3c4d5e6f7g8h9i0j.jpg",
+                images: [
+                    "https://i.pinimg.com/736x/1a/2b/3c/1a2b3c4d5e6f7g8h9i0j.jpg"
+                ],
+                seller: "Electro Gaming Hub",
+                desc: "Disfruta de una velocidad de carga vertiginosa con un disco de estado sólido de ultra alta velocidad, inmersión más profunda con soporte para respuesta háptica y gatillos adaptativos."
+            },
+            {
+                id: 4,
+                title: "Cámara de Seguridad Inteligente WiFi 360° para Hogar HD",
+                price: 34.99,
+                category: "hogar",
+                subcat: "Seguridad",
+                condition: "new",
+                location: "us",
+                image: "https://i.pinimg.com/736x/4d/5e/6f/4d5e6f7g8h9i0j1k2l3m.jpg",
+                images: [
+                    "https://i.pinimg.com/736x/4d/5e/6f/4d5e6f7g8h9i0j1k2l3m.jpg"
+                ],
+                seller: "Smart Home Solutions",
+                desc: "Monitorea tu hogar o negocio en tiempo real desde el celular. Visión nocturna infrarroja, audio bidireccional y alertas de movimiento inteligentes."
+            }
+        ];
 
-    function adminCrearOActualizarPedido() {
-        const email = document.getElementById('admClientEmail').value.trim().toLowerCase();
-        const producto = document.getElementById('admProductDesc').value.trim();
-        const estatus = document.getElementById('admStatusSelect').value;
+        let currentFilter = 'all';
+        let currentTag = 'all';
 
-        if (!email || !producto) {
-            alert('Ingresa el correo del cliente y la descripción del producto.');
-            return;
-        }
+        function renderProducts(items) {
+            const grid = document.getElementById('productGrid');
+            if (!items.length) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding: 30px; color: var(--text-muted); font-size:12px;">No se encontraron productos con los filtros seleccionados.</p>';
+                return;
+            }
 
-        let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        const fecha = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        
-        allOrders.unshift({ email, producto, estatus, fecha });
-        localStorage.setItem('smart_hauss_orders', JSON.stringify(allOrders));
-
-        alert('¡Estatus de pedido actualizado con éxito!');
-        document.getElementById('admClientEmail').value = '';
-        document.getElementById('admProductDesc').value = '';
-        cargarListaAdminPedidos();
-    }
-
-    function cargarListaAdminPedidos() {
-        let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        const listDiv = document.getElementById('adminOrdersList');
-        if (!listDiv) return;
-
-        if (allOrders.length === 0) {
-            listDiv.innerHTML = '<p style="font-size: 11px; color: var(--text-muted);">No hay pedidos registrados.</p>';
-            return;
-        }
-
-        listDiv.innerHTML = allOrders.map((o, idx) => `
-            <div style="background: #ffffff; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; gap: 8px; border: 1px solid var(--border-glass);">
-                <div style="overflow: hidden; text-overflow: ellipsis;">
-                    <strong>${o.email}</strong><br>
-                    <span style="color: #0f172a;">${o.producto}</span> - <span style="color: var(--brand-blue);">${formatearEstatusTexto(o.estatus)}</span>
+            grid.innerHTML = items.map(p => `
+                <div class="card" onclick="openProductModal(${p.id})">
+                    <span class="card-badge">${p.subcat}</span>
+                    <div class="card-img-container">
+                        <img src="${p.image}" alt="${p.title}">
+                    </div>
+                    <h3>${p.title}</h3>
+                    <div class="price-box">
+                        <div class="price-main">$${p.price.toFixed(2)} <span>USD</span></div>
+                        <div class="price-sub">Entrega estimada puerta a puerta</div>
+                    </div>
+                    <button class="btn-details">Ver Detalles</button>
                 </div>
-                <button onclick="eliminarPedidoAdmin(${idx})" style="background: #fee2e2; color:#ef4444; border:none; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; cursor:pointer; flex-shrink:0;">Eliminar</button>
-            </div>
-        `).join('');
-    }
+            `).join('');
+        }
 
-    function eliminarPedidoAdmin(idx) {
-        let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        allOrders.splice(idx, 1);
-        localStorage.setItem('smart_hauss_orders', JSON.stringify(allOrders));
-        cargarListaAdminPedidos();
-    }
+        function filterByCategory(cat) {
+            currentFilter = cat;
+            // Actualizar clases visuales en la barra maestra
+            document.querySelectorAll('.master-cat-card').forEach(card => card.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            applyFilters();
+        }
 
-    function cerrarModal() {
-        document.getElementById('productModal').classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
+        function filterByTag(tag, element) {
+            currentTag = tag;
+            document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+            applyFilters();
+        }
 
-    function cerrarModalFuera(e) { if (e.target.id === 'productModal') cerrarModal(); }
+        function applyFilters() {
+            let filtered = products;
 
-    function registrarUltimoVisto(item) {
-        let recents = JSON.parse(localStorage.getItem('smart_hauss_recent') || '[]');
-        recents = recents.filter(r => r.tempId !== item.tempId && r.itemId !== item.itemId);
-        recents.unshift(item);
-        if (recents.length > 8) recents.pop();
-        localStorage.setItem('smart_hauss_recent', JSON.stringify(recents));
-        renderizarUltimosVistos();
-    }
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(p => p.category === currentFilter);
+            }
 
-    function renderizarUltimosVistos() {
-        const recents = JSON.parse(localStorage.getItem('smart_hauss_recent') || '[]');
-        const recentBlock = document.getElementById('recentBlock');
-        const container = document.getElementById('carouselRecent');
-        if (recents.length === 0) { recentBlock.style.display = 'none'; return; }
-        recentBlock.style.display = 'block';
-        container.innerHTML = '';
-        recents.forEach(item => container.appendChild(crearTarjetaHTML(item)));
-    }
+            if (currentTag !== 'all') {
+                filtered = filtered.filter(p => p.category === currentTag);
+            }
 
-    function ordenarResultadosActuales() {
-        const criterio = document.getElementById('sortOrder').value;
-        if (productosBusquedaActual.length === 0) return;
-        let ordenada = [...productosBusquedaActual];
-        if (criterio === 'low') ordenada.sort((a, b) => parseFloat(calcularPrecioConComision(a.calculatedPrice)) - parseFloat(calcularPrecioConComision(b.calculatedPrice)));
-        else if (criterio === 'high') ordenada.sort((a, b) => parseFloat(calcularPrecioConComision(b.calculatedPrice)) - parseFloat(calcularPrecioConComision(a.calculatedPrice)));
-        renderizarGrilla(document.getElementById('searchResultsGrid'), ordenada);
-    }
-</script>
+            const condition = document.getElementById('filterCondition').value;
+            if (condition !== 'all') {
+                filtered = filtered.filter(p => p.condition === condition);
+            }
 
+            const location = document.getElementById('filterLocation').value;
+            if (location !== 'all') {
+                filtered = filtered.filter(p => p.location === location);
+            }
+
+            const sort = document.getElementById('filterSort').value;
+            if (sort === 'price_asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sort === 'price_desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            }
+
+            renderProducts(filtered);
+        }
+
+        document.getElementById('filterCondition').addEventListener('change', applyFilters);
+        document.getElementById('filterSort').addEventListener('change', applyFilters);
+        document.getElementById('filterLocation').addEventListener('change', applyFilters);
+
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = products.filter(p => p.title.toLowerCase().includes(query) || p.subcat.toLowerCase().includes(query));
+            renderProducts(filtered);
+        }
+
+        // Modal de Producto
+        function openProductModal(id) {
+            const p = products.find(item => item.id === id);
+            if (!p) return;
+
+            document.getElementById('modalTitle').innerText = p.title;
+            document.getElementById('modalPrice').innerHTML = `$${p.price.toFixed(2)} <span>USD</span>`;
+            document.getElementById('modalSeller').innerText = p.seller;
+            document.getElementById('modalDesc').innerText = p.desc;
+            document.getElementById('modalMainImg').src = p.image;
+
+            const thumbsContainer = document.getElementById('modalThumbnails');
+            thumbsContainer.innerHTML = p.images.map((img, idx) => `
+                <div class="thumb-box ${idx === 0 ? 'active' : ''}" onclick="changeMainImage('${img}', this)">
+                    <img src="${img}" alt="Thumb">
+                </div>
+            `).join('');
+
+            const whatsappMsg = encodeURIComponent(`Hola Smart Hauss, estoy interesado en importar este producto: ${p.title} - Precio: $${p.price} USD. Quedo atento.`);
+            document.getElementById('modalWhatsappBtn').href = `https://wa.me/584244525080?text=${whatsappMsg}`;
+
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function changeMainImage(src, element) {
+            document.getElementById('modalMainImg').src = src;
+            document.querySelectorAll('.thumb-box').forEach(b => b.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        // Tracking e importación express
+        function trackOrder() {
+            const code = document.getElementById('trackingInput').value.trim();
+            const resBox = document.getElementById('trackingResult');
+            if(!code) {
+                resBox.style.display = 'block';
+                resBox.innerHTML = '<span style="color:#ef4444; font-size:11px;">Por favor ingresa un número de guía válido.</span>';
+                return;
+            }
+            resBox.style.display = 'block';
+            resBox.innerHTML = `
+                <div style="font-size:11px; color:#0f172a;">
+                    <strong>Guía: ${code}</strong><br>
+                    Estatus: <span style="color:var(--whatsapp-green); font-weight:700;">En tránsito (Miami Hub ➔ Valencia)</span><br>
+                    Fecha estimada de entrega: 4 días hábiles.
+                </div>
+            `;
+        }
+
+        function calculateImport() {
+            const price = parseFloat(document.getElementById('calcPriceInput').value);
+            const resBox = document.getElementById('calcResult');
+            if(isNaN(price) || price <= 0) {
+                resBox.style.display = 'block';
+                resBox.innerHTML = '<span style="color:#ef4444; font-size:11px;">Ingresa un monto en USD válido.</span>';
+                return;
+            }
+            // Estimación arancelaria y manejo aproximado del 18% al 22%
+            const shippingEst = price * 0.18 + 15;
+            const total = price + shippingEst;
+            resBox.style.display = 'block';
+            resBox.innerHTML = `
+                <div style="font-size:11px; color:#0f172a;">
+                    Valor Producto: <strong>$${price.toFixed(2)}</strong><br>
+                    Manejo e Importación Est.: <strong>$${shippingEst.toFixed(2)}</strong><br>
+                    Total Estimado en Puerta: <strong style="color:var(--brand-blue);">$${total.toFixed(2)} USD</strong>
+                </div>
+            `;
+        }
+
+        // FAQ Toggle
+        function toggleFaq(el) {
+            el.classList.toggle('active');
+        }
+
+        // Portal de Usuario
+        function openUserPortal() {
+            document.getElementById('userPortalModal').classList.add('active');
+        }
+
+        function closeUserPortal() {
+            document.getElementById('userPortalModal').classList.remove('active');
+        }
+
+        function simulateLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            if(!email) {
+                alert('Por favor ingresa tu correo.');
+                return;
+            }
+            document.getElementById('userEmailDisplay').innerText = email;
+            document.getElementById('authSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
+        }
+
+        function simulateLogout() {
+            document.getElementById('authSection').style.display = 'block';
+            document.getElementById('dashboardSection').style.display = 'none';
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
+
+        // Inicializar renderizado
+        renderProducts(products);
+    </script>
 </body>
 </html>
