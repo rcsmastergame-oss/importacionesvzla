@@ -65,7 +65,7 @@
 
         @keyframes floatCard {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-3px); }
             100% { transform: translateY(0px); }
         }
 
@@ -81,9 +81,9 @@
             text-transform: uppercase;
         }
 
-        /* CABECERA PRINCIPAL FIJA CON BUSCADOR Y NAVBAR DE CATEGORÍAS */
+        /* CABECERA PRINCIPAL FIJA CON BUSCADOR FLEXIBLE */
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border-glass);
             position: sticky;
@@ -95,24 +95,29 @@
         }
 
         .header-main-row {
-            padding: 10px 12px;
+            padding: 8px 10px;
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             width: 100%;
         }
 
         @media (min-width: 640px) {
-            .header-main-row { padding: 12px 24px; }
+            .header-main-row { padding: 12px 24px; flex-wrap: nowrap; gap: 12px; }
         }
 
-        /* BARRA DE BÚSQUEDA SUPERIOR EN LA CABECERA */
+        /* BARRA DE BÚSQUEDA ADAPTADA PARA MÓVILES */
         .header-search-container {
-            flex: 1;
-            max-width: 600px;
+            order: 3;
+            width: 100%;
             display: flex;
             gap: 6px;
+        }
+
+        @media (min-width: 640px) {
+            .header-search-container { order: unset; flex: 1; max-width: 600px; }
         }
 
         .header-search-container input[type="text"] {
@@ -125,6 +130,7 @@
             color: #0f172a;
             font-weight: 500;
             outline: none;
+            min-width: 0;
             transition: all 0.3s ease;
         }
 
@@ -139,11 +145,12 @@
             align-items: center;
             gap: 8px;
             min-width: 0;
+            order: 1;
         }
 
         .logo-img {
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--brand-blue);
@@ -155,7 +162,7 @@
         .logo-img:hover { transform: rotate(10deg) scale(1.05); }
 
         .header-brand h1 {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 800;
             letter-spacing: 0.3px;
             text-transform: uppercase;
@@ -175,6 +182,7 @@
             align-items: center;
             gap: 6px;
             flex-shrink: 0;
+            order: 2;
         }
 
         .header-status {
@@ -273,7 +281,6 @@
             .nav-category-item { font-size: 12px; padding: 12px 18px; }
         }
 
-        /* Cambio de color al pasar el cursor */
         .nav-category-item:hover, .nav-category-item.active-nav {
             color: var(--brand-blue);
             background: rgba(0, 100, 210, 0.04);
@@ -291,7 +298,6 @@
             width: 100%;
         }
 
-        /* Subcategorías desplegables (Dropdown) */
         .nav-dropdown-menu {
             position: absolute;
             top: 100%;
@@ -527,6 +533,7 @@
             color: #0f172a;
             font-weight: 500;
             outline: none;
+            min-width: 0;
             transition: all 0.3s ease;
         }
 
@@ -582,16 +589,6 @@
         .search-panel:hover { box-shadow: var(--shadow-hover); border-color: rgba(0, 100, 210, 0.3); }
 
         @media (min-width: 640px) { .search-panel { padding: 22px; border-radius: 20px; margin-bottom: 30px; } }
-
-        .search-bar-wrapper {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        @media (min-width: 640px) {
-            .search-bar-wrapper { gap: 10px; margin-bottom: 14px; }
-        }
 
         input[type="text"], input[type="email"], input[type="password"], input[type="number"] {
             flex: 1;
@@ -831,6 +828,7 @@
         .faq-question span { transition: transform 0.3s ease; font-size: 9px; }
         @media (min-width: 640px) { .faq-question span { font-size: 11px; } }
 
+        /* CORRECCIÓN DE PÁNICO/MOVIMIENTO EN TTACTO MÓVIL (CARRUSELES) */
         .carousel-container {
             display: flex;
             gap: 10px;
@@ -839,6 +837,7 @@
             scrollbar-width: thin;
             scrollbar-color: var(--brand-blue) rgba(0,0,0,0.05);
             -webkit-overflow-scrolling: touch;
+            touch-action: pan-x; /* Evita que los gestos táctiles horizontales conflictúen con el scroll de la página */
         }
 
         @media (min-width: 640px) {
@@ -1213,140 +1212,6 @@
         .loading, .message-state { text-align: center; padding: 20px 10px; color: var(--text-muted); font-size: 11px; font-weight: 600; }
         @media (min-width: 640px) { .loading, .message-state { padding: 30px 15px; font-size: 13px; } }
 
-        .categories-grid-selection {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            margin-bottom: 24px;
-        }
-
-        @media (min-width: 768px) {
-            .categories-grid-selection {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 16px;
-                margin-bottom: 35px;
-            }
-        }
-
-        .category-window-card {
-            background: var(--bg-card);
-            border: 2px solid var(--border-glass);
-            border-radius: 16px;
-            padding: 14px 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-subtle);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        @media (min-width: 640px) {
-            .category-window-card { border-radius: 20px; padding: 24px 20px; }
-        }
-
-        .category-window-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, var(--brand-blue), var(--brand-yellow));
-            opacity: 0.8;
-            transition: height 0.3s ease;
-        }
-
-        @media (min-width: 640px) {
-            .category-window-card::before { height: 5px; }
-        }
-
-        .category-window-card:hover, .category-window-card.active-window {
-            border-color: var(--brand-blue);
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-            background: #ffffff;
-        }
-
-        .category-window-card:hover::before {
-            height: 6px;
-        }
-        @media (min-width: 640px) {
-            .category-window-card:hover::before { height: 8px; }
-        }
-
-        .category-icon-wrapper {
-            font-size: 28px;
-            margin-bottom: 8px;
-            background: rgba(0, 100, 210, 0.08);
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            margin: 0 auto 8px auto;
-            border: 1px solid rgba(0, 100, 210, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        @media (min-width: 640px) {
-            .category-icon-wrapper { font-size: 42px; width: 80px; height: 80px; margin: 0 auto 14px auto; }
-        }
-
-        .category-window-card:hover .category-icon-wrapper {
-            transform: scale(1.1) rotate(6deg);
-        }
-
-        .category-window-card h3 {
-            font-size: 0.9rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-
-        @media (min-width: 640px) {
-            .category-window-card h3 { font-size: 1.05rem; margin-bottom: 8px; letter-spacing: 0.5px; }
-        }
-
-        .category-window-card p {
-            font-size: 10px;
-            color: var(--text-muted);
-            line-height: 1.3;
-            margin-bottom: 10px;
-        }
-
-        @media (min-width: 640px) {
-            .category-window-card p { font-size: 11px; line-height: 1.4; margin-bottom: 16px; }
-        }
-
-        .btn-open-category {
-            background: #f1f5f9;
-            border: 1px solid var(--border-glass);
-            color: var(--brand-blue);
-            padding: 6px 10px;
-            border-radius: 8px;
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        @media (min-width: 640px) {
-            .btn-open-category { padding: 8px 16px; border-radius: 12px; font-size: 11px; letter-spacing: 0.5px; }
-        }
-
-        .category-window-card:hover .btn-open-category, .category-window-card.active-window .btn-open-category {
-            background: var(--brand-blue);
-            color: #ffffff;
-            border-color: var(--brand-blue);
-            box-shadow: 0 4px 12px rgba(0, 100, 210, 0.25);
-        }
-
         .dynamic-category-content-panel {
             background: var(--bg-card);
             border: 1px solid var(--border-glass);
@@ -1437,10 +1302,10 @@
 </div>
 
 <div class="top-ticker">
-    ⚡ VITRINA GLOBAL INTELIGENTE • IMPORTACIÓN DIRECTA A VENEZUELA SIN INTERMEDIARIOS ⚡
+    ⚡ VITRINA GLOBAL INTELIGENTE • IMPORTACIÓN DIRECTA A VENEZUELA SIN INTERMEDIARIOS ⚡[cite: 8]
 </div>
 
-<!-- CABECERA PRINCIPAL MODIFICADA CON BUSCADOR ARRIBA Y CATEGORÍAS FIJAS CON SUBCATEGORÍAS -->
+<!-- CABECERA PRINCIPAL CON BUSCADOR Y NAVBAR DE CATEGORÍAS EN FILA -->
 <header>
     <div class="header-main-row">
         <div class="header-brand">
@@ -1448,7 +1313,7 @@
             <h1>Smart <span>Hauss</span></h1>
         </div>
         
-        <!-- BUSCADOR GLOBAL ARRIBA DE PRIMERO EN LA CABECERA -->
+        <!-- BARRA DE BÚSQUEDA AJUSTADA PARA MÓVILES -->
         <div class="header-search-container">
             <input type="text" id="keyword" placeholder="Busca en eBay (Ej: MacBook, RTX, Garmin...)" onkeypress="handleKeyPress(event)">
             <button class="btn-search" onclick="realizarBusquedaManual()">Buscar</button>
@@ -1465,7 +1330,7 @@
         </div>
     </div>
 
-    <!-- NAVBAR DE CATEGORÍAS PRINCIPALES FIJAS CON EFECTO HOVER Y DESPLEGABLES -->
+    <!-- NAVBAR DE CATEGORÍAS PRINCIPALES (ÚNICAMENTE EN LA FILA DE LA CABECERA) -->
     <div class="header-nav-categories">
         <div class="nav-category-item" onclick="seleccionarVentanaCategoria(1)">
             🌍 Importaciones eBay ▾
@@ -1518,44 +1383,11 @@
         </div>
     </div>
 
-    <!-- SECCIÓN DE CATEGORÍAS PRINCIPALES (TARJETAS) -->
-    <div class="section-block">
-        <div class="section-title">📂 Categorías Principales <span>Selecciona una Ventana</span></div>
-        <div class="categories-grid-selection">
-            <div class="category-window-card" id="windowCard1" onclick="seleccionarVentanaCategoria(1)">
-                <div>
-                    <div class="category-icon-wrapper">🌍</div>
-                    <h3>1. Importaciones Directas de eBay</h3>
-                    <p>Búsqueda en vivo mediante API global, tendencias y cotización automatizada[cite: 8].</p>
-                </div>
-                <button class="btn-open-category">Abrir Ventana</button>
-            </div>
-
-            <div class="category-window-card" id="windowCard2" onclick="seleccionarVentanaCategoria(2)">
-                <div>
-                    <div class="category-icon-wrapper">📚</div>
-                    <h3>2. Cursos y Manuales</h3>
-                    <p>Capacitación profesional, manuales avanzados de importación y electrónica[cite: 8].</p>
-                </div>
-                <button class="btn-open-category">Abrir Ventana</button>
-            </div>
-
-            <div class="category-window-card" id="windowCard3" onclick="seleccionarVentanaCategoria(3)">
-                <div>
-                    <div class="category-icon-wrapper">🏬</div>
-                    <h3>3. Disponible en Tienda</h3>
-                    <p>Stock local de herramientas y equipos listos para entrega inmediata[cite: 8].</p>
-                </div>
-                <button class="btn-open-category">Abrir Ventana</button>
-            </div>
-        </div>
-    </div>
-
     <!-- PANEL 1: IMPORTACIONES DIRECTAS DE EBAY -->
     <div id="panelCategory1" class="dynamic-category-content-panel">
         <div class="dynamic-panel-header">
             <h2>🌍 1. Importaciones Directas de eBay</h2>
-            <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Ver Todas las Ventanas</button>
+            <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Volver al Inicio</button>
         </div>
         
         <div class="search-panel" style="margin-bottom: 20px; box-shadow: none; border: 1px solid var(--border-glass);">
@@ -1618,7 +1450,7 @@
     <div id="panelCategory2" class="dynamic-category-content-panel">
         <div class="dynamic-panel-header">
             <h2>📚 2. Cursos y Manuales</h2>
-            <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Ver Todas las Ventanas</button>
+            <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Volver al Inicio</button>
         </div>
         <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Accede a material formativo especializado, guías técnicas y manuales de importación y electrónica[cite: 8].</p>
         <div class="grid">
@@ -1657,7 +1489,7 @@
     <div id="panelCategory3" class="dynamic-category-content-panel">
         <div class="dynamic-panel-header">
             <h2>🏬 3. Disponible en Tienda</h2>
-            <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Ver Todas las Ventanas</button>
+            <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Volver al Inicio</button>
         </div>
         <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Productos listos para entrega inmediata o retiro directo en local sin esperar tiempos de importación[cite: 8].</p>
         <div class="grid">
@@ -1794,15 +1626,9 @@
         document.getElementById('panelCategory2').classList.remove('active');
         document.getElementById('panelCategory3').classList.remove('active');
 
-        document.getElementById('windowCard1').classList.remove('active-window');
-        document.getElementById('windowCard2').classList.remove('active-window');
-        document.getElementById('windowCard3').classList.remove('active-window');
-
         const panelTarget = document.getElementById(`panelCategory${num}`);
-        const cardTarget = document.getElementById(`windowCard${num}`);
 
         if(panelTarget) panelTarget.classList.add('active');
-        if(cardTarget) cardTarget.classList.add('active-window');
 
         if(num === 1 && !window.vitrinaCargada) {
             cargarVitrinaInicial();
@@ -1818,10 +1644,6 @@
         document.getElementById('panelCategory1').classList.remove('active');
         document.getElementById('panelCategory2').classList.remove('active');
         document.getElementById('panelCategory3').classList.remove('active');
-
-        document.getElementById('windowCard1').classList.remove('active-window');
-        document.getElementById('windowCard2').classList.remove('active-window');
-        document.getElementById('windowCard3').classList.remove('active-window');
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -2036,7 +1858,7 @@
         const currentUser = obtenerUsuarioLogueado();
         const userEmailTxt = currentUser ? currentUser.email : 'Sin registrar';
 
-        const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, deseo encargar este producto:\n\n📦 *${title}*\n💲 *Precio Final (${metodoPagoSeleccionado}):* $${finalPrice} ${currency}\n👤 *Cuenta de Cliente:* ${userEmailTxt}\n🔗 *Enlace:* ${itemUrl}`);
+        const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, deseo encargar este producto:\n\n📦 *${title}*;\n💲 *Precio Final (${metodoPagoSeleccionado}):* $${finalPrice} ${currency}\n👤 *Cuenta de Cliente:* ${userEmailTxt}\n🔗 *Enlace:* ${itemUrl}`);
         const whatsappLink = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
 
         document.getElementById('modalBody').innerHTML = `
@@ -2085,6 +1907,15 @@
         document.getElementById('mainModalImg').src = urlImagen;
         document.querySelectorAll('.thumb-box').forEach(t => t.classList.remove('active'));
         elementoThumb.classList.add('active');
+    }
+
+    function cerrarModal() {
+        document.getElementById('productModal').classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    function cerrarModalFuera(e) {
+        if(e.target === document.getElementById('productModal')) cerrarModal();
     }
 
     function obtenerUsuarioLogueado() {
@@ -2221,238 +2052,103 @@
         abrirPortalCliente();
     }
 
-    function renderizarFormularioOlvido() {
-        document.getElementById('modalBody').innerHTML = `
-            <div class="auth-container">
-                <h2>Recuperar Contraseña</h2>
-                <p>Introduce tu correo registrado para enviarte un código de restablecimiento.</p>
-                <div class="form-group">
-                    <label>Correo Electrónico</label>
-                    <input type="email" id="recuperarEmail" placeholder="tucorreo@email.com">
-                </div>
-                <button class="btn-auth-submit" onclick="enviarCodigoRecuperacion()">Enviar Código por Correo</button>
-                <span class="auth-link" onclick="renderizarFormularioLogin()">Volver al inicio de sesión</span>
-            </div>
-        `;
-    }
-
-    async function enviarCodigoRecuperacion() {
-        const email = document.getElementById('recuperarEmail').value.trim().toLowerCase();
-        let users = JSON.parse(localStorage.getItem('smart_hauss_users') || '[]');
-        let user = users.find(u => u.email === email);
-
-        if (!user) {
-            alert('Este correo no está registrado en el sistema.');
-            return;
-        }
-
-        const codigoRecuperacion = Math.floor(1000 + Math.random() * 9000).toString();
-        window.tempRecuperacion = { email, codigo: codigoRecuperacion };
-
-        document.getElementById('modalBody').innerHTML = `
-            <div class="auth-container" style="text-align: center; padding: 15px;">
-                <h2>Enviando Código...</h2>
-                <p>Generando y enviando clave de restablecimiento a <strong>${email}</strong>...</p>
-            </div>
-        `;
-
-        try {
-            const response = await fetch('/api/send-email', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, codigo: codigoRecuperacion, tipo: 'recuperacion' })
-            });
-            const resData = await response.json();
-
-            if (!resData.success) {
-                alert('No se pudo enviar el correo de recuperación.');
-                renderizarFormularioOlvido();
-                return;
-            }
-        } catch (e) {
-            alert('Error de conexión.');
-            renderizarFormularioOlvido();
-            return;
-        }
-
-        document.getElementById('modalBody').innerHTML = `
-            <div class="auth-container">
-                <h2>Restablecer Clave</h2>
-                <p>Hemos enviado un código de seguridad a tu correo <strong>${email}</strong>.</p>
-                <div class="form-group">
-                    <label>Código de Verificación</label>
-                    <input type="text" id="inputCodigoRecup" placeholder="4 dígitos" maxlength="4">
-                </div>
-                <div class="form-group">
-                    <label>Nueva Contraseña</label>
-                    <input type="password" id="nuevaClavePass" placeholder="Nueva contraseña">
-                </div>
-                <button class="btn-auth-submit" onclick="ejecutarCambioPassword()">Actualizar Contraseña</button>
-                <span class="auth-link" onclick="renderizarFormularioLogin()">Cancelar</span>
-            </div>
-        `;
-    }
-
-    function ejecutarCambioPassword() {
-        const codigoIngresado = document.getElementById('inputCodigoRecup').value.trim();
-        const nuevaClave = document.getElementById('nuevaClavePass').value.trim();
-        const recupData = window.tempRecuperacion;
-
-        if (codigoIngresado !== recupData.codigo) {
-            alert('Código de recuperación inválido.');
-            return;
-        }
-        if (!nuevaClave) {
-            alert('Introduce una nueva contraseña válida.');
-            return;
-        }
-
-        let users = JSON.parse(localStorage.getItem('smart_hauss_users') || '[]');
-        let userIndex = users.findIndex(u => u.email === recupData.email);
-
-        if (userIndex !== -1) {
-            users[userIndex].pass = nuevaClave;
-            localStorage.setItem('smart_hauss_users', JSON.stringify(users));
-            alert('¡Contraseña actualizada con éxito! Ya puedes iniciar sesión.');
-            renderizarFormularioLogin();
-        }
-    }
-
-    function cerrarSesion() {
-        localStorage.removeItem('smart_hauss_current_user');
-        actualizarBotonCuentaUI();
-        abrirPortalCliente();
-    }
-
     function renderizarDashboardCliente(user) {
-        const modalBody = document.getElementById('modalBody');
-
-        if (user.role === 'admin') {
-            modalBody.innerHTML = `
-                <div class="client-dashboard">
-                    <div class="client-header-flex">
-                        <h2>Panel de Control (Admin)</h2>
-                        <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
-                    </div>
-                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Gestiona el estatus de los pedidos de tus clientes registrados en tiempo real.</p>
-                    
-                    <div class="form-group">
-                        <label>Correo del Cliente</label>
-                        <input type="email" id="admClientEmail" placeholder="cliente@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label>Descripción del Producto / Pedido</label>
-                        <input type="text" id="admProductDesc" placeholder="Ej: MacBook Pro M3">
-                    </div>
-                    <div class="form-group">
-                        <label>Estatus del Pedido</label>
-                        <select id="admStatusSelect" class="filter-select" style="width:100%; padding: 8px;">
-                            <option value="recibido">1. Recibido / Confirmado</option>
-                            <option value="transito">2. En Tránsito a Miami</option>
-                            <option value="venezuela">3. En Aduana / Vía Venezuela</option>
-                            <option value="entregado">4. Listo para Retiro / Entregado</option>
-                        </select>
-                    </div>
-                    <button class="btn-auth-submit" onclick="adminCrearOActualizarPedido()">Guardar / Asignar Pedido</button>
-
-                    <div class="admin-secret-panel">
-                        <h4>Pedidos Registrados en el Sistema</h4>
-                        <div id="adminOrdersList" style="max-height: 150px; overflow-y: auto; margin-top: 6px;"></div>
-                    </div>
-                </div>
-            `;
-            cargarListaAdminPedidos();
-            return;
-        }
-
         let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        let userOrders = allOrders.filter(o => o.email.toLowerCase() === user.email.toLowerCase());
+        let userOrders = user.role === 'admin' ? allOrders : allOrders.filter(o => o.email.toLowerCase() === user.email.toLowerCase());
 
-        modalBody.innerHTML = `
+        let htmlOrders = userOrders.length === 0 ? '<p style="font-size:11px; color:var::text-muted;">No tienes pedidos registrados todavía.</p>' : userOrders.map((o, idx) => `
+            <div class="order-card-item">
+                <div class="order-top-row">
+                    <span>📦 ${o.producto}</span>
+                    <span class="order-status-badge status-${o.estatus}">${formatearEstatusTexto(o.estatus)}</span>
+                </div>
+                <div class="order-details-text">
+                    Correo: ${o.email} | Fecha: ${o.fecha}
+                </div>
+                ${user.role === 'admin' ? `
+                    <div style="margin-top: 6px; display: flex; gap: 4px;">
+                        <select id="cambioEstado_${idx}" class="filter-select" style="font-size:9px; padding:4px;">
+                            <option value="recibido" ${o.estatus==='recibido'?'selected':''}>Recibido</option>
+                            <option value="transito" ${o.estatus==='transito'?'selected':''}>En Tránsito</option>
+                            <option value="venezuela" ${o.estatus==='venezuela'?'selected':''}>En Venezuela</option>
+                            <option value="entregado" ${o.estatus==='entregado'?'selected':''}>Entregado</option>
+                        </select>
+                        <button class="btn-tracking-mini" onclick="actualizarEstatusPedido(${idx})">Guardar</button>
+                    </div>
+                ` : ''}
+            </div>
+        `).join('');
+
+        document.getElementById('modalBody').innerHTML = `
             <div class="client-dashboard">
                 <div class="client-header-flex">
                     <h2>Hola, ${user.nombre}</h2>
-                    <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
+                    <button class="btn-logout" onclick="cerrarSesionCliente()">Cerrar Sesión</button>
                 </div>
-                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 14px;">Tus pedidos activos y trazabilidad de importación:</p>
-                ${userOrders.length === 0 ? '<p style="font-size:11px; color:var(--text-muted); text-align:center; padding: 15px;">No tienes pedidos registrados todavía.</p>' : 
-                    userOrders.map(o => `
-                        <div class="order-card-item">
-                            <div class="order-top-row">
-                                <span>📦 ${o.producto}</span>
-                                <span class="order-status-badge status-${o.estatus}">${formatearEstatusTexto(o.estatus)}</span>
-                            </div>
-                            <div class="order-details-text">Fecha de actualización: ${o.fecha}</div>
+                <h3 style="font-size: 0.9rem; margin-bottom: 8px; color: #0f172a; font-weight: 800;">Tus Pedidos e Importaciones</h3>
+                <div style="max-height: 250px; overflow-y: auto; margin-bottom: 12px;">
+                    ${htmlOrders}
+                </div>
+                ${user.role === 'admin' ? `
+                    <div class="admin-secret-panel">
+                        <h4>Panel de Administración (Añadir Pedido)</h4>
+                        <div class="form-group" style="margin-bottom:6px;">
+                            <label>Correo del Cliente</label>
+                            <input type="email" id="adminClientEmail" placeholder="cliente@email.com" style="font-size:11px; padding:6px;">
                         </div>
-                    `).join('')}
+                        <div class="form-group" style="margin-bottom:6px;">
+                            <label>Nombre del Producto</label>
+                            <input type="text" id="adminClientProd" placeholder="Ej: MacBook Pro M2" style="font-size:11px; padding:6px;">
+                        </div>
+                        <button class="btn-auth-submit" style="margin-top:4px; padding:8px; font-size:10px;" onclick="adminCrearPedido()">Registrar Pedido</button>
+                    </div>
+                ` : ''}
             </div>
         `;
     }
 
     function formatearEstatusTexto(est) {
-        if (est === 'recibido') return 'Recibido';
-        if (est === 'transito') return 'En Tránsito';
-        if (est === 'venezuela') return 'En Venezuela';
-        if (est === 'entregado') return 'Entregado';
+        if (est === 'recibido') return 'Recibido en Miami';
+        if (est === 'transito') return 'En Tránsito Aéreo';
+        if (est === 'venezuela') return 'En Aduana / Venezuela';
+        if (est === 'entregado') return 'Entregado al Cliente';
         return est;
     }
 
-    function adminCrearOActualizarPedido() {
-        const email = document.getElementById('admClientEmail').value.trim().toLowerCase();
-        const producto = document.getElementById('admProductDesc').value.trim();
-        const estatus = document.getElementById('admStatusSelect').value;
+    function cerrarSesionCliente() {
+        localStorage.removeItem('smart_hauss_current_user');
+        actualizarBotonCuentaUI();
+        cerrarModal();
+    }
+
+    function adminCrearPedido() {
+        const email = document.getElementById('adminClientEmail').value.trim();
+        const producto = document.getElementById('adminClientProd').value.trim();
 
         if (!email || !producto) {
-            alert('Completa el correo y la descripción del producto.');
+            alert('Completa los campos del pedido.');
             return;
         }
 
         let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        const fecha = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-        
-        allOrders.push({ email, producto, estatus, fecha });
+        allOrders.push({
+            email,
+            producto,
+            estatus: 'recibido',
+            fecha: new Date().toLocaleDateString()
+        });
         localStorage.setItem('smart_hauss_orders', JSON.stringify(allOrders));
-
-        alert('Pedido guardado correctamente.');
-        document.getElementById('admClientEmail').value = '';
-        document.getElementById('admProductDesc').value = '';
-        cargarListaAdminPedidos();
+        alert('Pedido registrado con éxito.');
+        abrirPortalCliente();
     }
 
-    function cargarListaAdminPedidos() {
+    function actualizarEstatusPedido(index) {
         let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        const listDiv = document.getElementById('adminOrdersList');
-        if (!listDiv) return;
-
-        if (allOrders.length === 0) {
-            listDiv.innerHTML = '<p style="font-size: 10px; color: var(--text-muted);">No hay pedidos en la base de datos local.</p>';
-            return;
-        }
-
-        listDiv.innerHTML = allOrders.map((o, idx) => `
-            <div style="background: #ffffff; padding: 6px; border-radius: 6px; margin-bottom: 4px; font-size: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-glass);">
-                <div>
-                    <strong>${o.email}</strong> - ${o.producto} <span style="color:var(--brand-blue)">[${o.estatus}]</span>
-                </div>
-                <button onclick="eliminarPedidoAdmin(${idx})" style="background:#fee2e2; color:#ef4444; border:none; padding: 2px 6px; border-radius: 4px; cursor:pointer; font-weight:bold;">X</button>
-            </div>
-        `).join('');
-    }
-
-    function eliminarPedidoAdmin(index) {
-        let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        allOrders.splice(index, 1);
+        const nuevoEstatus = document.getElementById(`cambioEstado_${index}`).value;
+        allOrders[index].estatus = nuevoEstatus;
         localStorage.setItem('smart_hauss_orders', JSON.stringify(allOrders));
-        cargarListaAdminPedidos();
-    }
-
-    function cerrarModal() {
-        document.getElementById('productModal').classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    function cerrarModalFuera(e) {
-        if (e.target.id === 'productModal') cerrarModal();
+        alert('Estatus actualizado correctamente.');
+        abrirPortalCliente();
     }
 </script>
 </body>
