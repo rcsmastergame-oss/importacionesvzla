@@ -81,7 +81,7 @@
             text-transform: uppercase;
         }
 
-        /* CABECERA PRINCIPAL FIJA CON BUSCADOR FLEXIBLE */
+        /* CABECERA PRINCIPAL FIJA CON LOGO A LA IZQUIERDA Y BUSCADOR A LA DERECHA EN PC */
         header {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(15px);
@@ -105,10 +105,10 @@
         }
 
         @media (min-width: 640px) {
-            .header-main-row { padding: 12px 24px; flex-wrap: nowrap; gap: 12px; }
+            .header-main-row { padding: 12px 24px; flex-wrap: nowrap; gap: 16px; }
         }
 
-        /* BARRA DE BÚSQUEDA ADAPTADA PARA MÓVILES */
+        /* BARRA DE BÚSQUEDA ADAPTADA (Orden 3 en móvil, Orden 2 o flexible en PC) */
         .header-search-container {
             order: 3;
             width: 100%;
@@ -117,7 +117,7 @@
         }
 
         @media (min-width: 640px) {
-            .header-search-container { order: unset; flex: 1; max-width: 600px; }
+            .header-search-container { order: 2; flex: 1; max-width: 600px; }
         }
 
         .header-search-container input[type="text"] {
@@ -145,7 +145,7 @@
             align-items: center;
             gap: 8px;
             min-width: 0;
-            order: 1;
+            order: 1; /* Logo siempre a la izquierda */
         }
 
         .logo-img {
@@ -182,7 +182,11 @@
             align-items: center;
             gap: 6px;
             flex-shrink: 0;
-            order: 2;
+            order: 3;
+        }
+
+        @media (min-width: 640px) {
+            .header-actions { order: 3; }
         }
 
         .header-status {
@@ -243,22 +247,23 @@
             transform: translateY(-2px);
         }
 
-        /* NAVBAR DE CATEGORÍAS PRINCIPALES FIJAS EN LA CABECERA CON DESPLEGABLES */
+        /* NAVBAR DE CATEGORÍAS PRINCIPALES FIJAS EN LA CABECERA (SIN SUBMENÚS DESPLEGABLES FLOTANTES EN MÓVIL PARA EVITAR SALTOS) */
         .header-nav-categories {
             background: #ffffff;
             border-top: 1px solid var(--border-glass);
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 4px;
             padding: 0 12px;
             overflow-x: auto;
             scrollbar-width: none;
+            position: relative;
         }
 
         .header-nav-categories::-webkit-scrollbar { display: none; }
 
         @media (min-width: 640px) {
-            .header-nav-categories { gap: 15px; padding: 0 24px; }
+            .header-nav-categories { justify-content: center; gap: 15px; padding: 0 24px; }
         }
 
         .nav-category-item {
@@ -275,6 +280,7 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            flex-shrink: 0;
         }
 
         @media (min-width: 640px) {
@@ -298,6 +304,7 @@
             width: 100%;
         }
 
+        /* Menú desplegable habilitado solo en escritorio o mediante hover controlado */
         .nav-dropdown-menu {
             position: absolute;
             top: 100%;
@@ -314,8 +321,10 @@
             animation: fadeInUp 0.2s ease;
         }
 
-        .nav-category-item:hover .nav-dropdown-menu {
-            display: flex;
+        @media (min-width: 768px) {
+            .nav-category-item:hover .nav-dropdown-menu {
+                display: flex;
+            }
         }
 
         .nav-dropdown-item {
@@ -828,7 +837,7 @@
         .faq-question span { transition: transform 0.3s ease; font-size: 9px; }
         @media (min-width: 640px) { .faq-question span { font-size: 11px; } }
 
-        /* CORRECCIÓN DE PÁNICO/MOVIMIENTO EN TTACTO MÓVIL (CARRUSELES) */
+        /* CARRUSELES FLUIDOS */
         .carousel-container {
             display: flex;
             gap: 10px;
@@ -837,7 +846,7 @@
             scrollbar-width: thin;
             scrollbar-color: var(--brand-blue) rgba(0,0,0,0.05);
             -webkit-overflow-scrolling: touch;
-            touch-action: pan-x; /* Evita que los gestos táctiles horizontales conflictúen con el scroll de la página */
+            touch-action: pan-x;
         }
 
         @media (min-width: 640px) {
@@ -989,6 +998,18 @@
         }
 
         .btn-details:hover { background: var(--brand-blue); color: #ffffff; border-color: var(--brand-blue); box-shadow: 0 4px 12px rgba(0, 100, 210, 0.25); }
+
+        /* Botones específicos de Vista Previa mejorados con contraste fuerte */
+        .btn-preview {
+            background: #ffffff !important;
+            border: 1.5px solid var(--brand-blue) !important;
+            color: var(--brand-blue) !important;
+            margin-bottom: 6px;
+        }
+        .btn-preview:hover {
+            background: rgba(0, 100, 210, 0.08) !important;
+            color: var(--brand-blue) !important;
+        }
 
         .modal-overlay {
             position: fixed;
@@ -1302,18 +1323,19 @@
 </div>
 
 <div class="top-ticker">
-    ⚡ VITRINA GLOBAL INTELIGENTE • IMPORTACIÓN DIRECTA A VENEZUELA SIN INTERMEDIARIOS ⚡[cite: 8]
+    ⚡ VITRINA GLOBAL INTELIGENTE • IMPORTACIÓN DIRECTA A VENEZUELA SIN INTERMEDIARIOS ⚡
 </div>
 
-<!-- CABECERA PRINCIPAL CON BUSCADOR Y NAVBAR DE CATEGORÍAS EN FILA -->
+<!-- CABECERA PRINCIPAL CON LOGO A LA IZQUIERDA Y BUSCADOR A LA DERECHA EN PC -->
 <header>
     <div class="header-main-row">
+        <!-- Logo a la izquierda siempre -->
         <div class="header-brand">
             <img src="https://i.pinimg.com/736x/0c/2b/47/0c2b473ac905566c4e7feb06c6f87b86.jpg" alt="Logo Smart Hauss" class="logo-img" onerror="this.src='https://via.placeholder.com/45'">
             <h1>Smart <span>Hauss</span></h1>
         </div>
         
-        <!-- BARRA DE BÚSQUEDA AJUSTADA PARA MÓVILES -->
+        <!-- Barra de búsqueda adaptada -->
         <div class="header-search-container">
             <input type="text" id="keyword" placeholder="Busca en eBay (Ej: MacBook, RTX, Garmin...)" onkeypress="handleKeyPress(event)">
             <button class="btn-search" onclick="realizarBusquedaManual()">Buscar</button>
@@ -1330,7 +1352,7 @@
         </div>
     </div>
 
-    <!-- NAVBAR DE CATEGORÍAS PRINCIPALES (ÚNICAMENTE EN LA FILA DE LA CABECERA) -->
+    <!-- NAVBAR DE CATEGORÍAS PRINCIPALES (FIJO, SIN MOVIMIENTOS VERTICALES NI SUB-MENÚS COMPLEJOS EN MÓVIL) -->
     <div class="header-nav-categories">
         <div class="nav-category-item" onclick="seleccionarVentanaCategoria(1)">
             🌍 Importaciones eBay ▾
@@ -1364,21 +1386,21 @@
             <div class="trust-icon">🛡️</div>
             <div class="trust-text">
                 <h4>Compra 100% Segura</h4>
-                <p>Verificamos la reputación de cada vendedor en eBay antes de procesar tu encargo con total garantía[cite: 8].</p>
+                <p>Verificamos la reputación de cada vendedor en eBay antes de procesar tu encargo con total garantía.</p>
             </div>
         </div>
         <div class="trust-item">
             <div class="trust-icon">✈️</div>
             <div class="trust-text">
                 <h4>Envíos Directos</h4>
-                <p>Logística puerta a puerta desde Miami directo a cualquier estado de Venezuela de forma ágil[cite: 8].</p>
+                <p>Logística puerta a puerta desde Miami directo a cualquier estado de Venezuela de forma ágil.</p>
             </div>
         </div>
         <div class="trust-item">
             <div class="trust-icon">💎</div>
             <div class="trust-text">
                 <h4>Transparencia Total</h4>
-                <p>Cotizaciones exactas con recargo fijo y seguimiento en tiempo real del estatus de tu paquete[cite: 8].</p>
+                <p>Cotizaciones exactas con recargo fijo y seguimiento en tiempo real del estatus de tu paquete.</p>
             </div>
         </div>
     </div>
@@ -1446,7 +1468,7 @@
         </div>
     </div>
 
- <!-- PANEL 2: CURSOS Y MANUALES -->
+    <!-- PANEL 2: CURSOS Y MANUALES -->
     <div id="panelCategory2" class="dynamic-category-content-panel">
         <div class="dynamic-panel-header">
             <h2>📚 2. Cursos y Manuales</h2>
@@ -1466,7 +1488,7 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1t__5dqkPY_o_eAnNaxzy8XbLruHTQXBT/view?usp=drive_link" target="_blank" class="btn-details"...>👁️ Vista Previa (3 Pág)</a>
+                    <a href="https://drive.google.com/file/d/1t__5dqkPY_o_eAnNaxzy8XbLruHTQXBT/view?usp=drive_link" target="_blank" class="btn-details btn-preview">👁️ Vista Previa (3 Pág)</a>
                     <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%201.%20CONEXIÓN%20DE%20CARGAS%20ELÉCTRICAS" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
@@ -1482,7 +1504,7 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1kRCr5yp7EA0f88fw472ZHx71THGWCAy1/view?usp=drive_link" target="_blank" class="btn-details" style="text-decoration:none; background: transparent; border: 1px solid var(--border-color); color: var(--text-main); margin-bottom: 8px;">👁️ Vista Previa (3 Pág)</a>
+                    <a href="https://drive.google.com/file/d/1kRCr5yp7EA0f88fw472ZHx71THGWCAy1/view?usp=drive_link" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
                     <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%202.%20Conductores%20eléctricos%20smart%20hauss" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
@@ -1498,7 +1520,7 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/139wobHzh97F8ECWX0xi1Ie2hA0jZBZDz/view?usp=sharing" target="_blank" class="btn-details" style="text-decoration:none; background: transparent; border: 1px solid var(--border-color); color: var(--text-main); margin-bottom: 8px;">👁️ Vista Previa (3 Pág)</a>
+                    <a href="https://drive.google.com/file/d/139wobHzh97F8ECWX0xi1Ie2hA0jZBZDz/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
                     <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%203.%20Curso%20de%20Reparación%20de%20Refrigeradores%20smart%20hauss" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
@@ -1514,7 +1536,7 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1JrMlY2S7OcYLI1tbITRXlPcgv35hMlk9/view?usp=sharing" target="_blank" class="btn-details" style="text-decoration:none; background: transparent; border: 1px solid var(--border-color); color: var(--text-main); margin-bottom: 8px;">👁️ Vista Previa (3 Pág)</a>
+                    <a href="https://drive.google.com/file/d/1JrMlY2S7OcYLI1tbITRXlPcgv35hMlk9/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
                     <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%204.%20DETALLES%20DE%20INSTALACIÓN%20ELÉCTRICA" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
@@ -1530,7 +1552,7 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1nsbucgFsFi-N5eT1viz6n9sk3Bzcxgiq/view?usp=sharing" target="_blank" class="btn-details" style="text-decoration:none; background: transparent; border: 1px solid var(--border-color); color: var(--text-main); margin-bottom: 8px;">👁️ Vista Previa (3 Pág)</a>
+                    <a href="https://drive.google.com/file/d/1nsbucgFsFi-N5eT1viz6n9sk3Bzcxgiq/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
                     <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%205.%20Diagramas%20Eléctricos%20Domiciliarios%20hauss" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
@@ -1546,7 +1568,7 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1eHKTGC1Zkp-MUjZQeELa3ktEHH7uaXBD/view?usp=sharing" target="_blank" class="btn-details" style="text-decoration:none; background: transparent; border: 1px solid var(--border-color); color: var(--text-main); margin-bottom: 8px;">👁️ Vista Previa (3 Pág)</a>
+                    <a href="https://drive.google.com/file/d/1eHKTGC1Zkp-MUjZQeELa3ktEHH7uaXBD/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
                     <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%206.%20ELECTRICIDAD%20DOMICILIARIA" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
@@ -1562,7 +1584,7 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1sInY9QaR7LDWYzdu9rVkr73Z-nBcKOQ7/view?usp=sharing" target="_blank" class="btn-details" style="text-decoration:none; background: transparent; border: 1px solid var(--border-color); color: var(--text-main); margin-bottom: 8px;">👁️ Vista Previa (3 Pág)</a>
+                    <a href="https://drive.google.com/file/d/1sInY9QaR7LDWYzdu9rVkr73Z-nBcKOQ7/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
                     <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%207.%20ELECTRICIDAD%20BÁSICA" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
@@ -1578,7 +1600,7 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1Iy3A8HdHJnI--59dvo7VI6auzj1R_DLO/view?usp=sharing" target="_blank" class="btn-details" style="text-decoration:none; background: transparent; border: 1px solid var(--border-color); color: var(--text-main); margin-bottom: 8px;">👁️ Vista Previa (3 Pág)</a>
+                    <a href="https://drive.google.com/file/d/1Iy3A8HdHJnI--59dvo7VI6auzj1R_DLO/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
                     <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%208.%20Interruptor%20inteligente%20sonoff%20smart%20hauss" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
@@ -1594,7 +1616,7 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1LlDxoZ6cWKlqu1RklVhbYsD65vb3Zxyz/view?usp=sharing" target="_blank" class="btn-details" style="text-decoration:none; background: transparent; border: 1px solid var(--border-color); color: var(--text-main); margin-bottom: 8px;">👁️ Vista Previa (3 Pág)</a>
+                    <a href="https://drive.google.com/file/d/1LlDxoZ6cWKlqu1RklVhbYsD65vb3Zxyz/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
                     <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%209.%20LIBRO%20INSTALACIONES%20ELÉCTRICAS%20EN%20INTERIORES" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
@@ -1610,7 +1632,7 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1HCUw8yU6jHbpvK529I1VQUx2ePIBYnOp/view?usp=sharing" target="_blank" class="btn-details" style="text-decoration:none; background: transparent; border: 1px solid var(--border-color); color: var(--text-main); margin-bottom: 8px;">👁️ Vista Previa (3 Pág)</a>
+                    <a href="https://drive.google.com/file/d/1HCUw8yU6jHbpvK529I1VQUx2ePIBYnOp/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
                     <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%2010.%20Manual%20de%20buenas%20prácticas%20Venezuela" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
@@ -1623,7 +1645,7 @@
             <h2>🏬 3. Disponible en Tienda</h2>
             <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Volver al Inicio</button>
         </div>
-        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Productos listos para entrega inmediata o retiro directo en local sin esperar tiempos de importación[cite: 8].</p>
+        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Productos listos para entrega inmediata o retiro directo en local sin esperar tiempos de importación.</p>
         <div class="grid">
             <div class="card" style="cursor: default; animation: none;">
                 <div class="card-badge" style="background: linear-gradient(135deg, #10b981, #059669);">Stock Local</div>
@@ -1713,15 +1735,15 @@
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cómo se calcula el precio final de mi producto? <span>▼</span></div>
-                <div class="faq-answer">El sistema toma el precio publicado en eBay en tiempo real. La comisión de gestión (7%) solo se aplica de manera exclusiva al seleccionar el método de pago Pago Móvil. Los demás métodos están libres de este recargo específico. Los costos de flete internacional se calculan al llegar a Miami[cite: 8].</div>
+                <div class="faq-answer">El sistema toma el precio publicado en eBay en tiempo real. La comisión de gestión (7%) solo se aplica de manera exclusiva al seleccionar el método de pago Pago Móvil. Los demás métodos están libres de este recargo específico. Los costos de flete internacional se calculan al llegar a Miami.</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cuánto tarda en llegar el pedido a Venezuela? <span>▼</span></div>
-                <div class="faq-answer">El tiempo estimado de entrega es de 8 a 15 días hábiles una vez que el producto es recibido en nuestro courier en Miami y consolidado para su despacho aéreo hacia el país[cite: 8].</div>
+                <div class="faq-answer">El tiempo estimado de entrega es de 8 a 15 días hábiles una vez que el producto es recibido en nuestro courier en Miami y consolidado para su despacho aéreo hacia el país.</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Qué pasa si mi producto llega con defectos o problemas? <span>▼</span></div>
-                <div class="faq-answer">Te acompañamos en el proceso de revisión con el vendedor de eBay dentro de los plazos de garantía permitidos por la plataforma para gestionar devoluciones o reembolsos de forma transparente[cite: 8].</div>
+                <div class="faq-answer">Te acompañamos en el proceso de revisión con el vendedor de eBay dentro de los plazos de garantía permitidos por la plataforma para gestionar devoluciones o reembolsos de forma transparente.</div>
             </div>
         </div>
     </div>
@@ -1735,8 +1757,8 @@
 </div>
 
 <footer>
-    <p><strong>Smart Hauss</strong> — Tu pasarela de importación tecnológica directa[cite: 8].</p>
-    <p style="margin-top: 4px;">Seguridad, trazabilidad y cotización automatizada en tiempo real para toda Venezuela[cite: 8].</p>
+    <p><strong>Smart Hauss</strong> — Tu pasarela de importación tecnológica directa.</p>
+    <p style="margin-top: 4px;">Seguridad, trazabilidad y cotización automatizada en tiempo real para toda Venezuela.</p>
 </footer>
 
 <script>
@@ -1924,7 +1946,7 @@
 
     function renderizarGrilla(containerElement, items) {
         containerElement.innerHTML = '';
-        items.forEach((item) => { containerElement.appendChild(crearTarjetaHTML(item)); guardarEnDiccionario(item); });
+        items.items ? items.items.forEach((item) => { containerElement.appendChild(crearTarjetaHTML(item)); guardarEnDiccionario(item); }) : items.forEach((item) => { containerElement.appendChild(crearTarjetaHTML(item)); guardarEnDiccionario(item); });
     }
 
     function crearTarjetaHTML(item) {
@@ -1941,347 +1963,228 @@
 
         const card = document.createElement('div');
         card.className = 'card';
-        card.onclick = () => abrirModalProducto(item);
         card.innerHTML = `
-            <div class="card-badge">Smart Pro</div>
+            <div class="card-badge">eBay Live</div>
             <div>
-                <div class="card-img-container"><img src="${image}" alt="${title}"></div>
+                <div class="card-img-container">
+                    <img src="${image}" alt="${title}" loading="lazy" onerror="this.src='https://via.placeholder.com/150'">
+                </div>
                 <h3>${title}</h3>
             </div>
             <div>
                 <div class="price-box">
                     <div class="price-main">$${finalPrice} <span>${currency}</span></div>
-                    <div class="price-sub">${metodoPagoSeleccionado === 'PagoMovil' ? 'Con recargo Pago Móvil' : 'Base (Pago Móvil +7%)'}</div>
+                    <div class="price-sub">Ref: $${basePrice} + Flete Miami</div>
                 </div>
-                <button class="btn-details">Ver Detalles</button>
+                <button class="btn-details" onclick="abrirModalDetalle('${itemId}')">Ver Detalles</button>
             </div>
         `;
         return card;
     }
 
-    function guardarEnDiccionario(item) { todosLosProductosCargados[item.tempId || item.itemId] = item; }
+    function guardarEnDiccionario(item) {
+        const id = item.itemId || item.tempId;
+        if(id) {
+            todosLosProductosCargados[id] = item;
+        }
+    }
 
-    function abrirModalProducto(item) {
+    function abrirModalDetalle(itemId) {
+        const item = todosLosProductosCargados[itemId];
+        if(!item) return;
+
+        const modalOverlay = document.getElementById('productModal');
+        const modalBody = document.getElementById('modalBody');
+
+        let rawImg = item.image ? item.image.imageUrl : 'https://via.placeholder.com/300';
+        const mainImg = rawImg.replace(/s-l\d+/, 's-l1600');
+        const price = calcularPrecioConComision(item.calculatedPrice);
         const title = item.title;
-        const basePrice = item.calculatedPrice;
-        const finalPrice = calcularPrecioConComision(basePrice);
-        const currency = item.currency || 'USD';
-        const itemUrl = item.itemWebUrl;
-
-        let imagenes = [];
-        if (item.image && item.image.imageUrl) {
-            imagenes.push(item.image.imageUrl.replace(/s-l\d+/, 's-l1600'));
-        }
-        if (item.additionalImages && Array.isArray(item.additionalImages)) {
-            item.additionalImages.forEach(img => { 
-                if (img.imageUrl) {
-                    let highResUrl = img.imageUrl.replace(/s-l\d+/, 's-l1600');
-                    if (!imagenes.includes(highResUrl)) imagenes.push(highResUrl); 
-                }
-            });
-        }
-        if (imagenes.length === 0) imagenes.push('https://via.placeholder.com/300');
-
+        const condition = item.condition || 'No especificada';
+        const buyingFormat = item.buyingOptions ? item.buyingOptions.join(', ') : 'Compra directa';
         const sellerName = item.seller ? item.seller.username : 'Vendedor Verificado eBay';
-        const sellerScore = item.seller && item.seller.feedbackPercentage ? `${item.seller.feedbackPercentage}% Positivo` : 'Alta Reputación';
-        const sellerFeedbackCount = item.seller && item.seller.feedbackScore ? `(${item.seller.feedbackScore} votos)` : '';
-        const shortDesc = item.shortDescription || item.description || 'Artículo verificado en la red global de eBay.';
+        const sellerScore = item.seller ? item.seller.feedbackPercentage + '%' : '100%';
+        const itemUrl = item.itemWebUrl || '#';
 
-        const currentUser = obtenerUsuarioLogueado();
-        const userEmailTxt = currentUser ? currentUser.email : 'Sin registrar';
+        const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, deseo encargar este producto de eBay:\n\n*${title}*\nPrecio Final: $${price} USD\nEnlace: ${itemUrl}`);
+        const linkWsp = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
 
-        const mensajeWhatsApp = encodeURIComponent(`Hola Smart Hauss, deseo encargar este producto:\n\n📦 *${title}*;\n💲 *Precio Final (${metodoPagoSeleccionado}):* $${finalPrice} ${currency}\n👤 *Cuenta de Cliente:* ${userEmailTxt}\n🔗 *Enlace:* ${itemUrl}`);
-        const whatsappLink = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
-
-        document.getElementById('modalBody').innerHTML = `
+        modalBody.innerHTML = `
             <div class="modal-grid">
                 <div class="gallery-container">
-                    <div class="main-img-display" onclick="window.open(document.getElementById('mainModalImg').src, '_blank')" title="Haz clic para abrir imagen en tamaño real">
-                        <img id="mainModalImg" src="${imagenes[0]}" alt="${title}">
-                    </div>
-                    <div style="font-size: 9px; color: var(--text-muted); text-align: center; margin-top: -2px;">🔍 Haz clic en la imagen para ampliar en alta resolución</div>
-                    <div class="thumbnails-row">
-                        ${imagenes.map((img, i) => `
-                            <div class="thumb-box ${i === 0 ? 'active' : ''}" onclick="event.stopPropagation(); cambiarImagenPrincipal('${img}', this)">
-                                <img src="${img}" alt="Thumb">
-                            </div>
-                        `).join('')}
+                    <div class="main-img-display" id="mainZoomContainer">
+                        <img id="activeModalImg" src="${mainImg}" alt="${title}">
                     </div>
                 </div>
                 <div class="modal-info">
                     <h2>${title}</h2>
+                    <div class="price-box" style="margin-bottom: 12px;">
+                        <div class="price-main" style="font-size: 20px;">$${price} <span>USD</span></div>
+                        <div class="price-sub">Cotización calculada con método de pago actual</div>
+                    </div>
                     <div class="seller-card">
-                        <h4>Reputación del Vendedor</h4>
+                        <h4>Información del Vendedor en eBay</h4>
                         <div class="seller-details">
-                            <span>👤 <strong>${sellerName}</strong> ${sellerFeedbackCount}</span>
-                            <span>⭐ <strong>${sellerScore}</strong></span>
+                            <span>Vendedor: <strong>${sellerName}</strong></span>
+                            <span>Reputación: <strong>${sellerScore}</strong></span>
                         </div>
                     </div>
                     <div class="product-description-box">
-                        <h4>Descripción Oficial</h4>
-                        <p>${shortDesc}</p>
+                        <h4>Detalles de la Publicación</h4>
+                        <p><strong>Condición:</strong> ${condition} | <strong>Formato:</strong> ${buyingFormat}</p>
+                        <p style="margin-top: 4px;">Producto importado directamente desde los almacenes de EE.UU. a través de nuestro courier en Miami con trazabilidad garantizada.</p>
                     </div>
-                    <div class="price-box" style="margin-bottom: 10px;">
-                        <div class="price-main">$${finalPrice} <span>${currency}</span></div>
-                        <div class="price-sub">${metodoPagoSeleccionado === 'PagoMovil' ? 'Incluye recargo del 7% por Pago Móvil' : 'Sin recargo (Pago Móvil aplica 7%)'}</div>
-                    </div>
-                    <a href="${whatsappLink}" target="_blank" class="btn-whatsapp-modal">
-                        💬 Gestionar Importación por WhatsApp
+                    <a href="${linkWsp}" target="_blank" class="btn-whatsapp-modal">
+                        💬 Encargar por WhatsApp (Guiar Pedido)
                     </a>
                 </div>
             </div>
         `;
-        document.getElementById('productModal').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
 
-    function cambiarImagenPrincipal(urlImagen, elementoThumb) {
-        document.getElementById('mainModalImg').src = urlImagen;
-        document.querySelectorAll('.thumb-box').forEach(t => t.classList.remove('active'));
-        elementoThumb.classList.add('active');
+        modalOverlay.classList.add('active');
     }
 
     function cerrarModal() {
         document.getElementById('productModal').classList.remove('active');
-        document.body.style.overflow = 'auto';
     }
 
     function cerrarModalFuera(e) {
-        if(e.target === document.getElementById('productModal')) cerrarModal();
+        if(e.target.id === 'productModal') {
+            cerrarModal();
+        }
     }
 
-    function obtenerUsuarioLogueado() {
-        const u = localStorage.getItem('smart_hauss_current_user');
-        return u ? JSON.parse(u) : null;
-    }
+    function ordenarResultadosActuales() {
+        const criterio = document.getElementById('sortOrder').value;
+        if(productosBusquedaActual.length === 0) return;
 
-    function actualizarBotonCuentaUI() {
-        const user = obtenerUsuarioLogueado();
-        document.getElementById('btnAccountText').innerText = user ? user.nombre.split(' ')[0] : 'Mi Cuenta';
+        let ordenados = [...productosBusquedaActual];
+        if(criterio === 'low') {
+            ordenados.sort((a, b) => parseFloat(a.calculatedPrice) - parseFloat(b.calculatedPrice));
+        } else if(criterio === 'high') {
+            ordenados.sort((a, b) => parseFloat(b.calculatedPrice) - parseFloat(a.calculatedPrice));
+        }
+
+        renderizarGrilla(document.getElementById('searchResultsGrid'), ordenados);
     }
 
     function abrirPortalCliente() {
-        const user = obtenerUsuarioLogueado();
-        if (user) { renderizarDashboardCliente(user); } else { renderizarFormularioLogin(); }
-        document.getElementById('productModal').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+        const modalOverlay = document.getElementById('productModal');
+        const modalBody = document.getElementById('modalBody');
+        const currentUser = localStorage.getItem('smart_hauss_logged_user');
 
-    function renderizarFormularioLogin() {
-        document.getElementById('modalBody').innerHTML = `
-            <div class="auth-container">
-                <h2>Portal de Clientes</h2>
-                <p>Inicia sesión o crea una cuenta segura verificada por correo electrónico.</p>
-                <div class="form-group">
-                    <label>Correo Electrónico</label>
-                    <input type="email" id="authEmail" placeholder="tucorreo@email.com">
-                </div>
-                <div class="form-group">
-                    <label>Contraseña</label>
-                    <input type="password" id="authPassword" placeholder="••••••••">
-                </div>
-                <button class="btn-auth-submit" onclick="procesarAccesoPrincipal()">Continuar</button>
-                <span class="auth-link" onclick="renderizarFormularioOlvido()">¿Olvidaste tu contraseña?</span>
-            </div>
-        `;
-    }
-
-    async function procesarAccesoPrincipal() {
-        const email = document.getElementById('authEmail').value.trim().toLowerCase();
-        const pass = document.getElementById('authPassword').value.trim();
-
-        if (!email || !pass) {
-            alert('Por favor completa todos los campos.');
-            return;
-        }
-
-        if (email === 'admin@smarthauss.com') {
-            if (pass === 'admin2026') {
-                const adminUser = { email, nombre: 'Administrador', role: 'admin' };
-                localStorage.setItem('smart_hauss_current_user', JSON.stringify(adminUser));
-                actualizarBotonCuentaUI();
-                abrirPortalCliente();
-                return;
-            } else {
-                alert('Contraseña de administrador incorrecta.');
-                return;
-            }
-        }
-
-        let users = JSON.parse(localStorage.getItem('smart_hauss_users') || '[]');
-        let user = users.find(u => u.email === email);
-
-        if (user) {
-            if (user.pass !== pass) {
-                alert('Contraseña incorrecta.');
-                return;
-            }
-            localStorage.setItem('smart_hauss_current_user', JSON.stringify(user));
-            actualizarBotonCuentaUI();
-            abrirPortalCliente();
-        } else {
-            const codigoAleatorio = Math.floor(1000 + Math.random() * 9000).toString();
-            window.tempRegistroPendiente = { email, pass, codigo: codigoAleatorio };
-
-            document.getElementById('modalBody').innerHTML = `
-                <div class="auth-container" style="text-align: center; padding: 15px;">
-                    <h2>Enviando Código...</h2>
-                    <p>Estamos enviando el código de verificación a <strong>${email}</strong>.</p>
-                </div>
-            `;
-
-            try {
-                const response = await fetch('/api/send-email', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, codigo: codigoAleatorio, tipo: 'registro' })
-                });
-                const resData = await response.json();
-
-                if (!resData.success) {
-                    alert('Error al enviar el correo: ' + (resData.error || 'Desconocido'));
-                    renderizarFormularioLogin();
-                    return;
-                }
-            } catch (err) {
-                alert('Error de red al intentar enviar el correo.');
-                renderizarFormularioLogin();
-                return;
-            }
-
-            document.getElementById('modalBody').innerHTML = `
+        if(!currentUser) {
+            modalBody.innerHTML = `
                 <div class="auth-container">
-                    <h2>Verificación de Cuenta</h2>
-                    <p>Hemos enviado un código de 4 dígitos a tu correo <strong>${email}</strong>.</p>
+                    <h2>Portal de Clientes</h2>
+                    <p>Inicia sesión con tu correo electrónico para consultar tus encargos activos en tiempo real.</p>
                     <div class="form-group">
-                        <label>Ingresa el Código Recibido</label>
-                        <input type="text" id="inputCodigoVerificacion" placeholder="Ej: 1234" maxlength="4">
+                        <label>Correo Electrónico</label>
+                        <input type="email" id="loginEmailInput" placeholder="tucorreo@email.com">
                     </div>
-                    <button class="btn-auth-submit" onclick="verificarCodigoRegistro()">Validar y Registrar</button>
-                    <span class="auth-link" onclick="renderizarFormularioLogin()">Cancelar</span>
+                    <button class="btn-auth-submit" onclick="ejecutarLoginCliente()">Acceder a Mis Pedidos</button>
+                    <span class="auth-link" onclick="cerrarModal()">Continuar navegando</span>
                 </div>
             `;
+        } else {
+            renderizarDashboardCliente(currentUser);
         }
+
+        modalOverlay.classList.add('active');
     }
 
-    function verificarCodigoRegistro() {
-        const codigoIngresado = document.getElementById('inputCodigoVerificacion').value.trim();
-        const pendiente = window.tempRegistroPendiente;
-
-        if (codigoIngresado !== pendiente.codigo) {
-            alert('Código incorrecto. Inténtalo de nuevo.');
+    function ejecutarLoginCliente() {
+        const email = document.getElementById('loginEmailInput').value.trim();
+        if(!email || !email.includes('@')) {
+            alert('Ingresa un correo electrónico válido.');
             return;
         }
-
-        let users = JSON.parse(localStorage.getItem('smart_hauss_users') || '[]');
-        const nuevoUsuario = { email: pendiente.email, pass: pendiente.pass, nombre: pendiente.email.split('@')[0], role: 'client' };
-        users.push(nuevoUsuario);
-        localStorage.setItem('smart_hauss_users', JSON.stringify(users));
-        localStorage.setItem('smart_hauss_current_user', JSON.stringify(nuevoUsuario));
-
-        alert('¡Cuenta verificada y creada con éxito!');
+        localStorage.setItem('smart_hauss_logged_user', email);
         actualizarBotonCuentaUI();
-        abrirPortalCliente();
+        renderizarDashboardCliente(email);
     }
 
-    function renderizarDashboardCliente(user) {
-        let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        let userOrders = user.role === 'admin' ? allOrders : allOrders.filter(o => o.email.toLowerCase() === user.email.toLowerCase());
-
-        let htmlOrders = userOrders.length === 0 ? '<p style="font-size:11px; color:var::text-muted;">No tienes pedidos registrados todavía.</p>' : userOrders.map((o, idx) => `
-            <div class="order-card-item">
-                <div class="order-top-row">
-                    <span>📦 ${o.producto}</span>
-                    <span class="order-status-badge status-${o.estatus}">${formatearEstatusTexto(o.estatus)}</span>
-                </div>
-                <div class="order-details-text">
-                    Correo: ${o.email} | Fecha: ${o.fecha}
-                </div>
-                ${user.role === 'admin' ? `
-                    <div style="margin-top: 6px; display: flex; gap: 4px;">
-                        <select id="cambioEstado_${idx}" class="filter-select" style="font-size:9px; padding:4px;">
-                            <option value="recibido" ${o.estatus==='recibido'?'selected':''}>Recibido</option>
-                            <option value="transito" ${o.estatus==='transito'?'selected':''}>En Tránsito</option>
-                            <option value="venezuela" ${o.estatus==='venezuela'?'selected':''}>En Venezuela</option>
-                            <option value="entregado" ${o.estatus==='entregado'?'selected':''}>Entregado</option>
-                        </select>
-                        <button class="btn-tracking-mini" onclick="actualizarEstatusPedido(${idx})">Guardar</button>
-                    </div>
-                ` : ''}
-            </div>
-        `).join('');
-
-        document.getElementById('modalBody').innerHTML = `
-            <div class="client-dashboard">
-                <div class="client-header-flex">
-                    <h2>Hola, ${user.nombre}</h2>
-                    <button class="btn-logout" onclick="cerrarSesionCliente()">Cerrar Sesión</button>
-                </div>
-                <h3 style="font-size: 0.9rem; margin-bottom: 8px; color: #0f172a; font-weight: 800;">Tus Pedidos e Importaciones</h3>
-                <div style="max-height: 250px; overflow-y: auto; margin-bottom: 12px;">
-                    ${htmlOrders}
-                </div>
-                ${user.role === 'admin' ? `
-                    <div class="admin-secret-panel">
-                        <h4>Panel de Administración (Añadir Pedido)</h4>
-                        <div class="form-group" style="margin-bottom:6px;">
-                            <label>Correo del Cliente</label>
-                            <input type="email" id="adminClientEmail" placeholder="cliente@email.com" style="font-size:11px; padding:6px;">
-                        </div>
-                        <div class="form-group" style="margin-bottom:6px;">
-                            <label>Nombre del Producto</label>
-                            <input type="text" id="adminClientProd" placeholder="Ej: MacBook Pro M2" style="font-size:11px; padding:6px;">
-                        </div>
-                        <button class="btn-auth-submit" style="margin-top:4px; padding:8px; font-size:10px;" onclick="adminCrearPedido()">Registrar Pedido</button>
-                    </div>
-                ` : ''}
-            </div>
-        `;
-    }
-
-    function formatearEstatusTexto(est) {
-        if (est === 'recibido') return 'Recibido en Miami';
-        if (est === 'transito') return 'En Tránsito Aéreo';
-        if (est === 'venezuela') return 'En Aduana / Venezuela';
-        if (est === 'entregado') return 'Entregado al Cliente';
-        return est;
-    }
-
-    function cerrarSesionCliente() {
-        localStorage.removeItem('smart_hauss_current_user');
+    function ejecutarLogoutCliente() {
+        localStorage.removeItem('smart_hauss_logged_user');
         actualizarBotonCuentaUI();
         cerrarModal();
     }
 
-    function adminCrearPedido() {
-        const email = document.getElementById('adminClientEmail').value.trim();
-        const producto = document.getElementById('adminClientProd').value.trim();
-
-        if (!email || !producto) {
-            alert('Completa los campos del pedido.');
-            return;
+    function actualizarBotonCuentaUI() {
+        const user = localStorage.getItem('smart_hauss_logged_user');
+        const textSpan = document.getElementById('btnAccountText');
+        if(user) {
+            textSpan.innerText = user.split('@')[0];
+        } else {
+            textSpan.innerText = 'Mi Cuenta';
         }
-
-        let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        allOrders.push({
-            email,
-            producto,
-            estatus: 'recibido',
-            fecha: new Date().toLocaleDateString()
-        });
-        localStorage.setItem('smart_hauss_orders', JSON.stringify(allOrders));
-        alert('Pedido registrado con éxito.');
-        abrirPortalCliente();
     }
 
-    function actualizarEstatusPedido(index) {
+    function renderizarDashboardCliente(email) {
+        const modalBody = document.getElementById('modalBody');
         let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        const nuevoEstatus = document.getElementById(`cambioEstado_${index}`).value;
-        allOrders[index].estatus = nuevoEstatus;
+        let myOrders = allOrders.filter(o => o.email && o.email.toLowerCase() === email.toLowerCase());
+
+        modalBody.innerHTML = `
+            <div class="client-dashboard">
+                <div class="client-header-flex">
+                    <h2>Panel de: ${email}</h2>
+                    <button class="btn-logout" onclick="ejecutarLogoutCliente()">Cerrar Sesión</button>
+                </div>
+                
+                <h3 style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; font-weight: 800;">Tus Pedidos e Importaciones</h3>
+                <div style="max-height: 220px; overflow-y: auto; margin-bottom: 12px;">
+                    ${myOrders.length === 0 ? '<p style="font-size: 11px; color: var(--text-muted); padding: 10px 0;">No tienes pedidos registrados con este correo.</p>' : 
+                        myOrders.map(o => `
+                            <div class="order-card-item">
+                                <div class="order-top-row">
+                                    <span>📦 ${o.producto}</span>
+                                    <span class="order-status-badge status-${o.estatus}">${formatearEstatusTexto(o.estatus)}</span>
+                                </div>
+                                <div class="order-details-text">Registrado el: ${o.fecha} | Precio: $${o.precio} USD</div>
+                            </div>
+                        `).join('')}
+                </div>
+
+                <div class="admin-secret-panel">
+                    <h4>🛠️ Panel Administrativo Rápido (Simulador de Estatus)</h4>
+                    <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 8px;">Añade un pedido de prueba para este correo o simula actualizaciones:</p>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <input type="text" id="adminProdName" placeholder="Nombre de Producto" style="flex:1; min-width: 140px; font-size: 11px; padding: 6px;">
+                        <input type="text" id="adminProdPrice" placeholder="Precio ($)" style="width: 80px; font-size: 11px; padding: 6px;">
+                        <button class="btn-tracking-mini" onclick="adminCrearPedido('${email}')">Crear Pedido Test</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function formatearEstatusTexto(estatus) {
+        if(estatus === 'recibido') return 'Recibido en Miami';
+        if(estatus === 'transito') return 'En Tránsito Aéreo';
+        if(estatus === 'venezuela') return 'En Aduana / Venezuela';
+        if(estatus === 'entregado') return 'Entregado al Cliente';
+        return estatus;
+    }
+
+    function adminCrearPedido(email) {
+        const prod = document.getElementById('adminProdName').value.trim() || 'MacBook Pro M3';
+        const price = document.getElementById('adminProdPrice').value.trim() || '1200';
+        
+        let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
+        allOrders.push({
+            email: email,
+            producto: prod,
+            precio: price,
+            estatus: 'transito',
+            fecha: new Date().toLocaleDateString()
+        });
+
         localStorage.setItem('smart_hauss_orders', JSON.stringify(allOrders));
-        alert('Estatus actualizado correctamente.');
-        abrirPortalCliente();
+        renderizarDashboardCliente(email);
+        alert('¡Pedido de prueba creado con éxito!');
     }
 </script>
 </body>
 </html>
+```[cite: 5]
