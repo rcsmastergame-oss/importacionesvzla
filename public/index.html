@@ -63,12 +63,6 @@
             100% { transform: translate(30px, 20px) scale(1.08); }
         }
 
-        @keyframes floatCard {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-3px); }
-            100% { transform: translateY(0px); }
-        }
-
         .top-ticker {
             background: linear-gradient(90deg, #0064d2, #2563eb, #1d4ed8);
             color: #ffffff;
@@ -128,7 +122,6 @@
             color: #0f172a;
             font-weight: 500;
             outline: none;
-            min-width: 0;
             transition: all 0.3s ease;
         }
 
@@ -142,7 +135,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            min-width: 0;
             order: 1;
         }
 
@@ -154,71 +146,98 @@
             border: 2px solid var(--brand-blue);
             box-shadow: 0 0 10px rgba(0, 100, 210, 0.25);
             flex-shrink: 0;
-            transition: transform 0.3s ease;
         }
-
-        .logo-img:hover { transform: rotate(10deg) scale(1.05); }
 
         .header-brand h1 {
             font-size: 0.9rem;
             font-weight: 800;
-            letter-spacing: 0.3px;
             text-transform: uppercase;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
             color: #0f172a;
         }
 
-        .header-brand h1 span {
-            color: var(--brand-blue);
-            position: relative;
-        }
+        .header-brand h1 span { color: var(--brand-blue); }
 
         .header-actions {
             display: flex;
             align-items: center;
             gap: 6px;
-            flex-shrink: 0;
             order: 3;
         }
 
-        @media (min-width: 640px) {
-            .header-actions { order: 3; }
+        /* --- NUEVO ESTILO PARA EL MENÚ DE TRES RAYITAS (HAMBURGUESA) --- */
+        .menu-hamburger-container {
+            position: relative;
+            display: inline-block;
+            order: 2;
         }
 
-        .header-status {
-            display: none;
+        @media (min-width: 640px) {
+            .menu-hamburger-container { order: 1; }
+        }
+
+        .btn-hamburger {
+            background: #f8fafc;
+            border: 1px solid var(--border-glass);
+            color: #0f172a;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 10px;
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--whatsapp-green);
-            padding: 5px 8px;
-            border-radius: 20px;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .btn-hamburger:hover {
+            border-color: var(--brand-blue);
+            background: rgba(0, 100, 210, 0.05);
+            color: var(--brand-blue);
+        }
+
+        .dropdown-menu-custom {
+            position: absolute;
+            top: 115%;
+            left: 0;
+            background: #ffffff;
+            border: 1px solid var(--border-glass);
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            min-width: 250px;
+            display: none;
+            flex-direction: column;
+            padding: 8px 0;
+            z-index: 1200;
+            animation: fadeInUp 0.2s ease;
+        }
+
+        .dropdown-menu-custom.active {
+            display: flex;
+        }
+
+        .dropdown-item-custom {
+            padding: 12px 18px;
+            font-size: 12px;
+            color: var(--text-main);
             font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        @media (min-width: 640px) {
-            .header-status { display: flex; }
-            .logo-img { width: 40px; height: 40px; }
-            .header-brand h1 { font-size: 1.2rem; }
+        .dropdown-item-custom:last-child {
+            border-bottom: none;
         }
 
-        .status-dot {
-            width: 5px;
-            height: 5px;
-            background: var(--whatsapp-green);
-            border-radius: 50%;
-            box-shadow: 0 0 6px var(--whatsapp-green);
-            animation: pulseDot 2s infinite;
-        }
-
-        @keyframes pulseDot {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(1.2); }
-            100% { opacity: 1; transform: scale(1); }
+        .dropdown-item-custom:hover {
+            background: rgba(0, 100, 210, 0.08);
+            color: var(--brand-blue);
+            padding-left: 22px;
         }
 
         .btn-user-account {
@@ -233,112 +252,13 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            white-space: nowrap;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
         }
 
         .btn-user-account:hover {
             border-color: var(--brand-blue);
             background: rgba(0, 100, 210, 0.05);
             color: var(--brand-blue);
-            transform: translateY(-2px);
-        }
-
-        .header-nav-categories {
-            background: #ffffff;
-            border-top: 1px solid var(--border-glass);
-            display: flex;
-            justify-content: flex-start;
-            gap: 4px;
-            padding: 0 12px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            position: relative;
-        }
-
-        .header-nav-categories::-webkit-scrollbar { display: none; }
-
-        @media (min-width: 640px) {
-            .header-nav-categories { justify-content: center; gap: 15px; padding: 0 24px; }
-        }
-
-        .nav-category-item {
-            position: relative;
-            padding: 10px 14px;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: all 0.25s ease;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-shrink: 0;
-        }
-
-        @media (min-width: 640px) {
-            .nav-category-item { font-size: 12px; padding: 12px 18px; }
-        }
-
-        .nav-category-item:hover, .nav-category-item.active-nav {
-            color: var(--brand-blue);
-            background: rgba(0, 100, 210, 0.04);
-        }
-
-        .nav-category-item::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; width: 0; height: 2px;
-            background: var(--brand-blue);
-            transition: width 0.3s ease;
-        }
-
-        .nav-category-item:hover::after, .nav-category-item.active-nav::after {
-            width: 100%;
-        }
-
-        .nav-dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: #ffffff;
-            border: 1px solid var(--border-glass);
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            min-width: 210px;
-            display: none;
-            flex-direction: column;
-            padding: 6px 0;
-            z-index: 1100;
-            animation: fadeInUp 0.2s ease;
-        }
-
-        @media (min-width: 768px) {
-            .nav-category-item:hover .nav-dropdown-menu {
-                display: flex;
-            }
-        }
-
-        .nav-dropdown-item {
-            padding: 8px 14px;
-            font-size: 11px;
-            color: var(--text-main);
-            font-weight: 600;
-            text-transform: none;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .nav-dropdown-item:hover {
-            background: rgba(0, 100, 210, 0.08);
-            color: var(--brand-blue);
-            padding-left: 18px;
         }
 
         .main-container {
@@ -352,18 +272,88 @@
             .main-container { padding: 24px 20px; }
         }
 
-        .section-block {
-            margin-bottom: 24px;
-            animation: fadeInUp 0.6s ease;
+        /* --- PÁGINA DE INICIO / INFORMACIÓN DE SERVICIOS --- */
+        #homeWelcomePanel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 24px 16px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-subtle);
+            animation: fadeInUp 0.5s ease;
         }
 
         @media (min-width: 640px) {
-            .section-block { margin-bottom: 35px; }
+            #homeWelcomePanel { padding: 40px 30px; margin-bottom: 35px; }
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        #homeWelcomePanel h2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        #homeWelcomePanel h2 span { color: var(--brand-blue); }
+
+        #homeWelcomePanel p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            max-width: 700px;
+            margin: 0 auto 20px auto;
+        }
+
+        .services-highlight-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .services-highlight-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        }
+
+        .service-card-item {
+            background: #f8fafc;
+            border: 1px solid var(--border-glass);
+            border-radius: 14px;
+            padding: 16px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .service-card-item:hover {
+            border-color: var(--brand-blue);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            background: #ffffff;
+        }
+
+        .service-card-item h4 {
+            font-size: 12px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .service-card-item p {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .section-block {
+            margin-bottom: 24px;
+            animation: fadeInUp 0.6s ease;
         }
 
         .section-title {
@@ -387,33 +377,19 @@
             color: var(--brand-blue);
             padding: 3px 8px;
             border-radius: 8px;
-            border: 1px solid rgba(0, 100, 210, 0.2);
             font-weight: 700;
-            letter-spacing: 0.2px;
-            white-space: nowrap;
-        }
-
-        @media (min-width: 640px) {
-            .section-title { font-size: 1.25rem; border-left-width: 5px; padding-left: 12px; margin-bottom: 15px; }
-            .section-title span { font-size: 11px; padding: 5px 12px; border-radius: 10px; }
         }
 
         .search-panel {
             background: var(--bg-card);
-            backdrop-filter: blur(15px);
             border: 1px solid var(--border-glass);
             border-radius: 14px;
             padding: 12px;
             margin-bottom: 20px;
             box-shadow: var(--shadow-subtle);
-            transition: all 0.3s ease;
         }
 
-        .search-panel:hover { box-shadow: var(--shadow-hover); border-color: rgba(0, 100, 210, 0.3); }
-
-        @media (min-width: 640px) { .search-panel { padding: 22px; border-radius: 20px; margin-bottom: 30px; } }
-
-        input[type="text"], input[type="email"], input[type="password"], input[type="number"] {
+        input[type="text"], input[type="email"], input[type="password"] {
             flex: 1;
             padding: 9px 12px;
             font-size: 12px;
@@ -421,22 +397,8 @@
             border: 1px solid var(--border-glass);
             border-radius: 10px;
             color: #0f172a;
-            font-weight: 500;
             outline: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             width: 100%;
-        }
-
-        @media (min-width: 640px) {
-            input[type="text"], input[type="email"], input[type="password"], input[type="number"] {
-                padding: 12px 16px; font-size: 13px; border-radius: 12px;
-            }
-        }
-
-        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="number"]:focus {
-            border-color: var(--brand-blue);
-            background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(0, 100, 210, 0.1);
         }
 
         .btn-search {
@@ -448,21 +410,7 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-transform: uppercase;
-            letter-spacing: 0.3px;
-            box-shadow: 0 4px 15px rgba(0, 100, 210, 0.25);
-            white-space: nowrap;
-        }
-
-        @media (min-width: 640px) {
-            .btn-search { padding: 0 20px; font-size: 12px; border-radius: 12px; letter-spacing: 0.5px; }
-        }
-
-        .btn-search:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 100, 210, 0.35);
-            background: linear-gradient(135deg, #0051b0, var(--brand-blue));
         }
 
         .category-tags {
@@ -472,12 +420,6 @@
             padding: 2px 0 8px 0;
             scrollbar-width: none;
         }
-
-        @media (min-width: 640px) {
-            .category-tags { gap: 8px; padding: 2px 0 12px 0; }
-        }
-
-        .category-tags::-webkit-scrollbar { display: none; }
 
         .tag {
             background: #f8fafc;
@@ -489,19 +431,12 @@
             font-weight: 700;
             cursor: pointer;
             white-space: nowrap;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @media (min-width: 640px) {
-            .tag { padding: 7px 14px; border-radius: 16px; font-size: 11px; }
         }
 
         .tag:hover, .tag.active {
-            background: linear-gradient(135deg, var(--brand-blue), #2563eb);
+            background: var(--brand-blue);
             color: #ffffff;
             border-color: transparent;
-            box-shadow: 0 4px 12px rgba(0, 100, 210, 0.25);
-            transform: translateY(-2px);
         }
 
         .ebay-filters-grid {
@@ -514,17 +449,7 @@
         }
 
         @media (min-width: 640px) {
-            .ebay-filters-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; padding-top: 14px; margin-top: 10px; }
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-
-        @media (min-width: 640px) {
-            .filter-group { gap: 5px; }
+            .ebay-filters-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
         }
 
         .filter-group label {
@@ -532,11 +457,6 @@
             font-weight: 700;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-
-        @media (min-width: 640px) {
-            .filter-group label { font-size: 10px; letter-spacing: 0.5px; }
         }
 
         .filter-select {
@@ -546,20 +466,7 @@
             padding: 8px;
             border-radius: 8px;
             font-size: 11px;
-            outline: none;
-            font-weight: 600;
             width: 100%;
-            transition: all 0.3s ease;
-        }
-
-        @media (min-width: 640px) {
-            .filter-select { padding: 10px; border-radius: 10px; font-size: 12px; }
-        }
-
-        .filter-select:focus {
-            border-color: var(--brand-blue);
-            background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(0, 100, 210, 0.1);
         }
 
         .payments-grid {
@@ -570,7 +477,7 @@
         }
 
         @media (min-width: 768px) {
-            .payments-grid { grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+            .payments-grid { grid-template-columns: repeat(4, 1fr); gap: 14px; }
         }
 
         .payment-card {
@@ -579,45 +486,23 @@
             border-radius: 12px;
             padding: 10px 8px;
             text-align: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             box-shadow: var(--shadow-subtle);
-            position: relative;
-            overflow: hidden;
-        }
-
-        @media (min-width: 640px) {
-            .payment-card { border-radius: 16px; padding: 16px 12px; }
-        }
-
-        .payment-card:hover {
-            border-color: var(--brand-blue);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
         }
 
         .payment-card h5 { font-size: 11px; color: #0f172a; margin-top: 6px; font-weight: 700; }
-        .payment-card span { font-size: 9px; color: var(--whatsapp-green); font-weight: 700; display: block; margin-top: 2px; }
-
-        @media (min-width: 640px) {
-            .payment-card h5 { font-size: 13px; margin-top: 8px; }
-            .payment-card span { font-size: 10px; margin-top: 3px; }
-        }
+        .payment-card span { font-size: 9px; color: var(--whatsapp-green); font-weight: 700; display: block; }
 
         .faq-container { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
-        @media (min-width: 640px) { .faq-container { gap: 10px; margin-bottom: 20px; } }
 
         .faq-item {
             background: var(--bg-card);
             border: 1px solid var(--border-glass);
             border-radius: 12px;
             overflow: hidden;
-            transition: all 0.3s ease;
             box-shadow: var(--shadow-subtle);
         }
-        @media (min-width: 640px) { .faq-item { border-radius: 14px; } }
 
-        .faq-item:hover { border-color: rgba(0, 100, 210, 0.3); }
         .faq-question {
             padding: 10px 12px;
             font-size: 11px;
@@ -627,29 +512,18 @@
             justify-content: space-between;
             align-items: center;
             color: #0f172a;
-            gap: 8px;
-        }
-        @media (min-width: 640px) {
-            .faq-question { padding: 14px 16px; font-size: 13px; gap: 10px; }
         }
 
         .faq-answer {
             padding: 0 12px 10px 12px;
             font-size: 10px;
             color: var(--text-muted);
-            line-height: 1.4;
             display: none;
             border-top: 1px solid #f1f5f9;
             padding-top: 10px;
         }
-        @media (min-width: 640px) {
-            .faq-answer { padding: 0 16px 14px 16px; font-size: 12px; line-height: 1.5; padding-top: 12px; }
-        }
 
         .faq-item.active .faq-answer { display: block; }
-        .faq-item.active .faq-question span { transform: rotate(180deg); color: var(--brand-blue); }
-        .faq-question span { transition: transform 0.3s ease; font-size: 9px; }
-        @media (min-width: 640px) { .faq-question span { font-size: 11px; } }
 
         .carousel-container {
             display: flex;
@@ -657,17 +531,7 @@
             overflow-x: auto;
             padding: 6px 2px 12px 2px;
             scrollbar-width: thin;
-            scrollbar-color: var(--brand-blue) rgba(0,0,0,0.05);
-            -webkit-overflow-scrolling: touch;
-            touch-action: pan-x;
         }
-
-        @media (min-width: 640px) {
-            .carousel-container { gap: 14px; padding: 8px 4px 16px 4px; }
-        }
-
-        .carousel-container::-webkit-scrollbar { height: 4px; }
-        .carousel-container::-webkit-scrollbar-thumb { background: var(--brand-blue); border-radius: 10px; }
 
         .grid {
             display: grid;
@@ -681,25 +545,14 @@
 
         .card {
             background: var(--bg-card);
-            backdrop-filter: blur(12px);
             border: 1px solid var(--border-glass);
             border-radius: 12px;
             padding: 8px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            cursor: pointer;
-            width: 100%;
-            min-width: 0;
-            flex-shrink: 0;
             box-shadow: var(--shadow-subtle);
-            animation: floatCard 6s ease-in-out infinite;
-        }
-
-        @media (min-width: 640px) {
-            .card { border-radius: 16px; padding: 12px; }
         }
 
         .carousel-container .card {
@@ -707,35 +560,17 @@
             max-width: 160px;
         }
 
-        @media (min-width: 640px) {
-            .carousel-container .card { min-width: 220px; max-width: 250px; padding: 16px; }
-        }
-
-        .card:nth-child(even) { animation-delay: -3s; }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--brand-blue);
-            box-shadow: var(--shadow-hover);
-        }
-
         .card-badge {
             position: absolute;
             top: 6px; right: 6px;
-            background: linear-gradient(135deg, var(--brand-blue), #2563eb);
+            background: var(--brand-blue);
             color: #ffffff;
             font-size: 8px;
             font-weight: 800;
             padding: 2px 6px;
             border-radius: 8px;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
-            box-shadow: 0 2px 6px rgba(0, 100, 210, 0.2);
             z-index: 2;
-        }
-
-        @media (min-width: 640px) {
-            .card-badge { top: 10px; right: 10px; font-size: 9px; padding: 3px 8px; border-radius: 10px; letter-spacing: 0.5px; }
         }
 
         .card-img-container {
@@ -748,20 +583,17 @@
             justify-content: center;
             margin-bottom: 6px;
             padding: 6px;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
             border: 1px solid #f1f5f9;
             overflow: hidden;
         }
 
-        @media (min-width: 640px) { .card-img-container { height: 160px; border-radius: 12px; margin-bottom: 12px; padding: 10px; } }
+        @media (min-width: 640px) { .card-img-container { height: 160px; } }
 
-        .card img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s ease; }
-        .card:hover img { transform: scale(1.06); }
+        .card img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
         .card h3 {
             font-size: 11px;
             font-weight: 700;
-            line-height: 1.25;
             height: 28px;
             overflow: hidden;
             display: -webkit-box;
@@ -769,10 +601,6 @@
             -webkit-box-orient: vertical;
             margin-bottom: 6px;
             color: #0f172a;
-        }
-
-        @media (min-width: 640px) {
-            .card h3 { font-size: 13px; height: 38px; margin-bottom: 10px; }
         }
 
         .price-box {
@@ -783,14 +611,9 @@
             margin-bottom: 6px;
         }
 
-        @media (min-width: 640px) { .price-box { padding: 10px; border-radius: 10px; margin-bottom: 12px; } }
-
         .price-main { font-size: 12px; font-weight: 800; color: #0f172a; }
-        @media (min-width: 640px) { .price-main { font-size: 18px; } }
-        .price-main span { color: var(--brand-orange); font-size: 9px; font-weight: 700; }
-        @media (min-width: 640px) { .price-main span { font-size: 11px; } }
-        .price-sub { font-size: 9px; color: var(--text-muted); margin-top: 1px; font-weight: 500; }
-        @media (min-width: 640px) { .price-sub { font-size: 10px; margin-top: 2px; } }
+        .price-main span { color: var(--brand-orange); font-size: 9px; }
+        .price-sub { font-size: 9px; color: var(--text-muted); }
 
         .btn-details {
             display: block;
@@ -803,25 +626,15 @@
             font-weight: 800;
             font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        @media (min-width: 640px) {
-            .btn-details { padding: 8px; border-radius: 10px; font-size: 11px; letter-spacing: 0.5px; }
-        }
-
-        .btn-details:hover { background: var(--brand-blue); color: #ffffff; border-color: var(--brand-blue); box-shadow: 0 4px 12px rgba(0, 100, 210, 0.25); }
+        .btn-details:hover { background: var(--brand-blue); color: #ffffff; }
 
         .btn-preview {
             background: #ffffff !important;
             border: 1.5px solid var(--brand-blue) !important;
             color: var(--brand-blue) !important;
             margin-bottom: 6px;
-        }
-        .btn-preview:hover {
-            background: rgba(0, 100, 210, 0.08) !important;
-            color: var(--brand-blue) !important;
         }
 
         .modal-overlay {
@@ -852,13 +665,7 @@
             padding: 14px;
             position: relative;
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-            transform: scale(0.95);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
-        @media (min-width: 640px) { .modal-content { padding: 30px; border-radius: 24px; } }
-
-        .modal-overlay.active .modal-content { transform: scale(1); }
 
         .modal-close {
             position: absolute;
@@ -869,17 +676,10 @@
             border-radius: 50%;
             font-size: 14px; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s ease; z-index: 10;
+            z-index: 10;
         }
-
-        @media (min-width: 640px) {
-            .modal-close { top: 14px; right: 14px; width: 32px; height: 32px; font-size: 16px; }
-        }
-
-        .modal-close:hover { background: #fee2e2; color: #ef4444; transform: rotate(90deg); }
 
         .loading, .message-state { text-align: center; padding: 20px 10px; color: var(--text-muted); font-size: 11px; font-weight: 600; }
-        @media (min-width: 640px) { .loading, .message-state { padding: 30px 15px; font-size: 13px; } }
 
         .dynamic-category-content-panel {
             background: var(--bg-card);
@@ -892,13 +692,7 @@
             animation: fadeInUp 0.5s ease;
         }
 
-        @media (min-width: 640px) {
-            .dynamic-category-content-panel { border-radius: 24px; padding: 24px; margin-bottom: 35px; }
-        }
-
-        .dynamic-category-content-panel.active {
-            display: block;
-        }
+        .dynamic-category-content-panel.active { display: block; }
 
         .dynamic-panel-header {
             display: flex;
@@ -907,12 +701,6 @@
             margin-bottom: 12px;
             border-bottom: 2px solid var(--border-glass);
             padding-bottom: 10px;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        @media (min-width: 640px) {
-            .dynamic-panel-header { margin-bottom: 20px; padding-bottom: 12px; gap: 10px; }
         }
 
         .dynamic-panel-header h2 {
@@ -920,14 +708,6 @@
             font-weight: 800;
             color: #0f172a;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        @media (min-width: 640px) {
-            .dynamic-panel-header h2 { font-size: 1.2rem; letter-spacing: 0.5px; gap: 8px; }
         }
 
         .btn-back-categories {
@@ -939,27 +719,11 @@
             font-size: 10px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        @media (min-width: 640px) {
-            .btn-back-categories { padding: 6px 12px; border-radius: 10px; font-size: 11px; }
-        }
-
-        .btn-back-categories:hover {
-            background: var(--brand-blue);
-            color: #ffffff;
-            border-color: var(--brand-blue);
         }
 
         footer {
             background: #ffffff; border-top: 1px solid var(--border-glass);
-            padding: 20px 12px; margin-top: 30px; text-align: center; color: var(--text-muted); font-size: 0.75rem; line-height: 1.4;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.02);
-        }
-
-        @media (min-width: 640px) {
-            footer { padding: 30px 16px; margin-top: 40px; font-size: 0.8rem; line-height: 1.5; }
+            padding: 20px 12px; margin-top: 30px; text-align: center; color: var(--text-muted); font-size: 0.75rem;
         }
     </style>
 </head>
@@ -976,6 +740,18 @@
 
 <header>
     <div class="header-main-row">
+        <!-- BOTÓN MENÚ TRES RAYITAS (HAMBURGUESA) -->
+        <div class="menu-hamburger-container">
+            <button class="btn-hamburger" onclick="toggleMenuDesplegable()">
+                ☰ <span style="font-size: 11px;">Menú</span>
+            </button>
+            <div id="customDropdownMenu" class="dropdown-menu-custom">
+                <div class="dropdown-item-custom" onclick="seleccionarVentanaCategoria(1)">🌍 1. Importaciones eBay</div>
+                <div class="dropdown-item-custom" onclick="seleccionarVentanaCategoria(2)">📚 2. Cursos y Manuales</div>
+                <div class="dropdown-item-custom" onclick="seleccionarVentanaCategoria(3)">🏬 3. Disponible en Tienda</div>
+            </div>
+        </div>
+
         <div class="header-brand">
             <img src="https://i.pinimg.com/736x/0c/2b/47/0c2b473ac905566c4e7feb06c6f87b86.jpg" alt="Logo Smart Hauss" class="logo-img" onerror="this.src='https://via.placeholder.com/45'">
             <h1>Smart <span>Hauss</span></h1>
@@ -987,43 +763,35 @@
         </div>
 
         <div class="header-actions">
-            <div class="header-status">
-                <div class="status-dot"></div>
-                <span>API Sincronizada</span>
-            </div>
             <button class="btn-user-account" onclick="abrirPortalCliente()">
                 👤 <span id="btnAccountText">Mi Cuenta</span>
             </button>
         </div>
     </div>
-
-    <div class="header-nav-categories">
-        <div class="nav-category-item" onclick="seleccionarVentanaCategoria(1)">
-            🌍 Importaciones eBay ▾
-            <div class="nav-dropdown-menu">
-                <div class="nav-dropdown-item" onclick="event.stopPropagation(); filtrarCategoria('laptop gamer', null); seleccionarVentanaCategoria(1);">💻 Laptops Gamer</div>
-                <div class="nav-dropdown-item" onclick="event.stopPropagation(); filtrarCategoria('smart watch', null); seleccionarVentanaCategoria(1);">⌚ Smartwatches</div>
-                <div class="nav-dropdown-item" onclick="event.stopPropagation(); filtrarCategoria('dji drone', null); seleccionarVentanaCategoria(1);">🚁 Drones y Cámaras</div>
-            </div>
-        </div>
-        <div class="nav-category-item" onclick="seleccionarVentanaCategoria(2)">
-            📚 Cursos y Manuales ▾
-            <div class="nav-dropdown-menu">
-                <div class="nav-dropdown-item" onclick="event.stopPropagation(); seleccionarVentanaCategoria(2);">📘 Manual de Importación</div>
-                <div class="nav-dropdown-item" onclick="event.stopPropagation(); seleccionarVentanaCategoria(2);">💻 Curso de Electrónica</div>
-            </div>
-        </div>
-        <div class="nav-category-item" onclick="seleccionarVentanaCategoria(3)">
-            🏬 Disponible en Tienda ▾
-            <div class="nav-dropdown-menu">
-                <div class="nav-dropdown-item" onclick="event.stopPropagation(); seleccionarVentanaCategoria(3);">🔌 Estaciones de Soldadura</div>
-                <div class="nav-dropdown-item" onclick="event.stopPropagation(); seleccionarVentanaCategoria(3);">🛠️ Kits de Herramientas</div>
-            </div>
-        </div>
-    </div>
 </header>
 
 <div class="main-container">
+
+    <!-- PÁGINA DE INICIO (INFORMACIÓN DE NUESTROS SERVICIOS) -->
+    <div id="homeWelcomePanel">
+        <h2>Bienvenido a <span>Smart Hauss</span></h2>
+        <p>Tu plataforma de importación tecnológica directa, capacitación especializada y stock local en Venezuela[cite: 10]. Explora nuestros servicios a través del menú superior de tres rayitas (☰).</p>
+        
+        <div class="services-highlight-grid">
+            <div class="service-card-item" onclick="seleccionarVentanaCategoria(1)">
+                <h4>🌍 Importaciones eBay</h4>
+                <p>Cotiza en tiempo real cualquier producto directamente desde eBay con entrega en Venezuela.</p>
+            </div>
+            <div class="service-card-item" onclick="seleccionarVentanaCategoria(2)">
+                <h4>📚 Cursos y Manuales</h4>
+                <p>Manuales técnicos, guías de electricidad, refrigeración y e-Books con vistas previas desde Google Drive.</p>
+            </div>
+            <div class="service-card-item" onclick="seleccionarVentanaCategoria(3)">
+                <h4>🏬 Disponible en Tienda</h4>
+                <p>Herramientas y equipos profesionales en stock local listos para entrega inmediata.</p>
+            </div>
+        </div>
+    </div>
 
     <!-- PANEL 1: IMPORTACIONES DIRECTAS DE EBAY -->
     <div id="panelCategory1" class="dynamic-category-content-panel">
@@ -1088,7 +856,7 @@
         </div>
     </div>
 
-    <!-- PANEL 2: CURSOS Y MANUALES (CON PORTADAS DE GOOGLE DRIVE) -->
+    <!-- PANEL 2: CURSOS Y MANUALES -->
     <div id="panelCategory2" class="dynamic-category-content-panel">
         <div class="dynamic-panel-header">
             <h2>📚 2. Cursos y Manuales</h2>
@@ -1097,7 +865,7 @@
         <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Accede a material formativo especializado, guías técnicas y manuales de Smart Hauss.</p>
         <div class="grid">
             <!-- Manual 1 -->
-            <div class="card" style="cursor: default; animation: none;">
+            <div class="card">
                 <div class="card-badge">Electricidad</div>
                 <div>
                     <div class="card-img-container">
@@ -1115,7 +883,7 @@
                 </div>
             </div>
             <!-- Manual 2 -->
-            <div class="card" style="cursor: default; animation: none;">
+            <div class="card">
                 <div class="card-badge">Electricidad</div>
                 <div>
                     <div class="card-img-container">
@@ -1128,152 +896,26 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1ihJFW08xnrg1ljrfeFVsmwSdJItD10hL/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%202.%20Conductores%20eléctricos%20smart%20hauss" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
+                    <a href="https://drive.google.com/file/d/1ihJFW08xnrg1ljrfeFVsmwSdJItD10hL/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa</a>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%202.%20Conductores%20eléctricos" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
             <!-- Manual 3 -->
-            <div class="card" style="cursor: default; animation: none;">
+            <div class="card">
                 <div class="card-badge">Refrigeración</div>
                 <div>
                     <div class="card-img-container">
                         <img src="https://drive.google.com/thumbnail?id=139wobHzh97F8ECWX0xi1Ie2hA0jZBZDz&sz=w400" alt="Portada" onerror="this.src='https://via.placeholder.com/150'">
                     </div>
-                    <h3>3. Curso de Reparación de Refrigeradores smart hauss</h3>
+                    <h3>3. Curso de Reparación de Refrigeradores</h3>
                 </div>
                 <div>
                     <div class="price-box">
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1FVya6jP2Y2CPP1loKfrmEfDf5YOfCLdQ/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%203.%20Curso%20de%20Reparación%20de%20Refrigeradores%20smart%20hauss" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
-                </div>
-            </div>
-            <!-- Manual 4 -->
-            <div class="card" style="cursor: default; animation: none;">
-                <div class="card-badge">Electricidad</div>
-                <div>
-                    <div class="card-img-container">
-                        <img src="https://drive.google.com/thumbnail?id=1JrMlY2S7OcYLI1tbITRXlPcgv35hMlk9&sz=w400" alt="Portada" onerror="this.src='https://via.placeholder.com/150'">
-                    </div>
-                    <h3>4. DETALLES DE INSTALACIÓN ELÉCTRICA</h3>
-                </div>
-                <div>
-                    <div class="price-box">
-                        <div class="price-main">$20.00 <span>USD</span></div>
-                        <div class="price-sub">Incluye diagramas paso a paso</div>
-                    </div>
-                    <a href="https://drive.google.com/file/d/1JrMlY2S7OcYLI1tbITRXlPcgv35hMlk9/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%204.%20DETALLES%20DE%20INSTALACIÓN%20ELÉCTRICA" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
-                </div>
-            </div>
-            <!-- Manual 5 -->
-            <div class="card" style="cursor: default; animation: none;">
-                <div class="card-badge">Electricidad</div>
-                <div>
-                    <div class="card-img-container">
-                        <img src="https://drive.google.com/thumbnail?id=1nsbucgFsFi-N5eT1viz6n9sk3Bzcxgiq&sz=w400" alt="Portada" onerror="this.src='https://via.placeholder.com/150'">
-                    </div>
-                    <h3>5. Diagramas Eléctricos Domiciliarios hauss</h3>
-                </div>
-                <div>
-                    <div class="price-box">
-                        <div class="price-main">$20.00 <span>USD</span></div>
-                        <div class="price-sub">Incluye diagramas paso a paso</div>
-                    </div>
-                    <a href="https://drive.google.com/file/d/1CYcMosEcyhgfLVSExFP-qmCom3J1IAI4/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%205.%20Diagramas%20Eléctricos%20Domiciliarios%20hauss" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
-                </div>
-            </div>
-            <!-- Manual 6 -->
-            <div class="card" style="cursor: default; animation: none;">
-                <div class="card-badge">Electricidad</div>
-                <div>
-                    <div class="card-img-container">
-                        <img src="https://drive.google.com/thumbnail?id=1eHKTGC1Zkp-MUjZQeELa3ktEHH7uaXBD&sz=w400" alt="Portada" onerror="this.src='https://via.placeholder.com/150'">
-                    </div>
-                    <h3>6. ELECTRICIDAD DOMICILIARIA</h3>
-                </div>
-                <div>
-                    <div class="price-box">
-                        <div class="price-main">$20.00 <span>USD</span></div>
-                        <div class="price-sub">Incluye diagramas paso a paso</div>
-                    </div>
-                    <a href="https://drive.google.com/file/d/1eHKTGC1Zkp-MUjZQeELa3ktEHH7uaXBD/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%206.%20ELECTRICIDAD%20DOMICILIARIA" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
-                </div>
-            </div>
-            <!-- Manual 7 -->
-            <div class="card" style="cursor: default; animation: none;">
-                <div class="card-badge">Electricidad</div>
-                <div>
-                    <div class="card-img-container">
-                        <img src="https://drive.google.com/thumbnail?id=1sInY9QaR7LDWYzdu9rVkr73Z-nBcKOQ7&sz=w400" alt="Portada" onerror="this.src='https://via.placeholder.com/150'">
-                    </div>
-                    <h3>7. ELECTRICIDAD BÁSICA</h3>
-                </div>
-                <div>
-                    <div class="price-box">
-                        <div class="price-main">$20.00 <span>USD</span></div>
-                        <div class="price-sub">Incluye diagramas paso a paso</div>
-                    </div>
-                    <a href="https://drive.google.com/file/d/1sInY9QaR7LDWYzdu9rVkr73Z-nBcKOQ7/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%207.%20ELECTRICIDAD%20BÁSICA" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
-                </div>
-            </div>
-            <!-- Manual 8 -->
-            <div class="card" style="cursor: default; animation: none;">
-                <div class="card-badge">Automatización</div>
-                <div>
-                    <div class="card-img-container">
-                        <img src="https://drive.google.com/thumbnail?id=1Iy3A8HdHJnI--59dvo7VI6auzj1R_DLO&sz=w400" alt="Portada" onerror="this.src='https://via.placeholder.com/150'">
-                    </div>
-                    <h3>8. Interruptor inteligente sonoff smart hauss</h3>
-                </div>
-                <div>
-                    <div class="price-box">
-                        <div class="price-main">$20.00 <span>USD</span></div>
-                        <div class="price-sub">Incluye diagramas paso a paso</div>
-                    </div>
-                    <a href="https://drive.google.com/file/d/1Iy3A8HdHJnI--59dvo7VI6auzj1R_DLO/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%208.%20Interruptor%20inteligente%20sonoff%20smart%20hauss" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
-                </div>
-            </div>
-            <!-- Manual 9 -->
-            <div class="card" style="cursor: default; animation: none;">
-                <div class="card-badge">Electricidad</div>
-                <div>
-                    <div class="card-img-container">
-                        <img src="https://drive.google.com/thumbnail?id=1LlDxoZ6cWKlqu1RklVhbYsD65vb3Zxyz&sz=w400" alt="Portada" onerror="this.src='https://via.placeholder.com/150'">
-                    </div>
-                    <h3>9. LIBRO INSTALACIONES ELÉCTRICAS EN INTERIORES</h3>
-                </div>
-                <div>
-                    <div class="price-box">
-                        <div class="price-main">$20.00 <span>USD</span></div>
-                        <div class="price-sub">Incluye diagramas paso a paso</div>
-                    </div>
-                    <a href="https://drive.google.com/file/d/1LlDxoZ6cWKlqu1RklVhbYsD65vb3Zxyz/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%209.%20LIBRO%20INSTALACIONES%20ELÉCTRICAS%20EN%20INTERIORES" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
-                </div>
-            </div>
-            <!-- Manual 10 -->
-            <div class="card" style="cursor: default; animation: none;">
-                <div class="card-badge">Refrigeración</div>
-                <div>
-                    <div class="card-img-container">
-                        <img src="https://drive.google.com/thumbnail?id=1HCUw8yU6jHbpvK529I1VQUx2ePIBYnOp&sz=w400" alt="Portada" onerror="this.src='https://via.placeholder.com/150'">
-                    </div>
-                    <h3>10. Manual de buenas prácticas Venezuela</h3>
-                </div>
-                <div>
-                    <div class="price-box">
-                        <div class="price-main">$20.00 <span>USD</span></div>
-                        <div class="price-sub">Incluye diagramas paso a paso</div>
-                    </div>
-                    <a href="https://drive.google.com/file/d/1HCUw8yU6jHbpvK529I1VQUx2ePIBYnOp/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%2010.%20Manual%20de%20buenas%20prácticas%20Venezuela" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
+                    <a href="https://drive.google.com/file/d/1FVya6jP2Y2CPP1loKfrmEfDf5YOfCLdQ/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa</a>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%203.%20Curso%20de%20Reparación" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
         </div>
@@ -1287,7 +929,7 @@
         </div>
         <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Productos listos para entrega inmediata o retiro directo en local sin esperar tiempos de importación.</p>
         <div class="grid">
-            <div class="card" style="cursor: default; animation: none;">
+            <div class="card">
                 <div class="card-badge" style="background: linear-gradient(135deg, #10b981, #059669);">Stock Local</div>
                 <div>
                     <div class="card-img-container"><div style="font-size: 32px;">🔌</div></div>
@@ -1296,12 +938,12 @@
                 <div>
                     <div class="price-box">
                         <div class="price-main">$120.00 <span>USD</span></div>
-                        <div class="price-sub">Disponible para entrega inmediata</div>
+                        <div class="price-sub">Entrega inmediata</div>
                     </div>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20quiero%20comprar%20la%20Estaci%C3%B3n%20de%20Soldadura%20disponible%20en%20tienda" target="_blank" class="btn-details" style="text-decoration:none;">Comprar Stock</a>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20quiero%20comprar%20la%20Estaci%C3%B3n%20de%20Soldadura" target="_blank" class="btn-details" style="text-decoration:none;">Comprar Stock</a>
                 </div>
             </div>
-            <div class="card" style="cursor: default; animation: none;">
+            <div class="card">
                 <div class="card-badge" style="background: linear-gradient(135deg, #10b981, #059669);">Stock Local</div>
                 <div>
                     <div class="card-img-container"><div style="font-size: 32px;">🛠️</div></div>
@@ -1310,9 +952,9 @@
                 <div>
                     <div class="price-box">
                         <div class="price-main">$22.00 <span>USD</span></div>
-                        <div class="price-sub">Disponible para entrega inmediata</div>
+                        <div class="price-sub">Entrega inmediata</div>
                     </div>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20quiero%20comprar%20el%20Kit%20de%20Herramientas%20disponible%20en%20tienda" target="_blank" class="btn-details" style="text-decoration:none;">Comprar Stock</a>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20quiero%20comprar%20el%20Kit%20de%20Herramientas" target="_blank" class="btn-details" style="text-decoration:none;">Comprar Stock</a>
                 </div>
             </div>
         </div>
@@ -1349,15 +991,11 @@
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cómo se calcula el precio final de mi producto? <span>▼</span></div>
-                <div class="faq-answer">El sistema toma el precio publicado en eBay en tiempo real. La comisión de gestión (7%) solo se aplica de manera exclusiva al seleccionar el método de pago Pago Móvil. Los demás métodos están libres de este recargo específico. Los costos de flete internacional se calculan al llegar a Miami.</div>
+                <div class="faq-answer">El sistema toma el precio publicado en eBay en tiempo real. La comisión de gestión (7%) solo se aplica de manera exclusiva al seleccionar el método de pago Pago Móvil.</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cuánto tarda en llegar el pedido a Venezuela? <span>▼</span></div>
-                <div class="faq-answer">El tiempo estimado de entrega es de 8 a 15 días hábiles una vez que el producto es recibido en nuestro courier en Miami y consolidado para su despacho aéreo hacia el país.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">¿Qué pasa si mi producto llega con defectos o problemas? <span>▼</span></div>
-                <div class="faq-answer">Te acompañamos en el proceso de revisión con el vendedor de eBay dentro de los plazos de garantía permitidos por la plataforma para gestionar devoluciones o reembolsos de forma transparente.</div>
+                <div class="faq-answer">El tiempo estimado de entrega es de 8 a 15 días hábiles una vez recibido en nuestro courier en Miami.</div>
             </div>
         </div>
     </div>
@@ -1384,27 +1022,42 @@
     const terminosAleatorios1 = ['MacBook Pro', 'PlayStation 5', 'Garmin Watch', 'GoPro Hero'];
     const terminosAleatorios2 = ['iPad Air', 'Nintendo Switch', 'Mechanical Keyboard', 'AirPods Pro'];
 
-    window.onload = () => {
-        seleccionarVentanaCategoria(1);
-        actualizarBotonCuentaUI();
-    };
+    // CONTROL DEL MENÚ DE TRES RAYITAS
+    function toggleMenuDesplegable() {
+        const menu = document.getElementById('customDropdownMenu');
+        menu.classList.toggle('active');
+    }
+
+    // CERRAR MENÚ AL HACER CLIC FUERA
+    window.addEventListener('click', function(e) {
+        const container = document.querySelector('.menu-hamburger-container');
+        if (!container.contains(e.target)) {
+            document.getElementById('customDropdownMenu').classList.remove('active');
+        }
+    });
 
     function seleccionarVentanaCategoria(num) {
+        // Ocultar menú desplegable al hacer clic en una opción
+        document.getElementById('customDropdownMenu').classList.remove('active');
+
+        // Ocultar bienvenida inicial
+        document.getElementById('homeWelcomePanel').style.display = 'none';
+
+        // Ocultar todos los paneles de categoría
         document.getElementById('panelCategory1').classList.remove('active');
         document.getElementById('panelCategory2').classList.remove('active');
         document.getElementById('panelCategory3').classList.remove('active');
 
+        // Activar el panel seleccionado
         const panelTarget = document.getElementById(`panelCategory${num}`);
-
-        if(panelTarget) panelTarget.classList.add('active');
+        if(panelTarget) {
+            panelTarget.classList.add('active');
+            panelTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
 
         if(num === 1 && !window.vitrinaCargada) {
             cargarVitrinaInicial();
             window.vitrinaCargada = true;
-        }
-
-        if(panelTarget) {
-            panelTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 
@@ -1413,31 +1066,25 @@
         document.getElementById('panelCategory2').classList.remove('active');
         document.getElementById('panelCategory3').classList.remove('active');
 
+        // Mostrar de nuevo la página de inicio con información de servicios
+        document.getElementById('homeWelcomePanel').style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function handleKeyPress(e) { if (e.key === 'Enter') realizarBusquedaManual(); }
 
     function toggleFaq(el) {
-        const parent = el.parentElement;
-        parent.classList.toggle('active');
+        el.parentElement.classList.toggle('active');
     }
 
     function seleccionarMetododePago(metodo) {
         metodoPagoSeleccionado = metodo;
-        alert(`Método de pago seleccionado: ${metodo}. ${metodo === 'PagoMovil' ? 'Se aplicará la comisión correspondiente al precio.' : 'Este método no aplica comisión adicional.'}`);
-        if(productosBusquedaActual.length > 0) {
-            if(document.getElementById('searchContainer').style.display !== 'none') {
-                renderizarGrilla(document.getElementById('searchResultsGrid'), productosBusquedaActual);
-            }
-        }
+        alert(`Método de pago seleccionado: ${metodo}`);
     }
 
     function calcularPrecioConComision(precioBase) {
         let num = parseFloat(precioBase) || 0;
-        if (metodoPagoSeleccionado === 'PagoMovil') {
-            num = num * 1.07;
-        }
+        if (metodoPagoSeleccionado === 'PagoMovil') num = num * 1.07;
         return num.toFixed(2);
     }
 
@@ -1481,15 +1128,8 @@
         searchResultsGrid.innerHTML = '';
         loadingSearch.style.display = 'block';
 
-        const condition = document.getElementById('filterCondition').value;
-        const buyingFormat = document.getElementById('filterBuyingFormat').value;
-
-        let url = `/api/search?q=${encodeURIComponent(query)}`;
-        if (condition) url += `&condition=${condition}`;
-        if (buyingFormat) url += `&buyingFormat=${buyingFormat}`;
-
         try {
-            const res = await fetch(url);
+            const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
             const data = await res.json();
             loadingSearch.style.display = 'none';
             if (data.success && data.items && data.items.length > 0) {
@@ -1513,7 +1153,7 @@
 
     function renderizarGrilla(containerElement, items) {
         containerElement.innerHTML = '';
-        items.items ? items.items.forEach((item) => { containerElement.appendChild(crearTarjetaHTML(item)); guardarEnDiccionario(item); }) : items.forEach((item) => { containerElement.appendChild(crearTarjetaHTML(item)); guardarEnDiccionario(item); });
+        items.forEach((item) => { containerElement.appendChild(crearTarjetaHTML(item)); guardarEnDiccionario(item); });
     }
 
     function crearTarjetaHTML(item) {
@@ -1521,10 +1161,8 @@
         const basePrice = item.calculatedPrice;
         const finalPrice = calcularPrecioConComision(basePrice);
         const currency = item.currency || 'USD';
-        
         let rawImg = item.image ? item.image.imageUrl : 'https://via.placeholder.com/200';
         const image = rawImg.replace(/s-l\d+/, 's-l1600');
-
         const itemId = item.itemId || Math.random().toString(36).substr(2, 9);
         item.tempId = itemId;
 
@@ -1533,191 +1171,38 @@
         card.innerHTML = `
             <div class="card-badge">eBay Live</div>
             <div>
-                <div class="card-img-container">
-                    <img src="${image}" alt="${title}" loading="lazy" onerror="this.src='https://via.placeholder.com/150'">
-                </div>
+                <div class="card-img-container"><img src="${image}" alt="${title}" loading="lazy" onerror="this.src='https://via.placeholder.com/150'"></div>
                 <h3>${title}</h3>
             </div>
             <div>
                 <div class="price-box">
                     <div class="price-main">$${finalPrice} <span>${currency}</span></div>
-                    <div class="price-sub">Ref: $${basePrice} + Flete Miami</div>
+                    <div class="price-sub">Ref: $${basePrice} + Flete</div>
                 </div>
                 <button class="btn-details btn-preview" onclick="abrirModal('${itemId}')">👁️ Vista Previa</button>
-                <a href="https://wa.me/${numeroWhatsApp}?text=Hola%20Smart%20Hauss,%20quiero%20encargar%20este%20producto%20de%20eBay:%20${encodeURIComponent(title)}%20(Ref:%20$${basePrice})" target="_blank" class="btn-details" style="text-decoration:none;">Encargar por WhatsApp</a>
+                <a href="https://wa.me/${numeroWhatsApp}?text=Hola%20Smart%20Hauss,%20quiero%20encargar:%20${encodeURIComponent(title)}" target="_blank" class="btn-details" style="text-decoration:none;">Encargar por WhatsApp</a>
             </div>
         `;
         return card;
     }
 
-    function guardarEnDiccionario(item) {
-        todosLosProductosCargados[item.tempId] = item;
-    }
+    function guardarEnDiccionario(item) { todosLosProductosCargados[item.tempId] = item; }
 
     function abrirModal(tempId) {
         const item = todosLosProductosCargados[tempId];
         if (!item) return;
-
-        const title = item.title;
-        const basePrice = item.calculatedPrice;
-        const finalPrice = calcularPrecioConComision(basePrice);
-        const currency = item.currency || 'USD';
-        const description = item.description || 'Sin descripción detallada disponible para este artículo de eBay.';
-        const seller = item.seller ? item.seller.username : 'Vendedor Verificado';
-        const feedback = item.seller ? item.seller.feedbackPercentage : '99.5%';
-        const score = item.seller ? item.seller.feedbackScore : '1000+';
-
-        let rawImg = item.image ? item.image.imageUrl : 'https://via.placeholder.com/300';
-        const mainImage = rawImg.replace(/s-l\d+/, 's-l1600');
-
-        let additionalImages = [mainImage];
-        if (item.additionalImages && item.additionalImages.length > 0) {
-            item.additionalImages.forEach(imgObj => {
-                additionalImages.push(imgObj.imageUrl.replace(/s-l\d+/, 's-l1600'));
-            });
-        }
-
         const modalBody = document.getElementById('modalBody');
-        modalBody.innerHTML = `
-            <div class="modal-grid">
-                <div class="gallery-container">
-                    <div class="main-img-display" id="mainDisplayContainer">
-                        <img id="activeModalImg" src="${mainImage}" alt="${title}" onerror="this.src='https://via.placeholder.com/300'">
-                    </div>
-                    <div class="thumbnails-row">
-                        ${additionalImages.map((img, idx) => `
-                            <div class="thumb-box ${idx === 0 ? 'active' : ''}" onclick="cambiarImagenModal('${img}', this)">
-                                <img src="${img}" alt="Thumb ${idx}" onerror="this.src='https://via.placeholder.com/50'">
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-                <div class="modal-info">
-                    <h2>${title}</h2>
-                    <div class="price-box" style="margin-bottom: 12px;">
-                        <div class="price-main" style="font-size: 1.3rem;">$${finalPrice} <span>${currency}</span></div>
-                        <div class="price-sub">Precio base: $${basePrice} + Método de pago (${metodoPagoSeleccionado})</div>
-                    </div>
-                    <div class="seller-card">
-                        <h4>Reputación del Vendedor en eBay</h4>
-                        <div class="seller-details">
-                            <span>Usuario: <strong>${seller}</strong></span>
-                            <span>Positivos: <strong>${feedback}%</strong></span>
-                            <span>Score: <strong>${score}</strong></span>
-                        </div>
-                    </div>
-                    <div class="product-description-box">
-                        <h4>Descripción del Artículo</h4>
-                        <p>${description}</p>
-                    </div>
-                    <a href="https://wa.me/${numeroWhatsApp}?text=Hola%20Smart%20Hauss,%20estoy%20interesado%20en%20comprar%20este%20producto:%20${encodeURIComponent(title)}%20-%20Precio:%20$${basePrice}" target="_blank" class="btn-whatsapp-modal">
-                        💬 Consultar y Comprar por WhatsApp
-                    </a>
-                </div>
-            </div>
-        `;
-
+        modalBody.innerHTML = `<h2>${item.title}</h2><p style="margin-top:10px; font-size:12px;">Precio base: $${item.calculatedPrice} USD</p>`;
         document.getElementById('productModal').classList.add('active');
     }
 
-    function cambiarImagenModal(urlImg, elementThumb) {
-        document.getElementById('activeModalImg').src = urlImg;
-        document.querySelectorAll('.thumb-box').forEach(t => t.classList.remove('active'));
-        elementThumb.classList.add('active');
-    }
-
-    function cerrarModal() {
-        document.getElementById('productModal').classList.remove('active');
-    }
-
-    function cerrarModalFuera(e) {
-        if (e.target.id === 'productModal') cerrarModal();
-    }
+    function cerrarModal() { document.getElementById('productModal').classList.remove('active'); }
+    function cerrarModalFuera(e) { if (e.target.id === 'productModal') cerrarModal(); }
 
     function abrirPortalCliente() {
         const modalBody = document.getElementById('modalBody');
-        modalBody.innerHTML = `
-            <div class="auth-container">
-                <h2>Portal de Clientes Smart Hauss</h2>
-                <p>Introduce tu correo electrónico para visualizar el estatus de tus pedidos en curso.</p>
-                <div class="form-group">
-                    <label>Correo Electrónico</label>
-                    <input type="email" id="clientEmailInput" placeholder="tucorreo@email.com">
-                </div>
-                <button class="btn-auth-submit" onclick="verMisPedidos()">Ver Mis Pedidos</button>
-            </div>
-        `;
+        modalBody.innerHTML = `<h2>Portal de Clientes Smart Hauss</h2><p style="font-size:12px; margin-top:8px;">Introduce tu correo para ver tus pedidos.</p>`;
         document.getElementById('productModal').classList.add('active');
-    }
-
-    function verMisPedidos() {
-        const email = document.getElementById('clientEmailInput').value.trim().toLowerCase();
-        if(!email) {
-            alert('Por favor, ingresa un correo electrónico.');
-            return;
-        }
-
-        let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        let myOrders = allOrders.filter(o => o.email && o.email.trim().toLowerCase() === email);
-
-        const modalBody = document.getElementById('modalBody');
-        modalBody.innerHTML = `
-            <div class="client-dashboard">
-                <div class="client-header-flex">
-                    <h2>Mis Pedidos (${email})</h2>
-                    <button class="btn-logout" onclick="abrirPortalCliente()">Cambiar</button>
-                </div>
-                ${myOrders.length === 0 ? '<div class="message-state">No se encontraron pedidos registrados con este correo.</div>' : 
-                    myOrders.map(o => `
-                        <div class="order-card-item">
-                            <div class="order-top-row">
-                                <span>📦 ${o.producto}</span>
-                                <span class="order-status-badge status-${o.estatus}">${formatearEstatusTexto(o.estatus)}</span>
-                            </div>
-                            <div class="order-details-text">
-                                Fecha: ${o.fecha} \vert{} Tracking: <strong>${o.tracking || 'N/A'}</strong>
-                            </div>
-                        </div>
-                    `).join('')}
-                <div class="admin-secret-panel">
-                    <h4>🛠️ Panel Administrativo Rápido (Simulador)</h4>
-                    <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                        <input type="text" id="adminProdName" placeholder="Nombre Producto" style="font-size:10px; padding:6px;">
-                        <input type="text" id="adminProdStatus" placeholder="estatus (recibido/transito/venezuela/entregado)" style="font-size:10px; padding:6px;">
-                        <button onclick="adminCrearPedido('${email}')" class="btn-search" style="padding: 6px 12px; font-size:10px;">Añadir Pedido de Prueba</button>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    function adminCrearPedido(emailUser) {
-        const prod = document.getElementById('adminProdName').value.trim() || 'MacBook Pro M2';
-        const st = document.getElementById('adminProdStatus').value.trim().toLowerCase() || 'transito';
-        
-        let allOrders = JSON.parse(localStorage.getItem('smart_hauss_orders') || '[]');
-        allOrders.push({
-            email: emailUser,
-            producto: prod,
-            estatus: st,
-            fecha: new Date().toLocaleDateString(),
-            tracking: 'MIA-VE-' + Math.floor(Math.random() * 89999 + 10000)
-        });
-        localStorage.setItem('smart_hauss_orders', JSON.stringify(allOrders));
-        alert('Pedido de prueba creado con éxito.');
-        verMisPedidos();
-    }
-
-    function formatearEstatusTexto(st) {
-        if(st === 'recibido') return 'Recibido en Miami';
-        if(st === 'transito') return 'En Tránsito Aéreo';
-        if(st === 'venezuela') return 'En Aduana / Venezuela';
-        if(st === 'entregado') return 'Entregado';
-        return st;
-    }
-
-    function actualizarBotonCuentaUI() {
-        document.getElementById('btnAccountText').innerText = "Mi Cuenta";
     }
 </script>
 </body>
