@@ -164,7 +164,7 @@
             order: 3;
         }
 
-        /* --- NUEVO ESTILO PARA EL MENÚ DE TRES RAYITAS (HAMBURGUESA) --- */
+        /* MENÚ DE TRES RAYITAS (HAMBURGUESA) */
         .menu-hamburger-container {
             position: relative;
             display: inline-block;
@@ -272,7 +272,7 @@
             .main-container { padding: 24px 20px; }
         }
 
-        /* --- PÁGINA DE INICIO / INFORMACIÓN DE SERVICIOS --- */
+        /* PÁGINA DE INICIO / INFORMACIÓN DE SERVICIOS */
         #homeWelcomePanel {
             background: var(--bg-card);
             border: 1px solid var(--border-glass);
@@ -740,7 +740,7 @@
 
 <header>
     <div class="header-main-row">
-        <!-- BOTÓN MENÚ TRES RAYITAS (HAMBURGUESA) -->
+        <!-- MENÚ DE TRES RAYITAS (HAMBURGUESA) -->
         <div class="menu-hamburger-container">
             <button class="btn-hamburger" onclick="toggleMenuDesplegable()">
                 ☰ <span style="font-size: 11px;">Menú</span>
@@ -772,7 +772,7 @@
 
 <div class="main-container">
 
-    <!-- PÁGINA DE INICIO (INFORMACIÓN DE NUESTROS SERVICIOS) -->
+    <!-- PÁGINA DE INICIO (INFORMACIÓN DE SERVICIOS) -->
     <div id="homeWelcomePanel">
         <h2>Bienvenido a <span>Smart Hauss</span></h2>
         <p>Tu plataforma de importación tecnológica directa, capacitación especializada y stock local en Venezuela[cite: 10]. Explora nuestros servicios a través del menú superior de tres rayitas (☰).</p>
@@ -784,7 +784,7 @@
             </div>
             <div class="service-card-item" onclick="seleccionarVentanaCategoria(2)">
                 <h4>📚 Cursos y Manuales</h4>
-                <p>Manuales técnicos, guías de electricidad, refrigeración y e-Books con vistas previas desde Google Drive.</p>
+                <p>Manuales técnicos, guías de electricidad, refrigeración y e-Books con vistas previas desde Google Drive[cite: 11].</p>
             </div>
             <div class="service-card-item" onclick="seleccionarVentanaCategoria(3)">
                 <h4>🏬 Disponible en Tienda</h4>
@@ -856,66 +856,175 @@
         </div>
     </div>
 
-    <!-- PANEL 2: CURSOS Y MANUALES -->
+    <!-- PANEL 2: CURSOS Y MANUALES (10 MANUALES COMPLETOS) -->
     <div id="panelCategory2" class="dynamic-category-content-panel">
         <div class="dynamic-panel-header">
-            <h2>📚 2. Cursos y Manuales</h2>
+            <h2>📚 2. Cursos y Manuales (10 Guías Especializadas)</h2>
             <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Volver al Inicio</button>
         </div>
-        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Accede a material formativo especializado, guías técnicas y manuales de Smart Hauss.</p>
+        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Accede al catálogo completo de material formativo, guías técnicas y manuales especializados de Smart Hauss[cite: 11].</p>
+        
         <div class="grid">
             <!-- Manual 1 -->
             <div class="card">
                 <div class="card-badge">Electricidad</div>
                 <div>
-                    <div class="card-img-container">
-                        <img src="https://drive.google.com/thumbnail?id=1t__5dqkPY_o_eAnNaxzy8XbLruHTQXBT&sz=w400" alt="Portada" onerror="this.src='https://via.placeholder.com/150'">
-                    </div>
-                    <h3>1. CONEXIÓN DE CARGAS ELÉCTRICAS</h3>
+                    <div class="card-img-container"><img src="https://drive.google.com/thumbnail?id=1t__5dqkPY_o_eAnNaxzy8XbLruHTQXBT&sz=w400" alt="Manual" onerror="this.src='https://via.placeholder.com/150'"></div>
+                    <h3>1. Conexión de Cargas Eléctricas</h3>
                 </div>
                 <div>
                     <div class="price-box">
                         <div class="price-main">$20.00 <span>USD</span></div>
-                        <div class="price-sub">Incluye diagramas paso a paso</div>
+                        <div class="price-sub">Diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1t__5dqkPY_o_eAnNaxzy8XbLruHTQXBT/view?usp=drive_link" target="_blank" class="btn-details btn-preview">👁️ Vista Previa (3 Pág)</a>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%201.%20CONEXIÓN%20DE%20CARGAS%20ELÉCTRICAS" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
+                    <a href="https://drive.google.com/file/d/1t__5dqkPY_o_eAnNaxzy8XbLruHTQXBT/view?usp=drive_link" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa</a>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%201.%20Conexión%20de%20Cargas%20Eléctricas" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
+
             <!-- Manual 2 -->
             <div class="card">
                 <div class="card-badge">Electricidad</div>
                 <div>
-                    <div class="card-img-container">
-                        <img src="https://drive.google.com/thumbnail?id=1eHKTGC1Zkp-MUjZQeELa3ktEHH7uaXBD&sz=w400" alt="Portada" onerror="this.src='https://via.placeholder.com/150'">
-                    </div>
-                    <h3>2. Conductores eléctricos smart hauss</h3>
+                    <div class="card-img-container"><img src="https://drive.google.com/thumbnail?id=1eHKTGC1Zkp-MUjZQeELa3ktEHH7uaXBD&sz=w400" alt="Manual" onerror="this.src='https://via.placeholder.com/150'"></div>
+                    <h3>2. Conductores Eléctricos</h3>
                 </div>
                 <div>
                     <div class="price-box">
                         <div class="price-main">$20.00 <span>USD</span></div>
-                        <div class="price-sub">Incluye diagramas paso a paso</div>
+                        <div class="price-sub">Diagramas paso a paso</div>
                     </div>
                     <a href="https://drive.google.com/file/d/1ihJFW08xnrg1ljrfeFVsmwSdJItD10hL/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa</a>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%202.%20Conductores%20eléctricos" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%202.%20Conductores%20Eléctricos" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
+
             <!-- Manual 3 -->
             <div class="card">
                 <div class="card-badge">Refrigeración</div>
                 <div>
-                    <div class="card-img-container">
-                        <img src="https://drive.google.com/thumbnail?id=139wobHzh97F8ECWX0xi1Ie2hA0jZBZDz&sz=w400" alt="Portada" onerror="this.src='https://via.placeholder.com/150'">
-                    </div>
-                    <h3>3. Curso de Reparación de Refrigeradores</h3>
+                    <div class="card-img-container"><img src="https://drive.google.com/thumbnail?id=139wobHzh97F8ECWX0xi1Ie2hA0jZBZDz&sz=w400" alt="Manual" onerror="this.src='https://via.placeholder.com/150'"></div>
+                    <h3>3. Reparación de Refrigeradores</h3>
                 </div>
                 <div>
                     <div class="price-box">
                         <div class="price-main">$20.00 <span>USD</span></div>
-                        <div class="price-sub">Incluye diagramas paso a paso</div>
+                        <div class="price-sub">Diagramas paso a paso</div>
                     </div>
                     <a href="https://drive.google.com/file/d/1FVya6jP2Y2CPP1loKfrmEfDf5YOfCLdQ/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa</a>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%203.%20Curso%20de%20Reparación" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%203.%20Reparación%20de%20Refrigeradores" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
+                </div>
+            </div>
+
+            <!-- Manual 4 -->
+            <div class="card">
+                <div class="card-badge">Instalaciones</div>
+                <div>
+                    <div class="card-img-container"><div style="font-size: 32px;">⚡</div></div>
+                    <h3>4. Detalles de Instalación Eléctrica</h3>
+                </div>
+                <div>
+                    <div class="price-box">
+                        <div class="price-main">$20.00 <span>USD</span></div>
+                        <div class="price-sub">Guía técnica especializada</div>
+                    </div>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%204.%20Detalles%20de%20Instalación%20Eléctrica" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
+                </div>
+            </div>
+
+            <!-- Manual 5 -->
+            <div class="card">
+                <div class="card-badge">Diagramas</div>
+                <div>
+                    <div class="card-img-container"><div style="font-size: 32px;">📊</div></div>
+                    <h3>5. Diagramas Eléctricos Domiciliarios</h3>
+                </div>
+                <div>
+                    <div class="price-box">
+                        <div class="price-main">$20.00 <span>USD</span></div>
+                        <div class="price-sub">Guía técnica especializada</div>
+                    </div>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%205.%20Diagramas%20Eléctricos%20Domiciliarios" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
+                </div>
+            </div>
+
+            <!-- Manual 6 -->
+            <div class="card">
+                <div class="card-badge">Electricidad</div>
+                <div>
+                    <div class="card-img-container"><div style="font-size: 32px;">💡</div></div>
+                    <h3>6. Electricidad Domiciliaria</h3>
+                </div>
+                <div>
+                    <div class="price-box">
+                        <div class="price-main">$20.00 <span>USD</span></div>
+                        <div class="price-sub">Guía técnica especializada</div>
+                    </div>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%206.%20Electricidad%20Domiciliaria" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
+                </div>
+            </div>
+
+            <!-- Manual 7 -->
+            <div class="card">
+                <div class="card-badge">Fundamentos</div>
+                <div>
+                    <div class="card-img-container"><div style="font-size: 32px;">🔌</div></div>
+                    <h3>7. Electricidad Básica</h3>
+                </div>
+                <div>
+                    <div class="price-box">
+                        <div class="price-main">$20.00 <span>USD</span></div>
+                        <div class="price-sub">Guía técnica especializada</div>
+                    </div>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%207.%20Electricidad%20Básica" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
+                </div>
+            </div>
+
+            <!-- Manual 8 -->
+            <div class="card">
+                <div class="card-badge">Smart Home</div>
+                <div>
+                    <div class="card-img-container"><div style="font-size: 32px;">📱</div></div>
+                    <h3>8. Interruptor Inteligente Sonoff</h3>
+                </div>
+                <div>
+                    <div class="price-box">
+                        <div class="price-main">$20.00 <span>USD</span></div>
+                        <div class="price-sub">Automatización y domótica</div>
+                    </div>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%208.%20Interruptor%20Inteligente%20Sonoff" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
+                </div>
+            </div>
+
+            <!-- Manual 9 -->
+            <div class="card">
+                <div class="card-badge">Interiores</div>
+                <div>
+                    <div class="card-img-container"><div style="font-size: 32px;">🏠</div></div>
+                    <h3>9. Instalaciones Eléctricas en Interiores</h3>
+                </div>
+                <div>
+                    <div class="price-box">
+                        <div class="price-main">$20.00 <span>USD</span></div>
+                        <div class="price-sub">Guía técnica especializada</div>
+                    </div>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%209.%20Instalaciones%20Eléctricas%20en%20Interiores" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
+                </div>
+            </div>
+
+            <!-- Manual 10 -->
+            <div class="card">
+                <div class="card-badge">Normativa</div>
+                <div>
+                    <div class="card-img-container"><div style="font-size: 32px;">📋</div></div>
+                    <h3>10. Manual de Buenas Prácticas Venezuela</h3>
+                </div>
+                <div>
+                    <div class="price-box">
+                        <div class="price-main">$20.00 <span>USD</span></div>
+                        <div class="price-sub">Normativa y estándares</div>
+                    </div>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%2010.%20Manual%20de%20Buenas%20Prácticas%20Venezuela" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
         </div>
@@ -1022,13 +1131,11 @@
     const terminosAleatorios1 = ['MacBook Pro', 'PlayStation 5', 'Garmin Watch', 'GoPro Hero'];
     const terminosAleatorios2 = ['iPad Air', 'Nintendo Switch', 'Mechanical Keyboard', 'AirPods Pro'];
 
-    // CONTROL DEL MENÚ DE TRES RAYITAS
     function toggleMenuDesplegable() {
         const menu = document.getElementById('customDropdownMenu');
         menu.classList.toggle('active');
     }
 
-    // CERRAR MENÚ AL HACER CLIC FUERA
     window.addEventListener('click', function(e) {
         const container = document.querySelector('.menu-hamburger-container');
         if (!container.contains(e.target)) {
@@ -1037,18 +1144,13 @@
     });
 
     function seleccionarVentanaCategoria(num) {
-        // Ocultar menú desplegable al hacer clic en una opción
         document.getElementById('customDropdownMenu').classList.remove('active');
-
-        // Ocultar bienvenida inicial
         document.getElementById('homeWelcomePanel').style.display = 'none';
 
-        // Ocultar todos los paneles de categoría
         document.getElementById('panelCategory1').classList.remove('active');
         document.getElementById('panelCategory2').classList.remove('active');
         document.getElementById('panelCategory3').classList.remove('active');
 
-        // Activar el panel seleccionado
         const panelTarget = document.getElementById(`panelCategory${num}`);
         if(panelTarget) {
             panelTarget.classList.add('active');
@@ -1066,16 +1168,12 @@
         document.getElementById('panelCategory2').classList.remove('active');
         document.getElementById('panelCategory3').classList.remove('active');
 
-        // Mostrar de nuevo la página de inicio con información de servicios
         document.getElementById('homeWelcomePanel').style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function handleKeyPress(e) { if (e.key === 'Enter') realizarBusquedaManual(); }
-
-    function toggleFaq(el) {
-        el.parentElement.classList.toggle('active');
-    }
+    function toggleFaq(el) { el.parentElement.classList.toggle('active'); }
 
     function seleccionarMetododePago(metodo) {
         metodoPagoSeleccionado = metodo;
