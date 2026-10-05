@@ -1314,13 +1314,26 @@
         items.forEach((item) => { containerElement.appendChild(crearTarjetaHTML(item)); guardarEnDiccionario(item); });
     }
 
+    function extraerImagenUrl(item) {
+        let rawImg = 'https://via.placeholder.com/200';
+        if (item.image) {
+            if (typeof item.image === 'string') rawImg = item.image;
+            else if (item.image.imageUrl) rawImg = item.image.imageUrl;
+        } else if (item.imageUrls && item.imageUrls.length > 0) {
+            rawImg = item.imageUrls[0];
+        } else if (item.thumbnailImages && item.thumbnailImages.length > 0) {
+            rawImg = typeof item.thumbnailImages[0] === 'string' ? item.thumbnailImages[0] : item.thumbnailImages[0].imageUrl;
+        }
+        return rawImg.replace(/s-l\d+/, 's-l1600');
+    }
+
     function crearTarjetaHTML(item) {
         const title = item.title;
-        const basePrice = item.calculatedPrice;
+        const basePrice = item.calculatedPrice || item.price?.value || 0;
         const finalPrice = calcularPrecioConComision(basePrice);
         const currency = item.currency || 'USD';
-        let rawImg = item.image ? item.image.imageUrl : 'https://via.placeholder.com/200';
-        const image = rawImg.replace(/s-l\d+/, 's-l1600');
+        
+        const image = extraerImagenUrl(item);
         const itemId = item.itemId || Math.random().toString(36).substr(2, 9);
         
         const condition = item.condition || 'Nuevo / Open Box';
@@ -1356,16 +1369,16 @@
 
     function guardarEnDiccionario(item) { todosLosProductosCargados[item.tempId] = item; }
 
-    // MODAL ACTUALIZADO PARA MOSTRAR TODAS LAS IMÁGENES DISPONIBLES EN GALERÍA
     function abrirModal(tempId) {
         const item = todosLosProductosCargados[tempId];
         if (!item) return;
         
         const modalBody = document.getElementById('modalBody');
 
-        // Recolectar todas las imágenes posibles (item.image, item.additionalImages, item.imageUrls, etc.)
         let listaImagenes = [];
-        if (item.image && item.image.imageUrl) listaImagenes.push(item.image.imageUrl.replace(/s-l\d+/, 's-l1600'));
+        let principal = extraerImagenUrl(item);
+        if (principal) listaImagenes.push(principal);
+
         if (item.additionalImages && Array.isArray(item.additionalImages)) {
             item.additionalImages.forEach(img => {
                 let url = typeof img === 'string' ? img : (img.imageUrl || '');
@@ -1375,14 +1388,15 @@
         if (item.imageUrls && Array.isArray(item.imageUrls)) {
             item.imageUrls.forEach(url => { if(url) listaImagenes.push(url.replace(/s-l\d+/, 's-l1600')); });
         }
-        // Si no hay adicionales detectadas, aseguramos al menos la principal
+        
+        // Filtrar duplicados
+        listaImagenes = [...new Set(listaImagenes)];
         if(listaImagenes.length === 0) listaImagenes.push('https://via.placeholder.com/300');
 
-        // Construir HTML de las miniaturas de la galería
         let galeriaHtml = '';
         listaImagenes.forEach((imgUrl, index) => {
             galeriaHtml += `
-                <img src="${imgUrl}" onclick="document.getElementById('mainModalImage').src='this.src'" 
+                <img src="${imgUrl}" 
                      style="width: 60px; height: 60px; object-fit: contain; border: 2px solid ${index === 0 ? 'var(--brand-blue)' : '#e2e8f0'}; border-radius: 6px; cursor: pointer; background: #fff; padding: 2px; transition: all 0.2s;"
                      onmouseover="this.style.borderColor='var(--brand-blue)'" onmouseout="this.style.borderColor='#e2e8f0'"
                      onclick="document.getElementById('mainModalImage').src='${imgUrl}'" />
@@ -1392,12 +1406,10 @@
         modalBody.innerHTML = `
             <h2 style="font-size:15px; margin-bottom:12px; color: #0f172a;">${item.title}</h2>
             <div style="display:flex; flex-direction:column; gap:12px;">
-                <!-- Imagen Principal Activa -->
                 <div style="width:100%; height:240px; background:#fff; border:1px solid #e2e8f0; border-radius:12px; display:flex; align-items:center; justify-content:center; padding:10px;">
                     <img id="mainModalImage" src="${listaImagenes[0]}" style="max-width:100%; max-height:100%; object-fit:contain;" />
                 </div>
                 
-                <!-- Galería de Miniaturas (Muestra todas las fotos disponibles) -->
                 <div>
                     <p style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px;">Galería de Fotos (${listaImagenes.length} disponibles):</p>
                     <div style="display:flex; gap:6px; overflow-x:auto; padding-bottom:4px;">
@@ -1406,7 +1418,7 @@
                 </div>
 
                 <div style="font-size:11px; color:var(--text-main); line-height:1.6; background:#f8fafc; padding:10px; border-radius:10px; border:1px solid #e2e8f0;">
-                    <p><strong>Precio Base eBay:</strong> $${item.calculatedPrice} USD</p>
+                    <p><strong>Precio Base eBay:</strong> $${item.calculatedPrice || item.price?.value || 0} USD</p>
                     <p><strong>Condición:</strong> ${item.condition || 'No especificada'}</p>
                     <p><strong>Modalidad:</strong> ${item.buyingFormat === 'AUCTION' ? 'Subasta Activa' : 'Compra Inmediata'}</p>
                     <p style="margin-top:6px; color:var(--text-muted); font-size:10px;">Tiempo estimado de entrega en Venezuela: 8 a 15 días hábiles vía Miami.</p>
