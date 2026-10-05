@@ -1154,7 +1154,7 @@
         </div>
     </div>
 
-    <!-- PANEL 4: SERVICIOS INTEGRALES (Integrado desde html-test.html) -->
+    <!-- PANEL 4: SERVICIOS INTEGRALES -->
     <div id="panelCategory4" class="dynamic-category-content-panel">
         <div class="dynamic-panel-header">
             <h2>🛠️ Catálogo Integral de Ingeniería y Servicios</h2>
@@ -1599,7 +1599,7 @@
 </footer>
 
 <script>
-    const numeroWhatsApp = "04244525080";
+    const numeroWhatsApp = "584244525080";
     let productosBusquedaActual = [];
     let todosLosProductosCargados = {}; 
     let metodoPagoSeleccionado = 'Zelle';
@@ -1762,12 +1762,16 @@
         
         const image = extraerImagenUrl(item);
         const itemId = item.itemId || Math.random().toString(36).substr(2, 9);
+        const itemUrl = item.itemWebUrl || item.itemUrl || `https://www.ebay.com/itm/${itemId}`;
         
         const condition = item.condition || 'Nuevo / Open Box';
         const buyingFormat = item.buyingFormat === 'AUCTION' ? 'Subasta' : 'Comprar Ya';
         const shippingInfo = item.shippingCost ? `Envío: $${item.shippingCost}` : 'Envío Internacional';
 
         item.tempId = itemId;
+
+        // Mensaje detallado para WhatsApp con toda la información y el link
+        const textoWhatsApp = `Hola Smart Hauss, deseo encargar el siguiente producto de eBay:%0A%0A*📦 Producto:* ${encodeURIComponent(title)}%0A*💵 Precio:* $${finalPrice} ${currency} (Base: $${basePrice})%0A*🏷️ Condición:* ${encodeURIComponent(condition)}%0A*⚡ Modalidad:* ${encodeURIComponent(buyingFormat)}%0A*🔗 Link de eBay:* ${encodeURIComponent(itemUrl)}`;
 
         const card = document.createElement('div');
         card.className = 'card';
@@ -1788,7 +1792,7 @@
                     <div class="price-sub">Ref: $${basePrice} + Flete Miami</div>
                 </div>
                 <button class="btn-details btn-preview" onclick="abrirModal('${itemId}')">👁️ Vista Detallada</button>
-                <a href="https://wa.me/${numeroWhatsApp}?text=Hola%20Smart%20Hauss,%20quiero%20encargar:%20${encodeURIComponent(title)}" target="_blank" class="btn-details" style="text-decoration:none;">Encargar por WhatsApp</a>
+                <a href="https://wa.me/${numeroWhatsApp}?text=${textoWhatsApp}" target="_blank" class="btn-details" style="text-decoration:none;">Encargar por WhatsApp</a>
             </div>
         `;
         return card;
