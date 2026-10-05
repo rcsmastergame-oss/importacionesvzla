@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Smart Hauss | Importaciones Globales y Catálogo Pro</title>
     <link rel="icon" type="image/jpeg" href="https://i.pinimg.com/736x/0c/2b/47/0c2b473ac905566c4e7feb06c6f87b86.jpg">
+    <!-- FontAwesome para Iconos de Servicios -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
@@ -19,6 +21,7 @@
             --whatsapp-green: #10b981;
             --text-main: #1e293b;
             --text-muted: #64748b;
+            --color-rojo: #ef4444;
             --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.06);
             --shadow-hover: 0 10px 30px rgba(0, 100, 210, 0.15);
         }
@@ -683,6 +686,71 @@
             color: #ffffff !important;
         }
 
+        /* Estilos específicos adaptados para el panel de servicios enriquecido */
+        .service-detailed-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-subtle);
+        }
+        
+        .service-header-flex {
+            display: flex;
+            align-items: center;
+            margin-bottom: 14px;
+            gap: 12px;
+        }
+
+        .service-icon-box {
+            background: var(--brand-blue);
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            text-align: left;
+        }
+
+        .table-custom th {
+            background: #0f172a;
+            color: #ffffff;
+            padding: 8px 10px;
+            font-weight: 700;
+        }
+
+        .table-custom td {
+            padding: 9px 10px;
+            border-bottom: 1px solid var(--border-glass);
+            color: var(--text-main);
+            vertical-align: middle;
+        }
+
+        .table-custom tr:hover {
+            background: #f8fafc;
+        }
+
+        .text-rojo {
+            color: var(--color-rojo) !important;
+        }
+
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -833,7 +901,7 @@
             </div>
             <div class="service-card-item" onclick="seleccionarVentanaCategoria(4)">
                 <h4>🛠️ Servicios</h4>
-                <p>Servicios profesionales de mantenimiento, electricidad y diagnósticos técnicos especializados.</p>
+                <p>Servicios profesionales de mantenimiento, electricidad y diagnósticos técnicos especializados[cite: 14, 15, 16, 17].</p>
             </div>
             <div class="service-card-item" onclick="seleccionarVentanaCategoria(3)">
                 <h4>🏬 Disponible en Tienda</h4>
@@ -926,7 +994,7 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1t__5dqkPY_o_eAnNaxzy8XbLruHTQXBT/view?usp=drive_link" target="_blank" class="btn-details btn-preview">👁️️ Vista Previa (3 Pág)</a>
+                    <a href="https://drive.google.com/file/d/1t__5dqkPY_o_eAnNaxzy8XbLruHTQXBT/view?usp=drive_link" target="_blank" class="btn-details btn-preview">👁 Vista Previa (3 Pág)</a>
                     <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%201.%20CONEXIÓN%20DE%20CARGAS%20ELÉCTRICAS" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
@@ -1079,63 +1147,362 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1HCUw8yU6jHbpvK529I1VQUx2ePIBYnOp/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️️ Vista Previa (3 Pág)</a>
+                    <a href="https://drive.google.com/file/d/1HCUw8yU6jHbpvK529I1VQUx2ePIBYnOp/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁 Vista Previa (3 Pág)</a>
                     <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%2010.%20Manual%20de%20buenas%20prácticas%20Venezuela" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- PANEL 4: SERVICIOS -->
+    <!-- PANEL 4: SERVICIOS INTEGRALES (Integrado desde html-test.html) -->
     <div id="panelCategory4" class="dynamic-category-content-panel">
         <div class="dynamic-panel-header">
-            <h2>🛠️ Servicios</h2>
+            <h2>🛠️ Catálogo Integral de Ingeniería y Servicios</h2>
             <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Volver al Inicio</button>
         </div>
-        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Servicios profesionales especializados en mantenimiento, electricidad y diagnósticos.</p>
-        <div class="grid">
-            <div class="card">
-                <div class="card-badge" style="background: linear-gradient(135deg, var(--brand-blue), #2563eb);">Servicio Pro</div>
-                <div>
-                    <div class="card-img-container"><div style="font-size: 32px;">🔧</div></div>
-                    <h3>Mantenimiento Técnico</h3>
+        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 20px; text-align: center;">
+            Soluciones de ingeniería con precisión: instalaciones, planes de mantenimiento, sistemas eléctricos y protocolos de diagnóstico profesional[cite: 14, 15, 16, 17].
+        </p>
+
+        <!-- SECCIÓN 1: TARIFAS E INSTALACIONES ESPECIALIZADAS -->
+        <div style="margin-bottom: 25px;">
+            <h3 style="font-size: 0.9rem; font-weight: 800; color: #0f172a; margin-bottom: 12px; border-left: 3px solid var(--brand-blue); padding-left: 8px;">
+                <i class="fa-solid fa-screwdriver-wrench me-1"></i> 1. Tarifas e Instalaciones Especializadas
+            </h3>
+            
+            <!-- Climatización -->
+            <div class="service-detailed-card">
+                <div class="service-header-flex">
+                    <div class="service-icon-box"><i class="fa-solid fa-snowflake"></i></div>
+                    <h4 style="font-size: 12px; font-weight: 800; color: #0f172a;">Sistemas de Climatización (A/A)</h4>
                 </div>
-                <div class="card-actions">
-                    <div class="price-box">
-                        <div class="price-main">Especializado</div>
-                        <div class="price-sub">Atención personalizada</div>
-                    </div>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20más%20información%20sobre%20el%20servicio%20de%20mantenimiento" target="_blank" class="btn-details" style="text-decoration:none;">Consultar por WhatsApp</a>
+                <div class="table-responsive">
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>Capacidad / Tipo de Equipo</th>
+                                <th>Descripción del Trabajo</th>
+                                <th style="text-align: right;">Precio Base (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Split 12.000 a 24.000 BTU</strong>[cite: 14]</td>
+                                <td>Montaje de consola, unidad externa, conexión eléctrica y vacío[cite: 14].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$45.00[cite: 14]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Split de Falso Plafón / Cassette</strong>[cite: 14]</td>
+                                <td>Anclaje estructural a techo, tendido de desagüe y pruebas de bombeo[cite: 14].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$120.00[cite: 14]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sistemas Centrales (Fancoil / Ducto)</strong>[cite: 14]</td>
+                                <td>Montaje de unidad manejadora y condensadora (No incluye ductería)[cite: 14].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">Desde $250.00[cite: 14]</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-badge" style="background: linear-gradient(135deg, var(--brand-blue), #2563eb);">Servicio Pro</div>
-                <div>
-                    <div class="card-img-container"><div style="font-size: 32px;">⚡</div></div>
-                    <h3>Electricidad y Sistemas</h3>
+
+            <!-- Cavas Cuarto -->
+            <div class="service-detailed-card">
+                <div class="service-header-flex">
+                    <div class="service-icon-box"><i class="fa-solid fa-box-open"></i></div>
+                    <h4 style="font-size: 12px; font-weight: 800; color: #0f172a;">Cavas Cuarto de Congelación y Conservación</h4>
                 </div>
-                <div class="card-actions">
-                    <div class="price-box">
-                        <div class="price-main">Especializado</div>
-                        <div class="price-sub">Atención personalizada</div>
-                    </div>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20más%20información%20sobre%20el%20servicio%20de%20electricidad" target="_blank" class="btn-details" style="text-decoration:none;">Consultar por WhatsApp</a>
+                <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">Montaje mecánico de paneles pur, instalación de unidades condensadoras, evaporadores, calibración de válvulas de expansión y programación de controladores digitales[cite: 14].</p>
+                <div class="table-responsive">
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>Dimensión / Tipo de Cava</th>
+                                <th>Componentes Incluidos en Montaje</th>
+                                <th style="text-align: right;">Precio Base (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Cava Comercial (Hasta 2x2m)</strong>[cite: 14]</td>
+                                <td>Armado de paneles, instalación de unidad monoblock o split comercial[cite: 14].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$450.00[cite: 14]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cava Industrial (Mediana - 3.4x3.4m o similar)</strong>[cite: 14]</td>
+                                <td>Fijación e interconexión de evaporador/condensadora, tablero eléctrico y puesta en marcha[cite: 14].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$850.00[cite: 14]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Túneles de Congelación Rápida</strong>[cite: 14]</td>
+                                <td>Sistemas de alta capacidad, configuraciones trifásicas y controles complejos[cite: 14].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">Bajo Cotización[cite: 14]</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-badge" style="background: linear-gradient(135deg, var(--brand-blue), #2563eb);">Servicio Pro</div>
-                <div>
-                    <div class="card-img-container"><div style="font-size: 32px;">🔍</div></div>
-                    <h3>Diagnósticos Especializados</h3>
+
+            <!-- Plantas Eléctricas -->
+            <div class="service-detailed-card">
+                <div class="service-header-flex">
+                    <div class="service-icon-box"><i class="fa-solid fa-bolt"></i></div>
+                    <h4 style="font-size: 12px; font-weight: 800; color: #0f172a;">Plantas Eléctricas y Sistemas de Potencia</h4>
                 </div>
-                <div class="card-actions">
-                    <div class="price-box">
-                        <div class="price-main">Especializado</div>
-                        <div class="price-sub">Atención personalizada</div>
-                    </div>
-                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20más%20información%20sobre%20el%20servicio%20de%20diagnosticos" target="_blank" class="btn-details" style="text-decoration:none;">Consultar por WhatsApp</a>
+                <div class="table-responsive">
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>Capacidad del Generador</th>
+                                <th>Alcance del Servicio</th>
+                                <th style="text-align: right;">Precio Base (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Generadores Portátiles (Hasta 10 kVA)</strong>[cite: 14]</td>
+                                <td>Adecuación de breaker principal, selector de baja y líneas de carga[cite: 14].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$150.00[cite: 14]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Plantas Estacionarias Diesel/Gas (15 a 60 kVA)</strong>[cite: 14]</td>
+                                <td>Anclaje, conexionado de transferencia ATS, calibración de parámetros en módulo de control (PLC)[cite: 14].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$380.00[cite: 14]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sistemas Industriales (Mayor a 100 kVA)</strong>[cite: 14]</td>
+                                <td>Sincronismo, bancos de baterías pesados y pruebas de banco de carga[cite: 14].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">Bajo Cotización[cite: 14]</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
+
+        <!-- SECCIÓN 2: PLANES DE MANTENIMIENTO -->
+        <div style="margin-bottom: 25px;">
+            <h3 style="font-size: 0.9rem; font-weight: 800; color: #0f172a; margin-bottom: 12px; border-left: 3px solid var(--brand-blue); padding-left: 8px;">
+                <i class="fa-solid fa-pump-soap me-1"></i> 2. Mantenimiento Preventivo y Correctivo
+            </h3>
+            
+            <div class="service-detailed-card">
+                <div class="service-header-flex">
+                    <div class="service-icon-box"><i class="fa-solid fa-snowflake"></i></div>
+                    <h4 style="font-size: 12px; font-weight: 800; color: #0f172a;">Mantenimiento de Aires Acondicionados</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>Tipo de Equipo</th>
+                                <th>Servicios Incluidos</th>
+                                <th style="text-align: right;">Precio (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>A/A Split (12.000 a 24.000 BTU)</strong>[cite: 15]</td>
+                                <td>Hidro-lavado de turbina, bandeja, serpentines, filtros y diagnóstico de consumo eléctrico[cite: 15].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$25.00[cite: 15]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>A/A de Ventana (Cualquier capacidad)</strong>[cite: 15]</td>
+                                <td>Desmontaje del equipo, lavado a presión en taller/área de servicio y lubricación de rodamientos[cite: 15].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$20.00[cite: 15]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sistemas Centrales (Ducto / FanCoil)</strong>[cite: 15]</td>
+                                <td>Limpieza de banco de filtros, serpentines pesados, revisión de correas, poleas y contactores[cite: 15].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">Desde $80.00[cite: 15]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="service-detailed-card">
+                <div class="service-header-flex">
+                    <div class="service-icon-box"><i class="fa-solid fa-snowflake"></i></div>
+                    <h4 style="font-size: 12px; font-weight: 800; color: #0f172a;">Mantenimiento Preventivo de Cavas Cuarto</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>Rango / Aplicación de la Cava</th>
+                                <th>Puntos Clave de Inspección</th>
+                                <th style="text-align: right;">Precio Trimestral (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Cava de Conservación (Charcutería/Lácteos)</strong>[cite: 15]</td>
+                                <td>Lavado de serpentines, testeo de sensores de temperatura ambiente y control de presiones estables[cite: 15].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$120.00[cite: 15]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cava de Congelación (Cárnicos/Hielo)</strong>[cite: 15]</td>
+                                <td>Chequeo estricto de resistencias de deshielo, ventiladores, estado del aislamiento y calibración de presostatos[cite: 15].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$180.00[cite: 15]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="service-detailed-card">
+                <div class="service-header-flex">
+                    <div class="service-icon-box"><i class="fa-solid fa-gears"></i></div>
+                    <h4 style="font-size: 12px; font-weight: 800; color: #0f172a;">Mantenimiento de Plantas Eléctricas</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>Rango de Potencia</th>
+                                <th>Tareas del Servicio Técnico</th>
+                                <th style="text-align: right;">Mano de Obra (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Plantas Residenciales (Hasta 12 kVA)</strong>[cite: 15]</td>
+                                <td>Cambio de aceite, bujía, limpieza de carburador/inyector, filtro de aire y testeo de salida de voltaje[cite: 15].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$60.00[cite: 15]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Generadores Diésel Comerciales (15 a 70 kVA)</strong>[cite: 15]</td>
+                                <td>Reemplazo de filtros de combustible y aceite, purga de sistema, inspección de correas, alternador de carga y batería[cite: 15].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$150.00[cite: 15]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sistemas de Gran Potencia (>100 kVA)</strong>[cite: 15]</td>
+                                <td>Chequeo predictivo, análisis de refrigerante, diagnóstico electrónico del AVR y lecturas del historial de fallas en PLC[cite: 15].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">Bajo Cotización[cite: 15]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: ELECTRICIDAD, CONTROL Y POTENCIA -->
+        <div style="margin-bottom: 25px;">
+            <h3 style="font-size: 0.9rem; font-weight: 800; color: #0f172a; margin-bottom: 12px; border-left: 3px solid var(--brand-blue); padding-left: 8px;">
+                <i class="fa-solid fa-diagram-project me-1"></i> 3. Electricidad, Control y Potencia
+            </h3>
+            
+            <div class="service-detailed-card">
+                <div class="service-header-flex">
+                    <div class="service-icon-box"><i class="fa-solid fa-diagram-project"></i></div>
+                    <h4 style="font-size: 12px; font-weight: 800; color: #0f172a;">Tableros de Control y Automatización</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>Tipo de Servicio Técnico</th>
+                                <th>Especificaciones</th>
+                                <th style="text-align: right;">Precio Base (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Diagnóstico de Fallas en Tableros</strong>[cite: 16]</td>
+                                <td>Revisión de continuidad, detección de cortocircuitos y sustitución de componentes dañados[cite: 16].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$40.00[cite: 16]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Armado de Tablero para Cava Cuarto</strong>[cite: 16]</td>
+                                <td>Conexionado para compresor, ventiladores y configuración de controlador digital (Full Gauge / Danfoss)[cite: 16].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$180.00[cite: 16]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Automatización de Sistemas de Bombeo</strong>[cite: 16]</td>
+                                <td>Configuración de alternadores, flotantes eléctricos y protección por falta de fase[cite: 16].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$120.00[cite: 16]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="service-detailed-card">
+                <div class="service-header-flex">
+                    <div class="service-icon-box"><i class="fa-solid fa-house-chimney-crack"></i></div>
+                    <h4 style="font-size: 12px; font-weight: 800; color: #0f172a;">Distribución y Acometidas</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>Instalación / Reparación</th>
+                                <th>Alcance del Trabajo</th>
+                                <th style="text-align: right;">Precio Base (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Línea Dedicada para A/A (220V)</strong>[cite: 16]</td>
+                                <td>Tendido de cableado desde el tablero principal, colocación de breaker e instalación de tomacorriente[cite: 16].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$45.00[cite: 16]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Instalación de Protector de Voltaje Principal</strong>[cite: 16]</td>
+                                <td>Montaje de protector de fase (tipo Supresor o Supervisor) en la entrada principal del tablero[cite: 16].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$35.00[cite: 16]</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Balanceo de Cargas e Inspección Térmica</strong>[cite: 16]</td>
+                                <td>Redistribución de circuitos en tableros trifásicos/bifásicos para evitar sobrecalentamientos[cite: 16].</td>
+                                <td style="text-align: right;" class="text-rojo fw-bold">$70.00[cite: 16]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 4: DIAGNÓSTICO TÉCNICO Y PROTOCOLO -->
+        <div class="service-detailed-card" style="background: #f8fafc;">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="display: inline-block; background: var(--brand-blue); color: #white; padding: 10px 14px; border-radius: 50%; color: #fff; margin-bottom: 8px;">
+                    <i class="fa-solid fa-calculator fs-5"></i>
+                </div>
+                <h3 style="font-size: 1rem; font-weight: 800; color: #0f172a;">4. Diagnóstico Técnico Especializado</h3>
+                <p style="font-size: 11px; color: var(--text-muted); max-width: 600px; margin: 4px auto 0 auto;">Presupuestos personalizados bajo criterio técnico. Analizamos variables eléctricas, mecánicas y térmicas para ofrecerte informes transparentes[cite: 17].</p>
+            </div>
+            
+            <hr style="border: none; border-top: 1px solid var(--border-glass); margin: 15px 0;">
+            
+            <h4 style="font-size: 11px; font-weight: 800; color: #0f172a; text-align: center; margin-bottom: 12px; text-transform: uppercase;">Nuestro Protocolo de Evaluación</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                <div style="background: #fff; padding: 12px; border-radius: 10px; border: 1px solid var(--border-glass); text-align: center;">
+                    <span style="background: var(--brand-blue); color: #fff; font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: 800;">01</span>
+                    <h5 style="font-size: 11px; font-weight: 700; color: #0f172a; margin: 6px 0 4px 0;">Inspección Física</h5>
+                    <p style="font-size: 10px; color: var(--text-muted); margin: 0;">Evaluación en sitio utilizando instrumentación calibrada[cite: 17].</p>
+                </div>
+                <div style="background: #fff; padding: 12px; border-radius: 10px; border: 1px solid var(--border-glass); text-align: center;">
+                    <span style="background: var(--brand-blue); color: #fff; font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: 800;">02</span>
+                    <h5 style="font-size: 11px; font-weight: 700; color: #0f172a; margin: 6px 0 4px 0;">Análisis e Ingeniería</h5>
+                    <p style="font-size: 10px; color: var(--text-muted); margin: 0;">Determinación de repuestos requeridos y horas hombre[cite: 17].</p>
+                </div>
+                <div style="background: #fff; padding: 12px; border-radius: 10px; border: 1px solid var(--border-glass); text-align: center;">
+                    <span style="background: var(--brand-blue); color: #fff; font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: 800;">03</span>
+                    <h5 style="font-size: 11px; font-weight: 700; color: #0f172a; margin: 6px 0 4px 0;">Presupuesto Formal</h5>
+                    <p style="font-size: 10px; color: var(--text-muted); margin: 0;">Propuesta comercial detallada con tiempos claros de ejecución[cite: 17].</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón de contacto directo para servicios -->
+        <div style="background: #0f172a; color: #fff; border-radius: 14px; padding: 20px; text-align: center; margin-top: 20px;">
+            <h4 style="font-size: 12px; font-weight: 800; margin-bottom: 6px;"><i class="fa-solid fa-file-contract text-rojo me-1"></i> ¿Necesitas una visita técnica o tienes un proyecto?</h4>
+            <p style="font-size: 10px; color: #94a3b8; margin-bottom: 14px;">Agendaremos la inspección en tu empresa, comercio o residencia en todo el estado Carabobo[cite: 14, 15, 16, 17].</p>
+            <a href="https://wa.me/584128806114?text=Hola%20Smart%20Hauss,%20deseo%20consultar%20el%20catálogo%20general%20de%20servicios" target="_blank" style="display: inline-block; background: var(--whatsapp-green); color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 11px; font-weight: 800; text-decoration: none;">
+                <i class="fa-brands fa-whatsapp me-1"></i> Contactar por WhatsApp
+            </a>
         </div>
     </div>
     
@@ -1227,7 +1594,7 @@
 </div>
 
 <footer>
-    <p><strong>Smart Hauss</strong> — Tu pasarela de importación tecnológica directa.</p>
+    <p><strong>Smart Hauss</strong> — Tu pasarela de importación tecnológica directa[cite: 14, 15, 16, 17].</p>
     <p style="margin-top: 4px;">Seguridad, trazabilidad y cotización automatizada en tiempo real para toda Venezuela.</p>
 </footer>
 
