@@ -164,7 +164,6 @@
             order: 3;
         }
 
-        /* MENÚ DE TRES RAYITAS (HAMBURGUESA) */
         .menu-hamburger-container {
             position: relative;
             display: inline-block;
@@ -272,7 +271,6 @@
             .main-container { padding: 24px 20px; }
         }
 
-        /* PÁGINA DE INICIO / INFORMACIÓN DE SERVICIOS */
         #homeWelcomePanel {
             background: var(--bg-card);
             border: 1px solid var(--border-glass);
@@ -536,84 +534,119 @@
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
+            gap: 12px;
         }
 
         @media (min-width: 640px) {
-            .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
+            .grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
         }
 
+        /* DISEÑO DE TARJETA EBAY MEJORADO */
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border-glass);
-            border-radius: 12px;
-            padding: 8px;
+            border-radius: 14px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
             box-shadow: var(--shadow-subtle);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--brand-blue);
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
         }
 
         .carousel-container .card {
-            min-width: 130px;
-            max-width: 160px;
+            min-width: 190px;
+            max-width: 210px;
         }
 
         .card-badge {
             position: absolute;
-            top: 6px; right: 6px;
+            top: 8px; right: 8px;
             background: var(--brand-blue);
             color: #ffffff;
             font-size: 8px;
             font-weight: 800;
-            padding: 2px 6px;
-            border-radius: 8px;
+            padding: 3px 6px;
+            border-radius: 6px;
             text-transform: uppercase;
             z-index: 2;
         }
 
         .card-img-container {
             width: 100%;
-            height: 90px;
+            height: 120px;
             background: #ffffff;
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             padding: 6px;
             border: 1px solid #f1f5f9;
             overflow: hidden;
         }
 
-        @media (min-width: 640px) { .card-img-container { height: 160px; } }
+        @media (min-width: 640px) { .card-img-container { height: 150px; } }
 
         .card img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
         .card h3 {
             font-size: 11px;
             font-weight: 700;
-            height: 28px;
+            height: 32px;
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             margin-bottom: 6px;
             color: #0f172a;
+            line-height: 1.3;
         }
+
+        /* METADATOS ESTILO EBAY (Condición, Envío, Formato) */
+        .ebay-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .ebay-pill {
+            font-size: 8px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #f1f5f9;
+            color: var(--text-muted);
+        }
+
+        .ebay-pill.condition { background: rgba(0, 100, 210, 0.08); color: var(--brand-blue); }
+        .ebay-pill.shipping { background: rgba(16, 185, 129, 0.08); color: var(--whatsapp-green); }
 
         .price-box {
             background: #f8fafc;
             border: 1px solid var(--border-glass);
-            padding: 6px 8px;
-            border-radius: 8px;
-            margin-bottom: 6px;
+            padding: 8px;
+            border-radius: 10px;
+            margin-bottom: 8px;
         }
 
-        .price-main { font-size: 12px; font-weight: 800; color: #0f172a; }
+        .price-main { font-size: 13px; font-weight: 800; color: #0f172a; }
         .price-main span { color: var(--brand-orange); font-size: 9px; }
-        .price-sub { font-size: 9px; color: var(--text-muted); }
+        .price-sub { font-size: 9px; color: var(--text-muted); margin-top: 2px; }
+
+        .card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
 
         .btn-details {
             display: block;
@@ -621,11 +654,13 @@
             background: #f1f5f9;
             border: 1px solid var(--border-glass);
             color: #0f172a;
-            padding: 6px;
+            padding: 7px;
             border-radius: 8px;
             font-weight: 800;
             font-size: 10px;
             text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
         .btn-details:hover { background: var(--brand-blue); color: #ffffff; }
@@ -634,7 +669,11 @@
             background: #ffffff !important;
             border: 1.5px solid var(--brand-blue) !important;
             color: var(--brand-blue) !important;
-            margin-bottom: 6px;
+        }
+
+        .btn-preview:hover {
+            background: var(--brand-blue) !important;
+            color: #ffffff !important;
         }
 
         .modal-overlay {
@@ -662,7 +701,7 @@
             max-width: 850px;
             max-height: 92vh;
             overflow-y: auto;
-            padding: 14px;
+            padding: 16px;
             position: relative;
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
@@ -740,7 +779,6 @@
 
 <header>
     <div class="header-main-row">
-        <!-- MENÚ DE TRES RAYITAS (HAMBURGUESA) -->
         <div class="menu-hamburger-container">
             <button class="btn-hamburger" onclick="toggleMenuDesplegable()">
                 ☰ <span style="font-size: 11px;">Menú</span>
@@ -772,10 +810,9 @@
 
 <div class="main-container">
 
-    <!-- PÁGINA DE INICIO (INFORMACIÓN DE SERVICIOS) -->
     <div id="homeWelcomePanel">
         <h2>Bienvenido a <span>Smart Hauss</span></h2>
-        <p>Tu plataforma de importación tecnológica directa, capacitación especializada y stock local en Venezuela[cite: 10]. Explora nuestros servicios a través del menú superior de tres rayitas (☰).</p>
+        <p>Tu plataforma de importación tecnológica directa, capacitación especializada y stock local en Venezuela. Explora nuestros servicios a través del menú superior de tres rayitas (☰).</p>
         
         <div class="services-highlight-grid">
             <div class="service-card-item" onclick="seleccionarVentanaCategoria(1)">
@@ -784,7 +821,7 @@
             </div>
             <div class="service-card-item" onclick="seleccionarVentanaCategoria(2)">
                 <h4>📚 Cursos y Manuales</h4>
-                <p>Manuales técnicos, guías de electricidad, refrigeración y e-Books con vistas previas desde Google Drive[cite: 11].</p>
+                <p>Manuales técnicos, guías de electricidad, refrigeración y e-Books con vistas previas desde Google Drive.</p>
             </div>
             <div class="service-card-item" onclick="seleccionarVentanaCategoria(3)">
                 <h4>🏬 Disponible en Tienda</h4>
@@ -856,23 +893,22 @@
         </div>
     </div>
 
-    <!-- PANEL 2: CURSOS Y MANUALES (10 MANUALES COMPLETOS) -->
+    <!-- PANEL 2: CURSOS Y MANUALES -->
     <div id="panelCategory2" class="dynamic-category-content-panel">
         <div class="dynamic-panel-header">
             <h2>📚 2. Cursos y Manuales (10 Guías Especializadas)</h2>
             <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Volver al Inicio</button>
         </div>
-        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Accede al catálogo completo de material formativo, guías técnicas y manuales especializados de Smart Hauss[cite: 11].</p>
+        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Accede al catálogo completo de material formativo, guías técnicas y manuales especializados de Smart Hauss.</p>
         
         <div class="grid">
-            <!-- Manual 1 -->
             <div class="card">
                 <div class="card-badge">Electricidad</div>
                 <div>
                     <div class="card-img-container"><img src="https://drive.google.com/thumbnail?id=1t__5dqkPY_o_eAnNaxzy8XbLruHTQXBT&sz=w400" alt="Manual" onerror="this.src='https://via.placeholder.com/150'"></div>
                     <h3>1. Conexión de Cargas Eléctricas</h3>
                 </div>
-                <div>
+                <div class="card-actions">
                     <div class="price-box">
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Diagramas paso a paso</div>
@@ -882,14 +918,13 @@
                 </div>
             </div>
 
-            <!-- Manual 2 -->
             <div class="card">
                 <div class="card-badge">Electricidad</div>
                 <div>
                     <div class="card-img-container"><img src="https://drive.google.com/thumbnail?id=1eHKTGC1Zkp-MUjZQeELa3ktEHH7uaXBD&sz=w400" alt="Manual" onerror="this.src='https://via.placeholder.com/150'"></div>
                     <h3>2. Conductores Eléctricos</h3>
                 </div>
-                <div>
+                <div class="card-actions">
                     <div class="price-box">
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Diagramas paso a paso</div>
@@ -899,14 +934,13 @@
                 </div>
             </div>
 
-            <!-- Manual 3 -->
             <div class="card">
                 <div class="card-badge">Refrigeración</div>
                 <div>
                     <div class="card-img-container"><img src="https://drive.google.com/thumbnail?id=139wobHzh97F8ECWX0xi1Ie2hA0jZBZDz&sz=w400" alt="Manual" onerror="this.src='https://via.placeholder.com/150'"></div>
                     <h3>3. Reparación de Refrigeradores</h3>
                 </div>
-                <div>
+                <div class="card-actions">
                     <div class="price-box">
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Diagramas paso a paso</div>
@@ -916,14 +950,13 @@
                 </div>
             </div>
 
-            <!-- Manual 4 -->
             <div class="card">
                 <div class="card-badge">Instalaciones</div>
                 <div>
                     <div class="card-img-container"><div style="font-size: 32px;">⚡</div></div>
                     <h3>4. Detalles de Instalación Eléctrica</h3>
                 </div>
-                <div>
+                <div class="card-actions">
                     <div class="price-box">
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Guía técnica especializada</div>
@@ -932,14 +965,13 @@
                 </div>
             </div>
 
-            <!-- Manual 5 -->
             <div class="card">
                 <div class="card-badge">Diagramas</div>
                 <div>
                     <div class="card-img-container"><div style="font-size: 32px;">📊</div></div>
                     <h3>5. Diagramas Eléctricos Domiciliarios</h3>
                 </div>
-                <div>
+                <div class="card-actions">
                     <div class="price-box">
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Guía técnica especializada</div>
@@ -948,14 +980,13 @@
                 </div>
             </div>
 
-            <!-- Manual 6 -->
             <div class="card">
                 <div class="card-badge">Electricidad</div>
                 <div>
                     <div class="card-img-container"><div style="font-size: 32px;">💡</div></div>
                     <h3>6. Electricidad Domiciliaria</h3>
                 </div>
-                <div>
+                <div class="card-actions">
                     <div class="price-box">
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Guía técnica especializada</div>
@@ -964,14 +995,13 @@
                 </div>
             </div>
 
-            <!-- Manual 7 -->
             <div class="card">
                 <div class="card-badge">Fundamentos</div>
                 <div>
                     <div class="card-img-container"><div style="font-size: 32px;">🔌</div></div>
                     <h3>7. Electricidad Básica</h3>
                 </div>
-                <div>
+                <div class="card-actions">
                     <div class="price-box">
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Guía técnica especializada</div>
@@ -980,14 +1010,13 @@
                 </div>
             </div>
 
-            <!-- Manual 8 -->
             <div class="card">
                 <div class="card-badge">Smart Home</div>
                 <div>
                     <div class="card-img-container"><div style="font-size: 32px;">📱</div></div>
                     <h3>8. Interruptor Inteligente Sonoff</h3>
                 </div>
-                <div>
+                <div class="card-actions">
                     <div class="price-box">
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Automatización y domótica</div>
@@ -996,14 +1025,13 @@
                 </div>
             </div>
 
-            <!-- Manual 9 -->
             <div class="card">
                 <div class="card-badge">Interiores</div>
                 <div>
                     <div class="card-img-container"><div style="font-size: 32px;">🏠</div></div>
                     <h3>9. Instalaciones Eléctricas en Interiores</h3>
                 </div>
-                <div>
+                <div class="card-actions">
                     <div class="price-box">
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Guía técnica especializada</div>
@@ -1012,14 +1040,13 @@
                 </div>
             </div>
 
-            <!-- Manual 10 -->
             <div class="card">
                 <div class="card-badge">Normativa</div>
                 <div>
                     <div class="card-img-container"><div style="font-size: 32px;">📋</div></div>
                     <h3>10. Manual de Buenas Prácticas Venezuela</h3>
                 </div>
-                <div>
+                <div class="card-actions">
                     <div class="price-box">
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Normativa y estándares</div>
@@ -1044,7 +1071,7 @@
                     <div class="card-img-container"><div style="font-size: 32px;">🔌</div></div>
                     <h3>Estación de Soldadura Profesional Quick T12</h3>
                 </div>
-                <div>
+                <div class="card-actions">
                     <div class="price-box">
                         <div class="price-main">$120.00 <span>USD</span></div>
                         <div class="price-sub">Entrega inmediata</div>
@@ -1058,7 +1085,7 @@
                     <div class="card-img-container"><div style="font-size: 32px;">🛠️</div></div>
                     <h3>Kit de Herramientas de Precisión 115 en 1</h3>
                 </div>
-                <div>
+                <div class="card-actions">
                     <div class="price-box">
                         <div class="price-main">$22.00 <span>USD</span></div>
                         <div class="price-sub">Entrega inmediata</div>
@@ -1262,6 +1289,12 @@
         let rawImg = item.image ? item.image.imageUrl : 'https://via.placeholder.com/200';
         const image = rawImg.replace(/s-l\d+/, 's-l1600');
         const itemId = item.itemId || Math.random().toString(36).substr(2, 9);
+        
+        // Detalles enriquecidos estilo eBay
+        const condition = item.condition || 'Nuevo / Open Box';
+        const buyingFormat = item.buyingFormat === 'AUCTION' ? 'Subasta' : 'Comprar Ya';
+        const shippingInfo = item.shippingCost ? `Envío: $${item.shippingCost}` : 'Envío Internacional';
+
         item.tempId = itemId;
 
         const card = document.createElement('div');
@@ -1271,13 +1304,18 @@
             <div>
                 <div class="card-img-container"><img src="${image}" alt="${title}" loading="lazy" onerror="this.src='https://via.placeholder.com/150'"></div>
                 <h3>${title}</h3>
+                <div class="ebay-meta-row">
+                    <span class="ebay-pill condition">📦 ${condition}</span>
+                    <span class="ebay-pill">⚡ ${buyingFormat}</span>
+                    <span class="ebay-pill shipping">✈️ ${shippingInfo}</span>
+                </div>
             </div>
-            <div>
+            <div class="card-actions">
                 <div class="price-box">
                     <div class="price-main">$${finalPrice} <span>${currency}</span></div>
-                    <div class="price-sub">Ref: $${basePrice} + Flete</div>
+                    <div class="price-sub">Ref: $${basePrice} + Flete Miami</div>
                 </div>
-                <button class="btn-details btn-preview" onclick="abrirModal('${itemId}')">👁️ Vista Previa</button>
+                <button class="btn-details btn-preview" onclick="abrirModal('${itemId}')">👁️ Vista Detallada</button>
                 <a href="https://wa.me/${numeroWhatsApp}?text=Hola%20Smart%20Hauss,%20quiero%20encargar:%20${encodeURIComponent(title)}" target="_blank" class="btn-details" style="text-decoration:none;">Encargar por WhatsApp</a>
             </div>
         `;
@@ -1290,7 +1328,19 @@
         const item = todosLosProductosCargados[tempId];
         if (!item) return;
         const modalBody = document.getElementById('modalBody');
-        modalBody.innerHTML = `<h2>${item.title}</h2><p style="margin-top:10px; font-size:12px;">Precio base: $${item.calculatedPrice} USD</p>`;
+        modalBody.innerHTML = `
+            <h2 style="font-size:16px; margin-bottom:12px;">${item.title}</h2>
+            <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+                <img src="${item.image ? item.image.imageUrl : ''}" style="max-width:200px; max-height:200px; object-fit:contain; border-radius:8px; border:1px solid #e2e8f0; padding:6px;" />
+                <div style="flex:1; font-size:12px; color:var(--text-main); line-height:1.6;">
+                    <p><strong>Precio Base en eBay:</strong> $${item.calculatedPrice} USD</p>
+                    <p><strong>Condición:</strong> ${item.condition || 'No especificada'}</p>
+                    <p><strong>Modalidad:</strong> ${item.buyingFormat === 'AUCTION' ? 'Subasta Activa' : 'Compra Inmediata'}</p>
+                    <p><strong>Ubicación del Artículo:</strong> Estados Unidos</p>
+                    <p style="margin-top:10px; color:var(--text-muted);">El tiempo estimado de entrega una vez recibido en nuestro almacén de Miami es de 8 a 15 días hábiles.</p>
+                </div>
+            </div>
+        `;
         document.getElementById('productModal').classList.add('active');
     }
 
