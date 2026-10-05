@@ -793,6 +793,7 @@
             <div id="customDropdownMenu" class="dropdown-menu-custom">
                 <div class="dropdown-item-custom" onclick="seleccionarVentanaCategoria(1)">🌍 1. Importaciones eBay</div>
                 <div class="dropdown-item-custom" onclick="seleccionarVentanaCategoria(2)">📚 2. Cursos y Manuales</div>
+                <div class="dropdown-item-custom" onclick="seleccionarVentanaCategoria(4)">🛠️ Servicios</div>
                 <div class="dropdown-item-custom" onclick="seleccionarVentanaCategoria(3)">🏬 3. Disponible en Tienda</div>
             </div>
         </div>
@@ -829,6 +830,10 @@
             <div class="service-card-item" onclick="seleccionarVentanaCategoria(2)">
                 <h4>📚 Cursos y Manuales</h4>
                 <p>Manuales técnicos, guías de electricidad, refrigeración y e-Books con vistas previas desde Google Drive.</p>
+            </div>
+            <div class="service-card-item" onclick="seleccionarVentanaCategoria(4)">
+                <h4>🛠️ Servicios</h4>
+                <p>Servicios profesionales de mantenimiento, electricidad y diagnósticos técnicos especializados.</p>
             </div>
             <div class="service-card-item" onclick="seleccionarVentanaCategoria(3)">
                 <h4>🏬 Disponible en Tienda</h4>
@@ -921,7 +926,7 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1t__5dqkPY_o_eAnNaxzy8XbLruHTQXBT/view?usp=drive_link" target="_blank" class="btn-details btn-preview">👁️ Vista Previa (3 Pág)</a>
+                    <a href="https://drive.google.com/file/d/1t__5dqkPY_o_eAnNaxzy8XbLruHTQXBT/view?usp=drive_link" target="_blank" class="btn-details btn-preview">👁️️ Vista Previa (3 Pág)</a>
                     <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%201.%20CONEXIÓN%20DE%20CARGAS%20ELÉCTRICAS" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
                 </div>
             </div>
@@ -1074,8 +1079,61 @@
                         <div class="price-main">$20.00 <span>USD</span></div>
                         <div class="price-sub">Incluye diagramas paso a paso</div>
                     </div>
-                    <a href="https://drive.google.com/file/d/1HCUw8yU6jHbpvK529I1VQUx2ePIBYnOp/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️ Vista Previa (3 Pág)</a>
+                    <a href="https://drive.google.com/file/d/1HCUw8yU6jHbpvK529I1VQUx2ePIBYnOp/view?usp=sharing" target="_blank" class="btn-details btn-preview" style="text-decoration:none;">👁️️ Vista Previa (3 Pág)</a>
                     <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20adquirir%20el%20e-Book:%2010.%20Manual%20de%20buenas%20prácticas%20Venezuela" target="_blank" class="btn-details" style="text-decoration:none;">Adquirir e-Book ($20)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 4: SERVICIOS -->
+    <div id="panelCategory4" class="dynamic-category-content-panel">
+        <div class="dynamic-panel-header">
+            <h2>🛠️ Servicios</h2>
+            <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Volver al Inicio</button>
+        </div>
+        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Servicios profesionales especializados en mantenimiento, electricidad y diagnósticos.</p>
+        <div class="grid">
+            <div class="card">
+                <div class="card-badge" style="background: linear-gradient(135deg, var(--brand-blue), #2563eb);">Servicio Pro</div>
+                <div>
+                    <div class="card-img-container"><div style="font-size: 32px;">🔧</div></div>
+                    <h3>Mantenimiento Técnico</h3>
+                </div>
+                <div class="card-actions">
+                    <div class="price-box">
+                        <div class="price-main">Especializado</div>
+                        <div class="price-sub">Atención personalizada</div>
+                    </div>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20más%20información%20sobre%20el%20servicio%20de%20mantenimiento" target="_blank" class="btn-details" style="text-decoration:none;">Consultar por WhatsApp</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-badge" style="background: linear-gradient(135deg, var(--brand-blue), #2563eb);">Servicio Pro</div>
+                <div>
+                    <div class="card-img-container"><div style="font-size: 32px;">⚡</div></div>
+                    <h3>Electricidad y Sistemas</h3>
+                </div>
+                <div class="card-actions">
+                    <div class="price-box">
+                        <div class="price-main">Especializado</div>
+                        <div class="price-sub">Atención personalizada</div>
+                    </div>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20más%20información%20sobre%20el%20servicio%20de%20electricidad" target="_blank" class="btn-details" style="text-decoration:none;">Consultar por WhatsApp</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-badge" style="background: linear-gradient(135deg, var(--brand-blue), #2563eb);">Servicio Pro</div>
+                <div>
+                    <div class="card-img-container"><div style="font-size: 32px;">🔍</div></div>
+                    <h3>Diagnósticos Especializados</h3>
+                </div>
+                <div class="card-actions">
+                    <div class="price-box">
+                        <div class="price-main">Especializado</div>
+                        <div class="price-sub">Atención personalizada</div>
+                    </div>
+                    <a href="https://wa.me/584244525080?text=Hola%20Smart%20Hauss,%20deseo%20más%20información%20sobre%20el%20servicio%20de%20diagnosticos" target="_blank" class="btn-details" style="text-decoration:none;">Consultar por WhatsApp</a>
                 </div>
             </div>
         </div>
@@ -1201,6 +1259,7 @@
         document.getElementById('panelCategory1').classList.remove('active');
         document.getElementById('panelCategory2').classList.remove('active');
         document.getElementById('panelCategory3').classList.remove('active');
+        document.getElementById('panelCategory4').classList.remove('active');
 
         const headerSearch = document.querySelector('.header-search-container');
         if (num === 1) {
@@ -1225,6 +1284,7 @@
         document.getElementById('panelCategory1').classList.remove('active');
         document.getElementById('panelCategory2').classList.remove('active');
         document.getElementById('panelCategory3').classList.remove('active');
+        document.getElementById('panelCategory4').classList.remove('active');
 
         document.querySelector('.header-search-container').classList.remove('show-search');
 
@@ -1389,7 +1449,6 @@
             item.imageUrls.forEach(url => { if(url) listaImagenes.push(url.replace(/s-l\d+/, 's-l1600')); });
         }
         
-        // Filtrar duplicados
         listaImagenes = [...new Set(listaImagenes)];
         if(listaImagenes.length === 0) listaImagenes.push('https://via.placeholder.com/300');
 
