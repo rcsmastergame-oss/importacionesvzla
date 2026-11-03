@@ -256,6 +256,21 @@ footer strong{color:#fff}
 .foot-links a:hover{color:var(--yellow)}
 .foot-small{font-size:12px;opacity:.8}
 footer{padding-bottom:calc(84px + var(--safe-b))}
+
+.combo-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px}
+@media(min-width:640px){.combo-grid{grid-template-columns:1fr 1fr;gap:16px}}
+.combo-card{position:relative;background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:6px}
+.combo-best{border-color:var(--yellow);background:linear-gradient(180deg,#fffbeb,#fff)}
+.combo-card h3{font-size:17px;font-weight:800;color:var(--navy)}
+.combo-card p{font-size:13px;color:var(--muted);margin-bottom:8px}
+.combo-tag{align-self:flex-start;background:var(--yellow);color:var(--navy);font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px}
+.combo-count{font-size:13px;font-weight:800;color:var(--blue);margin-bottom:8px}
+.combo-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;max-height:46vh;overflow-y:auto;padding-right:2px}
+.combo-item{display:flex!important;flex-direction:row!important;align-items:center;gap:10px!important;border:1px solid var(--line);border-radius:12px;padding:11px 12px;cursor:pointer;font-weight:600!important;font-size:13.5px!important;transition:.15s;min-height:44px}
+.combo-item input{width:20px!important;height:20px;min-height:0!important;flex:none;accent-color:var(--blue);padding:0}
+.combo-item.sel{border-color:var(--blue);background:var(--blue-soft)}
+.combo-item:has(input:disabled){opacity:.45;cursor:not-allowed}
+#comboGo:disabled{cursor:not-allowed}
 </style>
 </head>
 <body>
@@ -400,6 +415,22 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
         <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Accede a material formativo especializado, guías técnicas y manuales de Smart Hauss.</p>
         <div class="manual-search"><input type="search" id="buscaManual" placeholder="🔎 Buscar manual o guía (ej: refrigeración, interruptor…)" oninput="filtrarManuales(this.value)" aria-label="Buscar manual"></div>
         <div id="sinManuales" class="message-state" style="display:none">No encontramos ese manual. Prueba con otra palabra o escríbenos por WhatsApp.</div>
+        <div class="combo-grid">
+            <div class="combo-card">
+                <span class="combo-tag">Ahorra $3</span>
+                <h3>Combo 2 manuales</h3>
+                <div class="price-main">$17.00 <span>USD</span></div>
+                <p>Elige los 2 manuales que quieras.</p>
+                <button class="btn-details" onclick="abrirCombo(2)">Armar mi combo</button>
+            </div>
+            <div class="combo-card combo-best">
+                <span class="combo-tag">Ahorra $7 · Mejor precio</span>
+                <h3>Combo 3 manuales</h3>
+                <div class="price-main">$23.00 <span>USD</span></div>
+                <p>Elige los 3 manuales que quieras.</p>
+                <button class="btn-details" onclick="abrirCombo(3)">Armar mi combo</button>
+            </div>
+        </div>
         <div class="grid">
             <div class="card" style="cursor: default;">
                 <div class="card-badge">Electricidad</div>
@@ -1136,6 +1167,7 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
     const numeroWhatsApp = "584244525080";
     // ====== CONFIGURACIÓN ======
     const TASA_BS = 980;                    // Tasa fija Bs por 1 USD
+    const COMBOS = { 2: 17, 3: 23 };        // Combos: cantidad de manuales -> precio USD
     const PRECIO_MANUAL_USD = 10;           // Precio de todos los manuales y guías
     const COMISION_PAGO_MOVIL = 0;          // Comisión por Pago Móvil (0 = sin comisión)
     const WEBHOOK_URL = 'PEGA_AQUI_LA_URL_DE_TU_WEBHOOK_DE_MAKE';
@@ -1577,6 +1609,33 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
             c.style.display = ok ? '' : 'none'; if (ok) n++;
         });
         document.getElementById('sinManuales').style.display = n ? 'none' : 'block';
+    }
+
+    // ====== COMBOS ======
+    function abrirCombo(n) {
+        const titulos = [...document.querySelectorAll('#panelCategory2 .grid .card h3')].map(h => h.textContent.trim());
+        window._comboTitulos = titulos;
+        const usd = COMBOS[n];
+        abrirVentana(`<div class="co">
+            <h2>Combo de ${n} manuales</h2>
+            <div class="co-total"><div><small>Precio del combo</small><strong>${fmtBs(usd * TASA_BS)}</strong></div><div class="co-usd">${fmtUsd(usd)} USD × Bs ${TASA_BS}</div></div>
+            <h3>Elige tus ${n} manuales</h3>
+            <div class="combo-count" id="comboCount">Elegidos: 0 de ${n}</div>
+            <div class="combo-list">${titulos.map((t, i) => `<label class="combo-item"><input type="checkbox" value="${i}" onchange="comboCambio(${n})"><span>${esc(t)}</span></label>`).join('')}</div>
+            <button class="btn-details co-send" id="comboGo" disabled onclick="comboContinuar(${n})">Continuar al pago</button>
+        </div>`);
+    }
+    function comboCambio(n) {
+        const cbs = [...document.querySelectorAll('.combo-list input')];
+        const sel = cbs.filter(c => c.checked).length;
+        cbs.forEach(c => { c.disabled = !c.checked && sel >= n; c.closest('.combo-item').classList.toggle('sel', c.checked); });
+        document.getElementById('comboCount').textContent = `Elegidos: ${sel} de ${n}`;
+        document.getElementById('comboGo').disabled = sel !== n;
+    }
+    function comboContinuar(n) {
+        const nombres = [...document.querySelectorAll('.combo-list input:checked')].map(c => window._comboTitulos[c.value]);
+        if (nombres.length !== n) return;
+        abrirCheckout({ tipo: `Combo ${n} manuales`, nombre: nombres.join(' | '), usd: COMBOS[n], url: '', nota: `Recibirás los ${n} manuales elegidos en tu correo y/o WhatsApp cuando verifiquemos el pago.` });
     }
 </script>
 </body>
