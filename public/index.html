@@ -271,6 +271,10 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
 .combo-item.sel{border-color:var(--blue);background:var(--blue-soft)}
 .combo-item:has(input:disabled){opacity:.45;cursor:not-allowed}
 #comboGo:disabled{cursor:not-allowed}
+.if-box{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:16px;box-shadow:var(--sh)}
+.if-title{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:10px}
+.if-group{margin-bottom:12px}.if-group label{display:block;font-size:12px;font-weight:800;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
+.if-chips{display:flex;flex-wrap:wrap;gap:8px}
 </style>
 </head>
 <body>
@@ -389,6 +393,26 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
 
         <div id="searchContainer" class="section-block" style="display: none; margin-bottom: 20px;">
             <div class="section-title">Resultados de Búsqueda <span>Live eBay</span></div>
+            <div id="iphoneFilters" class="if-box" style="display:none">
+                <div class="if-title">📱 Filtra tu iPhone</div>
+                <div class="if-group"><label>Red</label><div class="if-chips"><span class="tag" id="ifUnlocked" onclick="toggleDesbloqueado(this)">🔓 Desbloqueado</span></div></div>
+                <div class="if-group"><label>Reacondicionado</label><div class="if-chips">
+                    <span class="tag active" onclick="setFiltroIphone('cond','',this)">Todos</span>
+                    <span class="tag" onclick="setFiltroIphone('cond','excellent',this)">Excelente</span>
+                    <span class="tag" onclick="setFiltroIphone('cond','very good',this)">Muy bueno</span>
+                    <span class="tag" onclick="setFiltroIphone('cond','good',this)">Bueno</span>
+                    <span class="tag" onclick="setFiltroIphone('cond','acceptable',this)">Aceptable</span>
+                </div></div>
+                <div class="if-group"><label>Almacenamiento</label><div class="if-chips">
+                    <span class="tag active" onclick="setFiltroIphone('storage','',this)">Todos</span>
+                    <span class="tag" onclick="setFiltroIphone('storage','64GB',this)">64 GB</span>
+                    <span class="tag" onclick="setFiltroIphone('storage','128GB',this)">128 GB</span>
+                    <span class="tag" onclick="setFiltroIphone('storage','256GB',this)">256 GB</span>
+                    <span class="tag" onclick="setFiltroIphone('storage','512GB',this)">512 GB</span>
+                    <span class="tag" onclick="setFiltroIphone('storage','1TB',this)">1 TB</span>
+                </div></div>
+                <button class="btn-back-categories" onclick="limpiarFiltrosIphone()">Limpiar filtros</button>
+            </div>
             <div id="loadingSearch" class="loading" style="display: none;">Buscando en servidores globales...</div>
             <div id="searchResultsGrid" class="grid"></div>
         </div>
@@ -1283,15 +1307,17 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
         if (!query) { searchContainer.style.display = 'none'; return; }
 
         searchContainer.style.display = 'block';
+        actualizarFiltrosIphoneUI(query);
         searchResultsGrid.innerHTML = '';
         loadingSearch.style.display = 'block';
 
         try {
-            const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+            const res = await fetch(`/api/search?q=${encodeURIComponent(consultaFinal(query))}`);
             const data = await res.json();
             loadingSearch.style.display = 'none';
-            if (data.success && data.items && data.items.length > 0) {
-                productosBusquedaActual = data.items;
+            const itemsFiltrados = (data.success && data.items) ? filtrarIphoneLocal(query, data.items) : [];
+            if (itemsFiltrados.length > 0) {
+                productosBusquedaActual = itemsFiltrados;
                 renderizarGrilla(searchResultsGrid, productosBusquedaActual);
             } else {
                 searchResultsGrid.innerHTML = '<div class="message-state">No se encontraron productos con estos criterios.</div>';
@@ -1636,6 +1662,42 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
         const nombres = [...document.querySelectorAll('.combo-list input:checked')].map(c => window._comboTitulos[c.value]);
         if (nombres.length !== n) return;
         abrirCheckout({ tipo: `Combo ${n} manuales`, nombre: nombres.join(' | '), usd: COMBOS[n], url: '', nota: `Recibirás los ${n} manuales elegidos en tu correo y/o WhatsApp cuando verifiquemos el pago.` });
+    }
+
+
+    // ====== FILTROS DE iPHONE ======
+    const ipf = { unlocked: false, cond: '', storage: '' };
+    const esIphone = q => /iphone/i.test(q || '');
+    function actualizarFiltrosIphoneUI(q) { document.getElementById('iphoneFilters').style.display = esIphone(q) ? 'block' : 'none'; }
+    function toggleDesbloqueado(el) { ipf.unlocked = !ipf.unlocked; el.classList.toggle('active', ipf.unlocked); realizarBusquedaManual(); }
+    function setFiltroIphone(g, val, el) {
+        ipf[g] = val;
+        el.parentElement.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+        el.classList.add('active'); realizarBusquedaManual();
+    }
+    function limpiarFiltrosIphone() {
+        ipf.unlocked = false; ipf.cond = ''; ipf.storage = '';
+        document.querySelectorAll('#iphoneFilters .tag').forEach((t, i) => t.classList.remove('active'));
+        document.querySelectorAll('#iphoneFilters .if-chips').forEach(g => { const first = g.querySelector('.tag'); if (first && first.id !== 'ifUnlocked') first.classList.add('active'); });
+        realizarBusquedaManual();
+    }
+    // Agrega las palabras de los filtros a la búsqueda: eBay muestra todo lo que coincida
+    function consultaFinal(q) {
+        if (!esIphone(q)) return q;
+        const partes = [q], baja = q.toLowerCase();
+        const extra = [];
+        if (ipf.storage) extra.push(ipf.storage);
+        if (ipf.unlocked) extra.push('unlocked');
+        if (ipf.cond) extra.push(ipf.cond === 'acceptable' ? 'acceptable' : ipf.cond + ' refurbished');
+        extra.forEach(x => { if (!baja.includes(x.toLowerCase())) partes.push(x); });
+        return partes.join(' ');
+    }
+    // El estado reacondicionado se confirma con el dato de condición que devuelve eBay (si viene)
+    function filtrarIphoneLocal(q, items) {
+        if (!esIphone(q) || !ipf.cond) return items;
+        if (!items.some(i => i.condition)) return items;
+        const rx = { 'excellent': /excellent|excelente/i, 'very good': /very good|muy bueno/i, 'good': /^(?!.*(very|muy)).*(good|bueno)/i, 'acceptable': /acceptable|aceptable/i }[ipf.cond];
+        return items.filter(i => rx.test(i.condition || ''));
     }
 </script>
 </body>
