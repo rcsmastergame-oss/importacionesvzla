@@ -275,6 +275,7 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
 .if-title{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:10px}
 .if-group{margin-bottom:12px}.if-group label{display:block;font-size:12px;font-weight:800;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
 .if-chips{display:flex;flex-wrap:wrap;gap:8px}
+.result-count{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -414,7 +415,9 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
                 <button class="btn-back-categories" onclick="limpiarFiltrosIphone()">Limpiar filtros</button>
             </div>
             <div id="loadingSearch" class="loading" style="display: none;">Buscando en servidores globales...</div>
+            <div id="contadorResultados" class="result-count"></div>
             <div id="searchResultsGrid" class="grid"></div>
+            <div id="masResultadosWrap" style="display:none;text-align:center;margin:20px 0"><button id="btnMas" class="btn-details" style="width:auto;padding:12px 28px" onclick="cargarMasResultados()">Cargar más resultados</button></div>
         </div>
 
         <div class="section-block" style="margin-bottom: 20px;">
@@ -1298,35 +1301,59 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
         } catch (e) { document.getElementById('loadingCurated').innerText = 'No se pudieron cargar las recomendaciones.'; }
     }
 
+    const busq = { id: 0, q: '', offset: 0, total: null, cargando: false, fin: false, vistos: new Set() };
+    const claveItem = i => i.itemId || i.itemWebUrl || (i.title + '|' + (i.calculatedPrice || (i.price && i.price.value) || ''));
+
     async function realizarBusquedaManual() {
         const query = document.getElementById('keyword').value.trim();
         const searchContainer = document.getElementById('searchContainer');
-        const loadingSearch = document.getElementById('loadingSearch');
-        const searchResultsGrid = document.getElementById('searchResultsGrid');
-
         if (!query) { searchContainer.style.display = 'none'; return; }
 
         searchContainer.style.display = 'block';
         actualizarFiltrosIphoneUI(query);
-        searchResultsGrid.innerHTML = '';
-        loadingSearch.style.display = 'block';
+        document.getElementById('searchResultsGrid').innerHTML = '';
+        document.getElementById('contadorResultados').textContent = '';
+        document.getElementById('masResultadosWrap').style.display = 'none';
+        productosBusquedaActual = [];
+        busq.id++; busq.q = query; busq.offset = 0; busq.total = null; busq.cargando = false; busq.fin = false; busq.vistos = new Set();
+        await cargarMasResultados(true);
+    }
 
+    // Trae los resultados por tandas hasta agotar todo lo que muestra eBay
+    async function cargarMasResultados(primera = false) {
+        if (busq.cargando || busq.fin) return;
+        busq.cargando = true;
+        const miId = busq.id;
+        const grid = document.getElementById('searchResultsGrid'), loading = document.getElementById('loadingSearch');
+        const wrap = document.getElementById('masResultadosWrap'), btn = document.getElementById('btnMas');
+        if (primera) loading.style.display = 'block'; else { btn.textContent = 'Cargando más resultados...'; btn.disabled = true; }
         try {
-            const res = await fetch(`/api/search?q=${encodeURIComponent(consultaFinal(query))}`);
+            const res = await fetch(`/api/search?q=${encodeURIComponent(consultaFinal(busq.q))}&limit=200&offset=${busq.offset}`);
             const data = await res.json();
-            loadingSearch.style.display = 'none';
-            const itemsFiltrados = (data.success && data.items) ? filtrarIphoneLocal(query, data.items) : [];
-            if (itemsFiltrados.length > 0) {
-                productosBusquedaActual = itemsFiltrados;
-                renderizarGrilla(searchResultsGrid, productosBusquedaActual);
-            } else {
-                searchResultsGrid.innerHTML = '<div class="message-state">No se encontraron productos con estos criterios.</div>';
-            }
+            if (miId !== busq.id) return;
+            const crudos = (data.success && data.items) ? data.items : [];
+            if (typeof data.total === 'number') busq.total = data.total;
+            const nuevos = crudos.filter(i => { const k = claveItem(i); if (busq.vistos.has(k)) return false; busq.vistos.add(k); return true; });
+            if (busq.offset > 0 && crudos.length && !nuevos.length) console.warn('La API repite los mismos resultados: no está usando el parámetro offset.');
+            busq.offset += crudos.length;
+            if (!crudos.length || !nuevos.length || (busq.total !== null && busq.offset >= busq.total)) busq.fin = true;
+            filtrarIphoneLocal(busq.q, nuevos).forEach(item => { grid.appendChild(crearTarjetaHTML(item)); guardarEnDiccionario(item); productosBusquedaActual.push(item); });
+            if (!productosBusquedaActual.length && busq.fin) grid.innerHTML = '<div class="message-state" style="grid-column:1/-1">No se encontraron productos con estos criterios.</div>';
+            const n = productosBusquedaActual.length;
+            document.getElementById('contadorResultados').textContent = n ? `${n.toLocaleString('es-VE')} resultados` + (busq.total ? ` de ${busq.total.toLocaleString('es-VE')}` : '') + (busq.fin ? '' : ' · cargando más al bajar') : '';
         } catch (error) {
-            loadingSearch.style.display = 'none';
-            searchResultsGrid.innerHTML = '<div class="message-state" style="color: #ef4444;">Error de conexión con la API.</div>';
+            if (miId !== busq.id) return;
+            if (primera) grid.innerHTML = '<div class="message-state" style="color: #ef4444; grid-column:1/-1">Error de conexión con la API.</div>';
+            else mostrarToast('No se pudieron cargar más resultados');
+        } finally {
+            if (miId === busq.id) {
+                busq.cargando = false; loading.style.display = 'none';
+                btn.textContent = 'Cargar más resultados'; btn.disabled = false;
+                wrap.style.display = busq.fin ? 'none' : 'block';
+            }
         }
     }
+    new IntersectionObserver(es => { if (es[0].isIntersecting) cargarMasResultados(); }, { rootMargin: '700px' }).observe(document.getElementById('masResultadosWrap'));
 
     function renderizarCarrusel(elementId, items) {
         const container = document.getElementById(elementId);
