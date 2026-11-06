@@ -674,6 +674,21 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
                     <button class="btn-details" onclick="comprarGuia('Super guía: importa de Alibaba y recibe en Venezuela con Import2Ven')">Comprar guía · $10</button>
                 </div>
             </div>
+            <div class="card" style="cursor: default;">
+                <div class="card-badge">Importación</div>
+                <div>
+                    <div class="card-img-container"><div class="guide-tile">👗</div></div>
+                    <h3>14. Super guía: trae ropa de Shein a Venezuela con Liberty Express</h3>
+                </div>
+                <div>
+                    <div class="price-box">
+                        <div class="price-main">$10.00 <span>USD</span></div>
+                        <div class="price-sub">Edición 2026 · paso a paso</div>
+                    </div>
+                    <button class="btn-details btn-preview" onclick="abrirVistaGuia('guiaSheinPreview')">👁 Vista Previa (3 Pág)</button>
+                    <button class="btn-details" onclick="comprarGuia('Super guía: trae ropa de Shein a Venezuela con Liberty Express')">Comprar guía · $10</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1169,6 +1184,24 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
         </div>
     </div>
 
+    <div id="guiaSheinPreview" style="display:none">
+        <div class="section-title">Super guía: trae ropa de Shein a Venezuela con Liberty Express <span>Vista previa · págs. 1 a 3</span></div>
+        <div class="zg">
+            <h3>Portada</h3><p><b>Casillero, dirección, trackings, pre-alerta, costos, aéreo y marítimo, aduana, pago y retiro. Paso a paso y sin sorpresas. Edición 2026.</b></p>
+            <p>Incluye: resumen rápido, la verdad sobre aéreo vs. marítimo para ropa, cómo se cobra cada paquete, qué no se puede enviar, cómo comprar en Shein sin que se divida tu pedido, plantillas de mensajes, seguridad, solución de problemas, preguntas frecuentes, glosario y checklists.</p>
+            <p class="co-note">Guía informativa independiente, no afiliada a Shein ni a Liberty Express. Condiciones tomadas de los canales oficiales de Liberty (consultados en octubre de 2026). Pueden cambiar: confirma tarifas y reglas con Liberty antes de comprar.</p>
+            <h3>Contenido de la guía completa</h3>
+            <p>Resumen rápido · Antes de empezar · Crea tu casillero en Liberty Express · Cuánto cuesta realmente · Qué se puede traer y qué no · Calendario realista · Pasos 1 al 9 (carrito en Shein, dirección, pago, tracking, pre-alerta, seguimiento, aéreo o marítimo, aduana y pago, retiro) · Devoluciones, cambios y reclamos · Plantillas de mensajes · Seguridad · Errores frecuentes · Solución de problemas · Preguntas frecuentes · Glosario · Checklist del comprador.</p>
+            <h3>Cómo usar esta guía</h3>
+            <p>Léela completa una vez y luego úsala como manual de consulta. Los pasos 1 al 9 siguen el orden real de una compra. Los recuadros verdes son consejos, los amarillos advertencias y los rojos errores que cuestan dinero.</p>
+            <p>De dónde salen los datos: las reglas de Liberty Express (casillero, pre-alerta, estados de la guía, marítimo, artículos prohibidos, plazos de retiro) vienen de las páginas oficiales de Liberty Venezuela y Estados Unidos, consultadas en octubre de 2026. Las tarifas por libra cambian y se publican en su página de Tarifas y en su Calculadora: la cifra que manda es la que te muestre Liberty.</p>
+            <h3>Resumen rápido: todo el proceso en una página</h3><ol><li><b>Crea tu casillero gratis</b> en Liberty Express Venezuela. Recibes un código que empieza por VE y la dirección de Miami (Doral, Florida).</li><li><b>Arma tu carrito en Shein</b> con ropa permitida y, si puedes, en un solo pedido, con envío estándar (con seguimiento).</li><li><b>Pon la dirección de Liberty en Shein:</b> tu nombre, 8952 NW 24th Ter, y tu código VE- (en la línea 2 si no cabe en el nombre).</li><li><b>Paga en Shein</b> con tu tarjeta o método habitual. Si no tienes tarjeta, Liberty ofrece Compra Asistida.</li><li><b>Copia los números de seguimiento:</b> Shein puede dividir tu pedido en varios paquetes y cada uno trae el suyo.</li><li><b>Haz la pre-alerta</b> de cada tracking en la app o el portal de Liberty. Sin eso, el paquete puede quedar como NO ID.</li><li><b>Espera el estado Disponible</b> (Recibido, Empacado, Embarcado, Aduana, Distribución, Transferido, Auditoría, Disponible). Te llaman para coordinar.</li><li><b>Paga al retirar o recibir</b> (bolívares o divisa en efectivo, según indica Liberty), revisa el paquete frente al personal y retíralo en el mes siguiente.</li></ol>
+            <p style="margin-top:12px"><b>Las 4 reglas de oro.</b> (1) Liberty no consolida ni reempaca: cada paquete se cobra aparte; (2) el marítimo para compras online exige más de 20 lb o al menos 3 pies cúbicos, y se solicita antes de que llegue a Miami; (3) tu código VE- debe ir en la dirección; (4) revisa la lista de artículos prohibidos antes de comprar.</p>
+            <div class="zg-lock"><div class="zg-lock-ic">🔒</div><div><h3>Sigue la guía completa</h3><p>Aquí termina la vista previa (3 páginas). La guía completa incluye todos los pasos, cálculos de costos, plantillas, solución de problemas y checklists.</p></div>
+            <button class="btn-details" onclick="comprarGuia('Super guía: trae ropa de Shein a Venezuela con Liberty Express')">Comprar guía completa · $10</button></div>
+        </div>
+    </div>
+
 <div id="productModal" class="modal-overlay" onclick="cerrarModalFuera(event)">
     <div class="modal-content" role="dialog" aria-modal="true" aria-label="Detalle">
         <button class="modal-close" onclick="cerrarModal()" aria-label="Cerrar">✕</button>
@@ -1193,7 +1226,7 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
 <script>
     const numeroWhatsApp = "584244525080";
     // ====== CONFIGURACIÓN ======
-    const TASA_BS = 980;                    // Tasa fija Bs por 1 USD
+    const TASA_BS = 1050;                   // Tasa fija Bs por 1 USD
     const COMBOS = { 2: 17, 3: 23 };        // Combos: cantidad de manuales -> precio USD
     const PRECIO_MANUAL_USD = 10;           // Precio de todos los manuales y guías
     const COMISION_PAGO_MOVIL = 0;          // Comisión por Pago Móvil (0 = sin comisión)
