@@ -276,13 +276,65 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
 .if-group{margin-bottom:12px}.if-group label{display:block;font-size:12px;font-weight:800;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
 .if-chips{display:flex;flex-wrap:wrap;gap:8px}
 .result-count{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px}
+
+/* ===== Mejoras de diseño ===== */
+.top-ticker{width:100%!important;min-width:0!important;padding-left:0!important;animation:none!important;text-align:left}
+.tick-track{display:inline-flex;white-space:nowrap;animation:tick 32s linear infinite}
+.tick-track span{padding-right:70px}
+.top-ticker:hover .tick-track{animation-play-state:paused}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+.header-main-row{flex-wrap:wrap}
+.header-brand{order:0;margin-right:auto}
+.menu-hamburger-container{order:1}
+.header-actions{order:2}
+.header-search-container{order:3}
+@media(min-width:640px){.header-search-container.show-search{order:1;flex:1;max-width:520px}.menu-hamburger-container{order:2}.header-actions{order:3}.header-brand{margin-right:0}}
+@media(max-width:520px){#btnAccountText{display:none}.btn-user-account{padding:10px 13px}.header-main-row{padding:8px 12px;gap:8px}}
+
+#homeWelcomePanel h2{max-width:13ch}
+.services-highlight-grid{grid-template-columns:1fr 1fr;gap:10px}
+.service-card-item{padding:14px;animation:rise .55s ease both}
+.service-card-item:nth-child(1){animation-delay:.1s}.service-card-item:nth-child(2){animation-delay:.18s}.service-card-item:nth-child(3){animation-delay:.26s}.service-card-item:nth-child(4){animation-delay:.34s}
+.service-card-item h4{font-size:14px}
+.service-card-item p{font-size:12px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+@media(min-width:640px){.service-card-item{padding:18px}.service-card-item h4{font-size:16px}.service-card-item p{font-size:13px;-webkit-line-clamp:5}}
+@media(min-width:1000px){.services-highlight-grid{grid-template-columns:repeat(4,1fr);gap:14px}}
+#homeWelcomePanel h2,#homeWelcomePanel>p,.trust-strip{animation:rise .6s ease both}
+.trust-strip{animation-delay:.4s}
+
+.hero-route{display:none}
+@media(min-width:1000px){
+  .hero-route{display:flex;flex-direction:column;gap:14px;position:absolute;right:56px;top:52px;width:290px;z-index:1}
+  #homeWelcomePanel h2,#homeWelcomePanel>p{max-width:46%}
+  .hr-line{position:absolute;left:25px;top:26px;bottom:26px;width:2px;background:rgba(255,255,255,.18)}
+  .hr-dot{position:absolute;left:-4px;top:0;width:10px;height:10px;border-radius:50%;background:var(--yellow);box-shadow:0 0 14px var(--yellow);animation:viaje 4.5s ease-in-out infinite}
+  @keyframes viaje{0%{top:0;opacity:0}12%{opacity:1}88%{opacity:1}100%{top:calc(100% - 10px);opacity:0}}
+  .hr-step{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:12px 16px;backdrop-filter:blur(8px);animation:rise .6s ease both}
+  .hr-step:nth-of-type(2){animation-delay:.25s}.hr-step:nth-of-type(3){animation-delay:.4s}.hr-step:nth-of-type(4){animation-delay:.55s}
+  .hr-step i{font-style:normal;font-size:22px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .hr-step b{display:block;font-size:14px}.hr-step small{color:#b9c9e4;font-size:12px}
+}
+
+input[type=search]{flex:1;padding:11px 14px;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:12px;color:var(--ink);outline:none;width:100%;min-height:44px;box-shadow:var(--sh)}
+input[type=search]:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(0,100,210,.12)}
+@media(max-width:639px){.combo-grid{grid-template-columns:1fr 1fr;gap:10px}.combo-card{padding:12px}.combo-card p{display:none}.combo-card h3{font-size:14px}.combo-tag{font-size:10px}.combo-card .price-main{font-size:1.15rem}}
+.loading::before{content:"";display:block;width:30px;height:30px;margin:0 auto 10px;border:3px solid var(--line);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.btn-details,.btn-search,.tag{transition:transform .15s,background .2s,box-shadow .2s}
+.btn-details:hover{box-shadow:0 8px 18px rgba(16,185,129,.28)}
+@media(prefers-reduced-motion:reduce){.tick-track{animation:none;white-space:normal}.tick-track span+span{display:none}.hr-dot{display:none}}
+.cotiza-banner{display:flex;flex-direction:column;gap:12px;background:linear-gradient(135deg,#fffbeb,#fff);border:2px solid var(--yellow);border-radius:var(--r);padding:16px;margin-bottom:18px;box-shadow:var(--sh)}
+.cotiza-banner b{display:block;font-size:16px;color:var(--navy)}.cotiza-banner span{font-size:13px;color:var(--muted)}
+@media(min-width:640px){.cotiza-banner{flex-direction:row;align-items:center;justify-content:space-between}.cotiza-banner .btn-details{width:auto;padding:12px 22px;flex-shrink:0}}
+input[type=url],input[type=number],input[type=tel]{padding:11px 14px;font-size:14px;background:#f6f9fd;border:1px solid var(--line);border-radius:12px;color:var(--ink);outline:none;width:100%;min-height:44px}
+input[type=url]:focus,input[type=number]:focus,input[type=tel]:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(0,100,210,.12);background:#fff}
+.btn-wa{background:#25d366}.btn-wa:hover{background:#1ebe5a;box-shadow:0 8px 18px rgba(37,211,102,.3)}
 </style>
 </head>
 <body>
 
-<div class="top-ticker">
-    ⚡ Importación directa a Venezuela sin intermediarios • Cursos • Servicios • Stock local ⚡
-</div>
+<div class="top-ticker"><div class="tick-track"><span>⚡ Importación directa a Venezuela sin intermediarios • Cursos • Servicios • Stock local ⚡</span><span aria-hidden="true">⚡ Importación directa a Venezuela sin intermediarios • Cursos • Servicios • Stock local ⚡</span></div></div>
 
 <header>
     <div class="header-main-row">
@@ -322,6 +374,12 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
         <h2>Tecnología a tu puerta, <span>Smart Hauss</span></h2>
         <p>Tu plataforma de importación tecnológica directa, capacitación especializada y stock local en Venezuela. Elige una sección para empezar.</p>
         
+        <div class="hero-route" aria-hidden="true">
+            <div class="hr-line"><i class="hr-dot"></i></div>
+            <div class="hr-step"><i>🛒</i><div><b>Tú eliges en eBay</b><small>Miles de productos</small></div></div>
+            <div class="hr-step"><i>📦</i><div><b>Llega a Miami</b><small>Nuestro courier</small></div></div>
+            <div class="hr-step"><i>🇻🇪</i><div><b>Entrega en Venezuela</b><small>8 a 15 días hábiles</small></div></div>
+        </div>
         <div class="services-highlight-grid">
             <div class="service-card-item" tabindex="0" role="button" onclick="seleccionarVentanaCategoria(1)">
                 <h4>🌍 Importaciones eBay</h4>
@@ -355,6 +413,11 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
             <button class="btn-back-categories" onclick="cerrarVentanaCategorias()">← Volver al Inicio</button>
         </div>
         
+        <div class="cotiza-banner">
+            <div><b>¿Viste algo en eBay?</b><span>Envíanos el enlace y te cotizamos. Verificamos cada producto antes de comprarlo.</span></div>
+            <button class="btn-details" onclick="abrirCotizacion()">💬 Cotizar por WhatsApp</button>
+        </div>
+
         <div class="search-panel" style="margin-bottom: 20px; box-shadow: none; border: 1px solid var(--border-glass);">
             <div class="category-tags">
                 <span class="tag" onclick="filtrarCategoria('laptop gamer', this)">💻 Laptops Gamer</span>
@@ -1226,7 +1289,7 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
 <script>
     const numeroWhatsApp = "584244525080";
     // ====== CONFIGURACIÓN ======
-    const TASA_BS = 1050;                   // Tasa fija Bs por 1 USD
+    const TASA_BS = 1130;                   // Tasa fija Bs por 1 USD
     const COMBOS = { 2: 17, 3: 23 };        // Combos: cantidad de manuales -> precio USD
     const PRECIO_MANUAL_USD = 10;           // Precio de todos los manuales y guías
     const COMISION_PAGO_MOVIL = 0;          // Comisión por Pago Móvil (0 = sin comisión)
@@ -1348,7 +1411,7 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
         document.getElementById('contadorResultados').textContent = '';
         document.getElementById('masResultadosWrap').style.display = 'none';
         productosBusquedaActual = [];
-        busq.id++; busq.q = query; busq.offset = 0; busq.total = null; busq.cargando = false; busq.fin = false; busq.vistos = new Set();
+        busq.id++; busq.q = query; busq.offset = 0; busq.total = null; busq.cargando = false; busq.fin = false; busq.pageSize = 0; busq.vistos = new Set();
         await cargarMasResultados(true);
     }
 
@@ -1361,11 +1424,12 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
         const wrap = document.getElementById('masResultadosWrap'), btn = document.getElementById('btnMas');
         if (primera) loading.style.display = 'block'; else { btn.textContent = 'Cargando más resultados...'; btn.disabled = true; }
         try {
-            const res = await fetch(`/api/search?q=${encodeURIComponent(consultaFinal(busq.q))}&limit=200&offset=${busq.offset}`);
+            const res = await fetch(`/api/search?q=${encodeURIComponent(consultaFinal(busq.q))}&limit=200&offset=${busq.offset}&page=${busq.pageSize ? Math.floor(busq.offset / busq.pageSize) + 1 : 1}`);
             const data = await res.json();
             if (miId !== busq.id) return;
             const crudos = (data.success && data.items) ? data.items : [];
             if (typeof data.total === 'number') busq.total = data.total;
+            if (!busq.pageSize && crudos.length) busq.pageSize = crudos.length;
             const nuevos = crudos.filter(i => { const k = claveItem(i); if (busq.vistos.has(k)) return false; busq.vistos.add(k); return true; });
             if (busq.offset > 0 && crudos.length && !nuevos.length) console.warn('La API repite los mismos resultados: no está usando el parámetro offset.');
             busq.offset += crudos.length;
@@ -1451,6 +1515,7 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
                 </div>
                 <button class="btn-details btn-preview" onclick="abrirModal('${itemId}')">👁️ Vista Detallada</button>
                 <button class="btn-details" onclick="comprarEbay('${itemId}')">Comprar · Pago Móvil</button>
+                <button class="btn-details btn-wa" onclick="cotizarEbay('${itemId}')">💬 Cotizar por WhatsApp</button>
             </div>
         `;
         return card;
@@ -1510,6 +1575,8 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
                     <p><strong>Condición:</strong> ${item.condition || 'No especificada'}</p>
                     <p><strong>Modalidad:</strong> ${item.buyingFormat === 'AUCTION' ? 'Subasta Activa' : 'Compra Inmediata'}</p>
                     <p style="margin-top:6px; color:var(--text-muted); font-size:10px;">Tiempo estimado de entrega en Venezuela: 8 a 15 días hábiles vía Miami.</p>
+                    <button class="btn-details" style="margin-top:10px" onclick="comprarEbay('${tempId}')">Comprar · Pago Móvil</button>
+                    <button class="btn-details btn-wa" style="margin-top:8px" onclick="cotizarEbay('${tempId}')">💬 Cotizar por WhatsApp</button>
                 </div>
             </div>
         `;
@@ -1573,12 +1640,67 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
     }
     function comprarEbay(tempId) {
         const item = todosLosProductosCargados[tempId]; if (!item) return;
-        const base = parseFloat(item.calculatedPrice || item.price?.value || 0) || 0;
+        const base = parseFloat(item.calculatedPrice || (item.price && item.price.value) || 0) || 0;
         abrirCheckout({
             tipo: 'eBay', nombre: item.title, usd: +(base * (1 + COMISION_PAGO_MOVIL)).toFixed(2),
-            url: item.itemWebUrl || item.itemUrl || ('https://www.ebay.com/itm/' + tempId),
-            nota: 'Si tu pedido tiene flete u otros costos, te los confirmamos por WhatsApp.'
+            url: item.itemWebUrl || item.itemUrl || '',
+            nota: 'Verificamos el producto y el total antes de comprarlo. Si hay flete u otros costos, te lo confirmamos por WhatsApp.'
         });
+    }
+    function enviarWhatsApp(lineas) {
+        const texto = lineas.filter(l => l !== null && l !== undefined).join('\n');
+        window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(texto)}`, '_blank');
+    }
+    function cotizarEbay(tempId) {
+        const item = todosLosProductosCargados[tempId]; if (!item) return;
+        const base = parseFloat(item.calculatedPrice || (item.price && item.price.value) || 0) || 0;
+        const url = item.itemWebUrl || item.itemUrl || '';
+        enviarWhatsApp([
+            'Hola Smart Hauss 👋, quiero cotizar este producto de eBay:', '',
+            `📦 ${item.title}`,
+            url ? `🔗 ${url}` : null,
+            `💵 Precio en eBay: ${fmtUsd(base)} ${item.currency || 'USD'} (≈ ${fmtBs(base * TASA_BS)})`,
+            `🏷️ Condición: ${item.condition || 'No especificada'}`,
+            item.shippingCost ? `🚚 Envío en EE. UU.: $${item.shippingCost}` : null,
+            item.buyingFormat === 'AUCTION' ? '⚠️ Es una subasta' : null,
+            item.itemId ? `🆔 Item: ${item.itemId}` : null, '',
+            '¿Me confirman si está disponible y el total puesto en Venezuela?'
+        ]);
+    }
+    function abrirCotizacion() {
+        abrirVentana(`<div class="co">
+            <h2>Cotizar un producto de eBay</h2>
+            <p class="co-note">Pega el enlace y te respondemos por WhatsApp con el total puesto en Venezuela. Verificamos el producto antes de cualquier compra.</p>
+            <form onsubmit="enviarCotizacion(event)" novalidate>
+                <label>Enlace del producto en eBay<input type="url" name="link" placeholder="https://www.ebay.com/itm/..." required></label>
+                <label>¿Qué producto es?<input type="text" name="producto" placeholder="Ej: iPhone 13 128GB desbloqueado"></label>
+                <div class="co-2">
+                    <label>Cantidad<input type="number" name="cantidad" value="1" min="1" max="99" inputmode="numeric"></label>
+                    <label>Color / talla / capacidad<input type="text" name="detalle"></label>
+                </div>
+                <label>Tu nombre<input type="text" name="nombre" autocomplete="name"></label>
+                <label>Notas (opcional)<input type="text" name="notas" placeholder="Ej: lo necesito para fin de mes"></label>
+                <div id="cotError" class="co-error" role="alert"></div>
+                <button type="submit" class="btn-details co-send">Enviar cotización por WhatsApp</button>
+            </form>
+        </div>`);
+    }
+    function enviarCotizacion(e) {
+        e.preventDefault();
+        const d = Object.fromEntries(new FormData(e.target).entries());
+        const err = document.getElementById('cotError');
+        if (!/^https?:\/\/\S+\.\S+/i.test((d.link || '').trim())) { err.textContent = 'Pega el enlace completo del producto (empieza con https://).'; err.style.display = 'block'; return; }
+        enviarWhatsApp([
+            'Hola Smart Hauss 👋, quiero cotizar este producto de eBay:', '',
+            `🔗 ${d.link.trim()}`,
+            d.producto.trim() ? `📦 Producto: ${d.producto.trim()}` : null,
+            `🔢 Cantidad: ${d.cantidad || 1}`,
+            d.detalle.trim() ? `🎨 Detalle: ${d.detalle.trim()}` : null,
+            d.nombre.trim() ? `👤 Nombre: ${d.nombre.trim()}` : null,
+            d.notas.trim() ? `📝 Notas: ${d.notas.trim()}` : null, '',
+            '¿Me confirman disponibilidad y el total puesto en Venezuela?'
+        ]);
+        cerrarModal();
     }
     function abrirVistaGuia(id = 'guiaZoomPreview') {
         abrirVentana(document.getElementById(id).innerHTML);
@@ -1759,6 +1881,13 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
         const rx = { 'excellent': /excellent|excelente/i, 'very good': /very good|muy bueno/i, 'good': /^(?!.*(very|muy)).*(good|bueno)/i, 'acceptable': /acceptable|aceptable/i }[ipf.cond];
         return items.filter(i => rx.test(i.condition || ''));
     }
+
+    (function () {
+        ['seleccionarVentanaCategoria', 'cerrarVentanaCategorias'].forEach(n => {
+            const f = window[n]; if (typeof f !== 'function') return;
+            window[n] = function () { const r = f.apply(this, arguments); window.scrollTo({ top: 0, behavior: 'smooth' }); return r; };
+        });
+    })();
 </script>
 </body>
 </html>
