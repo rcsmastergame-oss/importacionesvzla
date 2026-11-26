@@ -24,8 +24,8 @@ export default async function handler(req, res) {
   const limit = Math.min(Math.max(parseInt(urlParams.get('limit') || '48', 10), 1), 200);
   const offset = Math.max(parseInt(urlParams.get('offset') || '0', 10), 0);
 
-  const clientId = 'smarthau-SmartHau-PRD-fa49b4867-1a082e31';
-  const clientSecret = 'PRD-a49b48675d27-9205-40f0-970c-9950';
+  const clientId = process.env.EBAY_CLIENT_ID;
+  const clientSecret = process.env.EBAY_CLIENT_SECRET;
 
   try {
     const credentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
@@ -56,7 +56,7 @@ export default async function handler(req, res) {
       .includes('iphone');
 
     const buildEbaySearchUrl = (includeSellersFilter) => {
-      const fetchLimit = isIphoneSearch ? 200 : limit;
+      const fetchLimit = limit;
       const searchUrl = new URL('https://api.ebay.com/buy/browse/v1/item_summary/search');
       searchUrl.searchParams.append('q', searchFullQuery);
       searchUrl.searchParams.append('limit', String(fetchLimit));
@@ -113,21 +113,8 @@ export default async function handler(req, res) {
       return { ok: response.ok, status: response.status, data };
     };
 
-    let sellerFilterError = null;
-    let usedFallback = false;
-
-    let result = await fetchFromEbay(buildEbaySearchUrl(isIphoneSearch));
-
-    if (
-      isIphoneSearch &&
-      (!result.ok || !Array.isArray(result.data.itemSummaries) || result.data.itemSummaries.length === 0)
-    ) {
-      if (!result.ok) {
-        sellerFilterError = result.data.errors?.[0]?.message || 'Error en filtro sellers';
-      }
-      usedFallback = true;
-      result = await fetchFromEbay(buildEbaySearchUrl(false));
-    }
+    // Para iPhone SIEMPRE se filtra por vendedor. Sin fallback a busqueda abierta.
+    const result = await fetchFromEbay(buildEbaySearchUrl(isIphoneSearch));
 
     if (!result.ok) {
       return res.status(result.status).json({
@@ -184,8 +171,8 @@ export default async function handler(req, res) {
       items: items,
       debug: {
         isIphoneSearch,
-        usedFallback,
-        sellerFilterError,
+        sellers: IPHONE_SELLERS_LIST,
+        sellersFound: [...new Set(rawItems.map(i => i?.seller?.username))],
         rawCount: rawItems.length,
         matchedCount: items.length
       }
