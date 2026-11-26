@@ -460,13 +460,6 @@ input[type=url]:focus,input[type=number]:focus,input[type=tel]:focus{border-colo
             <div id="iphoneFilters" class="if-box" style="display:none">
                 <div class="if-title">📱 Filtra tu iPhone</div>
                 <div class="if-group"><label>Red</label><div class="if-chips"><span class="tag" id="ifUnlocked" onclick="toggleDesbloqueado(this)">🔓 Desbloqueado</span></div></div>
-                <div class="if-group"><label>Reacondicionado</label><div class="if-chips">
-                    <span class="tag active" onclick="setFiltroIphone('cond','',this)">Todos</span>
-                    <span class="tag" onclick="setFiltroIphone('cond','excellent',this)">Excelente</span>
-                    <span class="tag" onclick="setFiltroIphone('cond','very good',this)">Muy bueno</span>
-                    <span class="tag" onclick="setFiltroIphone('cond','good',this)">Bueno</span>
-                    <span class="tag" onclick="setFiltroIphone('cond','acceptable',this)">Aceptable</span>
-                </div></div>
                 <div class="if-group"><label>Almacenamiento</label><div class="if-chips">
                     <span class="tag active" onclick="setFiltroIphone('storage','',this)">Todos</span>
                     <span class="tag" onclick="setFiltroIphone('storage','64GB',this)">64 GB</span>
@@ -1848,7 +1841,7 @@ input[type=url]:focus,input[type=number]:focus,input[type=tel]:focus{border-colo
 
 
     // ====== FILTROS DE iPHONE ======
-    const ipf = { unlocked: false, cond: '', storage: '' };
+    const ipf = { unlocked: false, storage: '' };
     const esIphone = q => /iphone/i.test(q || '');
     function actualizarFiltrosIphoneUI(q) { document.getElementById('iphoneFilters').style.display = esIphone(q) ? 'block' : 'none'; }
     function toggleDesbloqueado(el) { ipf.unlocked = !ipf.unlocked; el.classList.toggle('active', ipf.unlocked); realizarBusquedaManual(); }
@@ -1858,7 +1851,7 @@ input[type=url]:focus,input[type=number]:focus,input[type=tel]:focus{border-colo
         el.classList.add('active'); realizarBusquedaManual();
     }
     function limpiarFiltrosIphone() {
-        ipf.unlocked = false; ipf.cond = ''; ipf.storage = '';
+        ipf.unlocked = false; ipf.storage = '';
         document.querySelectorAll('#iphoneFilters .tag').forEach((t, i) => t.classList.remove('active'));
         document.querySelectorAll('#iphoneFilters .if-chips').forEach(g => { const first = g.querySelector('.tag'); if (first && first.id !== 'ifUnlocked') first.classList.add('active'); });
         realizarBusquedaManual();
@@ -1870,17 +1863,11 @@ input[type=url]:focus,input[type=number]:focus,input[type=tel]:focus{border-colo
         const extra = [];
         if (ipf.storage) extra.push(ipf.storage);
         if (ipf.unlocked) extra.push('unlocked');
-        if (ipf.cond) extra.push(ipf.cond === 'acceptable' ? 'acceptable' : ipf.cond + ' refurbished');
         extra.forEach(x => { if (!baja.includes(x.toLowerCase())) partes.push(x); });
         return partes.join(' ');
     }
-    // El estado reacondicionado se confirma con el dato de condición que devuelve eBay (si viene)
-    function filtrarIphoneLocal(q, items) {
-        if (!esIphone(q) || !ipf.cond) return items;
-        if (!items.some(i => i.condition)) return items;
-        const rx = { 'excellent': /excellent|excelente/i, 'very good': /very good|muy bueno/i, 'good': /^(?!.*(very|muy)).*(good|bueno)/i, 'acceptable': /acceptable|aceptable/i }[ipf.cond];
-        return items.filter(i => rx.test(i.condition || ''));
-    }
+    // Sin filtro por estado reacondicionado: se muestran todos los resultados
+    function filtrarIphoneLocal(q, items) { return items; }
 
     (function () {
         ['seleccionarVentanaCategoria', 'cerrarVentanaCategorias'].forEach(n => {
