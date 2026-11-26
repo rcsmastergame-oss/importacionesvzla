@@ -37,8 +37,8 @@ export default async function handler(req, res) {
   const limit = Math.min(Math.max(parseInt(urlParams.get('limit') || '48', 10), 1), 200);
   const offset = Math.max(parseInt(urlParams.get('offset') || '0', 10), 0);
 
-  const clientId = 'smarthau-SmartHau-PRD-fa49b4867-1a082e31';
-  const clientSecret = 'PRD-a49b48675d27-9205-40f0-970c-9950';
+  const clientId = process.env.EBAY_CLIENT_ID;
+  const clientSecret = process.env.EBAY_CLIENT_SECRET;
 
   try {
     const credentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
@@ -168,15 +168,10 @@ export default async function handler(req, res) {
     // El filtro sellers de la API de eBay ya restringe al proveedor.
     // eBay a veces devuelve el usuario enmascarado (ej. NM1RpfkXRY2),
     // por eso NO se vuelve a filtrar por username en local.
-    if (isIphoneSearch) {
-      items = items.slice(0, limit);
-    }
 
     return res.status(200).json({
       success: true,
-      total: isIphoneSearch
-        ? items.length
-        : (typeof result.data.total === 'number' ? result.data.total : items.length),
+      total: typeof result.data.total === 'number' ? result.data.total : items.length,
       offset: offset,
       limit: limit,
       items: items,
