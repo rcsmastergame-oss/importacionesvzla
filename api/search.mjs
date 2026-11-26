@@ -67,73 +67,97 @@ export default async function handler(req, res) {
       .toLowerCase()
       .includes('iphone');
 
-    const ebayFetchLimit = isIphoneSearch ? Math.max(limit, 100) : limit;
+    const buildEbaySearchUrl = (includeSellersFilter) => {
+      const fetchLimit = isIphoneSearch ? 200 : limit;
+      const searchUrl = new URL('https://api.ebay.com/buy/browse/v1/item_summary/search');
+      searchUrl.searchParams.append('q', searchFullQuery);
+      searchUrl.searchParams.append('limit', String(fetchLimit));
+      searchUrl.searchParams.append('offset', String(offset));
 
-    const searchUrl = new URL('https://api.ebay.com/buy/browse/v1/item_summary/search');
-    searchUrl.searchParams.append('q', searchFullQuery);
-    searchUrl.searchParams.append('limit', String(ebayFetchLimit));
-    searchUrl.searchParams.append('offset', String(offset));
+      const filters = [];
 
-    const filters = [];
-
-    // Modalidad de compra (por defecto compra inmediata si no se pide subasta)
-    if (buyingFormat === 'AUCTION') {
-      filters.push('buyingOptions:{AUCTION}');
-    } else if (buyingFormat === 'ALL') {
-      filters.push('buyingOptions:{FIXED_PRICE|AUCTION}');
-    } else {
-      filters.push('buyingOptions:{FIXED_PRICE}');
-    }
-
-    // Filtro de condición (soporta NEW, USED o IDs numéricos de eBay)
-    if (condition) {
-      if (condition === 'NEW') {
-        filters.push('conditions:{NEW}');
-      } else if (condition === 'USED') {
-        filters.push('conditions:{USED}');
-      } else if (condition === 'REFURBISHED') {
-        filters.push('conditions:{REFURBISHED}');
+      if (buyingFormat === 'AUCTION') {
+        filters.push('buyingOptions:{AUCTION}');
+      } else if (buyingFormat === 'ALL') {
+        filters.push('buyingOptions:{FIXED_PRICE|AUCTION}');
       } else {
-        filters.push(`conditionIds:{${condition}}`);
+        filters.push('buyingOptions:{FIXED_PRICE}');
       }
-    }
 
-    // Filtrar vendedores directamente en eBay solo cuando se busca iPhone
-    if (isIphoneSearch && IPHONE_SELLERS_LIST.length > 0) {
-      filters.push(`sellers:{${IPHONE_SELLERS_LIST.join('|')}}`);
-    }
-
-    if (filters.length > 0) {
-      searchUrl.searchParams.append('filter', filters.join(','));
-    }
-
-    // Ordenamiento nativo en eBay API
-    if (sort === 'low') {
-      searchUrl.searchParams.append('sort', 'price');
-    } else if (sort === 'high') {
-      searchUrl.searchParams.append('sort', '-price');
-    }
-
-    const searchResponse = await fetch(searchUrl.toString(), {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US'
+      if (condition) {
+        if (condition === 'NEW') {
+          filters.push('conditions:{NEW}');
+        } else if (condition === 'USED') {
+          filters.push('conditions:{USED}');
+        } else if (condition === 'REFURBISHED') {
+          filters.push('conditions:{REFURBISHED}');
+        } else {
+          filters.push(`conditionIds:{${condition}}`);
+        }
       }
-    });
 
-    const searchData = await searchResponse.json();
+      if (includeSellersFilter && IPHONE_SELLERS_LIST.length > 0) {
+        filters.push(`sellers:{${IPHONE_SELLERS_LIST.join('|')}}`);
+      }
 
-    if (!searchResponse.ok) {
-      throw new Error(searchData.errors?.[0]?.message || 'Error en la respuesta de eBay');
+      if (filters.length > 0) {
+        searchUrl.searchParams.append('filter', filters.join(','));
+      }
+
+      if (sort === 'low') {
+        searchUrl.searchParams.append('sort', 'price');
+      } else if (sort === 'high') {
+        searchUrl.searchParams.append('sort', '-price');
+      }
+
+      return searchUrl.toString();
+    };
+
+    const fetchFromEbay = async (url) => {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US'
+        }
+      });
+      const data = await response.json();
+      return { ok: response.ok, status: response.status, data };
+    };
+
+    let sellerFilterError = null;
+    let usedFallback = false;
+
+    // 1. Si es iPhone, intentar primero filtrando sellers directamente en eBay
+    let result = await fetchFromEbay(buildEbaySearchUrl(isIphoneSearch));
+
+    // 2. Si eBay rechaza el filtro sellers:{...} o devuelve 0 ítems, hacer respaldo sin sellers en URL
+    if (
+      isIphoneSearch &&
+      (!result.ok || !Array.isArray(result.data.itemSummaries) || result.data.itemSummaries.length === 0)
+    ) {
+      if (!result.ok) {
+        sellerFilterError = result.data.errors?.[0]?.message || 'Error en filtro sellers';
+      }
+      usedFallback = true;
+      result = await fetchFromEbay(buildEbaySearchUrl(false));
     }
 
-    let items = (searchData.itemSummaries || []).map(item => {
+    if (!result.ok) {
+      return res.status(result.status).json({
+        success: false,
+        error: result.data.errors?.[0]?.message || 'Error en la respuesta de eBay',
+        ebayDetails: result.data.errors || result.data
+      });
+    }
+
+    const rawItems = result.data.itemSummaries || [];
+
+    let items = rawItems.map(item => {
       const rawPrice = item.price ? parseFloat(item.price.value) : 0;
       const currency = item.price ? item.price.currency : 'USD';
       const finalPrice = (rawPrice * 1.07).toFixed(2);
 
-      // Extraer costo de envío si viene en shippingOptions
       let shippingCost = null;
       if (Array.isArray(item.shippingOptions) && item.shippingOptions.length > 0) {
         const sc = item.shippingOptions[0].shippingCost;
@@ -142,7 +166,6 @@ export default async function handler(req, res) {
         }
       }
 
-      // Normalizar formato de compra para el frontend
       const format = Array.isArray(item.buyingOptions) && item.buyingOptions.includes('AUCTION') && !item.buyingOptions.includes('FIXED_PRICE')
         ? 'AUCTION'
         : 'FIXED_PRICE';
@@ -169,10 +192,17 @@ export default async function handler(req, res) {
       success: true,
       total: isIphoneSearch
         ? items.length
-        : (typeof searchData.total === 'number' ? searchData.total : items.length),
+        : (typeof result.data.total === 'number' ? result.data.total : items.length),
       offset: offset,
       limit: limit,
-      items: items
+      items: items,
+      debug: {
+        isIphoneSearch,
+        usedFallback,
+        sellerFilterError,
+        rawCount: rawItems.length,
+        matchedCount: items.length
+      }
     });
 
   } catch (error) {
