@@ -37,8 +37,8 @@ export default async function handler(req, res) {
   const limit = Math.min(Math.max(parseInt(urlParams.get('limit') || '48', 10), 1), 200);
   const offset = Math.max(parseInt(urlParams.get('offset') || '0', 10), 0);
 
-  const clientId = process.env.EBAY_CLIENT_ID;
-  const clientSecret = process.env.EBAY_CLIENT_SECRET;
+  const clientId = 'smarthau-SmartHau-PRD-fa49b4867-1a082e31';
+  const clientSecret = 'PRD-a49b48675d27-9205-40f0-970c-9950';
 
   try {
     const credentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
