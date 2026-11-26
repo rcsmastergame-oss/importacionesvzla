@@ -275,6 +275,11 @@ footer{padding-bottom:calc(84px + var(--safe-b))}
 .if-title{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:10px}
 .if-group{margin-bottom:12px}.if-group label{display:block;font-size:12px;font-weight:800;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
 .if-chips{display:flex;flex-wrap:wrap;gap:8px}
+.if-price{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.filter-price{grid-column:1/-1}
+.if-price input{width:120px;font-weight:700;outline:none}
+.if-price input:focus{border-color:var(--blue)}
+.if-price .sep{color:var(--muted);font-weight:800}
 .result-count{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px}
 
 /* ===== Mejoras de diseño ===== */
@@ -451,6 +456,16 @@ input[type=url]:focus,input[type=number]:focus,input[type=tel]:focus{border-colo
                         <option value="low">Menor Precio</option>
                         <option value="high">Mayor Precio</option>
                     </select>
+                </div>
+                <div class="filter-group filter-price">
+                    <label>Rango de precio (USD)</label>
+                    <div class="if-price">
+                        <input type="number" id="ifPrecioMin" class="filter-select" min="0" step="1" inputmode="numeric" placeholder="Mín $" onkeydown="if(event.key==='Enter')aplicarPrecio()">
+                        <span class="sep">–</span>
+                        <input type="number" id="ifPrecioMax" class="filter-select" min="0" step="1" inputmode="numeric" placeholder="Máx $" onkeydown="if(event.key==='Enter')aplicarPrecio()">
+                        <button class="btn-back-categories" onclick="aplicarPrecio()">Aplicar</button>
+                        <button class="btn-back-categories" onclick="limpiarPrecio()">Quitar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1417,7 +1432,7 @@ input[type=url]:focus,input[type=number]:focus,input[type=tel]:focus{border-colo
         const wrap = document.getElementById('masResultadosWrap'), btn = document.getElementById('btnMas');
         if (primera) loading.style.display = 'block'; else { btn.textContent = 'Cargando más resultados...'; btn.disabled = true; }
         try {
-            const res = await fetch(`/api/search?q=${encodeURIComponent(consultaFinal(busq.q))}&limit=200&offset=${busq.offset}&page=${busq.pageSize ? Math.floor(busq.offset / busq.pageSize) + 1 : 1}`);
+            const res = await fetch(`/api/search?q=${encodeURIComponent(consultaFinal(busq.q))}&limit=200${paramsPrecio()}&offset=${busq.offset}&page=${busq.pageSize ? Math.floor(busq.offset / busq.pageSize) + 1 : 1}`);
             const data = await res.json();
             if (miId !== busq.id) return;
             const crudos = (data.success && data.items) ? data.items : [];
@@ -1842,6 +1857,7 @@ input[type=url]:focus,input[type=number]:focus,input[type=tel]:focus{border-colo
 
     // ====== FILTROS DE iPHONE ======
     const ipf = { unlocked: false, storage: '' };
+    const precioF = { min: '', max: '' };
     const esIphone = q => /iphone/i.test(q || '');
     function actualizarFiltrosIphoneUI(q) { document.getElementById('iphoneFilters').style.display = esIphone(q) ? 'block' : 'none'; }
     function toggleDesbloqueado(el) { ipf.unlocked = !ipf.unlocked; el.classList.toggle('active', ipf.unlocked); realizarBusquedaManual(); }
@@ -1849,6 +1865,27 @@ input[type=url]:focus,input[type=number]:focus,input[type=tel]:focus{border-colo
         ipf[g] = val;
         el.parentElement.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
         el.classList.add('active'); realizarBusquedaManual();
+    }
+    function aplicarPrecio() {
+        const iMin = document.getElementById('ifPrecioMin'), iMax = document.getElementById('ifPrecioMax');
+        let a = parseFloat(iMin.value), b = parseFloat(iMax.value);
+        a = isNaN(a) || a < 0 ? '' : a; b = isNaN(b) || b < 0 ? '' : b;
+        if (a !== '' && b !== '' && a > b) { const t = a; a = b; b = t; }
+        iMin.value = a; iMax.value = b;
+        precioF.min = a; precioF.max = b;
+        if (document.getElementById('keyword').value.trim()) realizarBusquedaManual();
+    }
+    function limpiarPrecio() {
+        precioF.min = ''; precioF.max = '';
+        document.getElementById('ifPrecioMin').value = ''; document.getElementById('ifPrecioMax').value = '';
+        if (document.getElementById('keyword').value.trim()) realizarBusquedaManual();
+    }
+    // Parámetros de precio para la API (todas las búsquedas)
+    function paramsPrecio() {
+        let s = '';
+        if (precioF.min !== '') s += `&minPrice=${precioF.min}`;
+        if (precioF.max !== '') s += `&maxPrice=${precioF.max}`;
+        return s;
     }
     function limpiarFiltrosIphone() {
         ipf.unlocked = false; ipf.storage = '';
