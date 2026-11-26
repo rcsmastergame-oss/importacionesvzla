@@ -67,9 +67,11 @@ export default async function handler(req, res) {
       .toLowerCase()
       .includes('iphone');
 
+    const ebayFetchLimit = isIphoneSearch ? Math.max(limit, 100) : limit;
+
     const searchUrl = new URL('https://api.ebay.com/buy/browse/v1/item_summary/search');
     searchUrl.searchParams.append('q', searchFullQuery);
-    searchUrl.searchParams.append('limit', String(limit));
+    searchUrl.searchParams.append('limit', String(ebayFetchLimit));
     searchUrl.searchParams.append('offset', String(offset));
 
     const filters = [];
@@ -94,6 +96,11 @@ export default async function handler(req, res) {
       } else {
         filters.push(`conditionIds:{${condition}}`);
       }
+    }
+
+    // Filtrar vendedores directamente en eBay solo cuando se busca iPhone
+    if (isIphoneSearch && IPHONE_SELLERS_LIST.length > 0) {
+      filters.push(`sellers:{${IPHONE_SELLERS_LIST.join('|')}}`);
     }
 
     if (filters.length > 0) {
@@ -150,10 +157,12 @@ export default async function handler(req, res) {
     });
 
     if (isIphoneSearch) {
-      items = items.filter(item => {
-        const sellerUsername = (item?.seller?.username || '').toLowerCase().trim();
-        return IPHONE_ALLOWED_SELLERS.has(sellerUsername);
-      });
+      items = items
+        .filter(item => {
+          const sellerUsername = (item?.seller?.username || '').toLowerCase().trim();
+          return IPHONE_ALLOWED_SELLERS.has(sellerUsername);
+        })
+        .slice(0, limit);
     }
 
     return res.status(200).json({
