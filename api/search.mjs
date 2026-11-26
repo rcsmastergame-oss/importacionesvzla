@@ -1,4 +1,4 @@
-const IPHONE_ALLOWED_SELLERS = new Set([
+const IPHONE_SELLERS_LIST = [
   'bidallies',
   'buythatapple',
   'creo_cellular',
@@ -13,7 +13,9 @@ const IPHONE_ALLOWED_SELLERS = new Set([
   'paymore_springfield',
   'smartphoneexchange',
   'verizon'
-]);
+];
+
+const IPHONE_ALLOWED_SELLERS = new Set(IPHONE_SELLERS_LIST);
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
