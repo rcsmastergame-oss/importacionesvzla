@@ -34,12 +34,17 @@ export default async function handler(req, res) {
   const model = urlParams.get('model');
   const buyingFormat = urlParams.get('buyingFormat');
   const sort = urlParams.get('sort');
+  // Rango de precio que ve el cliente (ya con el 7% incluido). Se convierte al precio base de eBay.
+  const MARKUP = 1.07;
+  const minPriceRaw = parseFloat(urlParams.get('minPrice'));
+  const maxPriceRaw = parseFloat(urlParams.get('maxPrice'));
+  const minBase = Number.isFinite(minPriceRaw) && minPriceRaw >= 0 ? Math.ceil((minPriceRaw / MARKUP) * 100) / 100 : null;
+  const maxBase = Number.isFinite(maxPriceRaw) && maxPriceRaw >= 0 ? Math.floor((maxPriceRaw / MARKUP) * 100) / 100 : null;
   const limit = Math.min(Math.max(parseInt(urlParams.get('limit') || '48', 10), 1), 200);
   const offset = Math.max(parseInt(urlParams.get('offset') || '0', 10), 0);
 
-  const clientId = 'smarthau-SmartHau-PRD-fa49b4867-1a082e31';
-  const clientSecret = 'PRD-a49b48675d27-9205-40f0-970c-9950';
-
+  const clientId = process.env.EBAY_CLIENT_ID;
+  const clientSecret = process.env.EBAY_CLIENT_SECRET;
 
   try {
     const credentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
@@ -98,6 +103,11 @@ export default async function handler(req, res) {
         }
       }
 
+      if (minBase !== null || maxBase !== null) {
+        filters.push(`price:[${minBase !== null ? minBase : ''}..${maxBase !== null ? maxBase : ''}]`);
+        filters.push('priceCurrency:USD');
+      }
+
       if (includeSellersFilter && IPHONE_SELLERS_LIST.length > 0) {
         filters.push(`sellers:{${IPHONE_SELLERS_LIST.join('|')}}`);
       }
@@ -143,7 +153,7 @@ export default async function handler(req, res) {
     let items = rawItems.map(item => {
       const rawPrice = item.price ? parseFloat(item.price.value) : 0;
       const currency = item.price ? item.price.currency : 'USD';
-      const finalPrice = (rawPrice * 1.07).toFixed(2);
+      const finalPrice = (rawPrice * MARKUP).toFixed(2);
 
       let shippingCost = null;
       if (Array.isArray(item.shippingOptions) && item.shippingOptions.length > 0) {
