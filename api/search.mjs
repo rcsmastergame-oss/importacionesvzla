@@ -1,18 +1,6 @@
 const IPHONE_SELLERS_LIST = [
   'bidallies',
-  'buythatapple',
-  'creo_cellular',
-  'easytradenow123',
-  'gatorwireless',
-  'itsworthmore',
-  'kisselectronicsinc',
-  'maxbacksales',
-  'nikatronics',
-  'paymore_arlington',
-  'paymore_bustleton',
-  'paymore_springfield',
-  'smartphoneexchange',
-  'verizon'
+  'bidalliesstore'
 ];
 
 const IPHONE_ALLOWED_SELLERS = new Set(IPHONE_SELLERS_LIST);
@@ -128,10 +116,8 @@ export default async function handler(req, res) {
     let sellerFilterError = null;
     let usedFallback = false;
 
-    // 1. Si es iPhone, intentar primero filtrando sellers directamente en eBay
     let result = await fetchFromEbay(buildEbaySearchUrl(isIphoneSearch));
 
-    // 2. Si eBay rechaza el filtro sellers:{...} o devuelve 0 ítems, hacer respaldo sin sellers en URL
     if (
       isIphoneSearch &&
       (!result.ok || !Array.isArray(result.data.itemSummaries) || result.data.itemSummaries.length === 0)
