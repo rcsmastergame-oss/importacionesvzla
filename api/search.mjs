@@ -1,3 +1,20 @@
+const IPHONE_ALLOWED_SELLERS = new Set([
+  'bidallies',
+  'buythatapple',
+  'creo_cellular',
+  'easytradenow123',
+  'gatorwireless',
+  'itsworthmore',
+  'kisselectronicsinc',
+  'maxbacksales',
+  'nikatronics',
+  'paymore_arlington',
+  'paymore_bustleton',
+  'paymore_springfield',
+  'smartphoneexchange',
+  'verizon'
+]);
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -22,7 +39,7 @@ export default async function handler(req, res) {
 
   try {
     const credentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
-    
+
     const tokenResponse = await fetch('https://api.ebay.com/identity/v1/oauth2/token', {
       method: 'POST',
       headers: {
@@ -43,6 +60,10 @@ export default async function handler(req, res) {
     let searchFullQuery = keyword;
     if (model) searchFullQuery += ` ${model}`;
     if (storage) searchFullQuery += ` ${storage}`;
+
+    const isIphoneSearch = `${keyword} ${searchFullQuery}`
+      .toLowerCase()
+      .includes('iphone');
 
     const searchUrl = new URL('https://api.ebay.com/buy/browse/v1/item_summary/search');
     searchUrl.searchParams.append('q', searchFullQuery);
@@ -98,7 +119,7 @@ export default async function handler(req, res) {
       throw new Error(searchData.errors?.[0]?.message || 'Error en la respuesta de eBay');
     }
 
-    const items = (searchData.itemSummaries || []).map(item => {
+    let items = (searchData.itemSummaries || []).map(item => {
       const rawPrice = item.price ? parseFloat(item.price.value) : 0;
       const currency = item.price ? item.price.currency : 'USD';
       const finalPrice = (rawPrice * 1.07).toFixed(2);
@@ -126,9 +147,18 @@ export default async function handler(req, res) {
       };
     });
 
+    if (isIphoneSearch) {
+      items = items.filter(item => {
+        const sellerUsername = (item?.seller?.username || '').toLowerCase().trim();
+        return IPHONE_ALLOWED_SELLERS.has(sellerUsername);
+      });
+    }
+
     return res.status(200).json({
       success: true,
-      total: typeof searchData.total === 'number' ? searchData.total : items.length,
+      total: isIphoneSearch
+        ? items.length
+        : (typeof searchData.total === 'number' ? searchData.total : items.length),
       offset: offset,
       limit: limit,
       items: items
